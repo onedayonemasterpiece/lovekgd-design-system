@@ -1,0 +1,173 @@
+{
+  "schema_version": "kenigevents.a0-focus-route-bindings.v1",
+  "contract_version": "1.9.0",
+  "extends": {
+    "path": "catalog/normalization/a0-thin-s-bindings.v1.json",
+    "commit": "a800f619b66cdf713e94f234382481bb8621dd22"
+  },
+  "authority": {
+    "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+    "pm0_item_37_matrix": "catalog/normalization/evidence/a0-v0-acceptance-matrix.v1.json",
+    "mechanical_batch_comment": 5527907602,
+    "source_checkpoint": "ec926580fa2cc003318006f4c1d671fc459ea26c",
+    "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "penpot_writer": "R0.PENPOT"
+  },
+  "bindings": [
+    {
+      "id": "a0.focus-egg-collection-route",
+      "pm0_case_id": "PM0-37-16",
+      "astro_family": "FocusEggCollectionRouteComposition",
+      "version": 1,
+      "source_roots": [
+        "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+        "site/src/components/FocusEggCollectionCard.astro",
+        "site/src/components/FocusEggSavedListDemo.astro",
+        "site/src/lib/focus-easter-eggs.ts"
+      ],
+      "actual_consumers": [
+        "/fokus-gruppa/kollektsiya/"
+      ],
+      "variants": [
+        "collection-prototype"
+      ],
+      "states": [
+        "found-N-of-M",
+        "eligible",
+        "locked",
+        "unavailable",
+        "found"
+      ],
+      "canonical_children": [
+        "FocusEggCollectionCard",
+        "FocusEggSavedListDemo",
+        "FocusLabBadge"
+      ],
+      "visible_assets": [
+        "FocusEgg state glyphs as intentional collection artifacts",
+        "focus laboratory badge"
+      ],
+      "foundation_dependencies": [
+        "F0 focus continuity foundations",
+        "F0 type and spacing roles"
+      ],
+      "penpot_master_target": "A0 / FocusEggCollectionRoute",
+      "implementation_status": "A0_MECH_06_PENDING",
+      "integration_gate": "R0 adds route identity and runtime found-N-of-M state without changing collection behavior",
+      "v0_matrix_ids": [
+        "PM0-37-16",
+        "V0-A0-FAMILY-IDENTITY",
+        "V0-A0-OVERFLOW-FOCUS"
+      ],
+      "rollback_cluster": "A0-RB-FOCUS-ROUTE-IDENTITIES"
+    },
+    {
+      "id": "a0.focus-diagnostics-routes",
+      "pm0_case_ids": [
+        "PM0-37-17",
+        "PM0-37-18"
+      ],
+      "astro_family": "FocusConnectivityDiagnostic",
+      "version": 1,
+      "source_roots": [
+        "site/src/pages/fokus-gruppa/diagnostika/index.astro",
+        "site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro",
+        "site/src/components/FocusConnectivityDiagnostic.astro"
+      ],
+      "actual_consumers": [
+        "/fokus-gruppa/diagnostika/",
+        "/fokus-gruppa/diagnostika-ustoychivost/"
+      ],
+      "variants": [
+        "connectivity",
+        "resilience"
+      ],
+      "states": [
+        "idle",
+        "checking",
+        "available",
+        "partial",
+        "error"
+      ],
+      "canonical_children": [
+        "FocusConnectivityDiagnostic",
+        "StatePanel",
+        "SemanticIcon"
+      ],
+      "visible_assets": [
+        "canonical connectivity/status icons"
+      ],
+      "foundation_dependencies": [
+        "F0 focus continuity foundations",
+        "F0 exactly-four icon roles"
+      ],
+      "penpot_master_target": "A0 / FocusDiagnostics",
+      "implementation_status": "SOURCE_IMPLEMENTED_UNINTEGRATED",
+      "integration_gate": "R0 applies the current A0 diagnostic component patch after F0",
+      "v0_matrix_ids": [
+        "PM0-37-17",
+        "PM0-37-18",
+        "V0-A0-FAMILY-IDENTITY",
+        "V0-A0-OVERFLOW-FOCUS"
+      ],
+      "rollback_cluster": "A0-RB-FOCUS"
+    },
+    {
+      "id": "a0.closed-focus-hub-route",
+      "pm0_case_id": "PM0-37-19",
+      "astro_family": "ClosedFocusHubRouteComposition",
+      "version": 1,
+      "source_roots": [
+        "site/src/pages/zakrytaya-afisha/index.astro",
+        "site/src/components/FocusGroupFeedback.astro",
+        "site/src/components/FocusGroupInviteShare.astro",
+        "site/src/components/FocusGroupThankYou.astro",
+        "site/src/components/auth/StaticSiteAuthRuntime.astro",
+        "site/src/components/personalization/PersonalizationRuntime.astro"
+      ],
+      "actual_consumers": [
+        "/zakrytaya-afisha/"
+      ],
+      "variants": [
+        "participant-hub"
+      ],
+      "states": [
+        "checking",
+        "locked",
+        "available"
+      ],
+      "canonical_children": [
+        "StaticSiteAuthRuntime",
+        "PersonalizationRuntime",
+        "FocusGroupFeedback",
+        "FocusGroupInviteShare",
+        "FocusGroupThankYou",
+        "FocusLabBadge"
+      ],
+      "visible_assets": [
+        "canonical brand favicon",
+        "focus laboratory badge"
+      ],
+      "foundation_dependencies": [
+        "F0 focus continuity foundations",
+        "F0 brand assets",
+        "F0 type and spacing roles"
+      ],
+      "penpot_master_target": "A0 / ClosedFocusHubRoute",
+      "implementation_status": "A0_MECH_06_PENDING",
+      "integration_gate": "R0 adds route identity and synchronizes checking/locked/available with the existing visible gate lifecycle",
+      "v0_matrix_ids": [
+        "PM0-37-19",
+        "V0-A0-FAMILY-IDENTITY",
+        "V0-A0-OVERFLOW-FOCUS"
+      ],
+      "rollback_cluster": "A0-RB-FOCUS-ROUTE-IDENTITIES"
+    }
+  ],
+  "truth_boundary": {
+    "source_identity_after_a0_mech_06_target": "19/19",
+    "source_identity_is_not_integration": true,
+    "integration_is_not_browser_pass": true,
+    "penpot_target_is_not_materialization": true
+  }
+}
