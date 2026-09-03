@@ -2,7 +2,7 @@
 
 Статус: `ACTIVE`  
 Координация: `onedayonemasterpiece/events-bot-new#621`  
-Contract: `launch-normalized-ui.v1.yaml@1.8.0`
+Contract: `launch-normalized-ui.v1.yaml@1.9.0`
 
 ## 1. Исполнительная модель
 
@@ -31,8 +31,9 @@ Codex — дефицитный local-runtime ресурс. ChatGPT role windows 
 
 ```text
 N0/F0/M0/A0/V0 максимально разгружают R0
-R0 тратится только на то, где нужен local runtime, cross-branch materialization
-или executable verification
+R0 тратится только на local focused diagnostics, cross-branch materialization,
+executable verification, invocation/observation of the shared Kaggle pipeline
+и Penpot mechanics
 ```
 
 Role windows обязаны самостоятельно выполнять:
@@ -48,16 +49,50 @@ R0 в дневном режиме выполняет преимуществен�
 
 - candidate construction и branch integration;
 - dependency install, local shell и runtime diagnostics;
-- tests/build/checks;
-- generation, publication и release mechanics;
+- local focused rendering одного route/page class;
+- tests/checks;
+- invocation and observation of full/published builds through the one Kaggle
+  StaticSiteBuilder;
+- artifact/publication verification;
 - ordinary merge conflict resolution;
 - deterministic bulk edit только когда он действительно существенно дешевле,
   чем работа активного specialist window;
-- local browser smoke, но не независимый V0 verdict.
+- local browser smoke focused diagnostic, но не независимый V0 verdict.
 
 R0 не повторяет анализ или реализацию, уже выполняемую активным F0/M0/A0/N0/V0.
 Перед изменением role-owned source он проверяет latest role ref/activity и
 предпочитает принять, интегрировать и проверить specialist branch.
+
+### One-pipeline build boundary
+
+Любой **полный или опубликованный** результат выполняется через один Kaggle
+pipeline из `events-bot-new`:
+
+```text
+real Review Preview
+golden Review Preview
+focused secret Review Preview
+Release Candidate
+production-form build
+```
+
+Один текущий Yandex Object Storage bucket; режимы отличаются immutable root
+slug/prefix, data mode, optional page-class filter и promotion semantics.
+
+Без Kaggle допускается только непубликуемая local focused diagnostic одного
+route/page class. Она:
+
+- использует same source SHA, snapshot/corpus и shared page-class selector;
+- не обновляет `preview.current`;
+- не даёт secret owner URL;
+- не считается Review Preview, V0 acceptance, PM0 progress или A=S=P evidence.
+
+Существующий `catalog-mode: slice|full` — data scope, не page-class selector.
+
+`my-data-hub` — sole MCP control plane for published builds. Он вызывает shared
+`events-bot-new` coordinator/runner и не копирует exporter, selector, builder,
+publisher или retention. Уже начатая MCP-реализация должна быть продолжена, а не
+дублирована вторым worktree/branch.
 
 ### NIGHT_AUTONOMOUS — окна не используются
 
@@ -66,14 +101,17 @@ R0 не повторяет анализ или реализацию, уже вы
 и migrations, однозначно следующие existing behavior и invariants. Даже ночью
 нельзя давать ему задачу «A+B и остановись через полчаса».
 
+Full/published build boundary ночью не меняется: локально только focused
+diagnostic, итоговый preview/RC/production-form artifact — Kaggle.
+
 ## 3. Codex admission gate
 
 Работа допускается в R0, когда истинно хотя бы одно:
 
 - требуется local shell/dependency/runtime environment;
 - нужен cross-branch merge или candidate construction;
-- нужны executable tests/build/generation;
-- требуется artifact/preview publication;
+- нужны executable tests/checks/focused diagnostic;
+- требуется invocation/observation of Kaggle generation or publication;
 - нужен ordinary merge-conflict repair;
 - это большой детерминированный mechanical edit, который объективно дешевле;
 - specialist недоступен, а reversible critical-path work иначе остановится.
@@ -92,12 +130,14 @@ R0 не повторяет анализ или реализацию, уже вы
 ## 4. Общий продуктовый gate
 
 ```text
-exact reachable normalized /<buildId>/__preview/
+exact reachable normalized /<buildId>/__preview/ from Kaggle
 → V0 DOM/computed-style verdict
 → исправление critical DRIFT
 → ASTRO_NORMALIZATION_PASS
-→ thin S / Penpot / release candidate
+→ thin S / Penpot / release candidate through the same Kaggle path
 ```
+
+Local focused diagnostic может сократить defect loop, но этот gate не закрывает.
 
 ## 5. N0 — acceptance, generation, integration, release
 
@@ -107,11 +147,13 @@ exact reachable normalized /<buildId>/__preview/
 2. Лично review branch deltas и определить, что входит в ближайший
    browser-testable candidate, а что остаётся следующим candidate без задержки
    первого preview.
-3. Проверить existing export/build/publication path и acceptance criteria.
+3. Проверить single `events-bot-new` exporter/page-class/build/publish path и
+   acceptance criteria; не принимать дублирующую реализацию в `my-data-hub`.
 4. Поддерживать end-to-end conditional authority для R0 без baseline-only stop.
-5. После любого R0 checkpoint прочитать output/ancestry/checks и принять либо
-   отклонить результат.
-6. Довести N0 contour до exact reachable preview, V0 trigger и review verdict.
+5. После любого R0/Kaggle checkpoint прочитать output/ancestry/checks и принять
+   либо отклонить результат.
+6. Довести N0 contour до exact reachable Kaggle preview, V0 trigger и review
+   verdict.
 7. После каждого checkpoint пересчитать следующий N0 backlog: integration,
    generation, publication, rollback, release evidence и V0 drift routing.
 
@@ -152,7 +194,7 @@ site/src/components/brand/**
 ```
 
 F0 сам выполняет central CSS/TS/Astro edits через GitHub. R0 получает только
-локальную проверку и интеграцию готового F0 batch.
+локальную focused проверку, интеграцию готового F0 batch и общий Kaggle preview.
 
 ## 7. M0 — family, framing, grids and rails saturation
 
@@ -190,7 +232,8 @@ exact assigned card/media roots
 ```
 
 M0 сам проектирует и пишет canonical roots. R0 не должен заново проектировать
-MediaFrame, rails или grids при активном M0.
+MediaFrame, rails или grids при активном M0; он выполняет focused diagnostic,
+интеграцию и общий Kaggle preview.
 
 ## 8. A0 — actual consumer saturation
 
@@ -218,7 +261,8 @@ work/ui-normalization-a0-wave-3-20260903@
 
 A0 never edits M0 canonical roots. DateListingSurface and
 WeekendListingSurface remain distinct compositions. A0 сам делает migration
-batches через GitHub; R0 не дублирует их, а интегрирует и запускает runtime tests.
+batches через GitHub; R0 не дублирует их, а интегрирует, выполняет focused
+runtime tests и запускает общий Kaggle preview.
 
 ## 9. V0 — available audit work before normalized preview
 
@@ -233,18 +277,21 @@ batches через GitHub; R0 не дублирует их, а интегрир�
 4. Through my-browser-bridge inspect the currently reachable production product
    as a before-baseline where routes are available; record DOM/computed-style,
    framing and grid measurements for before/after comparison.
-5. If a normalized preview appears during the same turn, immediately execute the
+5. Local focused diagnostic may support preparation, but final PASS/DRIFT uses
+   the exact reachable Kaggle Review Preview.
+6. If a normalized preview appears during the same turn, immediately execute the
    full route/viewport audit without another planning pass.
-6. Enter trigger standby only after all source and current-browser work is
+7. Enter trigger standby only after all source and current-browser work is
    exhausted.
 
 V0 remains read-only and never delegates browser observation. R0 may perform
-local smoke only; V0 keeps independent verdict capacity.
+local focused smoke only; V0 keeps independent verdict capacity.
 
 ## 10. R0 — scarce native materialization lane
 
-R0 concurrently builds/verifies candidates, executes generation/publication,
-runs local smoke and integrates ready accepted role outputs.
+R0 concurrently integrates/verifies candidates, runs local focused diagnostics,
+invokes/observes the one Kaggle generation/publication path and integrates ready
+accepted role outputs.
 
 В DAY_PARALLEL режиме R0 не поглощает specialist backlog. Приоритет:
 
@@ -252,12 +299,15 @@ runs local smoke and integrates ready accepted role outputs.
 готовая merge-ready role branch
 → bounded integration-risk review
 → merge/candidate
-→ tests/build/generation/publication
+→ local focused diagnostics/tests/checks
+→ invoke same Kaggle pipeline for any full/published build
+→ verify artifact and public URL
 → вернуть только материальный defect owning role
 ```
 
 В NIGHT_AUTONOMOUS режиме R0 расширяет reversible implementation scope и сам
-продолжает продуктовый backlog.
+продолжает продуктовый backlog. Full/published builds всё равно не выполняются
+вторым локальным pipeline.
 
 После каждого checkpoint R0 публикует:
 
@@ -265,8 +315,10 @@ runs local smoke and integrates ready accepted role outputs.
 local_runtime_work_completed
 role_outputs_integrated_or_verified
 Codex_only_implementation_and_why
+Kaggle_operation_or_artifact_identity_when_applicable
 blind_wait_seconds: 0
 duplicated_specialist_work: 0
+duplicated_builder_or_MCP_implementation: 0
 ```
 
 ## 11. Exit evidence
