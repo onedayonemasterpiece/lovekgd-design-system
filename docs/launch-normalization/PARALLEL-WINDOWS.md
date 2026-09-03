@@ -2,7 +2,7 @@
 
 Статус: `ACTIVE`  
 Координация: `onedayonemasterpiece/events-bot-new#621`  
-Contract: `launch-normalized-ui.v1.yaml@1.7.0`
+Contract: `launch-normalized-ui.v1.yaml@1.8.0`
 
 ## 1. Исполнительная модель
 
@@ -22,7 +22,74 @@ ChatGPT-окно не работает после завершения turn, н�
 Остановленное окно при наличии ready owned work — простаивающий ресурс. K0 обязан
 дать работу каждому доступному окну, а не сводить всю программу к R0.
 
-## 2. Общий продуктовый gate
+## 2. Ресурсная экономика: день и ночь
+
+Codex — дефицитный local-runtime ресурс. ChatGPT role windows — основной ресурс
+анализа, решений и direct GitHub implementation.
+
+### DAY_PARALLEL — окна доступны
+
+```text
+N0/F0/M0/A0/V0 максимально разгружают R0
+R0 тратится только на то, где нужен local runtime, cross-branch materialization
+или executable verification
+```
+
+Role windows обязаны самостоятельно выполнять:
+
+- repository/source/consumer census;
+- semantic, product и architecture decisions;
+- крупные coherent direct GitHub batches в своих paths;
+- source-negative probes и проектирование regression checks;
+- полный diff/readback review;
+- подготовку merge-ready branches и точных acceptance/removal boundaries.
+
+R0 в дневном режиме выполняет преимущественно:
+
+- candidate construction и branch integration;
+- dependency install, local shell и runtime diagnostics;
+- tests/build/checks;
+- generation, publication и release mechanics;
+- ordinary merge conflict resolution;
+- deterministic bulk edit только когда он действительно существенно дешевле,
+  чем работа активного specialist window;
+- local browser smoke, но не независимый V0 verdict.
+
+R0 не повторяет анализ или реализацию, уже выполняемую активным F0/M0/A0/N0/V0.
+Перед изменением role-owned source он проверяет latest role ref/activity и
+предпочитает принять, интегрировать и проверить specialist branch.
+
+### NIGHT_AUTONOMOUS — окна не используются
+
+Ночью R0 получает расширенный reversible engineering contour и самостоятельно
+ведёт backlog до product gate. Он может выполнять source census, implementation
+и migrations, однозначно следующие existing behavior и invariants. Даже ночью
+нельзя давать ему задачу «A+B и остановись через полчаса».
+
+## 3. Codex admission gate
+
+Работа допускается в R0, когда истинно хотя бы одно:
+
+- требуется local shell/dependency/runtime environment;
+- нужен cross-branch merge или candidate construction;
+- нужны executable tests/build/generation;
+- требуется artifact/preview publication;
+- нужен ordinary merge-conflict repair;
+- это большой детерминированный mechanical edit, который объективно дешевле;
+- specialist недоступен, а reversible critical-path work иначе остановится.
+
+Работа остаётся в окнах, если это:
+
+- анализ source/consumers;
+- semantic token, component identity или route-composition decision;
+- обычная direct GitHub правка в scope активного specialist;
+- review, который уже принадлежит N0/F0/M0/A0/V0;
+- формирование backlog и следующего product slice.
+
+Каждый role result должен быть merge-ready и не заставлять R0 повторно проводить
+семантическое исследование.
+
+## 4. Общий продуктовый gate
 
 ```text
 exact reachable normalized /<buildId>/__preview/
@@ -32,7 +99,7 @@ exact reachable normalized /<buildId>/__preview/
 → thin S / Penpot / release candidate
 ```
 
-## 3. N0 — acceptance, generation, integration, release
+## 5. N0 — acceptance, generation, integration, release
 
 Стартовый backlog текущего turn:
 
@@ -48,11 +115,12 @@ exact reachable normalized /<buildId>/__preview/
 7. После каждого checkpoint пересчитать следующий N0 backlog: integration,
    generation, publication, rollback, release evidence и V0 drift routing.
 
+N0 не передаёт R0 candidate analysis, ancestry decision или acceptance review.
 N0 не завершает turn на dispatch, policy comment, candidate review или baseline.
 
-## 4. F0 — foundations saturation
+## 6. F0 — foundations saturation
 
-Current head:
+Current head разрешается заново при fresh-read; стартовый checkpoint:
 
 ```text
 work/ui-normalization-f0-wave-3-20260903@
@@ -83,9 +151,12 @@ site/src/components/SocialIcon.astro
 site/src/components/brand/**
 ```
 
-## 5. M0 — family, framing, grids and rails saturation
+F0 сам выполняет central CSS/TS/Astro edits через GitHub. R0 получает только
+локальную проверку и интеграцию готового F0 batch.
 
-Current head:
+## 7. M0 — family, framing, grids and rails saturation
+
+Current head разрешается заново при fresh-read; стартовый checkpoint:
 
 ```text
 work/ui-normalization-m0-continuity-20260903@
@@ -99,8 +170,8 @@ work/ui-normalization-m0-continuity-20260903@
    `gallery-thumbnails`, `hero-selector`, `poster-strip`.
 3. Довести shared MediaFrame ownership: один protocol/anatomy/CSS owner в M0
    roots; убрать remaining duplicate framing responsibility в M0 paths.
-4. Добавить regression coverage для rail variants, grid live-region API,
-   ListingEventCard metadata bridge и reserved attributes.
+4. Добавить regression coverage specification для rail variants, grid
+   live-region API, ListingEventCard metadata bridge и reserved attributes.
 5. Проверить, что AdaptiveEventCardGrid public API покрывает latest A0 consumers;
    при доказанном API gap расширить M0 root.
 6. Публиковать exact migration/removal boundary для A0 и продолжать следующий
@@ -118,9 +189,12 @@ site/src/components/EventMediaRail.astro
 exact assigned card/media roots
 ```
 
-## 6. A0 — actual consumer saturation
+M0 сам проектирует и пишет canonical roots. R0 не должен заново проектировать
+MediaFrame, rails или grids при активном M0.
 
-Current head:
+## 8. A0 — actual consumer saturation
+
+Current head разрешается заново при fresh-read; стартовый checkpoint:
 
 ```text
 work/ui-normalization-a0-wave-3-20260903@
@@ -129,7 +203,7 @@ work/ui-normalization-a0-wave-3-20260903@
 
 Стартовый backlog:
 
-1. Fresh-read latest F0 `bc1f566...` и M0 `00ef7b6...` APIs.
+1. Fresh-read latest F0 и M0 APIs.
 2. Replace remaining consumer-local grids/wrappers/media owners:
    - `DesktopEventPage.astro` inline rails → EventMediaRail variants;
    - `PersonalFeedSlot.astro` → canonical live-region Adaptive grid host;
@@ -143,15 +217,14 @@ work/ui-normalization-a0-wave-3-20260903@
    take the next A0 item.
 
 A0 never edits M0 canonical roots. DateListingSurface and
-WeekendListingSurface remain distinct compositions.
+WeekendListingSurface remain distinct compositions. A0 сам делает migration
+batches через GitHub; R0 не дублирует их, а интегрирует и запускает runtime tests.
 
-## 7. V0 — available audit work before normalized preview
-
-Current independent work is not limited to waiting for URL.
+## 9. V0 — available audit work before normalized preview
 
 Стартовый backlog:
 
-1. Fresh-read latest F0/M0/A0 heads; previous harness deltas used older ancestry.
+1. Fresh-read latest F0/M0/A0 heads.
 2. Update selectors/signatures/negative probes for new EventMediaRail variants,
    shell/event-detail foundations, latest consumer migrations, icon roles and
    MediaFrame diagnostics.
@@ -165,15 +238,38 @@ Current independent work is not limited to waiting for URL.
 6. Enter trigger standby only after all source and current-browser work is
    exhausted.
 
-V0 remains read-only and never delegates browser observation.
+V0 remains read-only and never delegates browser observation. R0 may perform
+local smoke only; V0 keeps independent verdict capacity.
 
-## 8. R0 — native materialization backlog
+## 10. R0 — scarce native materialization lane
 
 R0 concurrently builds/verifies candidates, executes generation/publication,
-runs local smoke, integrates ready accepted role outputs and processes ready V0
-fixes. R0 does not absorb semantic work that F0/M0/A0 can perform in parallel.
+runs local smoke and integrates ready accepted role outputs.
 
-## 9. Exit evidence
+В DAY_PARALLEL режиме R0 не поглощает specialist backlog. Приоритет:
+
+```text
+готовая merge-ready role branch
+→ bounded integration-risk review
+→ merge/candidate
+→ tests/build/generation/publication
+→ вернуть только материальный defect owning role
+```
+
+В NIGHT_AUTONOMOUS режиме R0 расширяет reversible implementation scope и сам
+продолжает продуктовый backlog.
+
+После каждого checkpoint R0 публикует:
+
+```text
+local_runtime_work_completed
+role_outputs_integrated_or_verified
+Codex_only_implementation_and_why
+blind_wait_seconds: 0
+duplicated_specialist_work: 0
+```
+
+## 11. Exit evidence
 
 No worker may stop merely because its seed list ended. It must derive the next
 item from current source, invariants, tests, refs and issue state.
