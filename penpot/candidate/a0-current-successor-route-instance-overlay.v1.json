@@ -1,32 +1,58 @@
 {
   "schema": "kenigevents.penpot.a0-current-successor-route-instance-overlay.v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "contract_version": "1.10.0",
-  "status": "SPEC_ONLY_NOT_MATERIALIZED",
+  "status": "SPEC_ONLY_CURRENT_SOURCE_BOUND_NOT_MATERIALIZED",
   "extends": [
     "penpot/candidate/a0-route-instance-spec.v1.json",
     "penpot/candidate/a0-focus-route-instance-spec.v1.json"
   ],
-  "binding_authority": "catalog/normalization/a0-current-successor-consumer-closure.v1.json@e9da3bea2d52f6b720c7829804d6a9db0f123b8f",
+  "binding_authority": "catalog/normalization/a0-current-successor-consumer-batch.v1.json@69d93f7fab626de6e3026777021680e1d890d0d0",
   "authority": {
     "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
     "sole_writer": "R0.PENPOT",
     "source_repository": "onedayonemasterpiece/events-bot-new",
-    "source_contract": "site/src/data/a0-current-successor-consumer-closure.v1.json@6c6d2760931ffb63f8e319202eb3885914d9bc40",
-    "mechanical_batch_comment": 5527907602,
+    "source_successor": "agent/static-site-single-kaggle-contract@cebeafeee08251a327145ee973ee035cced65204",
+    "a0_regression_projection": "work/ui-normalization-a0-current-successor-consumer-batch-20260903@3ef253980bdfe0731158f5b8b4b47965fa153ce9",
+    "a0_result_comment": 5531482466,
     "actual_penpot_mutation_in_this_overlay": false
   },
   "source_and_evidence_boundary": {
-    "current_public_pre_f0": {
+    "source_closure": {
+      "grouped_route_families": "9/9",
+      "pm0_route_identity": "19/19",
+      "six_consumer_closure": "IN_CURRENT_SUCCESSOR",
+      "regression_projection": "MERGE_READY_RUNTIME_NOT_EXECUTED"
+    },
+    "latest_public_reference": {
       "url": "https://kenigevents.ru/preview-real-1bc6d9cb-normalized-20260903-v1/__preview/",
       "source_sha": "1bc6d9cb4c122046f4782532381de953727c1da6",
-      "use": "reference-only actual before source closure",
-      "may_materialize_as_accepted_master": false,
+      "use": "reference-only artifact predating the current successor",
+      "may_materialize_as_current_accepted_master": false,
       "independent_v0_pass": false
     },
-    "required_post_closure_source": "N0-accepted successor containing current F0 plus accepted M0/FR0 and the six-consumer A0 closure",
-    "required_post_closure_evidence": "exact canonical full fresh-real Kaggle URL plus independent V0 DOM/computed-style verdict",
-    "pending_board_label": "PENDING POST-F0 V0 — reference only, not parity"
+    "current_successor_exact_build": null,
+    "current_successor_independent_v0_verdict": null,
+    "required_current_evidence": "exact canonical full fresh-real Kaggle URL for the N0-accepted tested successor plus independent V0 DOM/computed-style verdict",
+    "pending_board_label": "PENDING CURRENT SUCCESSOR V0 — source-bound specification, not parity"
+  },
+  "nested_role_bindings": {
+    "F0": {
+      "owns": "variables, typography, colors, spacing, shape and icon roles",
+      "integrated_source_ancestor": "a4db631dbb3b01e1f71c42e0e3b87d077a538d19"
+    },
+    "M0": {
+      "owns": "EventCard, ListingEventCard and AdaptiveEventCardGrid composition",
+      "source_ancestor": "5eeaba09b5ec432a77ff899ce98fb8b9f492c133"
+    },
+    "FR0": {
+      "owns": "MediaFrame protocol, fit, focal position, clip, fallback and resource state",
+      "source_ancestor": "2231e1d668f896d634e5663b59520bc710d5fea6"
+    },
+    "A0": {
+      "owns": "route, shell and consumer composition only",
+      "may_detach_nested_role_masters": false
+    }
   },
   "variable_bindings": [
     {
@@ -64,20 +90,33 @@
     {
       "id": "A0-VB-E13",
       "target_master": "A0-M13",
-      "source": "site/src/components/design-system/route-theme-foundations.css",
+      "source": [
+        "site/src/components/design-system/route-theme-foundations.css",
+        "site/src/components/design-system/product-theme-foundations.css",
+        "site/src/components/media-frame.css"
+      ],
       "groups": [
         "exhibitions/canvas",
         "exhibitions/surfaces",
         "exhibitions/status",
         "exhibitions/controls",
         "exhibitions/timeline",
-        "exhibitions/motion"
+        "exhibitions/motion",
+        "exhibitions/media-frame"
       ],
       "required_prefixes": [
         "--ke-exhibitions-",
-        "--ke-color-exhibitions-"
+        "--ke-color-exhibitions-",
+        "--media-frame-"
       ],
-      "forbidden_local_variable_prefix": "--ex-"
+      "allowed_consumer_runtime_variables": [
+        "--ex-media-column",
+        "--ex-row-gap",
+        "--ex-surface-start",
+        "--ex-rail-color"
+      ],
+      "forbidden_consumer_theme_aliases": "all other --ex-*",
+      "effective_fit_focal_clip_owner": "FR0 media-frame.css"
     },
     {
       "id": "A0-VB-F14",
@@ -88,6 +127,7 @@
         "festival/hero",
         "festival/navigation",
         "festival/guide",
+        "festival/taxonomy",
         "festival/timeline",
         "festival/card",
         "festival/status",
@@ -97,6 +137,10 @@
         "--ke-festival-",
         "--ke-color-festival-"
       ],
+      "separate_equal_value_roles": [
+        "--ke-color-festival-guide-like-surface",
+        "--ke-color-festival-category-surface"
+      ],
       "minimum_interactive_target_px": 44
     }
   ],
@@ -105,6 +149,7 @@
       "master_id": "A0-M10",
       "name": "A0 / InterestClubs",
       "operation": "UPDATE_EXISTING_NATIVE_MASTER",
+      "source_status": "CURRENT_SUCCESSOR_BOUND",
       "source_bindings": [
         "a0.closure.interest-club-card-continuity",
         "a0.closure.interest-club-detail-theme"
@@ -134,6 +179,7 @@
       "master_id": "A0-M13",
       "name": "A0 / ExhibitionsPersonalSurface",
       "operation": "UPDATE_EXISTING_NATIVE_MASTER",
+      "source_status": "CURRENT_SUCCESSOR_BOUND",
       "source_binding": "a0.closure.exhibitions-personal-theme",
       "variant": "ranked-personal-catalog",
       "states": [
@@ -145,20 +191,27 @@
         "loading",
         "error"
       ],
+      "nested_linked_masters": [
+        "A0 / ExhibitionPrototypeRow",
+        "current FR0 MediaFrame family"
+      ],
       "required_properties": [
         "mode",
         "category filter",
         "new/priority/tail grouping",
         "keyboard state",
         "gallery state",
+        "resource state",
         "undo state"
       ],
+      "framing_rule": "Bind FR0 fit, focal, clip and fallback properties; do not reproduce them on the A0 master.",
       "detached_duplicate_allowed": false
     },
     {
       "master_id": "A0-M14",
       "name": "A0 / FestivalsTimelineRoute",
       "operation": "UPDATE_EXISTING_NATIVE_MASTER",
+      "source_status": "CURRENT_SUCCESSOR_BOUND",
       "source_binding": "a0.closure.festivals-timeline-theme",
       "variant": "annual-timeline",
       "states": [
@@ -176,12 +229,14 @@
         "SemanticIcon/calendar@control",
         "specialized festival category SVG assets"
       ],
+      "external_link_rule": "target=_blank requires both noopener and noreferrer",
       "detached_duplicate_allowed": false
     },
     {
       "master_id": "A0-M15",
       "name": "A0 / FocusEggCollectionRoute",
       "operation": "UPDATE_EXISTING_NATIVE_MASTER",
+      "source_status": "CURRENT_SUCCESSOR_BOUND",
       "source_binding": "a0.closure.focus-egg-collection-route",
       "variant": "collection-prototype",
       "states": [
@@ -189,6 +244,7 @@
         "found-partial-of-N",
         "found-all-of-N"
       ],
+      "runtime_state_binding": "found-N-of-M",
       "required_properties": [
         "eligible count",
         "found count",
@@ -202,6 +258,7 @@
       "master_id": "A0-M17",
       "name": "A0 / ClosedFocusHubRoute",
       "operation": "UPDATE_EXISTING_NATIVE_MASTER",
+      "source_status": "CURRENT_SUCCESSOR_BOUND",
       "source_binding": "a0.closure.closed-focus-hub-route",
       "variant": "participant-hub",
       "states": [
@@ -209,12 +266,14 @@
         "locked",
         "available"
       ],
+      "runtime_state_binding": "existing focus participation marker",
       "required_properties": [
         "participation state",
         "account state",
         "visible navigation sections",
         "leave action state"
       ],
+      "semantic_rule": "Participation and account authentication remain independent properties.",
       "detached_duplicate_allowed": false
     }
   ],
@@ -223,6 +282,7 @@
       "board_id": "A0-R07",
       "route": "/festivali/",
       "linked_master": "A0-M14",
+      "source_status": "CURRENT_SUCCESSOR_BOUND",
       "viewports": [
         "mobile-430x932",
         "desktop-1728x900"
@@ -237,6 +297,7 @@
       "board_id": "A0-R08",
       "route": "/vystavki/",
       "linked_master": "A0-M13",
+      "source_status": "CURRENT_SUCCESSOR_BOUND",
       "viewports": [
         "mobile-430x932",
         "desktop-1280x800"
@@ -245,13 +306,16 @@
         "personal",
         "all",
         "filtered",
-        "gallery-open"
+        "gallery-open",
+        "loading",
+        "error"
       ]
     },
     {
       "board_id": "A0-R15",
       "route": "/kluby-po-interesam/",
       "linked_master": "A0-M10",
+      "source_status": "CURRENT_SUCCESSOR_BOUND",
       "viewports": [
         "mobile-430x932",
         "desktop-1280x800"
@@ -268,6 +332,7 @@
       "route": "/kluby-po-interesam/*/",
       "linked_master": "A0-M10",
       "page": "A0-P40",
+      "source_status": "CURRENT_SUCCESSOR_BOUND",
       "viewports": [
         "mobile-430x932",
         "desktop-1280x800"
@@ -281,6 +346,7 @@
       "board_id": "A0-R18",
       "route": "/fokus-gruppa/kollektsiya/",
       "linked_master": "A0-M15",
+      "source_status": "CURRENT_SUCCESSOR_BOUND",
       "viewports": [
         "mobile-390x844",
         "desktop-1280x800"
@@ -295,6 +361,7 @@
       "board_id": "A0-R21",
       "route": "/zakrytaya-afisha/",
       "linked_master": "A0-M17",
+      "source_status": "CURRENT_SUCCESSOR_BOUND",
       "viewports": [
         "mobile-390x844",
         "desktop-1280x800"
@@ -304,6 +371,30 @@
         "locked",
         "available"
       ]
+    }
+  ],
+  "preservation_board_contracts": [
+    {
+      "board_ids": [
+        "A0-R02",
+        "A0-R03"
+      ],
+      "family": "DateListingSurface",
+      "rule": "Keep chronological today, tomorrow and date compositions with one physical mobile time rail."
+    },
+    {
+      "board_id": "A0-R04",
+      "family": "WeekendListingSurface",
+      "rule": "Keep the distinct Saturday/Sunday editorial composition and range navigation."
+    },
+    {
+      "board_id": "A0-R05",
+      "linked_masters": [
+        "A0-M01",
+        "A0-M02"
+      ],
+      "family": "PopularListingSurface",
+      "rule": "Preserve mobile-large and mobile-adaptive, radio/keyboard/pinch selection, persisted ke_listing_density_v2 and visible-event anchor restoration."
     }
   ],
   "asset_overlays": [
@@ -339,23 +430,50 @@
       "rule": "Preserve exact editorial category identity; never redraw as generic action icons."
     }
   ],
+  "evidence_link_contract": {
+    "evidence_page": "A0-P90",
+    "required_fields": [
+      "binding_id",
+      "source_sha",
+      "build_id",
+      "snapshot_id",
+      "kaggle_operation",
+      "artifact_identity",
+      "viewport_id",
+      "v0_verdict",
+      "actual_artifact",
+      "approved_baseline_artifact",
+      "diff_artifact"
+    ],
+    "source_only_label": "SOURCE BOUND — NOT YET BROWSER OR PENPOT EQUALITY"
+  },
   "materialization_gate": {
     "required": [
-      "post-closure integrated source accepted by N0",
-      "both strict F0 consumption gates PASS",
-      "current accepted M0/FR0 nested family refs",
-      "canonical full fresh-real Kaggle URL",
-      "independent V0 PASS or accepted bounded DRIFT disposition",
+      "A0 regression projection integrated into the current successor or exact descendant",
+      "focused A0, F0 and FR0 source gates pass with exact exits",
+      "exact tested successor accepted by N0",
+      "canonical full fresh-real Kaggle URL and matching manifest for that exact SHA",
+      "independent V0 PASS or N0-accepted bounded DRIFT disposition",
       "ASTRO_NORMALIZATION_PASS"
     ],
-    "transaction": "one bounded R0.PENPOT update of existing native masters and linked route instances",
-    "rollback": "revert the smallest master/route-board overlay; do not replace the Penpot file or detach unrelated instances"
+    "transaction": "one bounded R0.PENPOT update of the existing native masters and linked route instances",
+    "rollback": "revert only the smallest master or route-board overlay; do not replace the Penpot file, detach unrelated instances or roll back F0/M0/FR0 roots"
   },
+  "rollback_units": [
+    "A0-RB-EXHIBITIONS-THEME",
+    "A0-RB-FESTIVAL-THEME",
+    "A0-RB-CLUB-DETAIL-THEME",
+    "A0-RB-CLUB-CARD-CONTINUITY",
+    "A0-RB-FOCUS-COLLECTION-IDENTITY",
+    "A0-RB-CLOSED-FOCUS-HUB-IDENTITY",
+    "A0-RB-CURRENT-SUCCESSOR-FR0-BOUNDARY-TEST"
+  ],
   "claims_not_made": [
-    "source integrated",
+    "A0 regression projection integrated",
     "source tests passed",
-    "post-closure preview published",
+    "current successor exact preview published",
     "independent V0 pass",
+    "thin-S equality accepted",
     "Penpot variables created",
     "Penpot masters updated",
     "Penpot linked instances materialized"
