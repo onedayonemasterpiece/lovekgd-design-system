@@ -8,170 +8,114 @@ Contract: `launch-normalized-ui.v1.yaml@1.8.0`
 
 ```yaml
 mode: DAY_PARALLEL
-owner_report: N0_F0_M0_A0_V0_R0_tasks_launched
 Codex_resource: SCARCE
-allocation_goal: role_windows_do_analysis_decisions_direct_GitHub_implementation_and_review; R0_does_local_materialization
+role_windows: source_analysis_semantic_decisions_direct_GitHub_implementation_review
+R0: integration_local_tests_build_generation_deploy_public_verification
 ```
-
-A running role window is expected to process multiple items and generate the
-next owned item inside the same turn. R0 must not duplicate specialist work that
-can proceed in the active windows.
 
 ## Current product gate
 
 ```text
-exact reachable normalized /<buildId>/__preview/
-+ reproducible fresh-production generation
-+ explicit ancestry
+HTTP-200 exact normalized /<buildId>/__preview/
++ matching preview-build.json
++ reproducible fresh-production snapshot/ancestry
 → V0 independent DOM/computed-style verdict
 ```
 
-Not yet reached.
+The frozen owner URL was still `404` at the latest N0 probe. Therefore the strict
+40-point PM0 checklist remains intentionally low: branch-local source work is
+PARTIAL until integrated and browser-reviewed; Penpot/A=S=P remain NOT DONE until
+native linked instances and V0 PASS exist.
 
-## Current durable heads and observed post-resume progress
+## Current durable refs
 
 ```yaml
 integration:
   branch: integration/ui-normalization-launch-20260902
   head: f7455bc3ef2542a7df2634665f83b75e5a171eae
 
+current_candidate:
+  branch: r0/ui-normalization-current-candidate-20260903
+  head: 0d73428dfafff2fd5450b74fd68e7bb40e92d2c5
+  N0_acceptance: 5525386994
+
 F0:
   branch: work/ui-normalization-f0-wave-3-20260903
-  pre_resume_head: bc1f566b6845557983042d8ed27ea94a6f572507
-  current_observed_head: 5c0f6a3996438147edaf837ba07f7fb1f54995be
-  post_resume_commits: 3
-  post_resume_paths: 4
-  current_work:
-    - collection foundations
-    - product theme foundations
-    - transport foundations
-  resource_effect: specialist_work_done_without_Codex
+  head: bbbc9b09720298f43653c36bd5343385cae63102
+  branch_local_convergence: true
+  new_ready_trigger: review_current_combined_candidate_and_checklist_items_11_19
+  runtime_only_remainder: physical legacy design-system.css owner closure
 
 M0:
   branch: work/ui-normalization-m0-continuity-20260903
-  current_observed_head: 00ef7b689cc5d040bd0099962576cadcd88270f7
-  owner_report: task_launched
-  current_work:
-    - family_and_media_recensus
-    - rail_variant_hardening
-    - MediaFrame_ownership
-    - regression_contracts
+  head: fed7877eca4f283f8fbfe2d11e28e0b11a37c370
+  new_ready_trigger: review_current_candidate_and_reconcile_MediaFrame_rail_grid_card_tests
 
 A0:
   branch: work/ui-normalization-a0-wave-3-20260903
-  pre_resume_head: 651f6a8e58bcad06859e42eee87b2b337bd1c536
-  current_observed_head: f4fb2247c35d4578cdfefed1b6c410f9fd665f7d
-  post_resume_commits: 3
-  post_resume_paths: 3
-  current_work:
-    - remaining service_and_search_route_consumers
-  resource_effect: consumer_migration_done_without_Codex
-
-V0:
-  owner_report: task_launched
-  current_work:
-    - latest_ref_harness_delta
-    - source_negative_probes
-    - current_product_before_baseline
-    - normalized_preview_audit_if_URL_appears
+  head: 25adccae5975c447f9ee734b110adfb2f8a9d6ae
+  new_ready_trigger: continue_actual_route_fraction_and_candidate_level_wiring_for_checklist_items_32_38
 
 N0:
-  owner_report: task_launched
-  current_work:
-    - latest_role_review
-    - candidate_inclusion
-    - generation_publication_acceptance
-    - R0_output_review
+  acceptance_comment: 5525386994
+  frozen_transaction_owned_work: 0
+  frozen_transaction_trigger: R0_publication_result
+  independent_ready_work:
+    - Golden_Review_Preview_and_corpus_path_review
+    - successor_candidate_acceptance_and_rollback
+    - real_preview_to_V0_to_Golden_thinS_Penpot_transition
+
+V0:
+  full_harness: 5521263641
+  latest_harness_delta: [5522861326, 5522899558]
+  ready_without_normalized_preview:
+    - current_public_product_before_baseline
+    - current_candidate_source_negative_probes
+  normalized_audit_trigger: exact_HTTP_200_preview_URL
 
 R0:
-  owner_report: native_task_launched
-  current_work:
-    - candidate_materialization
-    - local_tests_build_generation_publication
-  must_report:
-    blind_wait_seconds: 0
-    duplicated_specialist_work: 0
+  frozen_repo_sha: d5ff87bcb7a2b2051ad956ef9e7e2733a1ae62c3
+  frozen_build_id: preview-ui-normalized-d5ff87bc-fresh-20260903-v1
+  current_required_work:
+    - finish_build_and_check_exits
+    - immutable_prefix_deploy
+    - strict_public_2xx_and_MIME_verification
+    - exact_failure_and_rollback_if_any_gate_fails
+  must_not_duplicate_specialist_source_work: true
 ```
 
-F0 and A0 already advanced after the new parallel launch. This confirms that
-non-Codex capacity is actively unloading the scarce native lane. M0/N0/V0/R0
-liveness is owner-reported until their next durable result or ref movement.
-
-## Resource allocation policy
-
-### Role windows own
-
-- full source and consumer census;
-- product/semantic/architecture decisions;
-- broad coherent direct GitHub batches;
-- test and negative-probe design;
-- branch diff/readback review;
-- merge-ready acceptance and removal boundaries.
-
-### R0 owns in DAY_PARALLEL
-
-- cross-branch candidate construction;
-- local dependencies and runtime;
-- tests/build/checks;
-- generation/publication;
-- ordinary merge conflict repair;
-- local browser smoke;
-- deterministic bulk mechanics only when materially cheaper than specialist work.
-
-Before editing role-owned source, R0 checks current role activity and prefers the
-specialist branch. Duplicate analysis or implementation is a resource defect.
-
-### NIGHT_AUTONOMOUS
-
-When role windows are intentionally unavailable, R0 receives the broad reversible
-engineering contour and continues to the product gate. Night prompts must not be
-finite A+B transactions with a stop after one result.
-
-## Codex economy evidence
-
-Each R0 checkpoint must include:
+## Checklist-to-role mapping
 
 ```text
-local_runtime_work_completed
-role_outputs_integrated_or_verified
-Codex_only_implementation_and_why_it_could_not_be_done_economically_in_a_role_window
-blind_wait_seconds: 0
-duplicated_specialist_work: 0
+N0 → 2–10 and integration/release evidence
+F0 → 11–19
+M0 → 20–31
+A0 → 32–38
+V0 → browser evidence for 27, 31, 34–38 and 40
+R0 → executable integration/build/deploy/public verification and later Penpot mechanics
 ```
 
-## Exit rule
+A completed branch-local role turn is not necessarily checklist-level
+exhaustion. A combined candidate is a new review trigger for F0/M0/A0. The 404
+preview is a dependency only for browser completion, not for all source work.
 
-A role may finish only with:
+## Resume rule for completed role windows
+
+Read current issue comments `5524572449`, `5524682012`, `5525386994`, current
+refs and the PM0 checklist. Review both the latest role branch and the combined
+candidate. Continue multiple owned items, deriving the next item from checklist
+gaps, normalization invariants, actual-consumer census and current tests.
+
+Legitimate stop only with:
 
 ```text
 ready_owned_items: 0
-remaining_external_trigger: <exact role/result/url>
-```
-
-or a genuine product/safety/writer/platform boundary. A one-item run followed by
-stop while ready work remains is `BACKLOG_NOT_FORMING`.
-
-## Immediate parallel sequence
-
-```text
-N0: candidate/release/generation review
-+
-F0: central foundations saturation
-+
-M0: family/framing/grid/rail saturation
-+
-A0: actual consumer saturation
-+
-V0: source harness + production before-baseline
-+
-R0: integrate/test/build/generate/publish
-→ reachable normalized preview
-→ V0 full audit
-→ critical DRIFT fixes
+remaining_external_trigger: <exact R0 result / V0 verdict / URL / genuine decision>
 ```
 
 ## ASTRO_NORMALIZATION_PASS
 
-Still closed. Required: reproducible fresh generation, tokenized foundations,
-four icon roles, canonical family roots, MediaFrame and AdaptiveEventCardGrid
-browser pass, migrated actual routes and no critical V0 DRIFT.
+Still closed. Required: reproducible fresh generation, HTTP-200 integrated
+preview, tokenized foundations, four icon roles, canonical roots, MediaFrame and
+AdaptiveEventCardGrid browser pass, migrated actual routes, no critical V0 DRIFT,
+thin S and native linked Penpot evidence.
