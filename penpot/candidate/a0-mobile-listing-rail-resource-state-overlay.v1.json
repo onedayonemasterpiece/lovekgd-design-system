@@ -1,0 +1,93 @@
+{
+  "schema": "kenigevents.penpot.a0-mobile-listing-rail-resource-state-overlay.v1",
+  "version": "1.0.0",
+  "contract_version": "1.10.0",
+  "status": "SPEC_ONLY_SOURCE_IMPLEMENTED_UNINTEGRATED_NOT_MATERIALIZED",
+  "extends": "penpot/candidate/a0-current-successor-route-instance-overlay.v1.json",
+  "binding_authority": "catalog/normalization/a0-mobile-listing-rail-resource-state.v1.json@7aa4773149c3a124e2352a3a15fb9a0e0b7de015",
+  "authority": {
+    "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "sole_writer": "R0.PENPOT",
+    "source_branch": "work/ui-normalization-a0-mobile-listing-rail-resource-state-20260903",
+    "source_head": "2dac9d16031d4f1505184fc9678f88c855c3988a",
+    "actual_penpot_mutation": false
+  },
+  "operation": "BIND_EXISTING_DATE_AND_WEEKEND_ROUTE_INSTANCES_TO_EXISTING_MOBILE_RAIL_SOURCE_FAMILY",
+  "new_detached_master_allowed": false,
+  "source_families": [
+    "MobileListingRailSurface@1",
+    "MobileListingRailRow@1"
+  ],
+  "route_board_bindings": [
+    {
+      "board_ids": ["A0-R02", "A0-R03"],
+      "family": "DateListingSurface",
+      "mobile_consumer": "MobileListingRailSurface@1",
+      "required_resource_states": ["pending", "loaded", "broken"],
+      "required_diagnostic_states": ["media-loading", "media-loaded", "media-error"],
+      "preserve": "one chronological mobile time rail"
+    },
+    {
+      "board_id": "A0-R04",
+      "family": "WeekendListingSurface",
+      "mobile_consumer": "MobileListingRailSurface@1",
+      "required_resource_states": ["pending", "loaded", "broken"],
+      "required_diagnostic_states": ["media-loading", "media-loaded", "media-error"],
+      "preserve": "distinct Saturday/Sunday editorial composition"
+    }
+  ],
+  "excluded_board": {
+    "board_id": "A0-R05",
+    "family": "PopularListingSurface",
+    "reason": "Popular retains the accepted Large/Compact representations and does not consume MobileListingRailSurface"
+  },
+  "linked_authorities": {
+    "FR0": [
+      "MediaFrame v1 protocol",
+      "fit",
+      "focal position",
+      "clip",
+      "resource-state semantics"
+    ],
+    "M0": [
+      "card family composition",
+      "grid composition"
+    ],
+    "A0": [
+      "rail route consumption",
+      "external rail geometry",
+      "gesture and filter runtime",
+      "direct fallback presentation"
+    ]
+  },
+  "state_properties": {
+    "pending": ["skeleton visible", "frame geometry stable", "resolved semantic classification retained"],
+    "loaded": ["image visible", "fallback child hidden", "resolved role/kind/fit/crop/focal retained"],
+    "broken": ["fallback visible", "failed image absent", "kind fallback", "fit contain", "crop forbidden", "resource_load_error", "cannot regain cover"]
+  },
+  "evidence_bindings": {
+    "required_viewports": ["mobile-390x844", "mobile-430x932"],
+    "required_routes": ["/segodnya/", "/zavtra/", "/date-YYYY-MM-DD/", "/vyhodnye/"],
+    "required_runtime_cases": ["pending", "loaded", "network-or-decode-failure", "today-temporal-muted", "weekend-multi-section"],
+    "source_only_label": "SOURCE IMPLEMENTED — R0/V0/PENPOT PENDING"
+  },
+  "materialization_gate": [
+    "source branch integrated into an N0-accepted exact successor",
+    "focused Node and Playwright exits pass",
+    "canonical full fresh-real Kaggle preview exists for the exact successor",
+    "V0 confirms resource-state and no-layout-shift behavior",
+    "ASTRO_NORMALIZATION_PASS is issued"
+  ],
+  "rollback": {
+    "source_unit": "A0-RB-MOBILE-LISTING-RAIL-RESOURCE-STATE",
+    "penpot_unit": "revert only the Date/Weekend mobile rail state binding; do not detach FR0 or M0 linked authorities"
+  },
+  "claims_not_made": [
+    "source integrated",
+    "tests executed",
+    "browser pass",
+    "thin-S equality",
+    "native Penpot master created",
+    "route instances updated"
+  ]
+}
