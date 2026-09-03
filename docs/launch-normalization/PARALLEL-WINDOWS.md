@@ -1,223 +1,125 @@
-# Параллельные окна — автономная работа внутри turn
+# Параллельные окна — product-first topology
 
 Статус: `ACTIVE`  
-Координация: `onedayonemasterpiece/events-bot-new#621`  
-Contract: `launch-normalized-ui.v1.yaml@1.9.0`
+Координация: `onedayonemasterpiece/events-bot-new#621`
 
-## 1. Исполнительная модель
+## 1. Цель параллельности
 
-ChatGPT-окно не работает после завершения turn, но это **не** делает его
-одноразовым исполнителем одной микрозадачи. Внутри каждого запуска оно обязано
-самостоятельно обработать весь доступный role backlog:
+Параллельность существует только для ускорения пути:
 
 ```text
-получить полный role contour и стартовый backlog
-→ выполнить первый item
-→ fresh-read issue/refs/source
-→ сформировать следующий item
-→ выполнить его
-→ повторять до реального исчерпания owned scope или platform limit
+нормализованные source families
+→ exact integrated successor
+→ full Kaggle Review Preview
+→ V0 browser verdict
+→ correction
+→ thin S / Penpot / A=S=P
 ```
 
-Остановленное окно при наличии ready owned work — простаивающий ресурс. K0 обязан
-дать работу каждому доступному окну, а не сводить всю программу к R0.
+Большее число веток без своевременной интеграции не является ускорением.
 
-## 2. Ресурсная экономика: день и ночь
+Каждый ChatGPT activation — автономный multi-item run. Окно fresh-read-ит
+current state после каждого checkpoint и продолжает следующий owned item, пока
+не исчерпан реальный backlog.
 
-Codex — дефицитный local-runtime ресурс. ChatGPT role windows — основной ресурс
-анализа, решений и direct GitHub implementation.
+## 2. Build boundary
 
-### DAY_PARALLEL — окна доступны
+Используется одна реализация:
 
 ```text
-N0/F0/M0/A0/V0 максимально разгружают R0
-R0 тратится только на local focused diagnostics, cross-branch materialization,
-executable verification, invocation/observation of the shared Kaggle pipeline
-и Penpot mechanics
+events-bot-new exporter/page-class/build/publish logic
+→ one Kaggle StaticSiteBuilder
+→ one current Yandex Object Storage bucket
+→ my-data-hub MCP start/current/operation facade
 ```
 
-Role windows обязаны самостоятельно выполнять:
+Полный либо опубликованный real/golden/focused Preview, RC и production-form
+build всегда выполняется через Kaggle.
 
-- repository/source/consumer census;
-- semantic, product и architecture decisions;
-- крупные coherent direct GitHub batches в своих paths;
-- source-negative probes и проектирование regression checks;
-- полный diff/readback review;
-- подготовку merge-ready branches и точных acceptance/removal boundaries.
+Без Kaggle разрешена только непубликуемая local focused diagnostic одного
+route/page class. Она не обновляет `preview.current`, не является owner/V0/PM0
+результатом и не доказывает A=S=P.
 
-R0 в дневном режиме выполняет преимущественно:
+## 3. Рабочие роли
 
-- candidate construction и branch integration;
-- dependency install, local shell и runtime diagnostics;
-- local focused rendering одного route/page class;
-- tests/checks;
-- invocation and observation of full/published builds through the one Kaggle
-  StaticSiteBuilder;
-- artifact/publication verification;
-- ordinary merge conflict resolution;
-- deterministic bulk edit только когда он действительно существенно дешевле,
-  чем работа активного specialist window;
-- local browser smoke focused diagnostic, но не независимый V0 verdict.
+### ChatGPT specialists
 
-R0 не повторяет анализ или реализацию, уже выполняемую активным F0/M0/A0/N0/V0.
-Перед изменением role-owned source он проверяет latest role ref/activity и
-предпочитает принять, интегрировать и проверить specialist branch.
+- `N0` — acceptance, integration, generation, preview, release;
+- `F0` — foundations, colors, typography, spacing, icons, SVG, brand;
+- `FR0` — canonical MediaFrame/framing and EventMediaRail media composition;
+- `M0` — component roots, EventCard/ListingEventCard, actions/metadata,
+  AdaptiveEventCardGrid and row packing;
+- `A0` — shell, actual routes and consumer migration;
+- `V0` — independent browser DOM/computed-style/visual audit;
+- `K0` — consultant and prompt router;
+- `PM0` — read-only readiness/forecast.
 
-### One-pipeline build boundary
+### Native worker
 
-Любой **полный или опубликованный** результат выполняется через один Kaggle
-pipeline из `events-bot-new`:
+`R0` — direct Codex for cross-branch integration, local runtime/tests, Kaggle
+invocation/observation, ordinary merge repair and sole Penpot writes.
+
+Role windows do not delegate their semantic/source analysis to R0. R0 does not
+reimplement work owned by a live specialist.
+
+## 4. FR0 cutover
+
+FR0 is the only newly admitted specialist. It exists because framing is a
+separate technical root with enough independent backlog.
+
+Before FR0 begins writes:
+
+1. resolve current M0 framing head and integrated descendant;
+2. include or transfer all coherent in-flight MediaFrame/EventMediaRail work;
+3. record `FR0_CUTOVER_BASE` in issue #621;
+4. tell M0 to stop future writes to FR0-owned paths;
+5. branch FR0 from the exact cutover/current successor.
+
+No current M0 work is discarded and no two roles write the same canonical root.
+
+### FR0 owns
 
 ```text
-real Review Preview
-golden Review Preview
-focused secret Review Preview
-Release Candidate
-production-form build
+MediaFrame protocol/anatomy/style owner
+media role and semantic classification
+ratio/aspect-ratio
+contain/cover
+crop permission
+focal/object-position
+clip/overflow/radius
+loading/fallback/missing/broken media
+OCR/document/visual-only treatment
+responsive resources
+EventMediaRail media composition and framing variants
+framing-specific diagnostics/tests
 ```
 
-Один текущий Yandex Object Storage bucket; режимы отличаются immutable root
-slug/prefix, data mode, optional page-class filter и promotion semantics.
-
-Без Kaggle допускается только непубликуемая local focused diagnostic одного
-route/page class. Она:
-
-- использует same source SHA, snapshot/corpus и shared page-class selector;
-- не обновляет `preview.current`;
-- не даёт secret owner URL;
-- не считается Review Preview, V0 acceptance, PM0 progress или A=S=P evidence.
-
-Существующий `catalog-mode: slice|full` — data scope, не page-class selector.
-
-`my-data-hub` — sole MCP control plane for published builds. Он вызывает shared
-`events-bot-new` coordinator/runner и не копирует exporter, selector, builder,
-publisher или retention. Уже начатая MCP-реализация должна быть продолжена, а не
-дублирована вторым worktree/branch.
-
-### NIGHT_AUTONOMOUS — окна не используются
-
-Ночью R0 получает расширенный reversible engineering contour и самостоятельно
-ведёт backlog до product gate. Он может выполнять source census, implementation
-и migrations, однозначно следующие existing behavior и invariants. Даже ночью
-нельзя давать ему задачу «A+B и остановись через полчаса».
-
-Full/published build boundary ночью не меняется: локально только focused
-diagnostic, итоговый preview/RC/production-form artifact — Kaggle.
-
-## 3. Codex admission gate
-
-Работа допускается в R0, когда истинно хотя бы одно:
-
-- требуется local shell/dependency/runtime environment;
-- нужен cross-branch merge или candidate construction;
-- нужны executable tests/checks/focused diagnostic;
-- требуется invocation/observation of Kaggle generation or publication;
-- нужен ordinary merge-conflict repair;
-- это большой детерминированный mechanical edit, который объективно дешевле;
-- specialist недоступен, а reversible critical-path work иначе остановится.
-
-Работа остаётся в окнах, если это:
-
-- анализ source/consumers;
-- semantic token, component identity или route-composition decision;
-- обычная direct GitHub правка в scope активного specialist;
-- review, который уже принадлежит N0/F0/M0/A0/V0;
-- формирование backlog и следующего product slice.
-
-Каждый role result должен быть merge-ready и не заставлять R0 повторно проводить
-семантическое исследование.
-
-## 4. Общий продуктовый gate
+Preferred writable paths after current source census:
 
 ```text
-exact reachable normalized /<buildId>/__preview/ from Kaggle
-→ V0 DOM/computed-style verdict
-→ исправление critical DRIFT
-→ ASTRO_NORMALIZATION_PASS
-→ thin S / Penpot / release candidate through the same Kaggle path
+site/src/components/media-frame.css
+site/src/components/EventMediaRail.astro
+exact canonical MediaFrame roots
+site/tests/*media-frame*.test.mjs
+site/tests/*framing*.test.mjs
+site/tests/*media-rail*.test.mjs
 ```
 
-Local focused diagnostic может сократить defect loop, но этот gate не закрывает.
+FR0 may update `docs/features/static-site-pages/image-framing.md` only when
+implementation truth changes.
 
-## 5. N0 — acceptance, generation, integration, release
+FR0 does not own card text/anatomy/actions, row packing, route shell,
+foundations or Penpot writes.
 
-Стартовый backlog текущего turn:
-
-1. Fresh-read current integration и latest F0/M0/A0 refs/results.
-2. Лично review branch deltas и определить, что входит в ближайший
-   browser-testable candidate, а что остаётся следующим candidate без задержки
-   первого preview.
-3. Проверить single `events-bot-new` exporter/page-class/build/publish path и
-   acceptance criteria; не принимать дублирующую реализацию в `my-data-hub`.
-4. Поддерживать end-to-end conditional authority для R0 без baseline-only stop.
-5. После любого R0/Kaggle checkpoint прочитать output/ancestry/checks и принять
-   либо отклонить результат.
-6. Довести N0 contour до exact reachable Kaggle preview, V0 trigger и review
-   verdict.
-7. После каждого checkpoint пересчитать следующий N0 backlog: integration,
-   generation, publication, rollback, release evidence и V0 drift routing.
-
-N0 не передаёт R0 candidate analysis, ancestry decision или acceptance review.
-N0 не завершает turn на dispatch, policy comment, candidate review или baseline.
-
-## 6. F0 — foundations saturation
-
-Current head разрешается заново при fresh-read; стартовый checkpoint:
+### M0 after cutover owns
 
 ```text
-work/ui-normalization-f0-wave-3-20260903@
-bc1f566b6845557983042d8ed27ea94a6f572507
+one-root component architecture
+EventCard / ListingEventCard anatomy and variants
+card actions, metadata, admission/event-type composition
+AdaptiveEventCardGrid / OptimizedEventCardGrid
+row occupancy, named remainder variants and relatedCardLayout
 ```
-
-Стартовый backlog:
-
-1. Read-only census latest A0 и M0 heads против central foundations.
-2. Проверить новые Home/Free/Unusual/Gastronomy/PersonalFeed/focus/service/
-   partnership/event-detail/rail consumers на raw colours, same-role duplicates,
-   local type/spacing/radius/border/elevation и icon roles вне
-   `inline=16`, `control=20`, `action=24`, `feature=32`.
-3. Добавить либо объединить необходимые central aliases только в F0 paths.
-4. Удалить duplicate F0-owned token/style owners, сохраняя лишь доказанные
-   compatibility bridges.
-5. Публиковать exact binding table для A0/M0, не ожидая ответа.
-6. После каждого commit заново сканировать следующий foundation cluster и
-   продолжать до verified zero ready F0 items.
-
-Writable paths:
-
-```text
-site/src/styles/design-system.css
-site/src/components/design-system/**
-site/src/components/Icon.astro
-site/src/components/SocialIcon.astro
-site/src/components/brand/**
-```
-
-F0 сам выполняет central CSS/TS/Astro edits через GitHub. R0 получает только
-локальную focused проверку, интеграцию готового F0 batch и общий Kaggle preview.
-
-## 7. M0 — family, framing, grids and rails saturation
-
-Current head разрешается заново при fresh-read; стартовый checkpoint:
-
-```text
-work/ui-normalization-m0-continuity-20260903@
-00ef7b689cc5d040bd0099962576cadcd88270f7
-```
-
-Стартовый backlog:
-
-1. Полный recensus card/media/grid lookalikes после нового A0 head.
-2. Проверить и укрепить canonical `EventMediaRail` variants:
-   `gallery-thumbnails`, `hero-selector`, `poster-strip`.
-3. Довести shared MediaFrame ownership: один protocol/anatomy/CSS owner в M0
-   roots; убрать remaining duplicate framing responsibility в M0 paths.
-4. Добавить regression coverage specification для rail variants, grid
-   live-region API, ListingEventCard metadata bridge и reserved attributes.
-5. Проверить, что AdaptiveEventCardGrid public API покрывает latest A0 consumers;
-   при доказанном API gap расширить M0 root.
-6. Публиковать exact migration/removal boundary для A0 и продолжать следующий
-   M0-owned lookalike.
 
 Writable paths:
 
@@ -227,104 +129,153 @@ site/src/components/OptimizedEventCardGrid.astro
 site/src/components/AdaptiveEventCardGrid.astro
 site/src/components/EventCard.astro
 site/src/components/listings/ListingEventCard.astro
-site/src/components/EventMediaRail.astro
-exact assigned card/media roots
+exact assigned card roots
 ```
 
-M0 сам проектирует и пишет canonical roots. R0 не должен заново проектировать
-MediaFrame, rails или grids при активном M0; он выполняет focused diagnostic,
-интеграцию и общий Kaggle preview.
+M0 consumes FR0 MediaFrame/EventMediaRail API and may change invocation props in
+M0-owned card files, but may not recreate framing ownership.
 
-## 8. A0 — actual consumer saturation
+### A0 after cutover
 
-Current head разрешается заново при fresh-read; стартовый checkpoint:
+A0 migrates actual consumers to F0/M0/FR0 roots. It may not edit their canonical
+internals or fix framing with page-local CSS.
 
-```text
-work/ui-normalization-a0-wave-3-20260903@
-651f6a8e58bcad06859e42eee87b2b337bd1c536
+## 5. Integration throughput
+
+K0, N0 and R0 enforce:
+
+```yaml
+candidate_max_lag_minutes_when_merge_ready_output_exists: 30
+max_unintegrated_coherent_waves_per_role: 2
+full_preview_after_compatible_batches: 2_to_3
+full_preview_max_active_minutes_since_previous: 60
 ```
 
-Стартовый backlog:
+Rules:
 
-1. Fresh-read latest F0 и M0 APIs.
-2. Replace remaining consumer-local grids/wrappers/media owners:
-   - `DesktopEventPage.astro` inline rails → EventMediaRail variants;
-   - `PersonalFeedSlot.astro` → canonical live-region Adaptive grid host;
-   - Popular personalized wrappers → ListingEventCard metadata bridge;
-   - `MobileEventReviewPage.astro` plain grid → AdaptiveEventCardGrid;
-   - remaining Home/Free/Unusual/Gastronomy/search/collection/focus consumers
-     found by current census.
-3. Apply latest F0 aliases and exactly-four icon roles.
-4. Remove orphan route/layout CSS owners made obsolete by M0/F0 APIs.
-5. Run a fresh actual-route/consumer census after every batch and immediately
-   take the next A0 item.
+1. If a merge-ready result is older than the candidate by more than 30 minutes,
+   N0/R0 switch to integration-first work.
+2. A role may continue analysis, but may not accumulate a third unintegrated
+   implementation wave.
+3. One broken batch blocks only that batch; compatible outputs continue.
+4. FR0 does not delay the already-ready successor. Its first result joins the
+   next suitable candidate.
+5. A full Kaggle Preview is run after two or three compatible batches or after
+   60 active minutes, whichever happens first.
+6. Source work without candidate/Preview conversion is WIP accumulation.
 
-A0 never edits M0 canonical roots. DateListingSurface and
-WeekendListingSurface remain distinct compositions. A0 сам делает migration
-batches через GitHub; R0 не дублирует их, а интегрирует, выполняет focused
-runtime tests и запускает общий Kaggle preview.
+No additional specialist role is admitted until two successive cycles complete
+with candidate integration within 30 minutes and a Preview/V0 result. In
+particular `SH0`, a separate grid owner and role-per-checklist windows are not
+started yet.
 
-## 9. V0 — available audit work before normalized preview
+## 6. N0 contour
 
-Стартовый backlog:
+N0:
 
-1. Fresh-read latest F0/M0/A0 heads.
-2. Update selectors/signatures/negative probes for new EventMediaRail variants,
-   shell/event-detail foundations, latest consumer migrations, icon roles and
-   MediaFrame diagnostics.
-3. Run source negative probes against current refs for wrappers, local grids,
-   duplicated rails, raw visible values and missing family markers.
-4. Through my-browser-bridge inspect the currently reachable production product
-   as a before-baseline where routes are available; record DOM/computed-style,
-   framing and grid measurements for before/after comparison.
-5. Local focused diagnostic may support preparation, but final PASS/DRIFT uses
-   the exact reachable Kaggle Review Preview.
-6. If a normalized preview appears during the same turn, immediately execute the
-   full route/viewport audit without another planning pass.
-7. Enter trigger standby only after all source and current-browser work is
-   exhausted.
+- fresh-reads latest F0/FR0/M0/A0 refs and current successor;
+- reviews deltas and selects compatible candidate content;
+- gives R0 one conditional end-to-end authorization;
+- accepts/rejects exact source ancestry, tests, Kaggle artifact and URL;
+- triggers V0;
+- routes material DRIFT to its lowest owner;
+- publishes only meaningful `[RESULT]`, `[OWNER_REVIEW_READY]`, `[DRIFT]` or
+  factual `[BLOCKER]`.
 
-V0 remains read-only and never delegates browser observation. R0 may perform
-local focused smoke only; V0 keeps independent verdict capacity.
+N0 does not wait for all specialists to finish before publishing a useful
+successor.
 
-## 10. R0 — scarce native materialization lane
+## 7. F0 contour
 
-R0 concurrently integrates/verifies candidates, runs local focused diagnostics,
-invokes/observes the one Kaggle generation/publication path and integrates ready
-accepted role outputs.
+F0 owns:
 
-В DAY_PARALLEL режиме R0 не поглощает specialist backlog. Приоритет:
+- one font/weight system;
+- H1–H4/body/label/metadata roles;
+- spacing/sizing/containers/breakpoints;
+- semantic colors and duplicate-color closure;
+- radii/borders/elevation/layering;
+- exactly four icon-size roles;
+- canonical SVG/social/brand/medallion identities;
+- duplicate foundation/style-owner removal.
+
+F0 does not edit FR0/M0 component anatomy.
+
+## 8. FR0 contour
+
+FR0 starts from the exact cutover baseline and:
+
+1. performs a bounded current-consumer framing census;
+2. selects the highest-value remaining central framing defect;
+3. edits the canonical root, not page-local consumers;
+4. adds negative checks/diagnostic markers;
+5. publishes a coherent merge-ready batch within 60–90 minutes;
+6. fresh-reads and continues the next framing cluster.
+
+No new framing framework, corpus or global research programme is created.
+Existing image-framing donors and Golden stress cases are reused.
+
+## 9. M0 contour
+
+M0:
+
+1. closes one-root EventCard/ListingEventCard architecture;
+2. centralizes actions/metadata/admission/event-type composition;
+3. completes AdaptiveEventCardGrid API, row occupancy and named remainder
+   variants;
+4. removes duplicate card/grid owners in M0 paths;
+5. publishes exact migration/API boundaries to A0 and FR0;
+6. continues the next card/grid cluster after fresh-read.
+
+M0 does not write MediaFrame/EventMediaRail canonical internals after cutover.
+
+## 10. A0 contour
+
+A0:
+
+- migrates route consumers to accepted F0/M0/FR0 APIs;
+- removes route-local lookalike card/grid/framing/style owners;
+- normalizes shell, navigation, listing surfaces and actual route compositions;
+- preserves intentional distinction between DateListingSurface and
+  WeekendListingSurface;
+- continues actual-consumer census until no ready A0 item remains.
+
+## 11. V0 contour
+
+V0 personally uses my-browser-bridge. It never delegates browser observation.
+
+Before a new Preview it may update selectors and source negative probes. When a
+new exact Kaggle Preview appears, it immediately checks:
+
+- family/version/variant/state identity;
+- computed typography, spacing, colors, radii, borders and icon sizes;
+- MediaFrame fit/crop/focal/fallback/overflow;
+- EventCard anatomy/actions;
+- row occupancy, equal-height intent, remainder and horizontal overflow;
+- shell and responsive transitions.
+
+V0 returns `PASS`, `DRIFT`, `PRODUCT_GAP` or factual exhausted-work `BLOCKER`.
+One central defect is routed to F0, FR0, M0 or A0.
+
+## 12. R0 contour
+
+In day mode R0 prioritizes:
 
 ```text
-готовая merge-ready role branch
+latest merge-ready specialist output
 → bounded integration-risk review
-→ merge/candidate
-→ local focused diagnostics/tests/checks
-→ invoke same Kaggle pipeline for any full/published build
-→ verify artifact and public URL
-→ вернуть только материальный defect owning role
+→ exact candidate
+→ local focused diagnostics/tests
+→ one Kaggle build/publish path
+→ exact artifact/URL verification
 ```
 
-В NIGHT_AUTONOMOUS режиме R0 расширяет reversible implementation scope и сам
-продолжает продуктовый backlog. Full/published builds всё равно не выполняются
-вторым локальным pipeline.
+R0 may do deterministic bulk migration only when it is clearly mechanical and
+not duplicating a live specialist. It does not become a second builder,
+framing architect or visual auditor.
 
-После каждого checkpoint R0 публикует:
+## 13. Worker exit
 
-```text
-local_runtime_work_completed
-role_outputs_integrated_or_verified
-Codex_only_implementation_and_why
-Kaggle_operation_or_artifact_identity_when_applicable
-blind_wait_seconds: 0
-duplicated_specialist_work: 0
-duplicated_builder_or_MCP_implementation: 0
-```
-
-## 11. Exit evidence
-
-No worker may stop merely because its seed list ended. It must derive the next
-item from current source, invariants, tests, refs and issue state.
+No role stops because a seed list, wave, commit or `[RESULT]` ended.
 
 Legitimate exit:
 
@@ -333,7 +284,7 @@ ready_owned_items: 0
 remaining_external_trigger: <exact role/result/url>
 ```
 
-or a genuine product/safety/writer/platform boundary.
+or genuine product/safety/writer/platform boundary.
 
-`wake → one item → [RESULT] → stop` while source still contains owned work is
-`BACKLOG_NOT_FORMING`.
+Recoverable metadata, stale SHA, missing packet, temporary preview absence and
+one failing batch are not terminal blockers while independent work exists.
