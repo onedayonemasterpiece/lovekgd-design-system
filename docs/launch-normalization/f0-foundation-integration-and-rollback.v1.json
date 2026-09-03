@@ -1,0 +1,226 @@
+{
+  "schema_version": "kenigevents.f0-foundation-integration-and-rollback.v1",
+  "version": "1.0.0",
+  "contract_version": "1.9.0",
+  "status": "READY_FOR_BOUNDED_INTEGRATION_NOT_EXECUTED",
+  "authority": {
+    "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+    "source_repository": "onedayonemasterpiece/events-bot-new",
+    "source_branch": "work/ui-normalization-f0-wave-3-20260903",
+    "source_commit": "f2b9927e25ac0566d35577f69c574cedadab27d7",
+    "current_successor_at_authoring": "d0ad17088e13d5dab3d992326f393e2616246c5d",
+    "candidate_acceptance_owner": "N0",
+    "cross_branch_materialization_owner": "R0",
+    "consumer_owner": "A0",
+    "browser_verdict_owner": "V0",
+    "penpot_writer": "R0.PENPOT"
+  },
+  "safety": {
+    "production_root_mutation": "FORBIDDEN",
+    "production_data_mutation": "FORBIDDEN",
+    "penpot_mutation_in_this_packet": false,
+    "published_preview_policy": "canonical events-bot-new Kaggle StaticSiteBuilder only",
+    "immutable_existing_previews_are_never_modified_or_repointed": true,
+    "rollback_is_source_ref_or_bounded_commit_revert_not_object_overwrite": true
+  },
+  "integration_order": [
+    {
+      "step": 1,
+      "id": "F0-INTEGRATE-SOURCE",
+      "action": "materialize f2b9927 onto the latest N0-accepted successor without wholesale replacement of later cross-role files",
+      "owned_paths": [
+        "site/src/components/design-system/route-theme-foundations.css",
+        "site/src/components/design-system/f0-route-theme-bindings.v1.json",
+        "site/src/components/design-system/check-f0-route-theme-bindings.mjs",
+        "site/src/components/design-system/f0-current-successor-review.v1.json",
+        "site/src/components/design-system/product-contour-foundations.css"
+      ],
+      "precondition": "fresh-resolve current successor and stop only if another writer changed one of the exact owned paths after N0 review",
+      "postcondition": "route-theme-foundations.css has one import and remains token-only"
+    },
+    {
+      "step": 2,
+      "id": "F0-A0-EXHIBITIONS",
+      "action": "apply F0-ROUTE-EXHIBITIONS binding in the A0 consumer",
+      "consumer": "site/src/components/ExhibitionsPersonalSurface.astro",
+      "preserve": [
+        "dark exhibitions product language",
+        "personal/all mode switch",
+        "keyboard navigation and shortcuts",
+        "ranking, tail expansion and gallery behavior",
+        "all user-facing copy"
+      ],
+      "remove": [
+        "consumer-local :root --ex-* declaration owner",
+        "raw values named by the exact binding when a central token now exists"
+      ],
+      "strict_gate_cluster": "F0-ROUTE-EXHIBITIONS"
+    },
+    {
+      "step": 3,
+      "id": "F0-A0-FESTIVALS",
+      "action": "apply F0-ROUTE-FESTIVALS binding in the A0 route consumer",
+      "consumer": "site/src/pages/festivali/index.astro",
+      "preserve": [
+        "timeline packing and row order",
+        "festival category identity masks",
+        "media object-position data",
+        "favorite localStorage behavior",
+        "status labels and all route copy"
+      ],
+      "replace": [
+        "guide SVG width/height override with --ke-festival-guide-icon-size",
+        "favorite target dimensions with --ke-festival-like-target-min",
+        "favorite Icon heart with SemanticIcon heart/control",
+        "raw route-theme values covered by the binding"
+      ],
+      "strict_gate_cluster": "F0-ROUTE-FESTIVALS"
+    },
+    {
+      "step": 4,
+      "id": "F0-A0-CLUB-DETAIL",
+      "action": "apply F0-ROUTE-CLUB-DETAIL binding in the A0 route consumer",
+      "consumer": "site/src/pages/kluby-po-interesam/[slug]/index.astro",
+      "preserve": [
+        "verified-club projection and states",
+        "breadcrumbs",
+        "meeting links and dates",
+        "history-only empty state",
+        "mobile one-column breakpoint behavior"
+      ],
+      "replace": [
+        "raw warm/mint theme values covered by the binding",
+        "text arrow with SemanticIcon arrow-left/inline"
+      ],
+      "strict_gate_cluster": "F0-ROUTE-CLUB-DETAIL"
+    },
+    {
+      "step": 5,
+      "id": "F0-EXECUTABLE-GATES",
+      "action": "run the full F0 source contract on the exact integrated successor",
+      "commands": [
+        "node site/src/components/design-system/check-f0-typography-authority.mjs",
+        "node site/src/components/design-system/check-f0-interest-club-and-icon-contract.mjs",
+        "node site/src/components/design-system/check-f0-route-theme-bindings.mjs",
+        "F0_REQUIRE_ROUTE_THEME_CONSUMED=1 node site/src/components/design-system/check-f0-route-theme-bindings.mjs",
+        "node site/src/components/design-system/f0-normalization-negative-probes.mjs",
+        "node site/src/components/design-system/f0-candidate-consumer-census.mjs HEAD"
+      ],
+      "pass_boundary": "every command exits 0 and the strict route-theme check reports no consumer-local .ke-icon-role dimensions"
+    },
+    {
+      "step": 6,
+      "id": "F0-RUNTIME-GATE",
+      "action": "publish one fresh-real full review preview for the exact tested successor through the canonical Kaggle pipeline",
+      "required_result": [
+        "HTTP-200 /<buildId>/__preview/",
+        "matching preview-build.json",
+        "fresh immutable production snapshot identity",
+        "Kaggle operation/artifact identity",
+        "explicit source ancestry including f2b9927",
+        "no production-root mutation"
+      ]
+    },
+    {
+      "step": 7,
+      "id": "F0-V0-GATE",
+      "action": "V0 independently audits representative foundation and icon bindings",
+      "required_routes": [
+        "/vystavki/",
+        "/festivali/",
+        "/kluby-po-interesam/<actual-slug>/",
+        "/podborki/besplatnye-sobytiya/",
+        "/segodnya/"
+      ],
+      "required_observations": [
+        "computed font family and weight ownership",
+        "computed semantic colors and matched style owners",
+        "exact icon glyph dimensions in {16,20,24,32}",
+        "festival favorite target >=44px",
+        "no local .ke-icon-role width/height override",
+        "no critical layout or behavior drift"
+      ]
+    },
+    {
+      "step": 8,
+      "id": "F0-DOWNSTREAM-BIND",
+      "action": "N0 promotes accepted records; R0.PENPOT materializes native variable collections and linked instances",
+      "thin_s": "catalog/normalization/f0-foundation-thin-s-bindings.v1.json",
+      "penpot_spec": "penpot/candidate/f0-foundation-variable-spec.v1.json",
+      "boundary": "spec-only artifacts become CURRENT only after exact integrated-source and V0 evidence are recorded"
+    }
+  ],
+  "rollback_units": [
+    {
+      "id": "F0-RB-CORE-FOUNDATIONS",
+      "scope": "new F0 source commit and product-contour import",
+      "trigger": [
+        "undefined token or duplicate owner introduced",
+        "strict source check cannot distinguish pre/post migration safely",
+        "later accepted role change conflicts with an exact owned path"
+      ],
+      "rollback": "revert only f2b9927 or omit it from the successor; retain later M0/A0/N0 work",
+      "protected": ["existing de92 F0 ancestor", "all unrelated successor changes", "immutable previews"]
+    },
+    {
+      "id": "F0-RB-EXHIBITIONS-THEME",
+      "scope": "ExhibitionsPersonalSurface consumer binding",
+      "trigger": [
+        "computed theme differs from the accepted dark exhibitions language",
+        "keyboard/personalization/gallery behavior regresses",
+        "central token is missing or resolves ambiguously"
+      ],
+      "rollback": "revert only F0-A0-EXHIBITIONS consumer migration; retain central tokens as dormant source",
+      "protected": ["projection and ranking logic", "copy", "gallery behavior"]
+    },
+    {
+      "id": "F0-RB-FESTIVALS-THEME-AND-CONTROLS",
+      "scope": "festivals route theme, icon-role and target binding",
+      "trigger": [
+        "timeline packing/order changes",
+        "festival identity assets are replaced as generic icons",
+        "favorite behavior or localStorage changes",
+        "computed favorite target remains below 44px",
+        "computed glyph is not the declared control role"
+      ],
+      "rollback": "revert only F0-A0-FESTIVALS consumer migration; retain central tokens and exact defect record",
+      "protected": ["row packing", "object position", "category masks", "favorite data and copy"]
+    },
+    {
+      "id": "F0-RB-CLUB-DETAIL-THEME",
+      "scope": "interest club detail theme and back icon binding",
+      "trigger": [
+        "verified-club states or meeting links change",
+        "mint/warm contrast or mobile layout drifts",
+        "back action loses its 44px target or accessible label"
+      ],
+      "rollback": "revert only F0-A0-CLUB-DETAIL consumer migration; retain central tokens as dormant source",
+      "protected": ["club projection", "breadcrumbs", "meeting content", "mobile breakpoint"]
+    },
+    {
+      "id": "F0-RB-DOWNSTREAM-SPEC",
+      "scope": "thin-S and Penpot candidate records",
+      "trigger": [
+        "N0 rejects the source binding",
+        "V0 finds critical F0 drift",
+        "a newer accepted source changes token or family authority"
+      ],
+      "rollback": "mark the affected binding superseded or revert these specification files; do not mutate Penpot or published previews",
+      "protected": ["historical evidence", "A0/M0 records", "current Penpot file"]
+    }
+  ],
+  "stop_conditions_for_r0": [
+    "current F0 branch advanced beyond the accepted SHA and touches an integrated path",
+    "current successor changed an F0 owned path after N0 review",
+    "a strict check fails for a semantic reason rather than an ordinary merge conflict",
+    "a consumer migration changes user-facing behavior outside the stated preserve boundary"
+  ],
+  "not_claimed": [
+    "integration executed",
+    "commands passed",
+    "Kaggle invoked",
+    "preview published",
+    "V0 accepted",
+    "Penpot mutated"
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "schema_version": "kenigevents.f0-penpot-foundation-variable-spec.v1",
+  "version": "1.0.0",
+  "contract_version": "1.9.0",
+  "status": "SPEC_ONLY_NOT_MATERIALIZED",
+  "authority": {
+    "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "sole_writer": "R0.PENPOT",
+    "thin_s_bindings": "catalog/normalization/f0-foundation-thin-s-bindings.v1.json",
+    "source_repository": "onedayonemasterpiece/events-bot-new",
+    "source_branch": "work/ui-normalization-f0-wave-3-20260903",
+    "source_commit": "f2b9927e25ac0566d35577f69c574cedadab27d7",
+    "source_binding_registry": "site/src/components/design-system/f0-route-theme-bindings.v1.json"
+  },
+  "materialization_policy": {
+    "native_variable_collections_only": true,
+    "native_components_reference_variables": true,
+    "route_boards_use_linked_instances": true,
+    "detached_lookalikes_forbidden": true,
+    "board_local_font_family_forbidden": true,
+    "fifth_icon_square_forbidden": true,
+    "editorial_identity_assets_are_not_ui_icon_roles": true,
+    "actual_penpot_mutation_in_this_spec": false,
+    "apply_only_after": [
+      "N0 accepts an integrated successor containing f2b9927",
+      "strict F0 source gate passes on that exact successor",
+      "fresh-real V0 reports no critical F0 foundation or icon drift for representative routes"
+    ]
+  },
+  "pages": [
+    {
+      "id": "F0-P00",
+      "name": "F0 — Authority / source bindings",
+      "purpose": "Exact source SHA, thin-S IDs, V0 evidence and rollback status."
+    },
+    {
+      "id": "F0-P10",
+      "name": "F0 — Variables / core foundations",
+      "purpose": "Typography, spacing, sizing, containers, shapes, elevation, layers and semantic colors."
+    },
+    {
+      "id": "F0-P20",
+      "name": "F0 — Variables / route themes",
+      "purpose": "Exhibitions, festivals and interest-club-detail variable collections."
+    },
+    {
+      "id": "F0-P30",
+      "name": "F0 — Icons / canonical roles",
+      "purpose": "Exactly four size roles and canonical semantic glyph identity references."
+    },
+    {
+      "id": "F0-P90",
+      "name": "F0 — Evidence / browser bindings",
+      "purpose": "Links to exact immutable fresh-real and Golden V0 evidence; no detached reconstruction."
+    }
+  ],
+  "collections": [
+    {
+      "id": "F0-C01",
+      "name": "F0 / Core foundations",
+      "page": "F0-P10",
+      "thin_s_binding_ids": ["f0.core-foundation-scale"],
+      "source_files": [
+        "site/src/styles/design-system.css",
+        "site/src/components/design-system/foundations.css",
+        "site/src/components/design-system/component-foundations.css"
+      ],
+      "groups": [
+        {"name": "Typography roles", "source_prefixes": ["--ke-type-"], "mode": "single"},
+        {"name": "Spacing", "source_prefixes": ["--ke-space-"], "mode": "single"},
+        {"name": "Sizing", "source_prefixes": ["--ke-size-"], "mode": "single"},
+        {"name": "Containers", "source_prefixes": ["--ke-container-"], "mode": "single"},
+        {"name": "Breakpoints", "source_prefixes": ["--ke-breakpoint-"], "mode": "single"},
+        {"name": "Shapes and borders", "source_prefixes": ["--ke-shape-"], "mode": "single"},
+        {"name": "Elevation", "source_prefixes": ["--ke-elevation-"], "mode": "single"},
+        {"name": "Layers", "source_prefixes": ["--ke-layer-"], "mode": "single"},
+        {"name": "Semantic colors", "source_prefixes": ["--ke-color-"], "mode": "single"}
+      ],
+      "mode_rule": "Do not create board-local aliases for values that already have one Astro semantic token owner."
+    },
+    {
+      "id": "F0-C02",
+      "name": "F0 / Typography authority",
+      "page": "F0-P10",
+      "thin_s_binding_ids": ["f0.typography-authority"],
+      "source_files": [
+        "site/src/styles/design-system.css",
+        "site/src/components/design-system/foundations.css",
+        "site/src/components/design-system/f0-typography-authority.v1.json"
+      ],
+      "variables": [
+        {"name": "typography.family.sans", "source": "--ke-font-family-sans", "value_kind": "font-family-reference"},
+        {"name": "typography.body.weight", "source": "--ke-type-body-weight", "value_kind": "number"},
+        {"name": "typography.body.strong.weight", "source": "--ke-type-body-strong-weight", "value_kind": "number"},
+        {"name": "typography.metadata.weight", "source": "--ke-type-metadata-weight", "value_kind": "number"},
+        {"name": "typography.label.weight", "source": "--ke-type-label-weight", "value_kind": "number"},
+        {"name": "typography.label.strong.weight", "source": "--ke-type-label-strong-weight", "value_kind": "number"},
+        {"name": "typography.h4.weight", "source": "--ke-type-h4-weight", "value_kind": "number"},
+        {"name": "typography.h3.weight", "source": "--ke-type-h3-weight", "value_kind": "number"},
+        {"name": "typography.h2.weight", "source": "--ke-type-h2-weight", "value_kind": "number"},
+        {"name": "typography.h1.compact.weight", "source": "--ke-type-h1-compact-weight", "value_kind": "number"},
+        {"name": "typography.h1.weight", "source": "--ke-type-h1-weight", "value_kind": "number"}
+      ],
+      "font_asset_binding": "NONE_UNTIL_EXACT_OWNER_APPROVED_ASSET_AND_CHECKSUM_EXIST",
+      "fallback_stack_note": "Inter is a CSS family name in an unbundled fallback stack; repository font binaries are not implicit authority."
+    },
+    {
+      "id": "F0-C03",
+      "name": "F0 / Icon roles",
+      "page": "F0-P30",
+      "thin_s_binding_ids": ["f0.icon-role-authority"],
+      "variables": [
+        {"name": "icon.size.inline", "source": "--ke-icon-size-inline", "value_px": 16},
+        {"name": "icon.size.control", "source": "--ke-icon-size-control", "value_px": 20},
+        {"name": "icon.size.action", "source": "--ke-icon-size-action", "value_px": 24},
+        {"name": "icon.size.feature", "source": "--ke-icon-size-feature", "value_px": 32}
+      ],
+      "canonical_identity_source": "site/src/components/design-system/foundations.ts",
+      "rendering_source": "site/src/components/design-system/SemanticIcon.astro",
+      "rules": [
+        "Every semantic action references one canonical SVG/glyph identity.",
+        "A consumer may size a decorative container but may not override the role glyph width or height.",
+        "Festival category masks remain editorial taxonomy assets and do not create an icon role."
+      ]
+    },
+    {
+      "id": "F0-C10",
+      "name": "F0 / Exhibitions theme",
+      "page": "F0-P20",
+      "thin_s_binding_ids": ["f0.route-theme.exhibitions"],
+      "source_files": [
+        "site/src/components/design-system/product-theme-foundations.css",
+        "site/src/components/design-system/route-theme-foundations.css"
+      ],
+      "source_prefixes": ["--ke-color-exhibitions-", "--ke-exhibitions-", "--ke-elevation-exhibitions-"],
+      "modes": ["default-dark"],
+      "required_linked_master": "A0 / ExhibitionsPersonalSurface",
+      "state_binding": "personal|all-topics + populated|empty"
+    },
+    {
+      "id": "F0-C11",
+      "name": "F0 / Festivals theme",
+      "page": "F0-P20",
+      "thin_s_binding_ids": ["f0.route-theme.festivals"],
+      "source_files": ["site/src/components/design-system/route-theme-foundations.css"],
+      "source_prefixes": ["--ke-color-festival-", "--ke-festival-", "--ke-elevation-festival-"],
+      "modes": ["warm-editorial"],
+      "required_linked_master": "A0 / FestivalsTimelineRouteComposition",
+      "state_binding": "populated|empty + liked|unliked + announced|program-pending|date-pending",
+      "nested_icon_roles": [
+        {"action": "festival.guide.link", "role": "control", "size_px": 20},
+        {"action": "festival.guide.calendar", "role": "control", "size_px": 20},
+        {"action": "festival.favorite", "role": "control", "size_px": 20}
+      ],
+      "interactive_target_binding": {"source": "--ke-festival-like-target-min", "minimum_px": 44}
+    },
+    {
+      "id": "F0-C12",
+      "name": "F0 / Interest club detail theme",
+      "page": "F0-P20",
+      "thin_s_binding_ids": ["f0.route-theme.club-detail"],
+      "source_files": [
+        "site/src/components/design-system/interest-club-route-foundations.css",
+        "site/src/components/design-system/route-theme-foundations.css"
+      ],
+      "source_prefixes": ["--ke-color-club-detail-", "--ke-club-detail-"],
+      "modes": ["warm-mint"],
+      "required_linked_master": "A0 / InterestClubDetailRouteComposition",
+      "state_binding": "future-meetings|history-only",
+      "nested_icon_roles": [
+        {"action": "interest-club.detail.back", "role": "inline", "size_px": 16}
+      ]
+    }
+  ],
+  "route_instance_requirements": [
+    {
+      "route": "/vystavki/",
+      "page": "A0-P40",
+      "linked_master": "A0 / ExhibitionsPersonalSurface",
+      "foundation_collections": ["F0-C01", "F0-C02", "F0-C03", "F0-C10"],
+      "required_evidence": ["fresh-real exact SHA", "V0 computed style-owner verdict"]
+    },
+    {
+      "route": "/festivali/",
+      "page": "A0-P40",
+      "linked_master": "A0 / FestivalsTimelineRouteComposition",
+      "foundation_collections": ["F0-C01", "F0-C02", "F0-C03", "F0-C11"],
+      "required_evidence": ["fresh-real exact SHA", "20px guide/favorite glyphs", "favorite target >=44px"]
+    },
+    {
+      "route": "/kluby-po-interesam/<slug>/",
+      "page": "A0-P40",
+      "linked_master": "A0 / InterestClubDetailRouteComposition",
+      "foundation_collections": ["F0-C01", "F0-C02", "F0-C03", "F0-C12"],
+      "required_evidence": ["fresh-real exact SHA", "canonical inline arrow", "mobile one-column behavior"]
+    }
+  ],
+  "evidence_bindings": {
+    "fresh_real_current_at_authoring": {
+      "url": "https://kenigevents.ru/preview-real-4536847f-fresh-20260903-v1/__preview/",
+      "source_sha": "4536847f9fbdaa27326ebb3ec9ec1c825736e107",
+      "use": "historical before-baseline only for this spec"
+    },
+    "golden_current_at_authoring": {
+      "url": "https://kenigevents.ru/preview-golden-84504f30-20270604-v1/__preview/",
+      "source_sha": "84504f30eebc334deba46e94365601c3d572c5c0",
+      "v0_comment": 5527892153,
+      "use": "historical source-bound DRIFT evidence only"
+    },
+    "required_replacement": "one exact HTTP-200 fresh-real successor containing F0 f2b9927 and accepted A0 consumer bindings"
+  },
+  "not_claimed": [
+    "variable collections have been created in Penpot",
+    "native masters or linked route instances exist",
+    "current Penpot equals Astro",
+    "V0 has accepted these route-theme bindings"
+  ]
+}
