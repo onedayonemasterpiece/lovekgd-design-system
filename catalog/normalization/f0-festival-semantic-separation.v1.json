@@ -1,0 +1,76 @@
+{
+  "schema_version": "kenigevents.f0-festival-semantic-separation.v1",
+  "version": "1.0.0",
+  "contract_version": "1.10.0",
+  "status": "F0_SOURCE_READY_A0_CONTEXT_SCOPED_CONSUMPTION_PENDING",
+  "authority": {
+    "source_repository": "onedayonemasterpiece/events-bot-new",
+    "source_branch": "work/ui-normalization-f0-wave-3-20260903",
+    "source_commit": "8941723b1eceb3d18a54f13b907eb465b9ee6af1",
+    "source_record": "site/src/components/design-system/f0-festival-semantic-separation.v1.json",
+    "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+    "f0_drift_comment": 5530089240
+  },
+  "binding": {
+    "family": "FestivalsTimelineRouteComposition",
+    "version": 1,
+    "variant": "annual-timeline",
+    "route": "/festivali/",
+    "consumer": "site/src/pages/festivali/index.astro",
+    "collection": "F0 / Festivals theme",
+    "variables": [
+      {
+        "id": "festival.guide.like.surface",
+        "source": "--ke-color-festival-guide-like-surface",
+        "selector": ".festival-guide__icon--heart",
+        "semantic_role": "guide-like action cue",
+        "current_value": "rgba(165, 72, 33, 0.1)"
+      },
+      {
+        "id": "festival.category.identity.surface",
+        "source": "--ke-color-festival-category-surface",
+        "selector": ".festival-month__categories li",
+        "semantic_role": "editorial festival taxonomy identity container",
+        "current_value": "rgba(165, 72, 33, 0.1)"
+      }
+    ],
+    "same_current_value": true,
+    "semantic_aliasing_allowed": false,
+    "future_palette_coupling": false,
+    "identity_asset_boundary": "festival category masks remain editorial taxonomy media and do not create an additional UI icon role"
+  },
+  "current_a0_packet": {
+    "script_commit": "5e66444b20a0c4b90004a895345a5c8389ec8530",
+    "transaction_head": "6357b6d31f145e8b16f8a40f172970d73cf79051",
+    "decision": "PARTIAL_ACCEPT_CONTEXT_SCOPED_CORRECTION_REQUIRED",
+    "unsafe_operation": "global replacement of the shared raw value with the guide-like token",
+    "required_correction": "bind each exact selector to its own semantic variable"
+  },
+  "acceptance": {
+    "strict_command": "F0_REQUIRE_ROUTE_THEME_CONSUMED=1 node site/src/components/design-system/check-f0-route-theme-bindings.mjs",
+    "required_source_state": [
+      ".festival-guide__icon--heart uses festival.guide.like.surface",
+      ".festival-month__categories li uses festival.category.identity.surface",
+      "the A0 closure script contains no global raw-value substitution for these two roles"
+    ],
+    "required_browser_state": [
+      "both surfaces remain pixel-equivalent to the pre-normalization route",
+      "matched style owners resolve to two distinct variables",
+      "category mask media remains unchanged"
+    ]
+  },
+  "rollback": {
+    "id": "F0-RB-FESTIVAL-SEMANTIC-SEPARATION",
+    "scope": "two context-scoped consumer substitutions plus the category token/addendum",
+    "trigger": "strict gate failure, role aliasing or visual drift",
+    "action": "revert only this semantic-separation unit and preserve all other accepted F0/A0 route changes"
+  },
+  "truth_boundary": {
+    "source_token_and_contract_exist": true,
+    "a0_script_corrected": false,
+    "integrated_successor_exists": false,
+    "strict_gate_passed": false,
+    "post_correction_preview_exists": false,
+    "independent_v0_verdict_exists": false
+  }
+}

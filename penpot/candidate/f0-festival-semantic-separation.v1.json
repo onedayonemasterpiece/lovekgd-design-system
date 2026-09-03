@@ -1,0 +1,68 @@
+{
+  "schema_version": "kenigevents.f0-festival-semantic-separation-penpot.v1",
+  "version": "1.0.0",
+  "contract_version": "1.10.0",
+  "status": "SPEC_ONLY_NOT_MATERIALIZED",
+  "authority": {
+    "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "sole_writer": "R0.PENPOT",
+    "source_commit": "8941723b1eceb3d18a54f13b907eb465b9ee6af1",
+    "thin_s_binding": "catalog/normalization/f0-festival-semantic-separation.v1.json"
+  },
+  "variable_collection": {
+    "id": "F0-C11",
+    "name": "F0 / Festivals theme",
+    "variables": [
+      {
+        "name": "festival.guide.like.surface",
+        "source": "--ke-color-festival-guide-like-surface",
+        "current_value": "rgba(165, 72, 33, 0.1)",
+        "bound_master_selector": ".festival-guide__icon--heart"
+      },
+      {
+        "name": "festival.category.identity.surface",
+        "source": "--ke-color-festival-category-surface",
+        "current_value": "rgba(165, 72, 33, 0.1)",
+        "bound_master_selector": ".festival-month__categories li"
+      }
+    ],
+    "same_current_value_allowed": true,
+    "variable_aliasing_forbidden": true,
+    "reason": "action cue and editorial taxonomy identity are distinct semantic owners"
+  },
+  "master_binding": {
+    "master": "A0 / FestivalsTimelineRouteComposition",
+    "family": "FestivalsTimelineRouteComposition",
+    "version": 1,
+    "variant": "annual-timeline",
+    "route_instance": "/festivali/",
+    "guide_like_node_uses": "festival.guide.like.surface",
+    "category_container_nodes_use": "festival.category.identity.surface",
+    "category_mask_assets_remain_media": true,
+    "category_mask_assets_create_icon_role": false
+  },
+  "materialization_unlock": {
+    "all_required": [
+      "A0 corrects the executable closure with context-scoped replacements",
+      "R0 integrates F0 8941723b and the corrected A0 packet",
+      "the strict route-theme gate passes on the exact integrated SHA",
+      "a canonical full fresh-real Kaggle preview exists for that SHA",
+      "V0 verifies equal computed appearance and distinct matched variable owners",
+      "N0 promotes the binding to CURRENT"
+    ],
+    "current_state": "BLOCKED"
+  },
+  "negative_controls": [
+    "do not alias either variable to the other",
+    "do not replace category taxonomy media with action icons",
+    "do not add a fifth icon-size role",
+    "do not materialize from the pre-F0 1bc6d9cb preview",
+    "do not infer V0 PASS from R0 browser evidence"
+  ],
+  "not_claimed": [
+    "variables exist in Penpot",
+    "festival master is updated",
+    "route instance is linked",
+    "A=S=P acceptance exists"
+  ]
+}
