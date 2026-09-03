@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.4.0
+version: 1.5.0
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -29,19 +29,11 @@ authority:
   penpot:
     file_id: 40e06342-8830-80d6-8008-8fc8a3a4cd4f
     sole_writer: R0.PENPOT
-    candidate_pages_replaceable_before_visual_acceptance: true
 
 execution_surfaces:
-  chatgpt_github_only:
-    - K0
-    - N0
-    - F0
-    - M0
-    - A0
-  chatgpt_github_browser:
-    - V0
-  native_codex:
-    - R0
+  chatgpt_github_only: [K0, N0, F0, M0, A0]
+  chatgpt_github_browser: [V0]
+  native_codex: [R0]
   codex_devcoveer_in_role_windows: forbidden
   R0_is_chatgpt_window: false
   R0_uses_local_shell_git_gh: true
@@ -51,6 +43,7 @@ responsibility_boundary:
     - repository_and_voice_note_reading
     - source_and_consumer_analysis
     - semantic_and_architecture_decisions
+    - role_backlog_selection
     - bounded_direct_github_edits
     - review_of_native_R0_output_and_diff
     - result_acceptance_or_rejection
@@ -60,7 +53,7 @@ responsibility_boundary:
     - already_decided_mechanical_edits
     - repetitive_migration
     - local_tests_and_build
-    - exact_merge
+    - exact_merge_or_promotion_when_conditionally_authorized
     - exact_authorized_penpot_mutation
   native_R0_may_not_decide:
     - architecture
@@ -70,8 +63,91 @@ responsibility_boundary:
     - product_scope
     - acceptance_verdict
 
+continuous_execution:
+  role_assignment_is_full_owned_objective: true
+  numbered_wave_is_checkpoint_not_task_boundary: true
+  commit_is_checkpoint_not_task_boundary: true
+  meaningful_result_is_checkpoint_not_automatic_turn_end: true
+  finish_with_result_means_no_plan_only_status: true
+  per_wave_owner_resume: process_defect
+  after_each_checkpoint:
+    - fresh_read_issue_and_current_refs
+    - recompute_unresolved_role_backlog
+    - select_highest_value_safe_reversible_item
+    - execute_and_review
+    - continue_until_exit_condition
+  backlog_priority:
+    - critical_build_or_preview_defect_in_owned_scope
+    - mandatory_normalization_invariant
+    - unmigrated_actual_consumer
+    - duplicate_owner_fork_or_override
+    - regression_coverage_for_accepted_decision
+    - newly_routed_drift
+    - next_product_slice
+  allowed_turn_exit_only_for:
+    OWNED_BACKLOG_EXHAUSTED:
+      independent_work_remaining: false
+      exact_external_trigger_required: true
+    HARD_BOUNDARY:
+      one_of:
+        - genuine_product_decision
+        - irreconcilable_writer_conflict
+        - irreversible_or_destructive_risk
+        - credential_exposure_risk
+        - unauthorized_production_or_penpot_mutation
+    PLATFORM_LIMIT:
+      actual_context_tool_or_runtime_limit: true
+  forbidden_turn_exit_reasons:
+    - one_commit_completed
+    - one_wave_completed
+    - one_result_published
+    - task_dispatched_to_R0
+    - branch_or_worktree_created
+    - tests_started_or_completed_without_next_backlog_read
+    - waiting_for_preview_while_other_owned_work_exists
+    - waiting_for_integration_while_other_owned_work_exists
+    - missing_formal_packet
+  standby_requires:
+    independent_owned_backlog_exhausted: true
+    exact_resume_trigger_recorded: true
+  no_busywork_after_scope_exhaustion: true
+
+critical_path_anti_ping_pong:
+  N0_chain:
+    - candidate_review
+    - same_data_baseline
+    - conditional_promotion
+    - fresh_production_generation
+    - reachable_normalized_preview
+    - V0_trigger
+    - V0_verdict_review
+  N0_must_prefer_end_to_end_conditional_authority: true
+  conditional_authority_pattern:
+    pass_branch:
+      - promote_exact_accepted_candidate
+      - run_fresh_generation
+      - publish_exact_reachable_preview
+    fail_branch:
+      - do_not_promote_or_deploy
+      - continue_safe_diagnosis
+      - publish_one_factual_defect
+  N0_dispatch_without_conditional_path_to_preview_is_terminal_result: false
+  R0_persistent_session: true
+  R0_after_each_result:
+    - fresh_read_issue_and_refs
+    - execute_next_ready_safe_mechanical_task
+  R0_expected_trigger_watch:
+    enabled: true
+    poll_interval_seconds: [60, 120]
+    maximum_minutes: 30
+    scope: critical_path_only
+  R0_stops_only_when:
+    - no_ready_safe_task_after_bounded_watch
+    - hard_safety_or_semantic_boundary
+
 agent_autonomy:
   model_is_assumed_competent: true
+  guardrails_limit_dangerous_mutation_not_reasoning: true
   recoverable_metadata_is_not_terminal: true
   packet_schema_is_optional_convenience: true
   execution_packet_is_meaningful_result: false
@@ -96,21 +172,11 @@ agent_autonomy:
     - execute_independent_safe_work
     - fix_recoverable_local_tooling_defects_inside_scope
     - report_assumptions_and_actual_result
-  hard_stop_only_for:
-    - irreconcilable_authoritative_ref_conflict
-    - no_verifiable_source_commit
-    - required_write_outside_authorized_intersection
-    - destructive_or_irreversible_operation_without_authorization
-    - credential_exposure_risk
-    - deploy_or_production_mutation_without_authorization
-    - penpot_write_without_authorization
-    - genuinely_unresolved_product_or_semantic_decision
-    - unisolatable_dirty_worktree_collision
-    - read_only_owner_file_defect_impossible_to_fix_within_scope
+    - continue_next_backlog_item
   blocker_requires:
     independent_product_work_exhausted: true
     safe_inference_and_fallback_attempted: true
-    concrete_external_or_owner_action_required: true
+    concrete_external_product_or_safety_action_required: true
   fix_writable_canonical_drift_before_reporting: true
   reporting_fixable_drift_without_attempted_repair: process_defect
 
@@ -130,6 +196,7 @@ not_a_new_sot:
   new_orchestrator: forbidden
   mandatory_packet_ceremony: forbidden
   mandatory_MAT_QA_INTEGRATE_PUBLISH_chain: forbidden
+  micro_wave_owner_scheduler: forbidden
 
 actual_route_model:
   current_date:
@@ -165,22 +232,20 @@ execution_order:
   normalization_may_start_before_generation_result: true
   technical_fresh_data_baseline_required: true
   technical_baseline_is_owner_review_requirement: false
-  first_owner_preview_should_include_first_normalization_wave: true
+  first_owner_preview_should_include_normalized_candidate: true
   family_done_requires_fresh_real_data_build: true
   family_done_requires_browser_dom_audit: true
   independent_lanes_continue_on_local_dependency: true
   sequence:
-    - N0_define_and_restore_existing_generation
-    - F0_M0_A0_normalize_in_parallel
-    - V0_prepare_browser_harness_and_audit_available_surfaces
-    - R0_execute_only_needed_mechanical_work
-    - N0_review_and_capture_technical_fresh_data_baseline
-    - N0_review_and_integrate_first_wave
+    - N0_define_accept_and_conditionally_authorize_generation_chain
+    - F0_M0_A0_saturate_owned_scope_in_parallel
+    - V0_prepare_browser_harness
+    - R0_execute_ready_mechanical_backlog_continuously
+    - N0_capture_baseline_promote_and_publish_preview
     - V0_personal_browser_dom_and_computed_style_audit
     - owning_role_close_critical_drift
     - publish_first_normalized_owner_preview
-    - repeat_family_waves
-    - thin_sot_and_penpot_follow_completed_waves
+    - thin_sot_and_penpot_follow_completed_families
     - open_product_ui_gap_work_after_normalization_pass
 
 owner_review:
@@ -202,37 +267,10 @@ owner_review:
     - responsive_composition
     - visible_page_specific_anomalies
 
-golden_conformance:
-  purpose: deterministic_internal_A_equals_S_equals_P
-  owner_review_prerequisite: false
-  timezone: Europe/Kaliningrad
-  reference_clock:
-    mode: frozen
-    current_weekday: Friday
-  actual_route_coverage:
-    friday: /segodnya/
-    saturday: /zavtra/
-    sunday: /date-YYYY-MM-DD/
-    weekend: /vyhodnye/
-    free_collection: /podborki/besplatnye-sobytiya/
-  target_occurrences: {friday: 5, saturday: 6, sunday: 5}
-  minimum_occurrences: {friday: 4, saturday: 5, sunday: 4}
-  weekend_reuses_same_saturday_sunday_occurrences: true
-  update_policy: append_only
-  stability_target_days: 14
-  synthetic_fixture_policy:
-    allowed_only_for_missing_stress_cell: true
-    visibly_marked: true
-
 normalization:
   current_astro_is_observed_A0_not_automatic_target: true
   unit: complete_component_family_in_actual_consumers
-  family_decision_classes:
-    - component
-    - variant
-    - state
-    - composition
-    - accidental_drift
+  family_decision_classes: [component, variant, state, composition, accidental_drift]
   preserve_intentional_page_composition_variants: true
   eliminate:
     - duplicated_foundation_values
@@ -251,16 +289,9 @@ component_identity:
   one_canonical_svg_per_semantic_action: true
   actual_route_consumer_inventory_required: true
   page_local_copy_is_drift_even_if_pixels_match: true
-  differences_allowed_only_as_named:
-    - variant
-    - state
-    - composition
-  diagnostics_required:
-    - data-ds-family
-    - data-ds-version
-    - data-ds-variant
-  diagnostics_when_applicable:
-    - data-ds-state
+  differences_allowed_only_as_named: [variant, state, composition]
+  diagnostics_required: [data-ds-family, data-ds-version, data-ds-variant]
+  diagnostics_when_applicable: [data-ds-state]
   source_checks:
     actual_consumers_import_canonical_root: true
     duplicate_page_markup_for_family: forbidden
@@ -280,7 +311,6 @@ colors:
     - image_or_media_data
     - documented_technical_exception
   exact_duplicates_merged: true
-  near_duplicates_clustered: true
   near_duplicates_with_same_semantic_role_merged: true
   retained_near_duplicate_requires_semantic_or_contrast_reason: true
   palette_exploration_after_drift_normalization: true
@@ -326,14 +356,6 @@ adaptive_event_card_grid:
     media_and_total_card_heights_equal_within_row: true
     local_grid_css_may_not_change_framing_policy: true
     mobile_and_compact_desktop_no_overflow: true
-  known_consumers_to_census:
-    - FreeCollectionSurface
-    - search_collection_pages
-    - UnusualListingSurface
-    - GastronomyCollectionSurface
-    - preview_hub_specimens
-    - OptimizedEventCardGrid
-    - related_and_discovery_rows
 
 browser_validation:
   owner: V0
@@ -359,10 +381,7 @@ browser_validation:
     - /vystavki/
     - /festivali/
     - /sobytiya/<real-slug>/
-  viewport_classes:
-    - desktop_wide
-    - desktop_compact
-    - mobile_390_to_430
+  viewport_classes: [desktop_wide, desktop_compact, mobile_390_to_430]
   checks:
     - component_identity_markers
     - normalized_dom_anatomy
@@ -384,10 +403,10 @@ browser_validation:
 roles:
   N0:
     execution_surface: ChatGPT_GitHub_only
-    owns: [generation_decision, technical_baseline, integration, status, preview, release]
+    owns: [generation_decision, conditional_execution_authority, technical_baseline, integration, status, preview, release]
   F0:
     execution_surface: ChatGPT_GitHub_only
-    owns: [foundations, typography, spacing, colors, icon_roles, svg, brand]
+    owns: [foundations, typography, spacing, colors, icon_roles, svg, brand, duplicate_style_owner_closure]
   M0:
     execution_surface: ChatGPT_GitHub_only
     owns: [component_roots, media_frame, cards, adaptive_event_card_grid]
@@ -399,15 +418,15 @@ roles:
     owns: [browser_dom_audit, computed_style_audit, later_golden_penpot_audit]
   K0:
     execution_surface: ChatGPT_GitHub_only
-    owns: [fresh_read_diagnosis, prompt_authoring, direct_repair_of_correctable_canonical_drift]
+    owns: [fresh_read_diagnosis, prompt_authoring, process_repair, direct_repair_of_correctable_canonical_drift]
   R0:
     execution_surface: native_Codex
-    owns: [bounded_code_worktrees, mechanical_tests_build_merge, sole_penpot_write]
+    owns: [bounded_code_worktrees, mechanical_tests_build_merge, conditionally_authorized_promotion, sole_penpot_write]
 
 meaningful_results:
   allowed:
     - technical_fresh_data_generation_verdict
-    - normalized_source_wave_reviewed_by_owner_role
+    - normalized_source_convergence_reviewed_by_owner_role
     - normalized_real_data_preview
     - V0_browser_PASS_or_DRIFT
     - native_penpot_master_and_linked_route_board
@@ -421,6 +440,7 @@ meaningful_results:
     - test_without_output
     - unavailable_preview_or_404_route
     - empty_penpot_page_or_root
+  checkpoint_does_not_force_turn_end: true
 
 normalization_gate:
   id: ASTRO_NORMALIZATION_PASS
@@ -447,10 +467,4 @@ critical_path_exclusions:
   - owner_golden_corpus_review
   - new_generation_or_lifecycle_system
   - mandatory_MAT_QA_INTEGRATE_PUBLISH_chain
-  - mandatory_execution_packet_schema
-  - full_penpot_tree_hash
-  - bespoke_penpot_runner_per_family
-  - empty_page_or_root_checkpoint
-  - full_old_penpot_reconstruction
-  - owner_as_message_bus
-  - product_gap_implementation_before_normalization_pass
+  - per_wave_owner_scheduler
