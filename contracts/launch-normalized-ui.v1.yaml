@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.6.0
+version: 1.7.0
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -19,57 +19,98 @@ authority:
 
 execution_reality:
   chatgpt_turns_are_background_daemons: false
-  completed_chatgpt_turn_self_resumes: false
-  prompt_can_change_that_platform_fact: false
-  stopped_chatgpt_windows_are_persistent_workers: false
-  zero_touch_after_native_session_exit_requires_external_supervisor: true
+  completed_turn_self_resumes: false
+  active_turn_can_process_multiple_backlog_items: true
+  active_turn_must_generate_next_items_from_owned_scope: true
+  stopped_window_with_ready_owned_work_is_idle_capacity: true
+  K0_must_allocate_ready_work_to_each_available_role_window: true
+  K0_may_not_centralize_all_ready_specialist_work_into_R0: true
+  external_supervisor_required_for_zero_touch_reactivation_after_turn: true
   external_supervisor_currently_authorized: false
-  current_true_persistent_worker_count: 1
-  current_true_persistent_worker: R0_native_Codex
-  full_parallel_persistence_requires:
-    - multiple_native_Codex_sessions
-    - or_an_authorized_external_supervisor
-  K0_may_not_describe_burst_windows_as_always_on_workers: true
 
 execution_surfaces:
-  burst_specialists:
+  turn_bounded_autonomous_workers:
     K0: ChatGPT_GitHub
     N0: ChatGPT_GitHub
     F0: ChatGPT_GitHub
     M0: ChatGPT_GitHub
     A0: ChatGPT_GitHub
     V0: ChatGPT_GitHub_my_browser_bridge
-  persistent_executor:
+  native_execution_worker:
     R0: native_Codex_local_shell_git_gh
   codex_devcoveer_in_role_windows: forbidden
 
-burst_specialist_contract:
-  purpose:
-    - deep_source_and_consumer_analysis
-    - product_and_semantic_decisions
-    - broad_bounded_direct_GitHub_batches
-    - independent_review
-    - browser_verdict_for_V0
-  expected_behavior_inside_one_turn:
-    - build_full_owned_backlog
-    - process_multiple_distinct_items_when_available
-    - checkpoint_without_treating_checkpoint_as_end
-    - continue_until_context_tool_limit_or_true_frontier
-  persistence_after_turn: none
-  activation_policy:
-    - initial_deep_batch
-    - genuine_semantic_question_from_R0
-    - independent_review_of_material_candidate
-    - V0_exact_preview_trigger
-  forbidden_process_assumption:
-    - that_a_finished_chatgpt_window_will_keep_watching_GitHub
-    - that_more_prompt_wording_creates_background_execution
-    - that_owner_should_rewake_every_micro_step
+worker_turn_contract:
+  role_assignment_covers_full_owned_contour: true
+  launch_or_resume_must_include:
+    - current_product_gate
+    - current_role_scope
+    - at_least_one_concrete_seed_backlog_cluster
+    - rule_to_recompute_and_extend_backlog_after_each_checkpoint
+  seed_backlog_is_starting_point_not_limit: true
+  after_each_item_or_checkpoint:
+    - fresh_read_issue_current_refs_and_relevant_source
+    - recompute_ready_owned_items
+    - select_highest_value_safe_reversible_item
+    - execute_and_review
+    - continue
+  when_seed_items_are_exhausted_generate_next_from:
+    - normalization_invariants
+    - actual_consumer_census
+    - duplicate_family_or_style_owners
+    - current_role_dependencies_and_new_refs
+    - failing_tests_builds_and_checks
+    - V0_findings
+    - next_product_gate
+  forbidden_turn_end_reasons:
+    - one_item_completed
+    - one_commit_completed
+    - one_wave_completed
+    - one_RESULT_published
+    - one_seed_list_exhausted
+    - task_dispatched
+    - waiting_for_preview_while_other_owned_work_exists
+    - waiting_for_integration_while_other_owned_work_exists
+    - missing_formal_packet
+  allowed_turn_end_only_for:
+    OWNED_BACKLOG_EXHAUSTED:
+      ready_owned_items: 0
+      exact_external_trigger_required: true
+    HARD_BOUNDARY:
+      one_of:
+        - genuine_product_decision
+        - irreconcilable_writer_conflict
+        - irreversible_or_destructive_risk
+        - credential_exposure_risk
+        - unauthorized_production_or_penpot_mutation
+    PLATFORM_LIMIT:
+      actual_context_tool_or_runtime_limit: true
+  standby_self_report_is_sufficient: false
+  standby_requires_source_and_ref_census: true
+  stop_start_pattern_while_ready_work_exists: BACKLOG_NOT_FORMING
 
-R0_principal_executor:
+resource_saturation:
+  on_owner_report_that_windows_are_stopped:
+    - inspect_current_refs_issue_and_source
+    - determine_ready_backlog_per_role
+    - provide_resume_to_every_stopped_role_with_ready_work
+    - preserve_non_overlapping_write_ownership
+  zero_task_response_while_five_role_windows_have_ready_work: process_defect
+  artificial_busywork_after_true_exhaustion: forbidden
+  expected_parallel_lanes_before_first_preview:
+    - N0_acceptance_generation_and_integration
+    - F0_foundation_saturation
+    - M0_family_and_media_saturation
+    - A0_actual_consumer_migration
+    - V0_source_harness_and_available_browser_baseline
+    - R0_candidate_build_generation_and_publication
+
+R0_policy:
+  role: native_product_materialization_and_release_engineering
   mission:
     - reach_first_exact_browser_testable_normalized_preview
-    - close_ready_technical_backlog_until_ASTRO_NORMALIZATION_PASS
+    - integrate_and_verify_ready_role_outputs
+    - close_ready_technical_and_V0_drift_backlog
     - execute_thin_S_Penpot_and_release_mechanics_when_gates_open
   backlog_sources:
     - current_issue_621
@@ -78,50 +119,31 @@ R0_principal_executor:
     - source_and_actual_consumer_census
     - failing_tests_builds_checks
     - local_browser_smoke
-    - V0_DRIFT_and_available_role_fixes
-    - thin_S_Penpot_release_requirements
+    - V0_DRIFT_and_available_fixes
   loop:
     - fresh_read_issue_refs_worktrees_contract
     - identify_nearest_unclosed_product_gate
     - recompute_ready_reversible_backlog
     - select_highest_value_item
-    - freeze_SHAs_only_as_transaction_evidence
+    - freeze_SHAs_as_transaction_evidence
     - implement_merge_test_build_publish
     - fix_recoverable_tooling_and_regression_defects
     - checkpoint
     - fresh_read_and_continue
   may_decide_autonomously:
-    - reversible_technical_implementation_details
-    - refactor_and_API_details_determined_by_existing_product_behavior
-    - component_and_consumer_migrations_required_by_canonical_invariants
+    - reversible_implementation_details_determined_by_existing_behavior
     - ordinary_merge_resolution
     - regression_fixture_and_test_repairs
     - worktree_and_build_sequence
     - latest_accepted_ref_selection
     - local_browser_smoke_and_diagnostics
-  may_not_decide_autonomously:
+  escalate_only:
     - new_product_behavior
     - changed_user_facing_semantics
     - palette_or_visual_redesign
-    - removal_of_intentional_route_composition
-    - irreversible_production_or_data_mutation_without_authorization
-    - Penpot_write_before_gate
+    - irreconcilable_writer_conflict
+    - irreversible_production_data_or_Penpot_risk
     - final_independent_V0_verdict
-  escalation_rule:
-    - escalate_only_genuine_product_choice_irreconcilable_writer_conflict_or_irreversible_risk
-    - continue_all_other_ready_backlog_while_question_is_routed
-  stop_rule:
-    - current_product_gate_reached
-    - no_ready_work_after_short_active_watch
-    - genuine_safety_or_semantic_boundary
-    - actual_platform_context_or_runtime_limit
-  forbidden_stop_reasons:
-    - one_merge_completed
-    - one_build_completed
-    - one_RESULT_published
-    - one_SHA_list_exhausted
-    - missing_formal_packet
-    - recoverable_tooling_defect
   waiting_policy:
     local_process:
       prefer: foreground_or_wait_PID_and_tail_log
@@ -131,95 +153,75 @@ R0_principal_executor:
       execute_other_ready_backlog_first: true
       poll_interval_seconds: [10, 15]
       maximum_minutes: 2
-      repeated_indefinite_watch: forbidden
 
-backlog_evidence:
-  self_declared_backlog_is_proof: false
-  self_declared_exhaustion_is_proof: false
-  pass_requires_one_of:
-    - multiple_distinct_ready_items_processed_in_one_run_when_available
-    - actual_product_gate_reached
-  stop_start_pattern_while_owned_work_exists: BACKLOG_NOT_FORMING
-  standby_evidence:
-    ready_owned_items: 0
-    exact_external_trigger_required: true
+role_contours:
+  N0:
+    owns:
+      - candidate_acceptance_and_ancestry
+      - generation_and_publication_policy
+      - integration_and_release_decisions
+      - review_of_R0_product_output
+      - V0_trigger_and_verdict_review
+    current_backlog_sources:
+      - latest_F0_M0_A0_refs
+      - current_integration_state
+      - generation_scripts_and_publication_path
+      - R0_results
+  F0:
+    owns:
+      - typography
+      - spacing_geometry
+      - semantic_colors
+      - exactly_four_icon_roles
+      - canonical_SVG_identity
+      - duplicate_style_owner_closure
+    writable_paths:
+      - site/src/styles/design-system.css
+      - site/src/components/design-system/**
+      - site/src/components/Icon.astro
+      - site/src/components/SocialIcon.astro
+      - site/src/components/brand/**
+  M0:
+    owns:
+      - component_identity
+      - MediaFrame
+      - EventCard_and_ListingEventCard
+      - AdaptiveEventCardGrid
+      - EventMediaRail
+    writable_paths:
+      - site/src/lib/relatedCardLayout.mjs
+      - site/src/components/OptimizedEventCardGrid.astro
+      - site/src/components/AdaptiveEventCardGrid.astro
+      - site/src/components/EventCard.astro
+      - site/src/components/listings/ListingEventCard.astro
+      - site/src/components/EventMediaRail.astro
+  A0:
+    owns:
+      - shell
+      - actual_routes
+      - consumer_migration
+      - intentional_composition_preservation
+    must_not_edit_M0_roots: true
+  V0:
+    owns:
+      - source_bound_browser_harness
+      - current_production_before_baseline_when_reachable
+      - independent_normalized_preview_DOM_computed_style_audit
+      - DRIFT_routing
+    may_continue_without_normalized_preview:
+      - update_harness_for_new_role_refs
+      - inspect_current_public_product_baseline
+      - run_source_negative_probes
+      - prepare_exact_before_after_measurements
 
-current_product_path:
-  - R0_integrate_latest_safe_accepted_work
-  - R0_run_reproducible_same_data_and_fresh_data_builds
-  - R0_publish_exact_reachable_normalized_preview
-  - V0_one_independent_full_browser_audit
-  - R0_and_owning_specialist_close_DRIFT
+product_path:
+  - N0_F0_M0_A0_V0_process_independent_backlogs_in_parallel
+  - R0_integrates_latest_safe_work_and_builds_fresh_preview
+  - V0_runs_full_independent_browser_audit
+  - owning_workers_close_DRIFT
   - repeat_until_ASTRO_NORMALIZATION_PASS
   - thin_S_and_Penpot
   - checked_release_candidate
-
-N0_policy:
-  current_role: burst_acceptance_and_release_policy_owner
-  persistent_execution_owner: R0
-  chain:
-    - candidate_acceptance_policy
-    - baseline_acceptance_criteria
-    - conditional_promotion_policy
-    - fresh_generation_and_publication_policy
-    - review_of_material_output_when_invoked
-  dispatch_or_authorization_is_product_result: false
-
-F0_policy:
-  burst_role: foundations_semantic_review_and_large_direct_GitHub_batches
-  persistent_implementation_fallback: R0_within_existing_invariants
-  owns_intent:
-    - typography
-    - spacing_geometry
-    - semantic_colors
-    - exactly_four_icon_roles
-    - canonical_SVG_identity
-
-M0_policy:
-  burst_role: component_family_semantic_review_and_large_direct_GitHub_batches
-  persistent_implementation_fallback: R0_within_existing_invariants
-  owns_intent:
-    - component_identity
-    - MediaFrame
-    - EventCard_and_ListingEventCard
-    - AdaptiveEventCardGrid
-    - EventMediaRail
-
-A0_policy:
-  burst_role: route_composition_review_and_large_consumer_migration_batches
-  persistent_implementation_fallback: R0_within_existing_invariants
-  owns_intent:
-    - shell
-    - actual_routes
-    - consumer_migration
-    - intentional_composition_preservation
-
-V0_policy:
-  burst_role: independent_browser_DOM_computed_style_auditor
-  persistent_background_watch: false
-  trigger: exact_reachable_integrated_preview
-  one_run_scope:
-    - full_required_route_matrix
-    - desktop_wide_compact_and_mobile
-    - breakpoint_seams
-    - DRIFT_routing
-  R0_may_run_preflight_browser_smoke: true
-  R0_may_issue_final_V0_PASS: false
-
-actual_route_model:
-  date_routes:
-    - /segodnya/
-    - /zavtra/
-    - /date-YYYY-MM-DD/
-    shared_surface: DateListingSurface
-  weekend_routes:
-    - /vyhodnye/
-    - /vyhodnye/YYYY-MM-DD/
-    shared_surface: WeekendListingSurface
-  free_collection:
-    route: /podborki/besplatnye-sobytiya/
-    shared_surface: FreeCollectionSurface
-  date_and_weekend_are_distinct_compositions: true
 
 normalization_invariants:
   same_visual_behavior_means_one_family_root: true
@@ -232,11 +234,7 @@ normalization_invariants:
   shared_MediaFrame_owns_framing: true
   one_AdaptiveEventCardGrid_for_applicable_surfaces: true
   actual_consumers_must_use_canonical_roots: true
-  diagnostics_required:
-    - data-ds-family
-    - data-ds-version
-    - data-ds-variant
-    - data-ds-state_when_applicable
+  date_and_weekend_remain_distinct_compositions: true
   product_UI_gap_and_redesign_before_ASTRO_NORMALIZATION_PASS: forbidden
 
 owner_review:
@@ -245,22 +243,6 @@ owner_review:
   exact_clickable_url_required: true
   new_owner_facing_lab_pages: forbidden
 
-normalization_gate:
-  id: ASTRO_NORMALIZATION_PASS
-  required:
-    - reproducible_fresh_generation
-    - tokenized_foundations_and_colors
-    - four_icon_roles_across_consumers
-    - single_component_roots
-    - MediaFrame_browser_pass
-    - AdaptiveEventCardGrid_across_applicable_consumers
-    - actual_routes_migrated
-    - no_critical_V0_DRIFT
-  opens:
-    - product_UI_gap_work
-    - palette_exploration
-    - interface_redesign
-
 not_a_new_system:
   new_repository: forbidden
   second_Astro_implementation: forbidden
@@ -268,4 +250,3 @@ not_a_new_system:
   mandatory_packet_schema: forbidden
   owner_as_message_bus: forbidden
   owner_as_micro_task_scheduler: forbidden
-  pretending_ChatGPT_windows_are_background_workers: forbidden
