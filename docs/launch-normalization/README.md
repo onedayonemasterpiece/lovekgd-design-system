@@ -9,6 +9,36 @@
 named donor/history. Текущий процесс оптимизирует путь до работающего продукта,
 а не количество tasks, receipts и handoffs.
 
+## 0. Sole executable Astro trunk
+
+```yaml
+repository: onedayonemasterpiece/events-bot-new
+branch: agent/static-site-single-kaggle-contract
+current_head: 3ca6a143e4286c165282c2d8ceef1759a41185b7
+current_full_real_preview: https://kenigevents.ru/preview-real-3ca6a143e-normalized-20260903-v1/__preview/
+current_manifest: https://kenigevents.ru/preview-real-3ca6a143e-normalized-20260903-v1/preview-build.json
+personal_V0_verdict: PENDING
+programme_history_anchor: integration/ui-normalization-launch-20260902
+historical_r0_branches: evidence_only_no_new_product_integration
+max_merge_ready_batches_outside_trunk_per_role: 1
+T0: preserved_unchanged_by_this_correction
+```
+
+`integration/ui-normalization-launch-20260902` сохраняет programme/history и
+canonical documentation, но не является merge target или вторым executable
+integration branch. Исторические `r0/*` candidate/rehearsal branches сохраняют
+только evidence value и не получают новую product integration.
+
+Все принятые после trunk-based correction исполняемые Astro-изменения попадают
+только в `agent/static-site-single-kaggle-contract`. Вне trunk у каждой роли
+может находиться не более одного текущего coherent merge-ready batch.
+
+Текущая A0 correction остаётся на одной ветке
+`work/ui-normalization-a0-mobile-listing-rail-resource-state-20260903`:
+`2dac9d16031d4f1505184fc9678f88c855c3988a` не merge-ready и должен быть
+замещён новым head этой же ветки после test repairs и runtime MediaFrame
+rebinding в `EventLayout.astro`.
+
 ## 1. Product objective
 
 ```text
@@ -120,26 +150,29 @@ mutation. Browser evidence принадлежит V0.
 N0 владеет цепочкой:
 
 ```text
-candidate acceptance
-→ same-data focused diagnostic
-→ conditional promotion
+current role refs
+→ accept at most one current merge-ready batch per role
+→ pull compatible batch into the sole executable trunk
+→ exact tested trunk descendant
 → full Kaggle fresh-production generation
 → reachable preview
 → V0 trigger
-→ V0 verdict review
+→ personal V0 domain verdict review
 ```
 
-Parallel source work is useful only when it reaches this chain.
+N0 не ждёт одновременного завершения всех ролей. Foundations, MediaFrame,
+EventCard/Grid и Shell/Routes принимаются независимо. Один `DRIFT` не отменяет
+`PASS` совместимого domain или vertical slice.
 
 ```yaml
 candidate_max_lag_minutes_when_merge_ready_output_exists: 30
-max_unintegrated_coherent_waves_per_role: 2
+max_merge_ready_batches_outside_trunk_per_role: 1
 full_preview_after_compatible_batches: 2_to_3
 full_preview_max_active_minutes_since_previous: 60
 ```
 
-FR0 does not delay the already-ready successor. A broken batch blocks only
-itself; compatible role outputs continue to integration.
+A broken batch blocks only itself; compatible role outputs continue to the
+trunk. После каждого exact Preview N0 самостоятельно публикует V0 trigger.
 
 ## 6. Product architecture and authority
 
@@ -153,11 +186,20 @@ Executable authority:
 - data export, page-class selection, Kaggle generation, preview publication,
   retention and release checks.
 
-Branch:
+Sole executable branch:
+
+```text
+agent/static-site-single-kaggle-contract
+```
+
+Programme/history documentation anchor only:
 
 ```text
 integration/ui-normalization-launch-20260902
 ```
+
+Historical `r0/*` branches are evidence only and receive no new product
+integration.
 
 ### `lovekgd-design-system`
 
@@ -248,20 +290,9 @@ responsive resources
 OCR/document/visual-only semantics
 ```
 
-FR0 also owns EventMediaRail framing variants. It adopts the last useful M0
-framing work through an exact cutover; nothing is restarted or discarded.
-
-M0 consumes this API and owns card anatomy, actions, metadata, grids and rows.
-A0 migrates actual consumers and may not introduce page-local framing fixes.
-
-Mandatory donors:
-
-```text
-events-bot-new/docs/features/static-site-pages/image-framing.md
-site/src/components/media-frame.css
-site/src/components/EventMediaRail.astro
-existing M0 MediaFrame commits and Golden stress cases
-```
+FR0 also owns EventMediaRail framing variants. M0 consumes this API and owns
+card anatomy, actions, metadata, grids and rows. A0 migrates actual consumers
+and may not introduce page-local framing fixes.
 
 ### AdaptiveEventCardGrid — M0 owner
 
@@ -279,7 +310,7 @@ One family covers applicable EventCard multi-card consumers:
 
 ## 9. Parallel roles
 
-- `N0`: candidate review, integration, generation, preview, status, release;
+- `N0`: candidate review, trunk integration, generation, preview, status, release;
 - `F0`: foundations, colors, typography, spacing, icon roles, SVG/brand;
 - `FR0`: MediaFrame, EventMediaRail and framing semantics/diagnostics;
 - `M0`: component identity, EventCard/ListingEventCard, actions/metadata,
@@ -287,11 +318,11 @@ One family covers applicable EventCard multi-card consumers:
 - `A0`: shell, listings, actual routes, consumer migration;
 - `V0`: browser DOM/computed audit; later Golden Penpot audit;
 - `K0`: consultant, exact prompt routing and canonical-doc repair;
-- `R0`: persistent native mechanical executor, integration/runtime/Kaggle and
-  sole Penpot writer.
+- `R0`: persistent native mechanical executor, trunk integration/runtime/Kaggle
+  and sole Penpot writer.
 
 No further specialist role is added until two successive
-`role result → integration ≤30m → Preview → V0` cycles are proven.
+`role result → trunk integration ≤30m → Preview → V0` cycles are proven.
 
 ## 10. Autonomous recovery
 
@@ -345,11 +376,23 @@ Gate requires:
 Only after the gate may palette exploration, redesign and product UI-gap work
 begin. Release of a changed family also requires thin S and Penpot binding.
 
-## 13. Meaningful checkpoint
+## 13. Current near-term gate
+
+```text
+personal V0 verdict on 3ca6a143e4286c165282c2d8ceef1759a41185b7
++
+one superseding A0 correction batch on the same existing branch
+→ R0/N0 acceptance into agent/static-site-single-kaggle-contract
+→ exact tested trunk descendant
+→ next full real Kaggle Preview
+→ V0 recheck
+```
+
+## 14. Meaningful checkpoint
 
 Meaningful checkpoint is an actual Kaggle generation verdict, reviewed source
-convergence, reachable normalized preview, V0 PASS/DRIFT, native Penpot family or
-checked release candidate.
+convergence, exact trunk descendant, reachable normalized preview, V0
+PASS/DRIFT, native Penpot family or checked release candidate.
 
 Local focused diagnostic is useful evidence for a defect but never closes a
 published preview, owner review, V0, PM0 or A=S=P checkpoint.
