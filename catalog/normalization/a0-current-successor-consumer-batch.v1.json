@@ -1,0 +1,325 @@
+{
+  "schema": "kenigevents.thin-s.a0-current-successor-consumer-batch.v1",
+  "version": "1.0.0",
+  "contract_version": "1.10.0",
+  "status": "SOURCE_CLOSURE_IN_CURRENT_SUCCESSOR_REGRESSION_PROJECTION_PENDING_R0",
+  "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+  "authority": {
+    "executable_repository": "onedayonemasterpiece/events-bot-new",
+    "source_successor_branch": "agent/static-site-single-kaggle-contract",
+    "source_successor_sha": "cebeafeee08251a327145ee973ee035cced65204",
+    "a0_projection_branch": "work/ui-normalization-a0-current-successor-consumer-batch-20260903",
+    "a0_projection_sha": "3ef253980bdfe0731158f5b8b4b47965fa153ce9",
+    "a0_result_comment": 5531482466,
+    "candidate_acceptance_owner": "N0",
+    "runtime_and_kaggle_owner": "R0",
+    "browser_verdict_owner": "V0",
+    "penpot_writer": "R0.PENPOT"
+  },
+  "extends": [
+    "bindings/launch-normalization/a0-route-family-bindings.v1.json",
+    "catalog/normalization/a0-thin-s-bindings.v1.json",
+    "catalog/normalization/a0-focus-route-bindings.v1.json",
+    "catalog/normalization/a0-current-successor-consumer-closure.v1.json",
+    "catalog/normalization/evidence/a0-v0-acceptance-matrix.v1.json"
+  ],
+  "status_overlay_policy": {
+    "operation": "SUPERSEDE_STATUS_AND_EVIDENCE_ONLY",
+    "preserve_base_binding_ids": true,
+    "preserve_base_master_and_route_board_ids": true,
+    "preserve_historical_preview_evidence": true,
+    "do_not_replay_old_a0_source_branch": true,
+    "reason": "The base records predate materialization of the six-consumer closure and still describe festivals, exhibitions and A0-MECH-06 as pending. Current source truth is carried by this additive overlay."
+  },
+  "source_lineage": {
+    "original_checkpoint": "1bc6d9cb4c122046f4782532381de953727c1da6",
+    "current_successor": "cebeafeee08251a327145ee973ee035cced65204",
+    "f0_integrated_source_ancestor": "a4db631dbb3b01e1f71c42e0e3b87d077a538d19",
+    "f0_current_reporting_head_at_review": "32ce83d63c9bf87b2422e0ade10b30f14d3bc3b0",
+    "m0_ancestor": "5eeaba09b5ec432a77ff899ce98fb8b9f492c133",
+    "fr0_ancestor": "2231e1d668f896d634e5663b59520bc710d5fea6",
+    "a0_source_projection": {
+      "base": "cebeafeee08251a327145ee973ee035cced65204",
+      "head": "3ef253980bdfe0731158f5b8b4b47965fa153ce9",
+      "ahead_by": 1,
+      "behind_by": 0,
+      "changed_consumer_paths": [],
+      "changed_regression_paths": [
+        "site/tests/a0-current-successor-fr0-consumer-boundary.test.mjs"
+      ],
+      "whole_divergent_a0_branch_merge_allowed": false
+    }
+  },
+  "coverage": {
+    "grouped_route_families": {
+      "source_converged": 9,
+      "denominator": 9,
+      "fraction": "9/9",
+      "source": "site/src/data/a0-route-family-normalization.v1.json@cebeafeee08251a327145ee973ee035cced65204"
+    },
+    "pm0_route_identity": {
+      "source_present": 19,
+      "denominator": 19,
+      "fraction": "19/19",
+      "closed_since_base_matrix": [
+        "PM0-37-06 festivals",
+        "PM0-37-16 focus collection",
+        "PM0-37-19 closed focus hub"
+      ],
+      "exact_current_successor_build_verified": 0,
+      "independent_v0_browser_reviewed": 0
+    },
+    "penpot": {
+      "native_masters_materialized": 0,
+      "linked_route_instances_materialized": 0,
+      "status": "SPEC_ONLY_NOT_MATERIALIZED"
+    }
+  },
+  "consumer_bindings": [
+    {
+      "id": "a0.closure.exhibitions-personal-theme",
+      "source_path": "site/src/components/ExhibitionsPersonalSurface.astro",
+      "family": "ExhibitionsPersonalSurface",
+      "version": 1,
+      "variant": "ranked-personal-catalog",
+      "states": [
+        "personal all-topics populated",
+        "personal all-topics empty",
+        "all-mode",
+        "filtered",
+        "gallery-open",
+        "loading",
+        "error"
+      ],
+      "source_status": "IN_CURRENT_SUCCESSOR",
+      "foundation_owner": "F0",
+      "framing_owner": "FR0",
+      "a0_owns": [
+        "route composition",
+        "mode and category filtering",
+        "new/priority/tail grouping",
+        "keyboard and gallery lifecycle",
+        "feedback and undo"
+      ],
+      "allowed_local_runtime_variables": [
+        "--ex-media-column",
+        "--ex-row-gap",
+        "--ex-surface-start",
+        "--ex-rail-color"
+      ],
+      "forbidden_local_theme_aliases": "all other --ex-*",
+      "effective_media_owner": "site/src/components/media-frame.css",
+      "penpot_master": "A0-M13",
+      "route_board": "A0-R08",
+      "rollback_unit": "A0-RB-EXHIBITIONS-THEME"
+    },
+    {
+      "id": "a0.closure.festivals-timeline-theme",
+      "source_path": "site/src/pages/festivali/index.astro",
+      "family": "FestivalsTimelineRouteComposition",
+      "version": 1,
+      "variant": "annual-timeline",
+      "states": [
+        "populated",
+        "empty",
+        "liked",
+        "unliked",
+        "program-confirmed",
+        "program-pending",
+        "date-pending"
+      ],
+      "source_status": "IN_CURRENT_SUCCESSOR",
+      "required_action_icons": [
+        "SemanticIcon/heart@control",
+        "SemanticIcon/link@control",
+        "SemanticIcon/calendar@control"
+      ],
+      "semantic_surface_roles": {
+        "guide_like_action": "--ke-color-festival-guide-like-surface",
+        "editorial_taxonomy": "--ke-color-festival-category-surface"
+      },
+      "safe_external_link": {
+        "target": "_blank",
+        "required_rel_tokens": [
+          "noopener",
+          "noreferrer"
+        ]
+      },
+      "minimum_favorite_target_px": 44,
+      "penpot_master": "A0-M14",
+      "route_board": "A0-R07",
+      "rollback_unit": "A0-RB-FESTIVAL-THEME"
+    },
+    {
+      "id": "a0.closure.interest-club-detail-theme",
+      "source_path": "site/src/pages/kluby-po-interesam/[slug]/index.astro",
+      "family": "InterestClubDetailRouteComposition",
+      "version": 1,
+      "variant": "verified-club",
+      "states": [
+        "future-meetings",
+        "history-only"
+      ],
+      "source_status": "IN_CURRENT_SUCCESSOR",
+      "required_icon": "SemanticIcon/arrow-left@inline",
+      "safe_external_link": {
+        "target": "_blank",
+        "required_rel_tokens": [
+          "noopener",
+          "noreferrer",
+          "nofollow"
+        ]
+      },
+      "penpot_master": "A0-M10",
+      "route_board": "A0-R15D",
+      "rollback_unit": "A0-RB-CLUB-DETAIL-THEME"
+    },
+    {
+      "id": "a0.closure.interest-club-card-continuity",
+      "source_path": "site/src/components/InterestClubCard.astro",
+      "family": "InterestClubCard",
+      "version": 1,
+      "variant": "photographic-catalog-card",
+      "states": [
+        "cover-ready",
+        "fallback-art"
+      ],
+      "source_status": "IN_CURRENT_SUCCESSOR",
+      "required_tokens": [
+        "--ke-color-club-card-fallback-orbit-ring-inner",
+        "--ke-color-club-card-fallback-orbit-ring-outer",
+        "--ke-color-club-card-fallback-orbit-line",
+        "--ke-color-club-card-fact-divider"
+      ],
+      "penpot_master": "A0-M10",
+      "route_board": "A0-R15",
+      "rollback_unit": "A0-RB-CLUB-CARD-CONTINUITY"
+    },
+    {
+      "id": "a0.closure.focus-egg-collection-route",
+      "source_path": "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+      "family": "FocusEggCollectionRouteComposition",
+      "version": 1,
+      "variant": "collection-prototype",
+      "states": [
+        "found-N-of-M"
+      ],
+      "runtime_state_source": "found and eligible collection counts",
+      "source_status": "IN_CURRENT_SUCCESSOR",
+      "penpot_master": "A0-M15",
+      "route_board": "A0-R18",
+      "rollback_unit": "A0-RB-FOCUS-COLLECTION-IDENTITY"
+    },
+    {
+      "id": "a0.closure.closed-focus-hub-route",
+      "source_path": "site/src/pages/zakrytaya-afisha/index.astro",
+      "family": "ClosedFocusHubRouteComposition",
+      "version": 1,
+      "variant": "participant-hub",
+      "states": [
+        "checking",
+        "locked",
+        "available"
+      ],
+      "runtime_state_source": "existing focus participation marker",
+      "semantic_boundary": "focus participation and account authentication remain independent",
+      "source_status": "IN_CURRENT_SUCCESSOR",
+      "penpot_master": "A0-M17",
+      "route_board": "A0-R21",
+      "rollback_unit": "A0-RB-CLOSED-FOCUS-HUB-IDENTITY"
+    }
+  ],
+  "preserved_product_contracts": [
+    {
+      "id": "popular-density",
+      "requirements": [
+        "mobile-large and mobile-adaptive remain distinct representations",
+        "ke_listing_density_v2 restoration",
+        "radio, keyboard and pinch switching",
+        "visible event anchor preservation"
+      ]
+    },
+    {
+      "id": "date-weekend-distinction",
+      "requirements": [
+        "DateListingSurface remains chronological today, tomorrow or date",
+        "WeekendListingSurface remains a Saturday/Sunday editorial composition"
+      ]
+    },
+    {
+      "id": "service-runtime",
+      "requirements": [
+        "auth and participation remain independent",
+        "PWA, share, calendar and focus-group runtime hooks remain unchanged"
+      ]
+    }
+  ],
+  "ownership_exclusions": [
+    "site/src/components/media-frame.css",
+    "site/src/components/EventMediaRail.astro",
+    "site/src/components/EventHero.astro framing internals",
+    "site/src/components/EventCard.astro",
+    "site/src/components/listings/ListingEventCard.astro",
+    "site/src/components/AdaptiveEventCardGrid.astro",
+    "site/src/components/OptimizedEventCardGrid.astro",
+    "site/src/lib/relatedCardLayout.mjs",
+    "all global F0 token authorities"
+  ],
+  "regression_contract": {
+    "path": "site/tests/a0-current-successor-fr0-consumer-boundary.test.mjs",
+    "commit": "3ef253980bdfe0731158f5b8b4b47965fa153ce9",
+    "claims_execution": false,
+    "asserts": [
+      "all six consumer post-states",
+      "safe external links",
+      "A0-MECH-06 runtime state synchronization",
+      "FR0 effective fit, focal, clip and resource-state ownership",
+      "no M0 grid or diagnostics recreation",
+      "no local .ke-icon-role dimensions"
+    ]
+  },
+  "rollback": {
+    "new_projection_unit": {
+      "id": "A0-RB-CURRENT-SUCCESSOR-FR0-BOUNDARY-TEST",
+      "action": "revert 3ef253980bdfe0731158f5b8b4b47965fa153ce9",
+      "consumer_source_rollback": false
+    },
+    "consumer_policy": "revert only the smallest failing consumer unit",
+    "canonical_root_rollback_forbidden": [
+      "F0",
+      "M0",
+      "FR0"
+    ],
+    "immutable_preview_mutation_forbidden": true
+  },
+  "required_r0_execution": [
+    "cd site && node --test tests/a0-current-successor-fr0-consumer-boundary.test.mjs tests/a0-current-successor-consumer-closure.test.mjs tests/a0-current-successor-contract.test.mjs tests/a0-route-family-normalization.test.mjs tests/a0-consumer-ownership.test.mjs tests/a0-adaptive-grid-consumer-ownership.test.mjs tests/fr0-exhibitions-media-frame-contract.test.mjs tests/festival-external-link-safety.test.mjs tests/focus-egg-normalization.test.mjs tests/focus-normalization-source.test.mjs",
+    "cd site && F0_REQUIRE_ROUTE_THEME_CONSUMED=1 node src/components/design-system/check-f0-route-theme-bindings.mjs",
+    "cd site && F0_REQUIRE_EXHIBITIONS_RESIDUAL_CONSUMED=1 node src/components/design-system/check-f0-exhibitions-residual-contract.mjs",
+    "cd site && F0_REQUIRE_CLUB_THEME_CONSUMED=1 node src/components/design-system/check-f0-interest-club-theme-decision.mjs",
+    "cd site && npm run test:n0-successor-acceptance",
+    "cd site && npm run check:preview",
+    "cd site && npm run check:design-system-production-surfaces",
+    "cd site && npm run check:design-system-iconography"
+  ],
+  "evidence_boundary": {
+    "latest_public_reference_preview": {
+      "source_sha": "1bc6d9cb4c122046f4782532381de953727c1da6",
+      "classification": "OLDER_PRE_CURRENT_SUCCESSOR_REFERENCE_ONLY"
+    },
+    "current_successor_exact_build": null,
+    "current_successor_independent_v0_verdict": null,
+    "thin_s_equality_claimed": false,
+    "penpot_materialization_claimed": false
+  },
+  "next_gate": {
+    "required": [
+      "R0 integrates the A0 regression projection onto the current successor or exact descendant",
+      "all focused and strict gates pass with exact exits",
+      "N0 accepts the exact tested successor",
+      "one canonical full fresh-real Kaggle artifact is published for that exact SHA",
+      "V0 returns an independent DOM and computed-style verdict"
+    ],
+    "after_pass": "promote current source-bound records to accepted thin-S equality and unlock the existing Penpot linked-instance overlay"
+  }
+}
