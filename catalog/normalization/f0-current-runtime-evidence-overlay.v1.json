@@ -1,15 +1,17 @@
 {
   "schema_version": "kenigevents.f0-current-runtime-evidence-overlay.v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "contract_version": "1.10.0",
   "status": "CURRENT_PUBLIC_PRE_F0_EVIDENCE_POST_F0_BINDING_PENDING",
   "authority": {
     "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
     "f0_source_repository": "onedayonemasterpiece/events-bot-new",
-    "f0_source_boundary": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
-    "f0_reporting_review": "ead4e148edbde3d2149503344b84918889a968a5",
+    "accepted_f0_semantic_boundary": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
+    "current_f0_duplicate_owner_closure": "a5ac3b7b6517ce7b213bc52faa1e5a1389e6a534",
+    "current_f0_reporting_head": "1c4de6afdb0ab14e2d828946f9b34ce69ae3565e",
     "f0_preview_review_comment": 5529818291,
-    "f0_a0_consumption_acceptance_comment": 5529863067
+    "f0_club_card_acceptance_comment": 5529863067,
+    "f0_club_detail_acceptance_artifact": "site/src/components/design-system/f0-a0-club-detail-consumption-acceptance.v1.json"
   },
   "current_public_preview": {
     "r0_result_comment": 5529740140,
@@ -24,7 +26,7 @@
     "manifest_http_status": 200,
     "root_mutation": false,
     "stable_ics_mutation": false,
-    "classification": "LATEST_PUBLIC_FRESH_REAL_BASELINE_PRECEDES_ACCEPTED_CURRENT_F0_SOURCE"
+    "classification": "LATEST_PUBLIC_FRESH_REAL_BASELINE_PRECEDES_CURRENT_ACCEPTED_AND_SUPPLEMENTAL_F0_SOURCE"
   },
   "accepted_runtime_evidence": {
     "canonical_single_kaggle_pipeline": true,
@@ -44,35 +46,70 @@
     "build_contains_f0_de92_ancestor": true,
     "build_contains_f0_f2b9927_route_theme_source": false,
     "build_contains_f0_0fb2938_club_theme_source": false,
+    "build_contains_f0_a5ac3b_duplicate_owner_closure": false,
     "build_contains_strict_route_theme_checker": false,
     "build_contains_strict_club_theme_checker": false,
     "strict_f0_post_consumption_gate_eligible": false,
     "current_source_findings": [
       "ExhibitionsPersonalSurface retains private --ex-* ownership",
       "Festivals retains local 0.95rem glyph sizing, legacy heart Icon, sub-44 source target and raw route theme",
-      "Interest-club detail retains raw route theme and text back-arrow",
-      "InterestClubCard retains four accepted decorative alpha literals"
+      "Interest-club detail retains raw route theme and text back-arrow in the published source, while A0 commit 2aa70f2 contains the accepted bounded replacement",
+      "InterestClubCard retains four decorative alpha literals in the published source, while A0 commit 29538035 contains the accepted bounded replacement",
+      "continuity-aliases.css duplicate declaration owners are absent only after F0 supplemental source a5ac3b7"
     ]
   },
-  "accepted_a0_followthrough": {
-    "commit": "29538035d94a15adac9fd8ee7463ece87c8d1033",
-    "path": "site/src/components/InterestClubCard.astro",
-    "decision": "ACCEPT_EXACT_PATCH_NOT_STANDALONE_BRANCH",
-    "substitution_count": 4,
-    "requires_f0_source": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
-    "standalone_build_candidate": false,
-    "whole_a0_branch_merge_allowed": false
+  "accepted_a0_followthrough": [
+    {
+      "id": "F0-A0-CLUB-CARD-CONSUMPTION",
+      "commit": "29538035d94a15adac9fd8ee7463ece87c8d1033",
+      "path": "site/src/components/InterestClubCard.astro",
+      "decision": "ACCEPT_EXACT_PATCH_NOT_STANDALONE_BRANCH",
+      "substitution_count": 4,
+      "requires_f0_source": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
+      "standalone_build_candidate": false,
+      "whole_a0_branch_merge_allowed": false
+    },
+    {
+      "id": "F0-A0-CLUB-DETAIL-CONSUMPTION",
+      "commit": "2aa70f2ff8819d83e58da1473a35435d22783578",
+      "path": "site/src/pages/kluby-po-interesam/[slug]/index.astro",
+      "decision": "ACCEPT_EXACT_PATCH_NOT_STANDALONE_BRANCH",
+      "requires_f0_source": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
+      "canonical_svg": "SemanticIcon arrow-left/inline",
+      "strict_cluster_substrings_satisfied_by_patch": true,
+      "global_spacing_typography_completion_claimed": false,
+      "standalone_build_candidate": false,
+      "whole_a0_branch_merge_allowed": false
+    }
+  ],
+  "f0_duplicate_owner_closure": {
+    "commit": "a5ac3b7b6517ce7b213bc52faa1e5a1389e6a534",
+    "changed_paths": [
+      "site/src/components/design-system/continuity-aliases.css",
+      "site/src/components/design-system/f0-normalization-negative-probes.mjs"
+    ],
+    "removed_duplicate_declaration_owners": [
+      "--ke-color-background-inverse-raised",
+      "--ke-service-share-icon-size",
+      "--ke-elevation-service-share-shortcut",
+      "--ke-footer-social-icon-size"
+    ],
+    "retained_unique_alias": "--ke-focus-intake-spinner-size",
+    "regression_contract": "each listed token has exactly one F0 declaration owner",
+    "n0_acceptance_status": "PENDING_FRESH_REVIEW",
+    "runtime_execution_claimed": false
   },
   "thin_s_eligibility": {
     "core_f0_spec": "catalog/normalization/f0-foundation-thin-s-bindings.v1.json",
     "club_extension": "catalog/normalization/f0-interest-club-theme-extension.v1.json",
     "current_preview_may_promote_binding_to_current": false,
-    "reason": "the preview source predates accepted F0 route-theme and club-theme source and strict post-consumption gates",
+    "reason": "the preview source predates accepted F0 route-theme and club-theme source, the supplemental duplicate-owner closure and strict post-consumption gates",
     "next_eligible_evidence": "one exact post-F0 fresh-real full Kaggle preview with explicit ancestry and independent V0 verdict"
   },
   "penpot_eligibility": {
     "core_spec": "penpot/candidate/f0-foundation-variable-spec.v1.json",
     "club_extension": "penpot/candidate/f0-interest-club-theme-extension.v1.json",
+    "runtime_overlay": "penpot/candidate/f0-current-runtime-evidence-overlay.v1.json",
     "materialization_status": "SPEC_ONLY_NOT_MATERIALIZED",
     "current_preview_may_unlock_materialization": false,
     "reason": "native variable/master binding must follow accepted post-F0 Astro source and V0 computed-style evidence",
@@ -87,20 +124,30 @@
   "replacement_gate": {
     "base": "1bc6d9cb4c122046f4782532381de953727c1da6 or current descendant",
     "must_include": [
-      "F0 0fb2938344cf96b05be0df09dfb9e69525b3717d",
-      "exact exhibitions/festivals/club-detail F0 consumption",
-      "A0 29538035d94a15adac9fd8ee7463ece87c8d1033 net patch",
+      "accepted F0 source 0fb2938344cf96b05be0df09dfb9e69525b3717d",
+      "F0 duplicate-owner closure a5ac3b7b6517ce7b213bc52faa1e5a1389e6a534 or an equivalent reviewed net projection",
+      "exact exhibitions and festivals F0 consumption",
+      "A0 club-card commit 29538035d94a15adac9fd8ee7463ece87c8d1033 as a bounded net patch",
+      "A0 club-detail commit 2aa70f2ff8819d83e58da1473a35435d22783578 as a bounded net patch",
       "current accepted M0/A0/N0 descendants"
     ],
     "must_pass": [
+      "node site/src/components/design-system/f0-normalization-negative-probes.mjs",
       "F0_REQUIRE_ROUTE_THEME_CONSUMED=1 node site/src/components/design-system/check-f0-route-theme-bindings.mjs",
       "F0_REQUIRE_CLUB_THEME_CONSUMED=1 node site/src/components/design-system/check-f0-interest-club-theme-decision.mjs"
     ],
     "must_publish": "new canonical full fresh-real Kaggle immutable URL",
     "must_observe": "independent V0 DOM/computed-style verdict on the exact post-F0 URL"
   },
+  "rollback_units": [
+    "F0-RB-ALIAS-OWNER-CLOSURE",
+    "F0-RB-EXHIBITIONS-THEME",
+    "F0-RB-FESTIVALS-THEME-AND-CONTROLS",
+    "F0-RB-CLUB-DETAIL-THEME",
+    "F0-RB-INTEREST-CLUB-CARD-THEME"
+  ],
   "not_claimed": [
-    "current preview contains accepted F0 source",
+    "current preview contains accepted or supplemental current F0 source",
     "strict F0 gates passed",
     "current preview has an independent V0 verdict",
     "thin S is CURRENT",
