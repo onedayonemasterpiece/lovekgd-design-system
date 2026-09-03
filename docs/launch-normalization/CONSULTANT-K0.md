@@ -75,9 +75,52 @@ ChatGPT-окно не является background daemon после заверш
    - `launch-normalized-ui.v1.yaml`;
 3. current `events-bot-new` integration ref и executable runbook;
 4. фактические role refs, branch histories и product outputs;
-5. relevant fresh idea-hub notes до нового product/family решения.
+5. relevant fresh idea-hub notes до нового product/family решения;
+6. current `my-data-hub` preview implementation/task/worktree and deployed MCP
+   catalog before advising any preview build change.
 
-## 5. Как задаётся роль
+## 5. Единый build и MCP contract
+
+K0 обязан сохранять следующую модель:
+
+```text
+one events-bot-new build/export/page-class implementation
+one Kaggle StaticSiteBuilder
+one current Yandex Object Storage bucket
+one my-data-hub MCP control plane
+```
+
+Полный либо опубликованный результат всегда идёт через Kaggle:
+
+- real Review Preview;
+- Golden Review Preview;
+- focused secret Review Preview;
+- Release Candidate;
+- production-form build.
+
+Различия — data mode, immutable root slug/prefix, optional allowlisted
+page-class filter и promotion semantics.
+
+Без Kaggle разрешена только непубликуемая local focused diagnostic одного
+route/page class. Она не обновляет `preview.current`, не считается owner/V0/PM0
+результатом и не доказывает A=S=P.
+
+`catalog-mode: slice|full` является data scope, а не page-class filter.
+
+`my-data-hub` может только разрешить ref, выбрать snapshot/corpus, поставить
+operation в очередь, вызвать canonical `events-bot-new` runner и вернуть
+status/link. Он не получает второй exporter, selector, builder, publisher или
+retention logic.
+
+До выдачи prompt на реализацию K0 обязан проверить current local/GitHub work и
+продолжить уже начатую реализацию `kenigevents.preview.start/current`, а не
+запускать параллельный второй implementation. Если GitHub ещё не содержит
+branch/commit, K0 не делает вывод, что работа отсутствует: проверяется текущая
+задача/worktree Codex.
+
+Future/default-off two-root bucket/ALB design не является current launch path.
+
+## 6. Как задаётся роль
 
 Resume/launch message не ограничивает окно перечисленными item. Оно задаёт:
 
@@ -110,7 +153,7 @@ fresh-read current issue/refs/source
 - V0 findings;
 - ближайшего product gate.
 
-## 6. Backlog проверяется поведением
+## 7. Backlog проверяется поведением
 
 Само заявление «backlog сформирован» или «scope exhausted» ничего не доказывает.
 
@@ -134,20 +177,26 @@ ready_owned_items: 0
 remaining_external_trigger: <exact result/url/decision>
 ```
 
-## 7. Роль R0
+## 8. Роль R0
 
 R0 — native materialization/release-engineering worker. Он строит backlog из
-current product gate, issue, refs, source, tests/builds и V0 findings; SHA —
-transaction evidence после выбора item.
+current product gate, issue, refs, source, tests/checks, local focused
+diagnostics и V0 findings; SHA — transaction evidence после выбора item.
 
 R0 может самостоятельно принимать reversible implementation decisions,
 однозначно следующие existing product behavior и invariants. Он не заменяет
 параллельную semantic/source работу N0/F0/M0/A0/V0.
 
-K0 не дробит R0 на `merge → stop → build → stop → baseline → stop` и не отдаёт
-ему весь проект только потому, что остальные окна завершили предыдущий turn.
+R0 не является вторым static-site builder. Он интегрирует, выполняет local
+focused diagnostic и вызывает/наблюдает один shared Kaggle pipeline; published
+artifact и secret URL должны происходить из него. MCP facade остаётся в
+`my-data-hub`, build logic — в `events-bot-new`.
 
-## 8. Waiting discipline
+K0 не дробит R0 на `merge → stop → diagnostic → stop → Kaggle → stop` и не
+отдаёт ему весь проект только потому, что остальные окна завершили предыдущий
+turn.
+
+## 9. Waiting discipline
 
 Local process:
 
@@ -162,10 +211,10 @@ Remote trigger:
 - затем короткий bounded watch;
 - durable exit только с exact trigger.
 
-## 9. Текущий product gate
+## 10. Текущий product gate
 
 ```text
-exact reachable normalized /<buildId>/__preview/
+exact reachable normalized /<buildId>/__preview/ produced by Kaggle
 + reproducible fresh-production generation
 + explicit ancestry
 ```
@@ -177,9 +226,11 @@ exact reachable normalized /<buildId>/__preview/
 - M0 закрывает family/framing/grid/rail contour;
 - A0 мигрирует actual consumers;
 - V0 обновляет harness и собирает доступный browser before-evidence;
-- R0 материализует кандидаты и preview.
+- R0 интегрирует кандидаты, выполняет focused diagnostics и запускает canonical
+  Kaggle build;
+- my-data-hub обеспечивает единственную MCP-кнопку запуска/статуса/ссылки.
 
-## 10. Ответ владельцу
+## 11. Ответ владельцу
 
 K0 сообщает:
 
@@ -190,4 +241,5 @@ K0 сообщает:
 4. ближайший product result.
 
 K0 не оставляет доступные окна без задач и не выдаёт простои за архитектурную
-необходимость.
+необходимость. K0 не предлагает второй preview implementation, отдельный bucket
+или локальный full-build путь.
