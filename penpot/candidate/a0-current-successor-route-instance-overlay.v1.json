@@ -1,13 +1,13 @@
 {
   "schema": "kenigevents.penpot.a0-current-successor-route-instance-overlay.v1",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "contract_version": "1.10.0",
   "status": "SPEC_ONLY_A0_SOURCE_BOUND_FINAL_DEPENDENCIES_PENDING_NOT_MATERIALIZED",
   "extends": [
     "penpot/candidate/a0-route-instance-spec.v1.json",
     "penpot/candidate/a0-focus-route-instance-spec.v1.json"
   ],
-  "binding_authority": "catalog/normalization/a0-current-successor-consumer-batch.v1.json@b47e5397bd6427bc4130f852c7750432d80bb6be",
+  "binding_authority": "catalog/normalization/a0-current-successor-consumer-batch.v1.json@bda44de4132faaf9884e73911f81b93cfdc669f4",
   "authority": {
     "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
     "sole_writer": "R0.PENPOT",
@@ -19,6 +19,7 @@
       5531606646
     ],
     "f0_final_review_comment": 5531682890,
+    "f0_delivery_comment": 5531902859,
     "m0_post_cutover_result_comment": 5531788718,
     "actual_penpot_mutation_in_this_overlay": false
   },
@@ -45,7 +46,12 @@
         "ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b",
         "8b0c6709beca1f7b0bef81b27464f786df1d7806",
         "3ef253980bdfe0731158f5b8b4b47965fa153ce9"
-      ]
+      ],
+      "integration_forms": {
+        "F0": "exact commit ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b only; do not merge work/ui-normalization-f0-wave-3-20260903 wholesale",
+        "M0": "exact current post-cutover tail through 8b0c6709beca1f7b0bef81b27464f786df1d7806 without FR0 replay",
+        "A0": "exact regression-only commit 3ef253980bdfe0731158f5b8b4b47965fa153ce9"
+      }
     },
     "latest_public_reference": {
       "url": "https://kenigevents.ru/preview-real-1bc6d9cb-normalized-20260903-v1/__preview/",
@@ -65,6 +71,7 @@
       "owns": "variables, typography, colors, spacing, shape, icon roles and route-theme vocabulary",
       "integrated_source_ancestor": "a4db631dbb3b01e1f71c42e0e3b87d077a538d19",
       "required_current_head": "ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b",
+      "delivery_constraint": "EXACT_COMMIT_ONLY_NO_WHOLE_BRANCH_MERGE",
       "integration_status": "PENDING_FINAL_DESCENDANT"
     },
     "M0": {
@@ -496,7 +503,7 @@
   },
   "materialization_gate": {
     "required": [
-      "final descendant contains F0 ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b",
+      "final descendant contains exact F0 delivery commit ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b without wholesale F0 branch merge",
       "final descendant contains M0 8b0c6709beca1f7b0bef81b27464f786df1d7806",
       "final descendant contains A0 regression 3ef253980bdfe0731158f5b8b4b47965fa153ce9",
       "focused A0, F0, M0 and FR0 source gates pass with exact exits",
@@ -519,6 +526,7 @@
   ],
   "claims_not_made": [
     "F0 ea4eda correction integrated",
+    "whole F0 branch merge is safe",
     "M0 8b0c670 tail integrated",
     "A0 regression projection integrated",
     "final descendant source tests passed",
