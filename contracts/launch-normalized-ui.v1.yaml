@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.7.0
+version: 1.8.0
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -27,6 +27,84 @@ execution_reality:
   K0_may_not_centralize_all_ready_specialist_work_into_R0: true
   external_supervisor_required_for_zero_touch_reactivation_after_turn: true
   external_supervisor_currently_authorized: false
+
+operating_modes:
+  DAY_PARALLEL:
+    condition: multiple_role_windows_available
+    objective: maximize_parallel_specialist_throughput_and_minimize_Codex_spend
+    active_lanes: [N0, F0, M0, A0, V0, R0]
+    R0_role: scarce_runtime_materialization_lane
+    specialist_roles_do:
+      - full_source_and_consumer_census
+      - semantic_product_and_architecture_decisions
+      - broad_direct_GitHub_implementation_batches
+      - source_negative_probes_and_test_design
+      - branch_diff_review
+      - exact_merge_ready_acceptance_and_removal_boundaries
+    R0_does:
+      - cross_branch_candidate_construction
+      - local_dependency_and_runtime_execution
+      - tests_builds_and_checks
+      - generation_and_publication
+      - ordinary_merge_resolution
+      - deterministic_bulk_mechanical_edits_only_when_materially_cheaper
+      - local_browser_smoke
+    R0_must_not_duplicate:
+      - active_F0_semantic_or_foundation_work
+      - active_M0_family_or_component_design_work
+      - active_A0_consumer_migration_work
+      - N0_candidate_or_acceptance_review
+      - V0_independent_browser_verdict
+  NIGHT_AUTONOMOUS:
+    condition: role_windows_unavailable_or_intentionally_not_running
+    objective: keep_product_path_moving_with_the_single_native_lane
+    R0_role: broad_reversible_product_executor
+    R0_may_expand_into:
+      - reversible_implementation_and_migration_determined_by_existing_behavior
+      - source_census_and_backlog_formation
+      - regression_and_tooling_repair
+    still_escalates:
+      - new_product_behavior
+      - changed_user_facing_semantics
+      - palette_or_redesign
+      - irreconcilable_writer_conflict
+      - irreversible_risk
+
+scarce_Codex_budget:
+  Codex_is_scarce: true
+  default_allocation_rule: use_role_windows_for_every_task_not_requiring_local_runtime_or_cross_branch_materialization
+  R0_task_admission_requires_one_of:
+    - local_shell_or_dependency_environment
+    - cross_branch_merge_or_candidate_construction
+    - executable_tests_build_or_generation
+    - artifact_or_preview_publication
+    - ordinary_merge_conflict_resolution
+    - deterministic_high_volume_mechanical_change_materially_cheaper_than_GitHub_edits
+    - no_available_specialist_and_reversible_work_on_critical_path
+  R0_task_rejected_or_deferred_to_role_window_when:
+    - repository_or_consumer_analysis_only
+    - semantic_token_or_palette_decision
+    - component_identity_or_route_composition_decision
+    - ordinary_direct_GitHub_edit_owned_by_an_active_specialist
+    - duplicate_review_already_being_done_by_N0_F0_M0_A0_or_V0
+  before_R0_edits_role_owned_source:
+    - resolve_latest_role_ref_and_recent_activity
+    - prefer_integrating_or_testing_the_role_branch
+    - avoid_parallel_duplicate_implementation
+    - edit_only_if_purely_mechanical_or_required_to_unblock_current_gate
+  R0_checkpoint_economy_fields:
+    - local_runtime_work_completed
+    - role_outputs_integrated_or_verified
+    - Codex_only_implementation_and_why_it_was_not_suitable_for_a_role_window
+    - blind_wait_seconds
+    - duplicated_specialist_work
+  required_values:
+    blind_wait_seconds: 0
+    duplicated_specialist_work: 0
+  long_local_job_policy:
+    - foreground_or_PID_wait_and_log_tail
+    - use_idle_time_for_nonconflicting_candidate_inspection_or_next_runtime_preparation
+    - never_blind_sleep_over_15_seconds
 
 execution_surfaces:
   turn_bounded_autonomous_workers:
@@ -105,8 +183,23 @@ resource_saturation:
     - V0_source_harness_and_available_browser_baseline
     - R0_candidate_build_generation_and_publication
 
+specialist_output_contract:
+  purpose: unload_scarce_R0
+  each_role_batch_should_be:
+    - coherent_and_merge_ready
+    - personally_reviewed_by_the_role
+    - limited_to_owned_paths
+    - accompanied_by_exact_invariants_and_negative_controls
+    - explicit_about_required_local_tests_but_not_require_R0_to_repeat_semantic_analysis
+  R0_consumes_outputs_by:
+    - resolving_latest_accepted_role_head
+    - reviewing_bounded_diff_for_integration_risk
+    - merging_or_cherry_picking
+    - running_local_verification
+    - returning_only_material_failures_to_the_owner_role
+
 R0_policy:
-  role: native_product_materialization_and_release_engineering
+  role: scarce_native_materialization_and_release_engineering
   mission:
     - reach_first_exact_browser_testable_normalized_preview
     - integrate_and_verify_ready_role_outputs
@@ -124,7 +217,8 @@ R0_policy:
     - fresh_read_issue_refs_worktrees_contract
     - identify_nearest_unclosed_product_gate
     - recompute_ready_reversible_backlog
-    - select_highest_value_item
+    - prefer_ready_specialist_outputs_over_duplicate_implementation
+    - select_highest_value_Codex_admissible_item
     - freeze_SHAs_as_transaction_evidence
     - implement_merge_test_build_publish
     - fix_recoverable_tooling_and_regression_defects
