@@ -1,0 +1,163 @@
+{
+  "schema_version": "kenigevents.f0-exhibitions-integration-and-rollback.v1",
+  "version": "1.0.0",
+  "contract_version": "1.10.0",
+  "status": "READY_FOR_CORRECTED_A0_FR0_PACKET_NOT_EXECUTED",
+  "authority": {
+    "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+    "source_repository": "onedayonemasterpiece/events-bot-new",
+    "f0_source_boundary": "4709dc231161b0204eca1bccbd975cd545d02abb",
+    "current_successor_base": "1bc6d9cb4c122046f4782532381de953727c1da6 or current descendant",
+    "candidate_acceptance_owner": "N0",
+    "consumer_owner": "A0",
+    "frame_owner": "FR0",
+    "materialization_owner": "R0",
+    "browser_verdict_owner": "V0",
+    "penpot_writer": "R0.PENPOT"
+  },
+  "current_a0_packet": {
+    "head_at_authoring": "ffee86fb6ce466b1cb303c7b3daea67f84127b67",
+    "festival_cluster": "F0_ACCEPTED",
+    "exhibitions_cluster": "NOT_ACCEPTED",
+    "exhibitions_rejection_reasons": [
+      "blanket no --ex-* postcondition rejects four required runtime variables",
+      "incomplete consumption of central state/elevation roles",
+      "local 14/18/19/21px SVG sizes survive",
+      "gallery text arrows survive",
+      "raw visible dark/state/gallery/live/depth values survive"
+    ]
+  },
+  "required_corrected_packet": {
+    "a0": [
+      "remove only the private theme and motion aliases enumerated by the F0 binding",
+      "retain exactly --ex-media-column, --ex-row-gap, --ex-surface-start and --ex-rail-color as local runtime state",
+      "consume every base/state/elevation token required by f0-exhibitions-residual-bindings.v1.json",
+      "replace signal glyph dimensions with the inline role",
+      "replace like/reject/action glyph dimensions with the control role",
+      "replace gallery text arrows with SemanticIcon arrow-left/right control",
+      "preserve keyboard/filter/ranking/gallery/like/reject/undo/tail behavior and all copy"
+    ],
+    "fr0": [
+      "consume F0 frame/depth/skeleton/medallion color and elevation roles",
+      "own frame anatomy, dimensions, stacking, fit, crop, focal, fallback, loading and media-interaction diagnostics",
+      "leave A0 route behavior and F0 palette authority untouched"
+    ],
+    "script_requirements": [
+      "idempotent on the exact current successor",
+      "preconditions distinguish legacy and already-converged states",
+      "postconditions assert exact retained runtime variables rather than banning the prefix",
+      "postconditions reject all private theme aliases, raw icon dimensions and text gallery arrows",
+      "transaction guard records exact before/after SHAs and rollback unit"
+    ]
+  },
+  "execution_sequence": [
+    {
+      "step": 1,
+      "owner": "N0",
+      "action": "accept the exact F0 source boundary and corrected A0/FR0 packet against the current successor"
+    },
+    {
+      "step": 2,
+      "owner": "R0",
+      "action": "materialize F0 4709dc23 and only the accepted A0/FR0 net changes; never replay divergent role branches wholesale"
+    },
+    {
+      "step": 3,
+      "owner": "R0",
+      "action": "run F0, A0 and FR0 executable contracts on the exact integrated SHA",
+      "commands": [
+        "node site/src/components/design-system/check-f0-route-theme-bindings.mjs",
+        "F0_REQUIRE_ROUTE_THEME_CONSUMED=1 node site/src/components/design-system/check-f0-route-theme-bindings.mjs",
+        "node site/src/components/design-system/check-f0-interest-club-theme-decision.mjs",
+        "F0_REQUIRE_CLUB_THEME_CONSUMED=1 node site/src/components/design-system/check-f0-interest-club-theme-decision.mjs",
+        "node site/src/components/design-system/check-f0-interest-club-and-icon-contract.mjs",
+        "node site/src/components/design-system/f0-normalization-negative-probes.mjs"
+      ]
+    },
+    {
+      "step": 4,
+      "owner": "R0",
+      "action": "publish one canonical full fresh-real Kaggle preview for the exact tested SHA",
+      "required": [
+        "HTTP-200 /<buildId>/__preview/",
+        "matching preview-build.json",
+        "fresh immutable production snapshot",
+        "explicit ancestry containing F0 4709dc23",
+        "Kaggle operation/artifact identity",
+        "no production-root or stable-ICS mutation"
+      ]
+    },
+    {
+      "step": 5,
+      "owner": "V0",
+      "action": "independently audit /vystavki/ across the route/viewport matrix",
+      "measure": [
+        "computed palette/elevation owner",
+        "keyboard and mode states",
+        "timeline/row/selection/gallery/live hierarchy",
+        "16px/20px icon roles and canonical gallery arrows",
+        "FR0 frame owner versus F0 variable owner",
+        "document overflow and behavior"
+      ]
+    },
+    {
+      "step": 6,
+      "owner": "N0/R0.PENPOT",
+      "action": "promote accepted thin-S binding and materialize native variables/masters/linked route instance"
+    }
+  ],
+  "rollback_units": [
+    {
+      "id": "F0-RB-EXHIBITIONS-BASE-THEME",
+      "scope": "private palette/motion alias removal and base semantic bindings",
+      "trigger": "missing/duplicate token, changed dark language or keyboard/mode behavior",
+      "action": "revert only base-theme consumer substitutions; retain dormant F0 variables"
+    },
+    {
+      "id": "F0-RB-EXHIBITIONS-RUNTIME-CLASSIFICATION",
+      "scope": "four retained local runtime variables",
+      "trigger": "layout calculation or lifecycle rail state no longer resolves",
+      "action": "restore only the affected runtime declaration/use; do not restore obsolete theme aliases"
+    },
+    {
+      "id": "F0-RB-EXHIBITIONS-STATE-PALETTE",
+      "scope": "timeline/row/tag/action/gallery/live/depth colors and elevations",
+      "trigger": "state hierarchy or computed appearance drifts",
+      "action": "revert the failing selector group only; preserve other accepted groups"
+    },
+    {
+      "id": "F0-RB-EXHIBITIONS-ICON-IDENTITY",
+      "scope": "inline/control role sizing and gallery arrow SemanticIcons",
+      "trigger": "glyph size, identity, target, aria label or navigation behavior regresses",
+      "action": "revert only icon/SVG consumer bindings while retaining F0 role definitions"
+    },
+    {
+      "id": "F0-RB-EXHIBITIONS-FR0-HANDOFF",
+      "scope": "F0 frame-color/elevation variables consumed by FR0 anatomy",
+      "trigger": "frame, stack, depth, skeleton, medallion or crop/loading behavior drifts",
+      "action": "revert only FR0 consumption; preserve F0 variables and A0 route behavior"
+    },
+    {
+      "id": "F0-RB-EXHIBITIONS-DOWNSTREAM-SPEC",
+      "scope": "thin-S and Penpot candidate records",
+      "trigger": "N0 rejects source, V0 reports critical drift or authority changes",
+      "action": "mark records superseded or revert them; never mutate existing Penpot or immutable previews"
+    }
+  ],
+  "safety": {
+    "production_root_mutation": "FORBIDDEN",
+    "existing_immutable_preview_mutation": "FORBIDDEN",
+    "whole_f0_a0_or_fr0_branch_replay": "FORBIDDEN",
+    "new_product_palette_or_behavior": "FORBIDDEN",
+    "framing_ownership_transfer_to_f0": "FORBIDDEN"
+  },
+  "claims_not_made": [
+    "corrected A0 exhibitions packet exists",
+    "FR0 exhibitions frame packet exists",
+    "integration executed",
+    "commands passed",
+    "post-consumption preview published",
+    "V0 accepted",
+    "Penpot mutated"
+  ]
+}

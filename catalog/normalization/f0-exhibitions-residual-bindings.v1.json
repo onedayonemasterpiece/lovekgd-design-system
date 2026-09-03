@@ -1,0 +1,254 @@
+{
+  "schema_version": "kenigevents.f0-exhibitions-residual-bindings.v1",
+  "version": "1.0.0",
+  "contract_version": "1.10.0",
+  "status": "F0_FOUNDATIONS_READY_A0_AND_FR0_CONSUMPTION_PENDING",
+  "authority": {
+    "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+    "source_repository": "onedayonemasterpiece/events-bot-new",
+    "source_branch": "work/ui-normalization-f0-wave-3-20260903",
+    "f0_source_boundary": "4709dc231161b0204eca1bccbd975cd545d02abb",
+    "source_binding": "site/src/components/design-system/f0-exhibitions-residual-bindings.v1.json",
+    "strict_checker_source": "d3e36f84de0fa58cb72d494d00cea5c67d54bdff",
+    "current_public_before_baseline": "https://kenigevents.ru/preview-real-1bc6d9cb-normalized-20260903-v1/__preview/"
+  },
+  "family": {
+    "name": "ExhibitionsPersonalSurface",
+    "version": 1,
+    "variant": "ranked-personal-catalog",
+    "states": [
+      "personal",
+      "all-topics",
+      "populated",
+      "empty",
+      "keyboard-active",
+      "gallery-open",
+      "liked",
+      "rejected",
+      "hidden-tail"
+    ],
+    "route": "/vystavki/",
+    "actual_consumer": "site/src/components/ExhibitionsPersonalSurface.astro"
+  },
+  "ownership": {
+    "F0": [
+      "semantic colors and retained dark product language",
+      "elevation and layer roles",
+      "typography and spacing/geometry foundation aliases",
+      "exactly four icon-size roles",
+      "canonical gallery arrow SVG identities"
+    ],
+    "A0": [
+      "actual consumer selector migration",
+      "route diagnostics",
+      "keyboard/filter/gallery/like/reject/undo behavior preservation",
+      "removal of obsolete private theme aliases"
+    ],
+    "FR0": [
+      "deck and gallery frame anatomy",
+      "frame dimensions and stacking",
+      "object-fit/object-position, crop, fallback and loading diagnostics",
+      "media interaction ownership"
+    ]
+  },
+  "private_alias_classification": {
+    "remove_as_theme_or_motion_owners": [
+      "--ex-bg",
+      "--ex-surface",
+      "--ex-raised",
+      "--ex-border",
+      "--ex-text",
+      "--ex-muted",
+      "--ex-blue",
+      "--ex-orange",
+      "--ex-red",
+      "--ex-gray",
+      "--ex-yellow",
+      "--ex-purple",
+      "--ex-green",
+      "--ex-ease-cinematic",
+      "--ex-ease-emphasis",
+      "--ex-motion-fast",
+      "--ex-motion-base"
+    ],
+    "retain_as_local_runtime_layout_state": [
+      {
+        "name": "--ex-media-column",
+        "reason": "responsive row measurement input"
+      },
+      {
+        "name": "--ex-row-gap",
+        "reason": "responsive grid calculation input"
+      },
+      {
+        "name": "--ex-surface-start",
+        "reason": "derived local row-paint offset"
+      },
+      {
+        "name": "--ex-rail-color",
+        "reason": "per-row lifecycle color selected from F0 semantic colors"
+      }
+    ],
+    "blanket_no_ex_prefix_assertion_allowed": false
+  },
+  "foundation_groups": [
+    {
+      "id": "exhibitions.base",
+      "source_prefixes": [
+        "--ke-color-exhibitions-",
+        "--ke-exhibitions-",
+        "--ke-elevation-exhibitions-"
+      ],
+      "required_roles": [
+        "background and blue/orange ambient glows",
+        "focus ring",
+        "keyboard key caps",
+        "mode selector and sticky controls",
+        "timeline desktop/mobile",
+        "row surface, halo, edge and keyboard states",
+        "rail lifecycle dot",
+        "count, reason, tag, action and selection states",
+        "gallery/live receipt hierarchy"
+      ],
+      "consumer_owner": "A0"
+    },
+    {
+      "id": "exhibitions.frame-colors",
+      "source_prefixes": [
+        "--ke-color-exhibitions-deck-",
+        "--ke-color-exhibitions-depth-",
+        "--ke-color-exhibitions-skeleton-",
+        "--ke-elevation-exhibitions-deck-",
+        "--ke-elevation-exhibitions-depth-",
+        "--ke-elevation-exhibitions-medallion"
+      ],
+      "required_roles": [
+        "frame line/surface",
+        "stack/depth-tail",
+        "skeleton",
+        "hover/focus depth",
+        "medallion fallback and elevation"
+      ],
+      "consumer_owner": "FR0",
+      "f0_boundary": "values only; no frame dimensions, fit, crop or stacking ownership"
+    }
+  ],
+  "minimum_already_published_bindings": [
+    "--ke-color-exhibitions-kbd-line",
+    "--ke-color-exhibitions-kbd-line-strong",
+    "--ke-color-exhibitions-kbd-surface",
+    "--ke-color-exhibitions-kbd-text",
+    "--ke-color-exhibitions-kbd-shadow",
+    "--ke-color-exhibitions-mode-surface",
+    "--ke-color-exhibitions-mode-selected-line",
+    "--ke-color-exhibitions-sticky-surface",
+    "--ke-color-exhibitions-blue-glow",
+    "--ke-color-exhibitions-orange-glow",
+    "--ke-color-exhibitions-timeline-mid",
+    "--ke-color-exhibitions-timeline-end",
+    "--ke-color-exhibitions-row-start",
+    "--ke-color-exhibitions-row-end",
+    "--ke-elevation-exhibitions-row",
+    "--ke-elevation-exhibitions-row-hover",
+    "--ke-elevation-exhibitions-row-keyboard",
+    "--ke-color-exhibitions-medallion-fallback-surface",
+    "--ke-color-exhibitions-medallion-fallback-ring"
+  ],
+  "icon_bindings": [
+    {
+      "consumer": ".ex-discussed svg",
+      "token": "--ke-exhibitions-signal-icon-size",
+      "role": "inline",
+      "size_px": 16
+    },
+    {
+      "consumer": ".ex-signal svg",
+      "token": "--ke-exhibitions-signal-icon-size",
+      "role": "inline",
+      "size_px": 16
+    },
+    {
+      "consumer": ".ex-action svg",
+      "token": "--ke-exhibitions-action-icon-size",
+      "role": "control",
+      "size_px": 20
+    },
+    {
+      "consumer": ".ex-action--like svg",
+      "token": "--ke-exhibitions-action-icon-size",
+      "role": "control",
+      "size_px": 20
+    },
+    {
+      "consumer": ".ex-action--reject svg",
+      "token": "--ke-exhibitions-action-icon-size",
+      "role": "control",
+      "size_px": 20
+    },
+    {
+      "consumer": "[data-gallery-prev]",
+      "component": "SemanticIcon",
+      "name": "arrow-left",
+      "role": "control",
+      "size_px": 20
+    },
+    {
+      "consumer": "[data-gallery-next]",
+      "component": "SemanticIcon",
+      "name": "arrow-right",
+      "role": "control",
+      "size_px": 20
+    }
+  ],
+  "current_a0_packet": {
+    "source_head_reviewed": "ffee86fb6ce466b1cb303c7b3daea67f84127b67",
+    "executable_script_ancestor": "5e66444b20a0c4b90004a895345a5c8389ec8530",
+    "decision": "REJECT_EXHIBITIONS_TRANSFORM_UNTIL_COMPLETE",
+    "blockers": [
+      "blanket --ex-* postcondition contradicts four required runtime variables",
+      "published keyboard/mode/sticky/glow/timeline/row/medallion roles are not fully consumed",
+      "14px, 18px, 19px and 21px local SVG dimensions survive",
+      "gallery navigation retains text arrows instead of canonical SemanticIcon identities",
+      "visible dark/state/gallery/live/depth raw values remain"
+    ]
+  },
+  "acceptance": {
+    "strict_command": "F0_REQUIRE_ROUTE_THEME_CONSUMED=1 node site/src/components/design-system/check-f0-route-theme-bindings.mjs",
+    "required_source_state": [
+      "all private theme/motion aliases are removed",
+      "exactly four classified runtime --ex-* variables remain",
+      "every required central role is consumed",
+      "all UI SVG dimensions resolve to inline or control roles",
+      "gallery arrows use SemanticIcon arrow-left/right control",
+      "no raw visible exhibitions theme/depth/gallery/live owner survives",
+      "FR0 owns frame anatomy while F0 variables supply its colors/elevations"
+    ],
+    "required_browser_state": [
+      "dark exhibitions language remains pixel-equivalent",
+      "keyboard/pointer/selection/gallery/live states retain their hierarchy",
+      "computed icon glyphs are 16px or 20px according to role",
+      "matched frame colors come from F0 variables while anatomy/fit/crop rules come from FR0",
+      "no document overflow or behavior regression"
+    ]
+  },
+  "rollback": {
+    "id": "F0-RB-EXHIBITIONS-THEME",
+    "subunits": [
+      "base theme and motion aliases",
+      "runtime variable classification",
+      "state/elevation palette",
+      "icon role and gallery identity binding",
+      "FR0 frame-color handoff"
+    ],
+    "action": "revert only the failing consumer subunit and/or omit its dormant F0 variables; preserve behavior, current successor, unrelated accepted route clusters and immutable previews"
+  },
+  "truth_boundary": {
+    "f0_source_ready": true,
+    "a0_consumer_complete": false,
+    "fr0_frame_binding_complete": false,
+    "strict_gate_passed": false,
+    "post_consumption_preview_exists": false,
+    "independent_v0_verdict_exists": false,
+    "penpot_materialized": false
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "schema_version": "kenigevents.f0-exhibitions-penpot-spec.v1",
+  "version": "1.0.0",
+  "contract_version": "1.10.0",
+  "status": "SPEC_ONLY_NOT_MATERIALIZED",
+  "authority": {
+    "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "sole_writer": "R0.PENPOT",
+    "source_repository": "onedayonemasterpiece/events-bot-new",
+    "source_commit": "4709dc231161b0204eca1bccbd975cd545d02abb",
+    "thin_s_binding": "catalog/normalization/f0-exhibitions-residual-bindings.v1.json"
+  },
+  "variable_collection": {
+    "id": "F0-C15",
+    "name": "F0 / Exhibitions dark language",
+    "source_files": [
+      "site/src/components/design-system/product-theme-foundations.css",
+      "site/src/components/design-system/route-theme-foundations.css"
+    ],
+    "source_prefixes": [
+      "--ke-color-exhibitions-",
+      "--ke-exhibitions-",
+      "--ke-elevation-exhibitions-"
+    ],
+    "mode": "dark-ranked-personal-catalog",
+    "semantic_groups": [
+      "canvas and ambient glows",
+      "keyboard and mode controls",
+      "sticky/filter controls",
+      "timeline and lifecycle rail",
+      "row default/hover/keyboard states",
+      "reason/tag/action/like/reject states",
+      "gallery and live receipt hierarchy",
+      "frame/depth/skeleton/medallion values supplied to FR0"
+    ]
+  },
+  "master_bindings": [
+    {
+      "id": "F0-M15",
+      "name": "A0 / ExhibitionsPersonalSurface",
+      "family": "ExhibitionsPersonalSurface",
+      "version": 1,
+      "variant": "ranked-personal-catalog",
+      "states": [
+        "personal",
+        "all-topics",
+        "populated",
+        "empty",
+        "keyboard-active",
+        "liked",
+        "rejected",
+        "gallery-open"
+      ],
+      "variable_collections": ["F0-C15", "F0-C03"],
+      "preserve": [
+        "dark product language",
+        "ranking/personalization semantics",
+        "keyboard and pointer behavior",
+        "gallery, like, reject, undo and tail behavior"
+      ]
+    },
+    {
+      "id": "FR0-M15",
+      "name": "FR0 / Exhibitions deck and gallery frames",
+      "owner": "FR0",
+      "uses_f0_collection": "F0-C15",
+      "f0_supplies": [
+        "frame and stack lines/surfaces",
+        "depth-tail and skeleton colors",
+        "frame/depth/count elevations",
+        "medallion fallback colors/elevation"
+      ],
+      "fr0_supplies": [
+        "anatomy",
+        "dimensions and stacking",
+        "fit/crop/focal/loading/fallback diagnostics",
+        "media interaction owner"
+      ],
+      "negative_boundary": "F0 variables must not be interpreted as F0 ownership of frame geometry or media behavior"
+    }
+  ],
+  "runtime_local_variables": [
+    {
+      "name": "--ex-media-column",
+      "materialize_as_penpot_variable": false,
+      "reason": "responsive runtime measurement input"
+    },
+    {
+      "name": "--ex-row-gap",
+      "materialize_as_penpot_variable": false,
+      "reason": "responsive runtime calculation input"
+    },
+    {
+      "name": "--ex-surface-start",
+      "materialize_as_penpot_variable": false,
+      "reason": "derived local paint offset"
+    },
+    {
+      "name": "--ex-rail-color",
+      "materialize_as_penpot_variable": false,
+      "reason": "per-row lifecycle state resolved from semantic colors"
+    }
+  ],
+  "icon_bindings": [
+    {
+      "action": "exhibitions.signal",
+      "role": "inline",
+      "size_px": 16
+    },
+    {
+      "action": "exhibitions.action.like",
+      "role": "control",
+      "size_px": 20
+    },
+    {
+      "action": "exhibitions.action.reject",
+      "role": "control",
+      "size_px": 20
+    },
+    {
+      "action": "exhibitions.gallery.previous",
+      "glyph": "arrow-left",
+      "role": "control",
+      "size_px": 20
+    },
+    {
+      "action": "exhibitions.gallery.next",
+      "glyph": "arrow-right",
+      "role": "control",
+      "size_px": 20
+    }
+  ],
+  "route_instance": {
+    "route": "/vystavki/",
+    "page": "A0-P40",
+    "instance_of": "F0-M15",
+    "nested_frame_instances": ["FR0-M15"],
+    "required_evidence": [
+      "exact integrated source SHA containing F0 4709dc23 and accepted A0/FR0 bindings",
+      "strict F0 route-theme gate PASS",
+      "canonical full fresh-real Kaggle URL",
+      "independent V0 computed color/elevation/icon/frame-owner verdict"
+    ]
+  },
+  "materialization_unlock": {
+    "all_required": [
+      "A0 publishes and F0 accepts complete exhibitions consumer migration",
+      "FR0 publishes and its owner accepts exhibitions frame binding when required",
+      "R0 integrates both with F0 source 4709dc23 on the current successor",
+      "the strict F0 route-theme gate exits 0",
+      "V0 verifies the exact post-consumption fresh-real preview",
+      "N0 promotes the binding to CURRENT"
+    ],
+    "current_state": "BLOCKED"
+  },
+  "negative_controls": [
+    "do not materialize obsolete private --ex-* theme/motion aliases",
+    "do not materialize four runtime layout variables as design tokens",
+    "do not introduce 14px, 18px, 19px or 21px icon roles",
+    "do not retain text gallery arrows",
+    "do not move frame geometry/fit/crop ownership from FR0 to F0",
+    "do not flatten gallery, frame, depth and live-receipt blacks into one variable",
+    "do not claim materialization from this JSON spec"
+  ],
+  "not_claimed": [
+    "variable collection exists in Penpot",
+    "A0 master exists or is updated",
+    "FR0 master exists or is updated",
+    "route instance is linked",
+    "Astro equals thin S equals Penpot",
+    "V0 accepted exhibitions"
+  ]
+}
