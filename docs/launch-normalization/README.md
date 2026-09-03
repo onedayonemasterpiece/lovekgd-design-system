@@ -88,11 +88,8 @@ fresh-read current state
 → stop only when independent owned backlog is exhausted
 ```
 
-Per-Wave owner resume является process defect. Старое `finish with [RESULT]`
-означает только «не возвращай plan-only status».
-
-Допустимый standby требует exact external trigger. Busywork после исчерпания
-scope запрещён.
+Per-Wave owner resume является process defect. Допустимый standby требует exact
+external trigger. Busywork после исчерпания scope запрещён.
 
 ## 4. Execution surfaces
 
@@ -100,6 +97,7 @@ scope запрещён.
 K0: ChatGPT + GitHub
 N0: ChatGPT + GitHub
 F0: ChatGPT + GitHub
+FR0: ChatGPT + GitHub
 M0: ChatGPT + GitHub
 A0: ChatGPT + GitHub
 V0: ChatGPT + GitHub + my-browser-bridge
@@ -108,21 +106,18 @@ published_preview_control: my-data-hub MCP
 full_build_executor: Kaggle CPU via events-bot-new
 ```
 
-K0/N0/F0/M0/A0 не вызывают `Codex DevCoveer`. Они лично читают source,
+K0/N0/F0/FR0/M0/A0 не вызывают `Codex DevCoveer`. Они лично читают source,
 consumers и voice notes, принимают решения, делают bounded GitHub edits и
 проверяют R0 output.
 
-R0 выполняет only already-decided mechanical work: isolated worktrees,
-repetitive edits, local focused diagnostics, tests/checks, exact merge/promotion,
+R0 выполняет already-decided mechanical work: isolated worktrees, repetitive
+edits, local focused diagnostics, tests/checks, exact merge/promotion,
 invocation/observation of the shared Kaggle pipeline и authorized Penpot
 mutation. Browser evidence принадлежит V0.
 
-R0 и `my-data-hub` не создают вторую реализацию exporter/selector/builder или
-publisher.
+## 5. Critical path and integration cadence
 
-## 5. Critical path without approval ping-pong
-
-N0 владеет полной цепочкой:
+N0 владеет цепочкой:
 
 ```text
 candidate acceptance
@@ -134,24 +129,17 @@ candidate acceptance
 → V0 verdict review
 ```
 
-Когда acceptance criteria известны заранее, N0 даёт R0 одно conditional
-end-to-end authorization:
+Parallel source work is useful only when it reaches this chain.
 
-```text
-IF candidate focused diagnostics/tests/baseline PASS
-  THEN promote exact candidate
-  AND invoke the one shared Kaggle pipeline
-  AND publish reachable preview from its checked artifact
-ELSE
-  no promotion/deploy
-  continue safe diagnosis
-  publish factual defect
+```yaml
+candidate_max_lag_minutes_when_merge_ready_output_exists: 30
+max_unintegrated_coherent_waves_per_role: 2
+full_preview_after_compatible_batches: 2_to_3
+full_preview_max_active_minutes_since_previous: 60
 ```
 
-R0 — persistent native session. После каждого result он fresh-read-ит #621 и
-берёт следующую ready safe mechanical task. При ожидаемом critical trigger он
-использует bounded watch 60–120 seconds, maximum 30 minutes, а не немедленный
-exit.
+FR0 does not delay the already-ready successor. A broken batch blocks only
+itself; compatible role outputs continue to integration.
 
 ## 6. Product architecture and authority
 
@@ -159,8 +147,7 @@ exit.
 
 Executable authority:
 
-- `site/src/styles/design-system.css` and semantic foundation layers;
-- `site/src/components/design-system/**`;
+- semantic foundations;
 - product component families;
 - layouts/pages and actual route compositions;
 - data export, page-class selection, Kaggle generation, preview publication,
@@ -184,18 +171,10 @@ Thin cross-surface authority:
 - Penpot masters/route-board placement;
 - browser and A=S=P statuses.
 
-Branch:
-
-```text
-integration/launch-normalized-sot-penpot-20260902
-```
-
 ### `my-data-hub`
 
-Sole MCP control plane for published review builds. It resolves a requested
-source ref, selects/reuses data, starts the existing `events-bot-new` Kaggle
-runner, exposes operation status and returns the last successful URL per data
-mode. It must not contain a second static-site build implementation.
+Sole MCP control plane for published review builds. It must not contain a second
+static-site build implementation.
 
 ### Penpot
 
@@ -253,7 +232,7 @@ Local lookalike markup/style is `DRIFT`, even if pixels currently match.
 
 Palette redesign starts only after drift closure.
 
-### MediaFrame
+### MediaFrame — FR0 owner
 
 One shared protocol owns:
 
@@ -263,20 +242,28 @@ ratio
 contain/cover
 crop permission
 focal/object position
-clip/overflow
+clip/overflow/radius
 fallback/loading
 responsive resources
+OCR/document/visual-only semantics
 ```
+
+FR0 also owns EventMediaRail framing variants. It adopts the last useful M0
+framing work through an exact cutover; nothing is restarted or discarded.
+
+M0 consumes this API and owns card anatomy, actions, metadata, grids and rows.
+A0 migrates actual consumers and may not introduce page-local framing fixes.
 
 Mandatory donors:
 
 ```text
 events-bot-new/docs/features/static-site-pages/image-framing.md
-site/src/lib/relatedCardLayout.mjs
-site/src/components/OptimizedEventCardGrid.astro
+site/src/components/media-frame.css
+site/src/components/EventMediaRail.astro
+existing M0 MediaFrame commits and Golden stress cases
 ```
 
-### AdaptiveEventCardGrid
+### AdaptiveEventCardGrid — M0 owner
 
 One family covers applicable EventCard multi-card consumers:
 
@@ -288,30 +275,28 @@ One family covers applicable EventCard multi-card consumers:
 - equal media/card heights within row;
 - source/focus order preserved;
 - no compact/mobile overflow;
-- framing remains MediaFrame-owned.
+- framing remains FR0 MediaFrame-owned.
 
 ## 9. Parallel roles
 
-- `N0`: candidate review, conditional generation authority, integration,
-  preview, status, release;
-- `F0`: foundations, colors, typography, spacing, four icon roles, SVG/brand,
-  duplicate style-owner closure;
-- `M0`: component identity, MediaFrame, EventCard/ListingEventCard,
-  AdaptiveEventCardGrid;
+- `N0`: candidate review, integration, generation, preview, status, release;
+- `F0`: foundations, colors, typography, spacing, icon roles, SVG/brand;
+- `FR0`: MediaFrame, EventMediaRail and framing semantics/diagnostics;
+- `M0`: component identity, EventCard/ListingEventCard, actions/metadata,
+  AdaptiveEventCardGrid and row packing;
 - `A0`: shell, listings, actual routes, consumer migration;
 - `V0`: browser DOM/computed audit; later Golden Penpot audit;
-- `K0`: product/process consultant and direct canonical-doc repair;
-- `R0`: persistent native mechanical executor, local focused diagnostic worker,
-  Kaggle invocation/observation and sole Penpot writer.
+- `K0`: consultant, exact prompt routing and canonical-doc repair;
+- `R0`: persistent native mechanical executor, integration/runtime/Kaggle and
+  sole Penpot writer.
 
-No mandatory `MAT → QA → INTEGRATE → PUBLISH`, new orchestrator or micro-wave
-owner scheduler exists.
+No further specialist role is added until two successive
+`role result → integration ≤30m → Preview → V0` cycles are proven.
 
 ## 10. Autonomous recovery
 
-Recoverable metadata, combined `branch@sha`, stale same-programme checkpoint,
-missing heading/packet, ENOSPC, aged fixture and local tooling defect are not
-terminal blockers.
+Recoverable metadata, stale same-programme checkpoint, missing heading/packet,
+ENOSPC, aged fixture and local tooling defect are not terminal blockers.
 
 ```text
 infer from issue/refs/repository/ownership
@@ -324,8 +309,6 @@ infer from issue/refs/repository/ownership
 `[BLOCKER]` is valid only when independent work is exhausted and a real product,
 external, writer-conflict or irreversible-risk action is required.
 
-Correctable canonical drift is repaired before being reported to the owner.
-
 ## 11. Browser and Golden
 
 V0 personally checks actual routes on desktop wide, desktop compact, mobile
@@ -337,17 +320,14 @@ responsive transitions and horizontal overflow.
 
 ```text
 PASS
-DRIFT        → owning F0/M0/A0 immediately
+DRIFT        → owning F0/FR0/M0/A0 immediately
 PRODUCT_GAP  → backlog after ASTRO_NORMALIZATION_PASS
 BLOCKER      → strict exhausted-work rule only
 ```
 
-Source declaration or tests without browser evidence do not close drift.
-
 Golden uses a frozen Europe/Kaliningrad Friday clock across Friday/Saturday/
 Sunday/weekend/free actual routes. It is internal A=S=P evidence, not owner
-review prerequisite. Full Golden Review Preview is generated by the same Kaggle
-pipeline under a separate immutable prefix.
+review prerequisite.
 
 ## 12. ASTRO_NORMALIZATION_PASS
 
@@ -357,8 +337,8 @@ Gate requires:
 - tokenized foundations/colors;
 - four icon roles across all consumers;
 - single roots for same components;
-- MediaFrame/framing browser PASS;
-- AdaptiveEventCardGrid across applicable consumers;
+- FR0 MediaFrame/framing browser PASS;
+- M0 AdaptiveEventCardGrid across applicable consumers;
 - actual routes migrated;
 - no critical V0 browser DRIFT.
 
@@ -373,7 +353,3 @@ checked release candidate.
 
 Local focused diagnostic is useful evidence for a defect but never closes a
 published preview, owner review, V0, PM0 or A=S=P checkpoint.
-
-Checkpoint publication does not automatically end a role. Packet, dispatch,
-worktree, commit without role review, test without output, 404 route and empty
-Penpot page are not owner-facing progress.
