@@ -3,111 +3,105 @@
 Status owner: `N0`  
 Coordination: `onedayonemasterpiece/events-bot-new#621`  
 Contract: `launch-normalized-ui.v1.yaml@1.9.0`  
-PM0 checklist: `PM0-READINESS-FORECAST.md@2.3.0`
+PM0 checklist: `PM0-READINESS-FORECAST.md@2.3.0`  
+Machine-readable N0 transaction: `docs/launch-normalization/n0-current-successor-acceptance.v1.json`
 
-## Current operating model
+## Operating and build boundary
 
 ```yaml
 mode: DAY_PARALLEL
 Codex_resource: SCARCE
-specialist_windows: source_analysis_semantic_decisions_direct_GitHub_implementation_review_and_machine_readable_bindings
-R0: cross_branch_materialization_local_runtime_tests_Kaggle_invocation_artifact_publication_and_merge_resolution
-my_data_hub: sole_MCP_operation_facade_for_published_review_builds
+specialist_roles: source_analysis_direct_GitHub_implementation_review_and_bindings
+R0: cross_branch_materialization_local_runtime_tests_Kaggle_publication_and_merge_repair
 full_build_executor: one_events_bot_new_Kaggle_StaticSiteBuilder
 published_storage: one_current_Yandex_bucket_with_create_only_immutable_prefixes
+published_preview_control_plane: my_data_hub_only
 ```
 
-Full or published real/golden/focused/RC/production-form builds always use the
-same `events-bot-new` Kaggle pipeline. A local build is permitted only as an
-unpublished focused diagnostic and receives no owner/V0/PM0/A=S=P build credit.
-`catalog-mode: slice|full` is event-data scope, not the page-class selector.
+Every full or published real, Golden, focused, RC or production-form build uses
+the same `events-bot-new` Kaggle pipeline. A local build is only an unpublished
+focused diagnostic and receives no owner, V0, PM0 or A=S=P credit.
 
-## Accepted Golden transaction and independent verdict
+## Accepted fresh-real baseline
 
-N0 accepts the exact immutable Golden transaction from issue comment
-`5527249164`:
+N0 accepts issue comment `5528274698` as the exact PM0 items 2 and 3
+fresh-production and full-real Kaggle baseline:
 
 ```yaml
-url: https://kenigevents.ru/preview-golden-84504f30-20270604-v1/__preview/
-http: 200
-build_id: preview-golden-84504f30-20270604-v1
-repo_sha: 84504f30eebc334deba46e94365601c3d572c5c0
-data_mode: golden
+url: https://kenigevents.ru/preview-real-4536847f-fresh-20260903-v1/__preview/
+manifest: https://kenigevents.ru/preview-real-4536847f-fresh-20260903-v1/preview-build.json
+repo_sha: 4536847f9fbdaa27326ebb3ec9ec1c825736e107
+build_id: preview-real-4536847f-fresh-20260903-v1
+data_mode: real
 page_classes: [all]
-golden_corpus_id: golden-review-20260903-v1
-golden_corpus_sha256: f90561691baa6744804b6cba36b0a8580eac8e9607dcdb97483511ad32e7ce00
-kaggle_dataset: zigomaro/static-site-builder-input-20260903141925-94f0f2
+snapshot_id: issue621-real-9152994b-20260903T144827Z
+snapshot_sha256: 1a084d7e321771e5acb7681d61589962c8d48cc68f37d6c7799180bf13573b5e
+event_count: 300
+kaggle_dataset: zigomaro/static-site-builder-input-20260903152929-3705b4
 kaggle_kernel: zigomaro/kenigevents-static-site-builder
-published_objects: 1450
+kaggle_status: COMPLETE
+published_objects: 1418
 root_mutation: false
 stable_ics_mutation: false
+r0_document_http_200: 126/126
+r0_console_errors: 0
 ```
 
 Accepted ancestry:
 
 ```text
-0d73428dfafff2fd5450b74fd68e7bb40e92d2c5
-→ e7e8802675103a04c207564f8dccd88a8c0c65de
-→ e3f6f9dcd5f0103145389556f3e8fbc9b1e59b7b
-→ c124ca2a810f100122230b7f51ec1221f7e74be4
-→ 84504f30eebc334deba46e94365601c3d572c5c0
+ce59cc2fda4e61c8af37f980a5e440c093bd2da8
+→ 1d145d5efd2a332eff29e69b6afcf43414769906
+→ 4536847f9fbdaa27326ebb3ec9ec1c825736e107
 ```
 
-V0 then personally audited that URL and reported `[DRIFT]` in comment
-`5527892153`:
+This transaction proves the canonical real build/publication rail and fresh
+snapshot identity. It does not validate later source, complete voice review or
+supply an independent V0 verdict. R0 observed desktop `/populyarnoe/` document
+overflow in this immutable artifact; later source contains the internal-scroll
+repair, but only a new exact build and V0 audit can close the product finding.
+
+## Golden transaction and V0 decision
+
+The accepted Golden transaction remains:
 
 ```yaml
-viewports: [375, 620, 1024, 1440]
-routes_per_viewport: 10
-document_http_200: 40/40
-free_collection_visible_cards_at_375: 6
-free_collection_horizontal_overflow: false
-independent_PASS: false
+url: https://kenigevents.ru/preview-golden-84504f30-20270604-v1/__preview/
+repo_sha: 84504f30eebc334deba46e94365601c3d572c5c0
+build_id: preview-golden-84504f30-20270604-v1
+data_mode: golden
+kaggle_status: COMPLETE
+v0_comment: 5527892153
+v0_verdict: DRIFT
+v0_document_http_200: 40/40
 ```
 
-N0 accepts one product defect: the EventCard `Не интересно` auxiliary controls
-were approximately `36.28px` high because `EventLayout.astro` owns a specific
-`min-height: 36px` override. The first fresh-real candidate remains closed until
-that duplicate owner is removed or raised so the computed target is at least
-44px while preserving behavior.
+N0 accepts the measured `36.28px` EventCard auxiliary target as factual product
+drift. Current successor source removes the route-local 36px owner and binds the
+target to at least 44px; browser closure is still pending. N0 rejects a second
+`data-ui-*` identity protocol and a blanket `target="_blank"` ban. Canonical
+identity is `data-ds-family/version/variant/state`; blank external targets must
+carry both `noopener` and `noreferrer`.
 
-N0 rejects two overbroad source demands from that verdict:
+## V0 platform boundary
 
-- canonical identity is `data-ds-family/version/variant/state` plus existing
-  family hooks; a second `data-ui-*` identity protocol is forbidden;
-- safe external `target="_blank"` links are allowed when `rel` contains both
-  `noopener` and `noreferrer`; only missing safety tokens are drift.
-
-The Golden transaction supplies DONE evidence for PM0 items 4, 6, 7, 8 and 10.
-Item 9 is PARTIAL because the independent verdict is DRIFT. Golden does not
-complete item 3, voice review, ASTRO normalization, thin S, Penpot or release.
-
-## Current source successor
-
-The current reviewed source base is:
+V0 comment `5529063082` is accepted as an actual tool-surface blocker, not a
+browser verdict. The explicitly attached activation exposed no callable
+`my-browser-bridge` actions, so the fresh-real target remains unaudited:
 
 ```yaml
-branch: agent/static-site-single-kaggle-contract
-head_at_status: 4536847f9fbdaa27326ebb3ec9ec1c825736e107
-runtime_acceptance: false
-public_url: null
+target: https://kenigevents.ru/preview-real-4536847f-fresh-20260903-v1/__preview/
+repo_sha: 4536847f9fbdaa27326ebb3ec9ec1c825736e107
+verdict: NOT_EXECUTED
+browser_PASS_claimed: false
+browser_DRIFT_claimed: false
+external_trigger: callable my-browser-bridge actions in an explicitly attached V0 activation
 ```
 
-`4536847...` is a source-only successor to `9152994...`: it keeps the one Kaggle
-rail and updates the browser-release check to select current active-data
-specimens and distinguish a canonical empty rail. It has no exact-SHA Kaggle or
-public result and inherits none from the accepted Golden transaction.
+## Current refs
 
-Exact SHA `0d92654b9637e31753fed5bd4bf6a4a66763c079` separately passed an
-intentionally unpublished Golden Kaggle retry
-`preview-golden-0d92654b-20270604-clock-v1`, proving the frozen-clock
-service-share skip. It remains diagnostic evidence only.
-
-## Current role refs and N0 acceptance
-
-These are observed checkpoints for this status, not future hard gates. R0 must
-fresh-resolve every ref before materialization and stop if a newer change touches
-an accepted selected path without N0 review.
+These are reviewed transaction checkpoints, not future hard gates. R0 resolves
+current descendants immediately before materialization.
 
 ```yaml
 programme:
@@ -119,178 +113,222 @@ legacy_combined_candidate:
   head: 0d73428dfafff2fd5450b74fd68e7bb40e92d2c5
   classification: accepted_precursor_not_current_successor
 
+current_source_successor:
+  branch: agent/static-site-single-kaggle-contract
+  head: 1bc6d9cb4c122046f4782532381de953727c1da6
+  accepted_normalization_parent: d0ad17088e13d5dab3d992326f393e2616246c5d
+  classification: source_accepted_intermediate_runtime_unaccepted
+
 N0:
   branch: work/ui-normalization-n0-checklist-20260903
-  head_at_status: d2003894b864b10ddbf5e6c54a139601251516db
-  classification: source_acceptance_regressions_and_transition_policy_pending_R0_tests
+  minimum_reviewed_head: 3f78a27a8dfc701d68a8e1bfcf33b63d7a3eb095
+  resolve_current_descendant_at_materialization: true
 
 F0:
   branch: work/ui-normalization-f0-wave-3-20260903
-  reviewed_head: de92dabd4551e117ca1af1be7915ff223321cc32
-  classification: source_accepted_not_end_to_end_complete
-  current_foundation_progress:
-    - duplicate Badge/Field/StatePanel visual ownership removed
-    - exactly four semantic icon roles formalized
-    - interest-club/catalog icon bindings defined
-    - typography authority and A0 migration bindings recorded
-  remaining:
-    - no owner-approved font binary or @font-face authority
-    - actual-consumer/raw-value closure and executable integration checks
+  integrated_ancestor: de92dabd4551e117ca1af1be7915ff223321cc32
+  route_theme_checkpoint: f2b9927e25ac0566d35577f69c574cedadab27d7
+  current_head: 0fb2938344cf96b05be0df09dfb9e69525b3717d
 
 M0:
   branch: work/ui-normalization-m0-continuity-20260903
-  reviewed_head: c808c75dd975a9851e148ccf993c32787d2b6886
-  integrated_parent_in_4536847: 1d145d5efd2a332eff29e69b6afcf43414769906
-  classification: source_accepted_tip_partially_integrated_runtime_pending
-  accepted_current_delta:
-    - one MediaFrame anatomy/fit owner
-    - coherent input/source/rendered grid count/order populations
-    - duplicate-safe adaptive source identity
-    - named remainder variants
-    - fail-closed listing-media fallback states
-    - canonical EventCard/ListingEventCard/mobile-rail icon roles
-    - normalized public packer numeric inputs
-    - canonical EventCard auxiliary target minimum of 44px
-  important_boundary: canonical_44px_rule_does_not_authorize_retaining_EventLayout_36px_duplicate_owner
+  integrated_ancestor: c808c75dd975a9851e148ccf993c32787d2b6886
+  current_source_head: c71351decdcee02941acb26c5e2fbaf88faf0378
+  current_downstream_head: 5eeaba09b5ec432a77ff899ce98fb8b9f492c133
 
 A0:
   branch: work/ui-normalization-a0-wave-3-20260903
-  source_materialization_head: ec926580fa2cc003318006f4c1d671fc459ea26c
-  downstream_contract_head: f9217d66711731a911543314d17e35fed9824a2a
-  classification: net_consumer_diff_and_mechanical_batch_accepted_whole_branch_merge_forbidden
-  materialization_comment: 5527907602
-  accepted_effects:
-    - Popular Large/Compact behavior is preserved and bound to visible representations
-    - Home, Favorites and PersonalFeed delegate grid diagnostics to AdaptiveEventCardGrid
-    - interest-club route consumes F0 foundations and canonical icon roles
-    - A0-MECH-01 through A0-MECH-05 are semantically decided
-  N0_amendment: A0-MECH-04_must_remove_or_raise_EventLayout_36px_override
+  integrated_semantic_checkpoint: ec926580fa2cc003318006f4c1d671fc459ea26c
+  current_head: 61d340a3ca291f074289d2292b33f56b2bad8a22
+  whole_branch_merge_allowed: false
 ```
 
-A0 copies of M0 roots are excluded from materialization. R0 must integrate F0,
-then M0, then apply the net A0 consumer diff and bounded mechanical clusters
-against that tree; the A0 branch may not be merged wholesale. Popular
-Large/Compact choice, localStorage restoration, keyboard/pinch behavior and
-visible anchor remain mandatory.
+The source successor includes F0 through `de92...`, M0 through `c808...`, N0
+through its earlier accepted checkpoint and selected A0 source through
+`ec926...`. It also contains the 44px reconciliation, Popular internal overflow
+ownership, the Weekend seam containment, A0-MECH-01 through A0-MECH-05 and a
+safe `noopener noreferrer` festival-link correction. It has no exact-SHA
+runtime or public verdict.
 
-## Machine-readable downstream readiness
+## Required source closure before the next full build
 
-A0 published four same-domain downstream artifacts on the current SoT branch:
+### F0 route themes and actual consumers
+
+F0 `f2b9927...` publishes token-only foundations and exact regression boundaries.
+A0 must consume them without changing route behavior:
+
+```text
+ExhibitionsPersonalSurface
+  remove private --ex-* palette/motion ownership
+  use exact --ke-color-exhibitions-* / --ke-exhibitions-* roles
+
+/festivali/
+  remove local 0.95rem SemanticIcon sizing
+  make favorite target >=44px
+  use SemanticIcon heart/control
+  bind exact festival theme roles
+
+/kluby-po-interesam/<slug>/
+  replace text arrow with SemanticIcon arrow-left/inline
+  bind exact club-detail theme roles
+```
+
+Strict gate:
+
+```bash
+F0_REQUIRE_ROUTE_THEME_CONSUMED=1 \
+  node site/src/components/design-system/check-f0-route-theme-bindings.mjs
+```
+
+F0 `0fb2938...` closes the interest-club palette classification without an owner
+product decision: the blue/gold index intro is an intentional centralized route
+identity, while `InterestClubCard` is one reusable dark photographic family.
+A0 must perform four exact decorative color-literal substitutions only.
+
+```bash
+F0_REQUIRE_CLUB_THEME_CONSUMED=1 \
+  node site/src/components/design-system/check-f0-interest-club-theme-decision.mjs
+```
+
+### M0 current family source and downstream lineage
+
+M0 source through `c71351de...` is accepted for the next successor:
+
+- contradictory resolved rail inputs fail closed to contain;
+- responsive stack/progressive seams remain source-addressable;
+- EventHero delegates its primary frame to one non-interactive MediaFrame;
+- the caller keeps opener and full-screen viewer interaction ownership.
+
+M0 downstream through `5eeaba09...` is also accepted. Canonical targets are:
+
+```text
+catalog/normalization/m0-family-thin-s-bindings.v1.json
+penpot/candidate/m0-family-master-spec.v1.json
+catalog/normalization/evidence/m0-v0-acceptance-matrix.v1.json
+docs/launch-normalization/m0-source-integration-and-rollback.v1.json
+```
+
+No runtime, browser or native Penpot credit is inherited from these source
+records.
+
+### A0 route identity denominator
+
+Current successor source exposes 17/19 required route-family identities. Before
+the full route V0 matrix, A0-MECH-06 must add:
+
+```text
+site/src/pages/fokus-gruppa/kollektsiya/index.astro
+  FocusEggCollectionRouteComposition@1 / collection-prototype
+  state: found-N-of-M
+
+site/src/pages/zakrytaya-afisha/index.astro
+  ClosedFocusHubRouteComposition@1 / participant-hub
+  states: checking | locked | available
+```
+
+Source identity then becomes 19/19; browser credit remains 0/19 until V0.
+
+## Machine-readable downstream state
 
 ```yaml
-thin_s:
-  path: catalog/normalization/a0-thin-s-bindings.v1.json
-  source_commit: a800f619b66cdf713e94f234382481bb8621dd22
-  bindings: 19
-  source_implemented: 19/19
+N0:
+  current_transaction: docs/launch-normalization/n0-current-successor-acceptance.v1.json
+
+F0:
+  thin_s:
+    - catalog/normalization/f0-foundation-thin-s-bindings.v1.json
+    - catalog/normalization/f0-interest-club-theme-extension.v1.json
+  penpot_ready:
+    - penpot/candidate/f0-foundation-variable-spec.v1.json
+    - penpot/candidate/f0-interest-club-theme-extension.v1.json
+  status: source_specs_ready_integration_and_V0_pending
+
+A0:
+  route_bindings: bindings/launch-normalization/a0-route-family-bindings.v1.json
+  source_identity: 17/19
   current_build_verified: 0/19
   browser_observed: 0/19
-  N0_classification: PM0_25_PARTIAL_SOURCE_IMPLEMENTED_UNINTEGRATED
+  penpot: SPEC_ONLY_NOT_MATERIALIZED
 
-penpot_candidate:
-  path: penpot/candidate/a0-route-instance-spec.v1.json
-  source_commit: 870a207fcf36624cf8849d6b018c92cc64a89224
-  declared_status: SPEC_ONLY_NOT_MATERIALIZED
-  N0_classification: PM0_39_NOT_DONE
-
-V0_matrix:
-  path: catalog/normalization/evidence/a0-v0-acceptance-matrix.v1.json
-  source_commit: e9f00176ed7e93d2a4531776ea24933331a73f93
-  bindings: 19
-  browser_observed: 0/19
-  current_build_verified: 0/19
-  N0_classification: acceptance_matrix_ready_no_PASS
-
-rollback:
-  path: docs/launch-normalization/a0-source-integration-and-rollback.v1.json
-  source_commit: d0509f97e04fda3f24b026dd767262d2098f5463
-  units: A0-MECH-01..05
-  production_mutation: forbidden
-  N0_classification: release_mechanics_ready_not_executed
+M0:
+  source_index: site/src/data/m0-downstream-bindings.v1.json
+  status: source_and_contracts_ready_SoT_materialization_pending
 ```
 
-These are substantive preparation, not a claim that current Astro is integrated,
-that Penpot exists, or that A=S=P passed. Thin S may remain PARTIAL while source
-materialization is pending; Penpot remains NOT DONE until readable native masters
-and linked actual-route instances exist.
+Source specification is not integrated product; integrated source is not V0
+PASS; a Penpot-ready JSON specification is not native Penpot materialization.
 
-## Current first-real candidate gate
-
-N0 has completed the semantic inclusion/removal decisions. The bounded R0
-transaction is:
+## Exact next candidate transaction
 
 ```text
-base: agent/static-site-single-kaggle-contract@4536847f...
-+ current N0 acceptance/tests
-+ F0@de92dabd...
-+ M0@c808c75d...
-+ net A0 consumer diff at ec926580... excluding M0 roots
-+ A0-MECH-01..05
-+ removal/raise of EventLayout 36px auxiliary-action override
-→ exact source/test/check PASS
+base:
+  agent/static-site-single-kaggle-contract@1bc6d9cb4c122046f4782532381de953727c1da6
+
+include:
+  current N0 descendant
+  F0 through 0fb2938344cf96b05be0df09dfb9e69525b3717d
+  M0 source through c71351decdcee02941acb26c5e2fbaf88faf0378
+  M0 downstream through 5eeaba09b5ec432a77ff899ce98fb8b9f492c133
+  exact A0 F0-theme and InterestClubCard substitutions
+  A0-MECH-06 focus collection and closed hub identities
+  selected A0 downstream and rollback records
+
+reject:
+  whole A0 branch merge
+  A0 replay of M0 canonical roots
+  parallel data-ui identity layer
+  blanket target=_blank ban
+  local full-preview publication
+  runtime inheritance from an earlier SHA
+  treating 4536847f as current-successor browser acceptance
+```
+
+Required executable packet includes:
+
+```bash
+npm run test:n0-successor-acceptance
+N0_REQUIRE_CURRENT_SUCCESSOR=1 npm run test:n0-v0-golden-drift
+F0_REQUIRE_ROUTE_THEME_CONSUMED=1 \
+  node site/src/components/design-system/check-f0-route-theme-bindings.mjs
+F0_REQUIRE_CLUB_THEME_CONSUMED=1 \
+  node site/src/components/design-system/check-f0-interest-club-theme-decision.mjs
+npm run test:golden-preview-contract
+npm run check:preview
+npm run check:design-system-production-surfaces
+npm run check:design-system-iconography
+```
+
+The output must be one exact tested integrated successor SHA. Only then may R0
+create a fresh immutable production snapshot and run the full `real/all` Kaggle
+transaction for that exact SHA.
+
+## PM0 state
+
+```yaml
+DONE: [2, 3, 4, 6, 7, 8, 10]
+PARTIAL_with_current_progress: [9, 11, 13, 15, 16, 17, 18, 19, 25, 37]
+voice_review: NOT_READY
+```
+
+Voice review still requires an exact current-successor Kaggle preview, an
+independent V0 no-critical-structural-drift verdict, 19/19 route identity and
+exact F0 consumer convergence.
+
+## Gate sequence
+
+```text
+current source closure and exact executable PASS
 → one exact tested successor SHA
-```
-
-Required source checks include N0 acceptance and strict Golden-DRIFT regression,
-F0 authority checks, M0 grid/media/control contracts and A0 consumer/route
-contracts. A full build is not permitted before the strict source checkpoint is
-green.
-
-## Nearest common product gate
-
-```text
-one exact tested current successor SHA
-+ fresh immutable production snapshot with source time/count/hash identity
-+ full Kaggle build: preview-data-mode=real, page-class=all
-+ checked artifact and create-only immutable-prefix publication
-+ HTTP-200 exact /<buildId>/__preview/
-+ matching preview-build.json and Kaggle operation/artifact identity
-→ N0 result acceptance
-→ V0 independent DOM/computed-style verdict
-```
-
-Voice review remains `ЕЩЁ РАНО` until the fresh-real vertical slice and V0
-conditions in PM0 2.3 are all satisfied.
-
-## Downstream gate sequence
-
-```text
-fresh-real V0 PASS / factual DRIFT closure
+→ fresh immutable production snapshot
+→ full real/all Kaggle build and immutable publication
+→ N0 result/ancestry acceptance
+→ V0 independent browser verdict
 → ASTRO_NORMALIZATION_PASS
-→ bind accepted thin-S records to the exact integrated source and V0 cases
-→ R0.PENPOT native masters/variants and linked route instances
-→ Golden A=S=P V0 PASS
-→ production-form Kaggle release candidate and rollback verification
+→ bind thin S to the accepted source and V0 evidence
+→ R0.PENPOT native variables/masters/linked route instances
+→ Golden A=S=P PASS
+→ production-form Kaggle Release Candidate and rollback verification
 ```
 
-No source test or spec-only Penpot file opens a later gate by itself.
-
-## Checklist-to-role mapping
-
-```text
-N0 → 2–10, result/candidate acceptance, one-pipeline policy, rollback and transition gates
-F0 → 11–19 and exact foundation/icon downstream bindings
-M0 → 20–31 and family/variant/state/media/grid bindings
-A0 → 32–38 and actual-route/consumer coverage
-V0 → browser evidence for 9, 27, 31, 34–38 and 40
-R0 → integration, executable verification, Kaggle, publication and Penpot mechanics
-```
-
-## Exit rule
-
-A branch, Wave, commit, result or source-layer convergence is not an exit. A role
-stops only after current role branch, combined successor, actual consumers,
-current PM0 checklist and same-domain downstream bindings prove:
-
-```text
-ready_owned_items: 0
-remaining_external_trigger: <exact result, URL, verdict or genuine decision>
-```
-
-## ASTRO_NORMALIZATION_PASS
-
-Still closed. Required: accepted current integrated source, fresh-real full
-Kaggle generation, HTTP-200 exact preview, tokenized foundations, exactly four
-icon roles, canonical roots, MediaFrame and AdaptiveEventCardGrid browser PASS,
-migrated actual routes, no critical V0 DRIFT, bound thin S and native linked
-Penpot evidence.
+`ASTRO_NORMALIZATION_PASS`, bound thin S, native Penpot and Release Candidate
+remain closed.
