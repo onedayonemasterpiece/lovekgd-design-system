@@ -9,7 +9,16 @@ status_doc: docs/launch-normalization/STATUS.md
 authority:
   executable_ui:
     repository: onedayonemasterpiece/events-bot-new
+    branch: agent/static-site-single-kaggle-contract
+  programme_history_anchor:
+    repository: onedayonemasterpiece/events-bot-new
     branch: integration/ui-normalization-launch-20260902
+    classification: history_anchor_not_merge_target
+    executable_acceptance_target: false
+  role_branch_delivery:
+    classification: source_and_test_review_checkpoints
+    integration_target: agent/static-site-single-kaggle-contract
+    merge_back_to_programme_history_anchor: forbidden
   thin_sot_and_penpot_delivery:
     repository: onedayonemasterpiece/lovekgd-design-system
     branch: integration/launch-normalized-sot-penpot-20260902
@@ -236,8 +245,13 @@ worker_turn_contract:
   stop_start_pattern_while_ready_work_exists: BACKLOG_NOT_FORMING
 
 integration_flow_control:
+  executable_Astro_trunk: agent/static-site-single-kaggle-contract
+  programme_history_anchor: integration/ui-normalization-launch-20260902
+  programme_history_anchor_is_merge_target: false
+  pull_integrator: N0
+  mechanical_integrator_and_release_executor: R0
   candidate_max_lag_minutes_when_merge_ready_output_exists: 30
-  max_unintegrated_coherent_waves_per_role: 2
+  max_unintegrated_merge_ready_batches_per_role: 1
   full_preview_after_compatible_batches_min: 2
   full_preview_after_compatible_batches_max: 3
   full_preview_max_active_minutes_since_previous: 60
