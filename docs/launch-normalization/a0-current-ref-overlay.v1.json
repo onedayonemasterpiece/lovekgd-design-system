@@ -1,0 +1,104 @@
+{
+  "schema_version": "kenigevents.a0-current-ref-overlay.v1",
+  "contract_version": "1.9.0",
+  "status": "ACTIVE_CURRENT_REF_OVERLAY",
+  "observed_at": "2026-09-03T15:37:39Z",
+  "authority": {
+    "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+    "a0_mechanical_batch_comment": 5527907602,
+    "reason": "Role SHAs in earlier artifacts are transaction checkpoints. This overlay resolves the current compatible specialist tips without rewriting historical evidence."
+  },
+  "current_refs": {
+    "accepted_combined_precursor": {
+      "branch": "r0/ui-normalization-current-candidate-20260903",
+      "sha": "0d73428dfafff2fd5450b74fd68e7bb40e92d2c5"
+    },
+    "f0": {
+      "branch": "work/ui-normalization-f0-wave-3-20260903",
+      "sha": "de92dabd4551e117ca1af1be7915ff223321cc32"
+    },
+    "m0": {
+      "branch": "work/ui-normalization-m0-continuity-20260903",
+      "sha": "c808c75dd975a9851e148ccf993c32787d2b6886"
+    },
+    "a0": {
+      "branch": "work/ui-normalization-a0-wave-3-20260903",
+      "semantic_source_checkpoint": "ec926580fa2cc003318006f4c1d671fc459ea26c",
+      "latest_checkpoint_observed": "65a0b1ac5b654732899670f8d12580c925ce907a"
+    }
+  },
+  "supersedes_for_next_materialization": {
+    "m0_checkpoint": "4c83fc7769b1dec2d92469373e3b15154af437f4",
+    "replacement": "c808c75dd975a9851e148ccf993c32787d2b6886",
+    "scope": [
+      "A0 READY_FOR_R0_MECHANICAL precondition",
+      "A0 thin-S current dependency resolution",
+      "A0 V0 current-successor source binding",
+      "A0 integration and rollback precondition"
+    ],
+    "historical_checkpoint_remains_valid_evidence": true
+  },
+  "a0_compatibility_review": {
+    "verdict": "COMPATIBLE_SUCCESSOR_NO_A0_SOURCE_CHANGE_REQUIRED",
+    "reviewed_files": [
+      "site/src/components/AdaptiveEventCardGrid.astro",
+      "site/src/components/EventCard.astro",
+      "site/src/components/event-card.css",
+      "site/src/lib/relatedCardLayout.mjs",
+      "site/tests/adaptive-event-card-grid.test.mjs",
+      "site/tests/adaptive-grid-diagnostic-cardinality.test.mjs",
+      "site/tests/event-card-control-target.test.mjs",
+      "site/tests/related-card-packer-inputs.test.mjs",
+      "site/tests/ui-normalization-m0-contract.test.mjs"
+    ],
+    "findings": [
+      "AdaptiveEventCardGrid retains runtimeManaged, runtimeVisibleOnly, runtimeSourcePolicy, itemRoots and live-region public props used by A0 consumers.",
+      "The grid now publishes data-adaptive-grid-diagnostics-owner=AdaptiveEventCardGrid and diagnostics contract input-source-rendered-v1.",
+      "Input count/order are separated from admitted source count/order and rendered count/order, removing prior diagnostic ambiguity.",
+      "Duplicate event IDs now resolve item roots by the exact source index without changing A0 itemRoots keys.",
+      "Visible-only and mirror-rendered/all-direct mutation behavior used by PersonalFeed, Home and Favorites remains compatible.",
+      "EventCard control target styling moves to the M0 CSS owner and does not require a consumer-local override.",
+      "Related-card packer input hardening changes no A0 composition API."
+    ],
+    "negative_findings": [
+      "No removed A0-consumed prop.",
+      "No new A0-owned diagnostics writer.",
+      "No requirement to replay an A0 copy of an M0 root.",
+      "No product behavior decision introduced in A0 scope."
+    ]
+  },
+  "materialization_rule": {
+    "use_m0_sha": "c808c75dd975a9851e148ccf993c32787d2b6886",
+    "order": [
+      "current accepted combined precursor or successor",
+      "F0 de92dabd4551e117ca1af1be7915ff223321cc32",
+      "M0 c808c75dd975a9851e148ccf993c32787d2b6886",
+      "net A0 consumer diff through ec926580fa2cc003318006f4c1d671fc459ea26c",
+      "A0-MECH-01 through A0-MECH-06"
+    ],
+    "a0_wholesale_merge": false
+  },
+  "additional_source_tests": [
+    "site/tests/event-card-control-target.test.mjs",
+    "site/tests/related-card-packer-inputs.test.mjs"
+  ],
+  "v0_binding_delta": {
+    "required_root_attributes": [
+      "data-adaptive-grid-diagnostics-owner=AdaptiveEventCardGrid",
+      "data-adaptive-grid-diagnostics-contract=input-source-rendered-v1",
+      "data-adaptive-grid-input-count",
+      "data-adaptive-grid-input-order",
+      "data-adaptive-grid-source-count",
+      "data-adaptive-grid-source-order",
+      "data-adaptive-grid-rendered-count",
+      "data-adaptive-grid-rendered-order"
+    ],
+    "cardinality_rule": "Every comma-delimited order field has the same cardinality as its matching count; rendered remainder derives from rendered count and effective row size."
+  },
+  "claims_not_made": [
+    "M0 tests executed by A0",
+    "candidate integrated",
+    "current successor built",
+    "V0 browser PASS"
+  ]
+}
