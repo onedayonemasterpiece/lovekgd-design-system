@@ -6,11 +6,11 @@ Before any Kenigevents work that changes or evaluates Astro UI, UI SoT,
 Penpot, component lineage, or owner-review readiness, read the active normative
 contract and the applicable page profile.
 
-- Contract: `kenigevents.asp-conformance` v`1.0.0` (`ACTIVE`)
+- Contract: `kenigevents.asp-conformance` v`1.2.0` (`ACTIVE`)
 - Owner: `onedayonemasterpiece/lovekgd-design-system`
 - Path: `docs/product-governance/astro-sot-penpot-conformance.md`
-- Immutable commit: `7607143afc240b9f96abd51270ab82735aabf9bc`
-- Content SHA-256: `75c70629f01f8d60fb98290fa2e6e8abc201fc84885339c16010bcd75ddd4289`
+- Immutable commit: `a3e4f0c34a93ddf366ad8d7ec1c067a4b938c794`
+- Content SHA-256: `d384b63e63bccffc67dff4b48149c5d901364360782f76ae8b0ee2ab33cf29fd`
 - Repository lock: `contracts/requirements-lock.yaml`
 - Page profiles: `contracts/page-profiles/`
 
