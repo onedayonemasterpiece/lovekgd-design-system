@@ -1,329 +1,79 @@
 # Launch normalization — factual status
 
-Status owner: `N0`  
-Coordination: `onedayonemasterpiece/events-bot-new#621`  
-Contract: `launch-normalized-ui.v1.yaml@1.11.0`
+Coordination: `onedayonemasterpiece/events-bot-new#621`.
+Contract: [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.12.0.
+Current correction: [Owner audio review — 2026-09-05](owner-audioreview-20260905.md).
 
-## Current finite owner-review stage — 2026-09-04
+## Current verdict
+
+**REOPENED_AFTER_OWNER_AUDIO_REVIEW. NORMALIZATION COMPLETION IS NOT ACCEPTED.**
+
+The owner rejected the aggregate completion claim after three voice reviews: headings still differ between comparable product pages, and card layout, navigation and other journeys need correction. This is the finite owner-review correction, not a new open-ended programme. The original technical evidence is retained with its actual scope; it does not override the rejected product result.
+
+The source audit and isolated code tests performed in this ChatGPT window are **not** a new independent browser verdict. No corrected review build has been published in this pass. Production root, stable ICS, production data and native Penpot have not been changed.
+
+## Existing review candidate — rejected as normalized, retained as before-reference
 
 - Executable branch: `events-bot-new@agent/static-site-single-kaggle-contract`.
-- Current committed source after mandatory completion/SoT corrections: `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f` (remote read-back verified).
-- Published source: `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`.
+- Last source head read: `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`.
+- Owner-reviewed published source: the same `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`.
 - Preview: https://kenigevents.ru/preview-real-8b1bb8129-normalized-20260904-v1/__preview/
 - Manifest: https://kenigevents.ru/preview-real-8b1bb8129-normalized-20260904-v1/preview-build.json
-- Data: real; page_classes=all; **catalog_mode=slice, limit=300**, not full event catalog.
-- Snapshot: `issue621-audioreview-20260904T205339Z`; SHA256
-  `14950c626a9e1e977e0d734fc4e7ddf93769ea038ddbde2d9db732d402da5049`, 1215258624 bytes.
-- Frozen clock: `2026-09-04T22:53:39+02:00`; exact public manifest referenceIso matches.
-- Review Kaggle kernel: `zigomaro/kenigevents-static-site-builder-review-preview`;
-  dataset `zigomaro/static-site-builder-input-20260904213437-608337`.
-- COMPLETE → checked artifact → create-only immutable publication, exit 0;
-  1424 objects, 294378398 bytes, verified at `2026-09-04T21:41:03.631109Z`.
-  Production root and stable ICS unchanged.
-- Archive SHA256: `ded94e4b8ace32e7cf7090c1505cb77185e0559f20e9d097d2960a89c6800592`.
-- Result JSON SHA256: `7f0ff545be8147bb37e993db0eefa8a36a353c457ecee43901408993cf2be7ba`.
-- Current8b product smoke: 18 hub archetypes plus16 additional product routes × desktop/mobile = **68/68** HTTP200, no document overflow/page errors/same-prefix request failures; 4 clubs and13 festivals populated. R0 smoke is not independent V0.
-- Current publication/independent reviewer handoff: events-bot-new#621 comment **5546774738**; complete source/public checks **5546816301**; candidate/test result **5546723958**.
-- **COMPLETE FOR OWNER AUDIO REVIEW.** Independent browser review completed on exact8b:
-  Foundations PASS; MediaFrame PASS; EventCard/Grid PASS; Shell/Routes PASS.
-  Attributed review and completion: https://github.com/onedayonemasterpiece/events-bot-new/issues/621#issuecomment-5546939304
-- Separate native Playwright reviewer personally inspected all18 hub archetypes at
-  desktop/mobile, including all retained missing-hub screenshots. Fresh client-created
-  card loaded/no-source/broken probes,44px actions, calendar opening and local
-  consent/like replay passed. Factory probe is not organic-feed coverage; remote
-  writes were intercepted. R0 is not the independent reviewer.
-- Explicit limits: authenticated cloud persistence, organic personalized feed,
-  native OS share/calendar handlers and exhaustive lazy-image census not certified.
-  Artifact research route shows its existing unavailable state: source requires
-  non-production mode plus PUBLIC_ENABLE_AMBER_ARTIFACT_RESEARCH=tail. Not populated,
-  not reclassified as a lab, and no feature activation performed. Anonymous auth gates preserved.
-- Local independent evidence: events-bot-new artifacts/codex/normalization-audioreview/independent-browser-final/;
-  these are retained local artifacts, not public downloadable attachments.
-- External V0 produced no verdict at handoff; native independent browser review
-  completed instead. No optional normalization wave: next stage is owner audio review.
-- SoT window comment 5546460243 alleged an empty token graph. Exact Git bytes on
-  its own pinned 729be161 and current fdccd34f disprove it: 5053730 bytes,
-  2483 tokens, SHA256 `e20421f2143d128f35bb7da671c1b248c7e7321362e3e6a938975011e6f33ed4`.
-  Both token/Astro checkers exit 0; factual correction posted as comment 5546505242.
+- Data: real; page_classes=all; catalog_mode=slice, limit=300, **not the full event catalogue**.
+- Snapshot: `issue621-audioreview-20260904T205339Z`.
+- Snapshot SHA256: `14950c626a9e1e977e0d734fc4e7ddf93769ea038ddbde2d9db732d402da5049`.
+- Frozen clock: `2026-09-04T22:53:39+02:00`.
+- Existing review kernel: `zigomaro/kenigevents-static-site-builder-review-preview`.
+- Prior attributed completion/evidence: [comment 5546939304](https://github.com/onedayonemasterpiece/events-bot-new/issues/621#issuecomment-5546939304), with publication/source details in comment 5546816301.
 
-### Mandatory final successor published and accepted for owner review
+These publication facts are retained from the previous report, not freshly certified over HTTP by this auditor. The live browser/preview fetch route was unavailable in this window; GitHub source reads did work. Prior independent screenshots are local artifact paths, not retrieved public evidence here.
 
-Source `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`, descendant of fdccd34f via
-`36672a4e3a8c2bbb774a05c18479af167d77a780` (completion heading wrapping).
-Immutable prefix `preview-real-8b1bb8129-normalized-20260904-v1`; publication complete.
-Same immutable snapshot and clock; dedicated review kernel preflight COMPLETE before launch.
+## Evidence retained, but not a blanket PASS
 
-- Source packet172/172 PASS; Astro/token checkers PASS, negative empty identity and
-  missing inline style ownership checks included.
-- Existing registry filled from actual initial/runtime identities for37 component/route
-  owners; parametric states have explicit source-bound regex contracts, not invented enums.
-- Local canonical real-DB focused generation on exact8b1bb812 succeeds after removing
-  unsupported exporter arguments. Same snapshot hash, clock; desktop/mobile overflow0.
-- Completion three state tabs at390/720/1440:9/9 PASS; local-only clear action PASS.
-- Local receipt SHA256 `1e9fd20b4dcb36d4fc12441153cee74b494d5dec3e0dcd8b47298f3aeff6b1fc`.
-- Current8b artifact navigation census:345 product HTML routes,32652 non-template
-  internal prefix anchors,0 absent target files. Extended non-hub smoke32/32; the
-  predecessor completion heading failure is fixed without lab reclassification.
-- Independent browser verdict complete on exact source; see attributed completion above.
-  R0 mechanical smoke and independent visual/action coverage remain separately reported.
+| Evidence | What it supports | What it does not establish |
+| --- | --- | --- |
+| Reported 172 source tests and Astro/token checkers | The tested source/identity/ownership contracts | Cross-route visual normalization of every role |
+| 68 route smoke checks | HTTP200, document overflow/page errors and checked prefix requests | Correct Home destination, inner scrollers, long-scroll UX or Full-HD density |
+| Prior separate native review of 18 hub archetypes | Attributed initial desktop/mobile visual coverage | Acceptance after explicit owner rejection; all loading/keyboard/organic-feed states |
+| Event7920 factory probes | Tested created-card loaded/missing/broken cases and actions | Organic personalized-feed population and row packing |
+| Local reaction replay with remote writes intercepted | That local scenario | Authenticated cloud persistence or real public social-proof counts |
+| Structural free-collection export | The five captured same-source specimens and validator checks | Native Penpot, A=S=P, complete UI quality or all product states |
 
-### Completed clock correction
+No claim is made that the historical tests were fabricated. The aggregate inference from those tests to product completion was too broad.
 
-The predecessor `aed32da93129c2512fe2bfa7cdf2929d2e8c606d` was allowed to complete
-without interruption, but its artifact referenceIso incorrectly used kernel wall
-clock. It is superseded, not an acceptance target. The superseded fdccd34f successor propagates the
-already frozen clock into Astro and checks manifest/date before archive; 4/4
-clock tests and 157/157 focused source tests pass. No new snapshot or production
-kernel interruption was required. Issue evidence: comment 5546393393.
+## Source-confirmed findings and current implementation
 
-### Structural export evidence (current exact Preview, not native Penpot acceptance)
+The detailed AR-01–AR-15 register links the three original transcripts, source roots, approved deltas, uncertain data symptoms and withdrawn observations. Main source findings are: per-route heading scales; explicit stretched grid remainder; layout-driven card removal; centred OCR crop without text-location proof; possible simultaneous icon-only calendar/share; preview Home helper targeting the hub; a static component replacing the actual Hero Talk; hardcoded festival period and build time labelled as review time.
 
-Existing decoder API: events-bot-new `scripts/current_ui_resource_graph/v1/specimens/capture.mjs`
-`captureFreeCollectionStructuralProjection`, adjacent validator verifies exact Git
-registry/source/style contents, not only hash syntax. Captured same event IDs
-`7920,8308,7915,8564,8080` at 1440×900 and390×844, same snapshot/reference clock.
-Records retain tree/text/SVG/image content hashes, parent links, component
-identities and containment (not fabricated per-leaf source identities),
-source-referenced token values, action/calendar/MediaFrame attributes.
-Local artifacts: `artifacts/codex/normalization-audioreview/projection-{1440,390}.json`.
-Current8b1bb812 replay: source/snapshot/clock match at both viewports; 13/13
-validator tests pass per packet, including forged source hash rejection.
-Packet SHA256 desktop `c8181808d7955d7c5447eee4fd6ecd1e9cff21e5d5764c0ca0cb8c8a9ed4f3da`,
-mobile `26a17fd39883d4749cda6fda66c5e5ec175d2b23651708cb5252f3a826a8aebd`.
-Tests: structural13/13 with live source forgery rejection; existing decoder17/17
-(`--noconftest`, self-contained Node specimen tests); current product focused172/172;
-Astro/token scope16/16. These counts are test evidence, not product-completion %.
-Native P round-trip and full materialization are NOT claimed.
+### Bounded code candidate — NOT integration or browser acceptance
 
-Everything below is historical evidence, not a current SHA/URL or an instruction
-to restore superseded branches. Completion gates live in the contract.
+Repository: `onedayonemasterpiece/events-bot-new`.
+Branch: `work/owner-audioreview-card-geometry-20260905`.
+Candidate checkpoint: `87e160828d5499c7a992208a3f41d74d77165576`.
+Source change commit: `ac6b95d5e54b15207bcb315ae58adc86f09dbe9a`.
 
-## Historical authority
+Files:
+- `site/src/lib/relatedCardLayout.mjs`: preserve the admitted prefix when intrinsic-ratio packing is infeasible; use contained fallback rows; reject unproven nonzero OCR crops rather than treating the 20% ceiling as proof.
+- `site/tests/owner-audioreview-card-geometry.test.mjs`: seven focused regressions and controls.
 
-```yaml
-sole_executable_Astro_trunk:
-  repository: onedayonemasterpiece/events-bot-new
-  branch: agent/static-site-single-kaggle-contract
-  head: 3ca6a143e4286c165282c2d8ceef1759a41185b7
-programme_history_anchor:
-  branch: integration/ui-normalization-launch-20260902
-  head: ce59cc2fda4e61c8af37f980a5e440c093bd2da8
-  merge_target: false
-  executable_acceptance_target: false
-historical_r0_branches:
-  classification: evidence_only
-  new_product_integration: forbidden
-max_merge_ready_batches_outside_trunk_per_role: 1
-T0: preserved_unchanged_by_trunk_authority_correction
-```
+Actual isolated Node results: **original 3 FAIL / 4 PASS; candidate 7 PASS**. Original module blob: `1088e47f5e82062b4f7140b60ead6eb1b5ee898f`. Candidate module blob: `8fe971663e743dfdc1c0dee21f6a1d830d746d2e`, identical to the locally tested file. `imageCrop.mjs` remained unchanged. Geometry fixtures are synthetic, injected through the existing option; the local imported override catalogue is an unused empty test dependency, not production data. No dummy catalogue was committed.
 
-All executable Astro source accepted after issue comment `5532783132` lands only
-on `agent/static-site-single-kaggle-contract`. Role branches are temporary
-specialist staging surfaces, not additional integration branches.
+Remaining before integrating this candidate: run against the full checkout and actual data; review changed rowMode/cropReason consumers and obsolete old-policy assertions; update existing SoT/state contracts/generated outputs as required; test static and actual hydrated grids in-browser. No original test has been weakened. This branch does **not** fix heading CSS, stretched flex remainder, Full-HD density, Floating Island or the other AR items, and is not presented as merge-ready.
 
-## Historical full real Preview
+## Next product gate
 
-```yaml
-source_sha: 3ca6a143e4286c165282c2d8ceef1759a41185b7
-build_id: preview-real-3ca6a143e-normalized-20260903-v1
-url: https://kenigevents.ru/preview-real-3ca6a143e-normalized-20260903-v1/__preview/
-manifest: https://kenigevents.ru/preview-real-3ca6a143e-normalized-20260903-v1/preview-build.json
-publication_result_comment: 5532453272
-N0_publication_acceptance_comment: 5532465693
-personal_V0_verdict: NOT_PRODUCED_PLATFORM_BLOCKED
-V0_platform_boundary_comment: 5532859577
-```
+Continue the existing coding-agent worktree, consume the source audit rather than repeating it wholesale, and close the bounded correction register. Start with shared typography, grid/count/remainder, OCR safety and action-group labels; then shell/loading/badges, the real Hero Talk dependency closure, schematic Floating Island and keyboard journeys. Resolve bounded data questions without inventing facts or modifying production data speculatively.
 
-This was the exact public transaction at that historical checkpoint. It does not inherit a V0
-verdict from an earlier immutable prefix or from R0 smoke evidence.
+Acceptance must include 1440×900, **1920×1080** and 390×844, affected breakpoint seams, cross-page same-role comparisons, nested overflow, loading phases and real hydrated-feed states. The normal incomplete row retains regular-width columns. A source-only unit fix or another initial contact sheet cannot close the whole register.
 
-## Historical operating and build boundary
+Only a corrected exact Kaggle-built successor with matching manifest, individually evidenced mandatory items and a new independent browser review may be offered as normalization complete. The owner still controls final product review. No extra visual polish or unrelated technical-debt wave is authorized.
 
-```yaml
-mode: DAY_PARALLEL
-full_build_executor: one_events_bot_new_Kaggle_StaticSiteBuilder
-published_storage: one_current_Yandex_bucket_with_create_only_immutable_prefixes
-published_preview_control_plane: my_data_hub_only
-candidate_max_lag_minutes: 30
-full_preview_after_compatible_batches: 2_to_3
-full_preview_max_active_minutes: 60
-```
+## Penpot and service-scope boundary
 
-Every full or published real, Golden, focused, RC or production-form build uses
-the same `events-bot-new` Kaggle pipeline. A local build is only an unpublished
-focused diagnostic and receives no owner, V0, PM0 or A=S=P credit.
+Full native Penpot materialization remains deferred. Previous structural packets belong to rejected source8b, not to future changes; regenerate/validate the existing projection for the accepted successor. No A=S=P or Penpot round-trip is claimed. Floating Island final visual skin is deferred, but schematic behaviour/accessibility must work.
 
-## Historical refs and intake
+Labs, internal diagnostics and preview-wrapper visual polish remain excluded. Shared product imports, endpoints, PWA assets and fixtures remain in the relevant dependency checks. The production-imported `KeyboardEventNavigationPrototype.astro` is not service-only merely because of its filename. The existing artifact feature flag remains unchanged.
 
-```yaml
-trunk:
-  branch: agent/static-site-single-kaggle-contract
-  head: 3ca6a143e4286c165282c2d8ceef1759a41185b7
-  classification: sole_executable_Astro_authority
+## Preserved historical evidence
 
-N0:
-  branch: work/ui-normalization-n0-checklist-20260903
-  head: a7aa43a7acd0ab952b1086571ea0cb91e19ad3f1
-  classification: review_and_acceptance_checkpoint_not_executable_authority
-
-F0:
-  branch: work/ui-normalization-f0-wave-3-20260903
-  head: ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b
-  outside_trunk_product_batch: none
-  integrated_batch: ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b
-  delivery: waiting_personal_V0_Foundations_verdict
-
-FR0:
-  branch: work/ui-normalization-fr0-20260903
-  head: 2231e1d668f896d634e5663b59520bc710d5fea6
-  outside_trunk_source_batch: none
-  integrated_head: 2231e1d668f896d634e5663b59520bc710d5fea6
-  delivery: review_A0_runtime_correction_and_wait_personal_V0_MediaFrame_verdict
-
-M0:
-  branch: work/ui-normalization-m0-continuity-20260903
-  integrated_source_head: 105bac16be6c73916a25f3e78b02116869ed5e1e
-  current_tip: ef9a514f78eccbd373d7d66c8f103378484cea6d
-  current_tip_classification: zero_product_change_not_second_batch
-  outside_trunk_product_batch: none
-  delivery: waiting_personal_V0_EventCard_Grid_verdict
-
-A0:
-  active_single_branch: work/ui-normalization-a0-mobile-listing-rail-resource-state-20260903
-  current_head: 7f16c2bcbbd2c670fdf31286dd282fa0cd29d1fe
-  source_delta_after_2dac9d16: test_contract_repairs_only
-  mobile_rail_source: accepted_compatible
-  runtime_EventCard_rebinding: absent
-  merge_ready: false
-  second_branch_or_queue_allowed: false
-  required_action: supersede_same_branch_with_bounded_EventLayout_runtime_MediaFrame_rebinding_and_exact_green_exits
-
-V0:
-  branch: work/ui-normalization-v0-harness-20260903
-  harness_head: 2e71e5521a1ebbd5f98c794abebd70aced030639
-  exact_target_sha: 3ca6a143e4286c165282c2d8ceef1759a41185b7
-  personal_verdict: NOT_PRODUCED
-  platform_boundary: attached_my-browser-bridge_session_and_action_calls_forbidden_by_conversation_surface
-  platform_boundary_comment: 5532859577
-  required_sections: [Foundations, MediaFrame, EventCard_Grid, Shell_Routes]
-```
-
-## Current domain status
-
-```yaml
-Foundations:
-  source: integrated
-  personal_V0: platform_blocked
-MediaFrame:
-  source: integrated
-  A0_runtime_consumer_correction: pending
-  personal_V0: platform_blocked
-EventCard_Grid:
-  source: integrated
-  personal_V0: platform_blocked
-Shell_Routes:
-  accepted_compatible_source: partial
-  A0_superseding_batch: pending
-  personal_V0: platform_blocked
-Exhibitions_vertical_slice:
-  source: accepted_on_3ca6
-  browser: not_observed_platform_blocked
-  unrelated_domain_DRIFT_cancels_acceptance: false
-```
-
-A single `DRIFT` does not invalidate a compatible domain or independently
-accepted vertical slice. Each domain keeps its own source and browser verdict.
-
-## Active A0 correction
-
-The only admissible A0 batch must supersede
-`7f16c2bcbbd2c670fdf31286dd282fa0cd29d1fe` on the same active branch. The
-current head contains the mobile-rail source plus test-contract repairs, but it
-still lacks the bounded `EventLayout.astro` runtime EventCard MediaFrame
-rebinding accepted in comments `5532284724` and `5532335696`. It is therefore
-not merge-ready.
-
-The next head must preserve the mobile-rail source, keep the exact-selector and
-direct-fallback regression corrections, add the one reused EventLayout runtime
-binding helper and publish exact green exits. A second A0 branch or parallel
-merge-ready queue is forbidden.
-
-After the A0 superseding result N0 independently issues R0 acceptance; the owner
-does not relay SHA, construct a packet or run pull manually.
-
-## V0 gate and platform boundary
-
-V0 target remains the exact `3ca6a143...` Preview. It must report independent
-sections for Foundations, MediaFrame, EventCard/Grid and Shell/Routes and apply
-comments `5531944339`, `5531980502`, `5532361117`, `5532544488` and `5532596307`.
-R0 smoke is not a V0 verdict.
-
-V0 result `5532859577` establishes an actual platform boundary:
-
-```yaml
-browser_connector_attached: true
-developer_MCP_discovery: available
-browser_session_and_action_calls_allowed: false
-personal_browser_observation_completed: false
-V0_PASS_or_DRIFT: not_issued
-```
-
-No source inspection, R0 smoke, inferred CSS or automated classifier result may
-replace the missing personal browser observation. The exact external trigger is
-a V0 execution context in which the already attached `my-browser-bridge`
-session and action calls are permitted for the exact public `3ca6...` target.
-
-The unchanged automated V0 classifier remains non-authoritative because it has
-a runtime identifier typo and stale clipping, interaction-owner,
-resource-state-completeness and bare-marker scope rules.
-
-Canonical MediaFrame v1 roots use:
-
-```css
-[data-media-frame][data-media-frame-contract="v1"]
-```
-
-Bare markers are a separate
-`LEGACY_RESOURCE_MARKER_OUTSIDE_CURRENT_V1_DELIVERY` census: neither malformed
-v1 roots nor v1 normalization credit.
-
-## Historical evidence boundary
-
-Earlier real and Golden immutable previews, programme commits, `r0/*`
-candidates, rehearsal branches and role checkpoints remain evidence and donors.
-They are not current executable authority, do not receive new product
-integration and cannot transfer runtime/browser acceptance to `3ca6a143...` or
-its descendants.
-
-## Near-term gate
-
-```text
-V0 execution context permits attached my-browser-bridge session/action calls
-→ personal source-bound verdict on exact public 3ca6a143 Preview
-→ N0 accepts or rejects the exhibitions vertical slice independently
-+
-one coherent A0 superseding correction batch on the existing branch
-→ N0/R0 acceptance directly into agent/static-site-single-kaggle-contract
-→ exact tested trunk descendant
-→ full real Kaggle Preview within the existing cadence
-→ personal V0 retest
-```
-
-## Closed and open product gates
-
-```yaml
-sole_executable_trunk: OPEN_AND_FIXED
-current_full_real_preview: PUBLISHED
-personal_V0_on_current_preview: PLATFORM_BLOCKED_NOT_PRODUCED
-Exhibitions_vertical_slice_browser_acceptance: PLATFORM_BLOCKED_NOT_PRODUCED
-A0_superseding_correction: PENDING_NOT_MERGE_READY
-next_exact_trunk_descendant: PENDING
-next_full_real_preview: PENDING
-ASTRO_NORMALIZATION_PASS: CLOSED
-native_Penpot_materialization: CLOSED
-Golden_A_equals_S_equals_P: CLOSED
-production_form_Release_Candidate: CLOSED
-```
-
-A source specification is not integrated product; integrated source is not V0
-PASS; a Penpot-ready record is not native Penpot materialization.
+The complete previous status, including artifact hashes, structural packet hashes, test counts, clock correction, older role checkpoints and publication history, is preserved in [STATUS at ec6f609](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/ec6f609a3a0d7109246f0b2d82bdbb967b40bb97/docs/launch-normalization/STATUS.md). Its completion label is superseded by owner rejection; its old branches and state are not fresh work instructions.
