@@ -8,37 +8,39 @@ Contract: `launch-normalized-ui.v1.yaml@1.11.0`
 
 - Executable branch: `events-bot-new@agent/static-site-single-kaggle-contract`.
 - Current committed source after mandatory completion/SoT corrections: `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f` (remote read-back verified).
-- Published source: `fdccd34f67f9b88ca28836fb58cdb7b44f38f105`.
-- Preview: https://kenigevents.ru/preview-real-fdccd34f6-normalized-20260904-v1/__preview/
-- Manifest: https://kenigevents.ru/preview-real-fdccd34f6-normalized-20260904-v1/preview-build.json
+- Published source: `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`.
+- Preview: https://kenigevents.ru/preview-real-8b1bb8129-normalized-20260904-v1/__preview/
+- Manifest: https://kenigevents.ru/preview-real-8b1bb8129-normalized-20260904-v1/preview-build.json
 - Data: real; page_classes=all; **catalog_mode=slice, limit=300**, not full event catalog.
 - Snapshot: `issue621-audioreview-20260904T205339Z`; SHA256
   `14950c626a9e1e977e0d734fc4e7ddf93769ea038ddbde2d9db732d402da5049`, 1215258624 bytes.
 - Frozen clock: `2026-09-04T22:53:39+02:00`; exact public manifest referenceIso matches.
 - Review Kaggle kernel: `zigomaro/kenigevents-static-site-builder-review-preview`;
-  dataset `zigomaro/static-site-builder-input-20260904210213-623d6d`.
+  dataset `zigomaro/static-site-builder-input-20260904213437-608337`.
 - COMPLETE → checked artifact → create-only immutable publication, exit 0;
-  1424 objects, 294378371 bytes, verified at `2026-09-04T21:08:40.432843Z`.
+  1424 objects, 294378398 bytes, verified at `2026-09-04T21:41:03.631109Z`.
   Production root and stable ICS unchanged.
-- Archive SHA256: `23b53d9715a7048beed21eb8b81a94223599be6f17915ba323d7b21284d1be27`.
-- Result JSON SHA256: `abd87a8a6570caeece8175c48a37cce1abad25feb45a667983e2222ee690ae0a`.
-- Public product smoke: 18 archetypes × desktop/mobile = **36/36** HTTP200, no document overflow/page errors/same-prefix request failures; 4 clubs and 13 festivals populated. R0 smoke is not independent V0.
-- Exact publication result: events-bot-new#621 comment **5546521380**; independent V0 trigger **5546525112**.
+- Archive SHA256: `ded94e4b8ace32e7cf7090c1505cb77185e0559f20e9d097d2960a89c6800592`.
+- Result JSON SHA256: `7f0ff545be8147bb37e993db0eefa8a36a353c457ecee43901408993cf2be7ba`.
+- Predecessor fd product smoke: 18 archetypes × desktop/mobile = **36/36** HTTP200, no document overflow/page errors/same-prefix request failures; 4 clubs and 13 festivals populated. R0 smoke is not independent V0.
+- Current publication/independent reviewer handoff: events-bot-new#621 comment **5546774738**; candidate/test result **5546723958**.
 - **NOT READY for final audio-review handoff yet:** final independent browser verdict pending;
   source-bound structural export replay passed on this exact published source.
   Extended non-hub R0 smoke found completion mobile overflow (529px at390), so fdccd34f is not the final acceptance candidate.
-- Owner confirmed two external windows active: SoT/projection read-only review and
-  independent product browser audit. No new optional normalization wave is authorized.
+- External SoT review returned; its empty-graph finding was disproved. External V0 has
+  no published result and the actual browser bridge shows0 active sessions. The existing
+  separate native reviewer resumed real Playwright verification on exact8b; R0 is not V0.
+  No new optional normalization wave is authorized.
 - SoT window comment 5546460243 alleged an empty token graph. Exact Git bytes on
   its own pinned 729be161 and current fdccd34f disprove it: 5053730 bytes,
   2483 tokens, SHA256 `e20421f2143d128f35bb7da671c1b248c7e7321362e3e6a938975011e6f33ed4`.
   Both token/Astro checkers exit 0; factual correction posted as comment 5546505242.
 
-### Mandatory final successor in flight
+### Mandatory final successor published; final browser acceptance running
 
 Source `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`, descendant of fdccd34f via
 `36672a4e3a8c2bbb774a05c18479af167d77a780` (completion heading wrapping).
-Expected prefix `preview-real-8b1bb8129-normalized-20260904-v1`; **not yet published**.
+Immutable prefix `preview-real-8b1bb8129-normalized-20260904-v1`; publication complete.
 Same immutable snapshot and clock; dedicated review kernel preflight COMPLETE before launch.
 
 - Source packet172/172 PASS; Astro/token checkers PASS, negative empty identity and
