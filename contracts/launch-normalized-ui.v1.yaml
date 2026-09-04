@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.11.0
+version: 1.12.0
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -7,10 +7,11 @@ consultant_doc: docs/launch-normalization/CONSULTANT-K0.md
 status_doc: docs/launch-normalization/STATUS.md
 
 review_completion_stage:
-  effective_owner_decision: '2026-09-04'
-  status: COMPLETE_FOR_OWNER_AUDIO_REVIEW
+  effective_owner_decision: '2026-09-05'
+  status: REOPENED_AFTER_OWNER_AUDIO_REVIEW
   supersedes: historical_open_ended_launch_execution_and_mandatory_P_before_owner_review
-  objective: one_normalized_product_build_ready_for_owner_audio_review_then_stop
+  objective: correct_rejected_owner_review_cases_then_return_one_verified_product_build
+  owner_review_delta: docs/launch-normalization/owner-audioreview-20260905.md
   product_scope_authority: events-bot-new/site/src/design-system/astro-family-registry.v1.json
   exclude_from_normalization_and_metrics:
     - lab_and_internal_catalogs
@@ -20,12 +21,15 @@ review_completion_stage:
   preserve: [shared_product_dependencies, runtime_dependencies, endpoints, PWA_assets, fixtures]
   unknown_static_reachability_is_not_service_only_evidence: true
   completion_requires:
-    - normalized_product_roles_and_canonical_owners_without_redesign
+    - normalized_product_roles_and_canonical_owners_without_unapproved_redesign
     - source_bound_static_and_hydrated_consumer_SoT
     - validated_structural_free_collection_projection_with_cards_media_actions
     - immutable_real_Kaggle_preview_with_explicit_catalog_mode_limit_snapshot_clock
-    - visual_computed_action_browser_checks_at_1440x900_and_390x844
+    - visual_computed_action_browser_checks_at_1440x900_1920x1080_and_390x844
     - independent_personally_executed_browser_review
+    - cross_route_same_role_typography_comparison_and_negative_override_control
+    - internal_overflow_and_real_hydrated_feed_partial_row_checks
+    - owner_review_mandatory_items_closed_and_data_questions_factually_dispositioned
     - current_unambiguous_target_documentation
   full_Penpot_materialization_required_before_audio_review: false
   claim_A_equals_S_equals_P_without_verified_Penpot_round_trip: false
@@ -36,6 +40,40 @@ review_completion_stage:
   external_windows: bounded_nonoverlapping_useful_packets_direct_GitHub_results_in_issue_621_no_Codex_MCP
   default_max_native_workers: 2
   historical_modes_below_apply_only_where_compatible_with_this_stage: true
+
+owner_review_correction:
+  decision_date: '2026-09-05'
+  bounded_scope: docs/launch-normalization/owner-audioreview-20260905.md
+  owner_rejection_overrides_previous_aggregate_completion: true
+  retain_previous_narrow_test_evidence_without_global_PASS_inheritance: true
+  same_role_comparison_must_not_accept_captured_values_as_its_own_expectation: true
+  layout_may_remove_admitted_events: false
+  normal_grid_remainder: regular_column_width_not_stretch
+  update_remainder_source_runtime_registry_tests_together: true
+  OCR_crop:
+    maximum_total_area_fraction: 0.2
+    preserve_important_text_required: true
+    area_budget_alone_authorizes_crop: false
+    unproven_text_safety: contain
+  action_group:
+    at_least_one_visible_label: calendar_or_share
+    aria_label_or_tooltip_is_visible_label: false
+  floating_island:
+    stage: schematic_structure_and_behaviour
+    implementation_owner: existing_product_shell
+    final_visual_skin: deferred_to_owner_generative_design
+    navigation_accessibility_and_non_occlusion: required
+  preserve_withdrawn_or_tentative_item_disposition: true
+  source_review_is_live_browser_evidence: false
+  factory_probe_is_organic_feed_coverage: false
+  changes_do_not_authorize_production_or_Penpot_mutation: true
+  amendment:
+    before: finite_stage_complete_and_stretched_remainder
+    after: reopened_bounded_owner_correction_with_regular_columns_and_text_safe_media
+    reason: explicit_owner_rejection_and_three_voice_reviews
+    consequences: canonical_source_runtime_SoT_tests_and_final_candidate_evidence_must_agree
+    type: BOUNDED_STAGE_AMENDMENT
+    approved: explicit_owner_request_2026_09_05
 
 authority:
   executable_ui:
@@ -171,7 +209,6 @@ operating_modes:
   NIGHT_AUTONOMOUS:
     condition: role_windows_unavailable_or_intentionally_not_running
     objective: keep_product_path_moving_with_the_single_native_lane
-    R0_role: broad_reversible_product_executor
     R0_may_expand_into:
       - reversible_implementation_and_migration_determined_by_existing_behavior
       - source_census_and_backlog_formation
