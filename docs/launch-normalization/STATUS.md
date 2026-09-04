@@ -7,26 +7,42 @@ Contract: `launch-normalized-ui.v1.yaml@1.11.0`
 ## Current finite owner-review stage — 2026-09-04
 
 - Executable branch: `events-bot-new@agent/static-site-single-kaggle-contract`.
-- Current committed source after scope/doc and rail corrections: `aed32da93129c2512fe2bfa7cdf2929d2e8c606d` (remote read-back verified).
-- Published source: `621a1fb51525030bc5b99720c1854fed99debb5d`.
-- Preview: https://kenigevents.ru/preview-real-621a1fb51-normalized-20260904-v1/__preview/
-- Manifest: https://kenigevents.ru/preview-real-621a1fb51-normalized-20260904-v1/preview-build.json
+- Current committed source after scope/doc and rail corrections: `fdccd34f67f9b88ca28836fb58cdb7b44f38f105` (remote read-back verified).
+- Published source: `fdccd34f67f9b88ca28836fb58cdb7b44f38f105`.
+- Preview: https://kenigevents.ru/preview-real-fdccd34f6-normalized-20260904-v1/__preview/
+- Manifest: https://kenigevents.ru/preview-real-fdccd34f6-normalized-20260904-v1/preview-build.json
 - Data: real; page_classes=all; **catalog_mode=slice, limit=300**, not full event catalog.
-- Snapshot: `issue621-real-621a1fb51-20260904T192527Z`;
-  SHA256 `de1e18c645c2e02f28fcebd225365494939e6957219797faf6abccb9c70b62cf`.
+- Snapshot: `issue621-audioreview-20260904T205339Z`; SHA256
+  `14950c626a9e1e977e0d734fc4e7ddf93769ea038ddbde2d9db732d402da5049`, 1215258624 bytes.
+- Frozen clock: `2026-09-04T22:53:39+02:00`; exact public manifest referenceIso matches.
 - Review Kaggle kernel: `zigomaro/kenigevents-static-site-builder-review-preview`;
-  COMPLETE, create-only immutable publication; production root/ICS unchanged.
-- Result: events-bot-new#621 comment 5545599877; independent review trigger 5545600019.
-- **NOT READY for final audio-review handoff:** latest footer/source correction not
-  yet published; finite scope/authority correction delivered; source-bound
-  structural free-collection projection validated on published621 (both viewports,
-  same five events; final candidate replay pending); independent browser
-  baseline review executed for free/today/weekend/popular/event; final full-scope
-  successor verdict not yet claimed.
-- Native independent reviewer has real Playwright access. Owner confirmed two external windows active: SoT/projection read-only review
-  and independent product browser audit. No new optional normalization wave is authorized.
+  dataset `zigomaro/static-site-builder-input-20260904210213-623d6d`.
+- COMPLETE → checked artifact → create-only immutable publication, exit 0;
+  1424 objects, 294378371 bytes, verified at `2026-09-04T21:08:40.432843Z`.
+  Production root and stable ICS unchanged.
+- Archive SHA256: `23b53d9715a7048beed21eb8b81a94223599be6f17915ba323d7b21284d1be27`.
+- Result JSON SHA256: `abd87a8a6570caeece8175c48a37cce1abad25feb45a667983e2222ee690ae0a`.
+- Public product smoke: 18 archetypes × desktop/mobile = **36/36** HTTP200, no document overflow/page errors/same-prefix request failures; 4 clubs and 13 festivals populated. R0 smoke is not independent V0.
+- Exact publication result: events-bot-new#621 comment **5546521380**; independent V0 trigger **5546525112**.
+- **NOT READY for final audio-review handoff yet:** final independent browser verdict pending;
+  source-bound structural export replay passed on this exact published source.
+- Owner confirmed two external windows active: SoT/projection read-only review and
+  independent product browser audit. No new optional normalization wave is authorized.
+- SoT window comment 5546460243 alleged an empty token graph. Exact Git bytes on
+  its own pinned 729be161 and current fdccd34f disprove it: 5053730 bytes,
+  2483 tokens, SHA256 `e20421f2143d128f35bb7da671c1b248c7e7321362e3e6a938975011e6f33ed4`.
+  Both token/Astro checkers exit 0; factual correction posted as comment 5546505242.
 
-### Structural export evidence (baseline, not native Penpot acceptance)
+### Completed clock correction
+
+The predecessor `aed32da93129c2512fe2bfa7cdf2929d2e8c606d` was allowed to complete
+without interruption, but its artifact referenceIso incorrectly used kernel wall
+clock. It is superseded, not an acceptance target. Current fdccd34f propagates the
+already frozen clock into Astro and checks manifest/date before archive; 4/4
+clock tests and 157/157 focused source tests pass. No new snapshot or production
+kernel interruption was required. Issue evidence: comment 5546393393.
+
+### Structural export evidence (current exact Preview, not native Penpot acceptance)
 
 Existing decoder API: events-bot-new `scripts/current_ui_resource_graph/v1/specimens/capture.mjs`
 `captureFreeCollectionStructuralProjection`, adjacent validator verifies exact Git
@@ -36,6 +52,10 @@ Records retain tree/text/SVG/image content hashes, parent links, component
 identities and containment (not fabricated per-leaf source identities),
 source-referenced token values, action/calendar/MediaFrame attributes.
 Local artifacts: `artifacts/codex/normalization-audioreview/projection-{1440,390}.json`.
+Current fdccd34f replay: source/snapshot/clock match at both viewports; 13/13
+validator tests pass per packet, including forged source hash rejection.
+Packet SHA256 desktop `c843af37f12b0a3408d3408a468bfa5cff8f8e3b6170db29facd9b7a339fb7c6`,
+mobile `7199f2ba6b18cdb752fb8eb7d90a25c3d391e42669d50d5690edbe17826152c3`.
 Tests: structural13/13 with live source forgery rejection; existing decoder17/17
 (`--noconftest`, self-contained Node specimen tests); product focused157/157;
 Astro/token scope16/16. These counts are test evidence, not product-completion %.
