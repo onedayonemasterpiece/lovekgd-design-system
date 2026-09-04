@@ -41,12 +41,29 @@ authority:
   executable_ui:
     repository: onedayonemasterpiece/events-bot-new
     branch: agent/static-site-single-kaggle-contract
+  programme_history_anchor:
+    repository: onedayonemasterpiece/events-bot-new
+    branch: integration/ui-normalization-launch-20260902
+    classification: history_anchor_not_merge_target
+    executable_acceptance_target: false
+  historical_r0_branches:
+    classification: evidence_only
+    new_product_integration: forbidden
+  role_branch_delivery:
+    classification: source_and_test_review_checkpoints
+    integration_target: agent/static-site-single-kaggle-contract
+    merge_back_to_programme_history_anchor: forbidden
+    maximum_merge_ready_batches_outside_trunk_per_role: 1
   thin_sot_and_penpot_delivery:
     repository: onedayonemasterpiece/lovekgd-design-system
     branch: integration/launch-normalized-sot-penpot-20260902
   penpot:
     file_id: 40e06342-8830-80d6-8008-8fc8a3a4cd4f
     sole_writer: R0.PENPOT
+
+current_delivery_state:
+  authority: docs/launch-normalization/STATUS.md
+  historical_checkpoint_values_not_normative: true
 
 static_build_topology:
   effective_decision: 2026-09-03
@@ -269,14 +286,23 @@ worker_turn_contract:
   stop_start_pattern_while_ready_work_exists: BACKLOG_NOT_FORMING
 
 integration_flow_control:
+  executable_Astro_trunk: agent/static-site-single-kaggle-contract
+  programme_history_anchor: integration/ui-normalization-launch-20260902
+  programme_history_anchor_is_merge_target: false
+  pull_integrator: N0
+  mechanical_integrator_and_release_executor: R0
   candidate_max_lag_minutes_when_merge_ready_output_exists: 30
-  max_unintegrated_coherent_waves_per_role: 2
+  max_unintegrated_merge_ready_batches_per_role: 1
   full_preview_after_compatible_batches_min: 2
   full_preview_after_compatible_batches_max: 3
   full_preview_max_active_minutes_since_previous: 60
   candidate_lag_over_limit_action: N0_and_R0_integration_first
   one_broken_batch_blocks_only_itself: true
   FR0_must_not_delay_already_ready_successor: true
+  independent_domain_acceptance:
+    domains: [Foundations, MediaFrame, EventCard_Grid, Shell_Routes]
+    one_DRIFT_invalidates_compatible_PASS: false
+  every_exact_preview_requires_V0_trigger: true
   branch_output_without_candidate_conversion_is_WIP_not_product_progress: true
   additional_specialist_admission_requires_two_successive_fast_cycles: true
 
@@ -447,6 +473,10 @@ role_contours:
       - actual_routes
       - consumer_migration
       - intentional_composition_preservation
+    active_single_branch: work/ui-normalization-a0-mobile-listing-rail-resource-state-20260903
+    current_rejected_head: 2dac9d16031d4f1505184fc9678f88c855c3988a
+    current_rejected_head_merge_ready: false
+    supersede_on_same_branch: true
     must_not_edit_F0_FR0_M0_roots: true
     page_local_framing_fix: forbidden
   V0:
@@ -455,6 +485,9 @@ role_contours:
       - current_production_before_baseline_when_reachable
       - independent_normalized_preview_DOM_computed_style_audit
       - DRIFT_routing
+    current_exact_target: https://kenigevents.ru/preview-real-3ca6a143e-normalized-20260903-v1/__preview/
+    current_personal_verdict: PENDING
+    required_independent_sections: [Foundations, MediaFrame, EventCard_Grid, Shell_Routes]
     may_continue_without_normalized_preview:
       - update_harness_for_new_role_refs
       - inspect_current_public_product_baseline
@@ -463,7 +496,7 @@ role_contours:
 
 product_path:
   - N0_F0_FR0_M0_A0_V0_process_independent_backlogs_in_parallel
-  - R0_integrates_latest_safe_work_within_30_minutes
+  - R0_integrates_latest_safe_work_within_30_minutes_into_sole_trunk
   - my_data_hub_invokes_single_events_bot_new_Kaggle_pipeline
   - V0_runs_full_independent_browser_audit
   - owning_workers_close_DRIFT

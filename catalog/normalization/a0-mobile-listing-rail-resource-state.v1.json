@@ -1,0 +1,186 @@
+{
+  "schema": "kenigevents.thin-s.a0-mobile-listing-rail-resource-state.v1",
+  "version": "1.0.0",
+  "contract_version": "1.10.0",
+  "status": "SOURCE_IMPLEMENTED_UNINTEGRATED_RUNTIME_PENDING",
+  "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+  "authority": {
+    "source_repository": "onedayonemasterpiece/events-bot-new",
+    "source_base": "agent/static-site-single-kaggle-contract@3ca6a143e4286c165282c2d8ceef1759a41185b7",
+    "source_branch": "work/ui-normalization-a0-mobile-listing-rail-resource-state-20260903",
+    "source_head": "2dac9d16031d4f1505184fc9678f88c855c3988a",
+    "requirement_comments": [5530928932, 5531918584],
+    "consumer_owner": "A0",
+    "protocol_owner": "FR0",
+    "card_grid_owner": "M0",
+    "runtime_executor": "R0",
+    "browser_verdict_owner": "V0",
+    "penpot_writer": "R0.PENPOT"
+  },
+  "source_delta": {
+    "ahead_by": 8,
+    "behind_by": 0,
+    "merge_base": "3ca6a143e4286c165282c2d8ceef1759a41185b7",
+    "consumer_paths": [
+      "site/src/components/listings/MobileListingRailRow.astro",
+      "site/src/components/listings/MobileListingRailSurface.astro"
+    ],
+    "regression_paths": [
+      "site/tests/a0-mobile-listing-rail-resource-state.test.mjs",
+      "site/tests/mobile-listing-rail-row-state.test.mjs",
+      "site/tests/mobile-listing-rails.playwright.mjs",
+      "site/tests/mobile-listing-rails.test.mjs",
+      "site/tests/today-temporal-media.playwright.mjs"
+    ],
+    "canonical_internal_paths_changed": []
+  },
+  "binding": {
+    "id": "a0.mobile-listing-rail.resource-state",
+    "families": [
+      "MobileListingRailSurface@1",
+      "MobileListingRailRow@1"
+    ],
+    "actual_route_consumers": [
+      "DateListingSurface today",
+      "DateListingSurface tomorrow",
+      "DateListingSurface date",
+      "WeekendListingSurface"
+    ],
+    "excluded_route_consumer": "PopularListingSurface retains its accepted Large/Compact representations and does not consume this rail",
+    "media_surface": "mobile-listing-rail",
+    "resource_states": [
+      "pending",
+      "loaded",
+      "broken",
+      "fallback"
+    ],
+    "diagnostic_mapping": {
+      "pending": "media-loading",
+      "loaded": "media-loaded",
+      "broken_or_fallback": "media-error"
+    },
+    "initial_state": "URL-backed SSR media starts pending",
+    "loaded_state": [
+      "remove root fallback marker",
+      "retain direct fallback child hidden",
+      "restore pre-resolved role, kind, fit, crop permission, crop reason and focal position",
+      "retain source width, source height and source ratio",
+      "show the resolved image"
+    ],
+    "broken_state": [
+      "terminal for the current resource binding",
+      "set root fallback marker",
+      "kind=fallback",
+      "fit=contain",
+      "crop-permission=forbidden",
+      "crop-reason=resource_load_error",
+      "object and focal position=50% 50%",
+      "remove failed src, srcset and sizes",
+      "hide failed image",
+      "show one direct fallback child",
+      "must not regain cover"
+    ],
+    "private_state_channel_forbidden": [
+      "data-media-state",
+      "dataset.mediaState"
+    ],
+    "source_ratio_rule": "publish data-media-frame-source-ratio whenever authoritative source width and height are known"
+  },
+  "preservation_contract": {
+    "geometry": [
+      "112px row, rail, media and artifact height",
+      "100vw horizontal rail window",
+      "296px summary card",
+      "existing presentation media widths and ratios",
+      "no layout shift between pending and loaded"
+    ],
+    "interactions": [
+      "horizontal scrolling",
+      "mouse and touch dislike gesture",
+      "mouse and touch like overpull",
+      "negative-consent confirmation",
+      "undo toast",
+      "event navigation and cue",
+      "digest",
+      "like and not-interested actions",
+      "medallions and amber artifact"
+    ],
+    "runtime": [
+      "city filtering",
+      "today temporal muting",
+      "sticky date and group headers",
+      "calendar accessory",
+      "first-frame eager/high-priority media",
+      "lazy continuation media"
+    ],
+    "popular_large_compact_unchanged": true,
+    "date_weekend_distinction_unchanged": true
+  },
+  "ownership_exclusions": {
+    "unchanged": [
+      "site/src/components/media-frame.css",
+      "site/src/components/EventMediaRail.astro",
+      "site/src/components/EventHero.astro",
+      "site/src/components/EventCard.astro",
+      "site/src/components/listings/ListingEventCard.astro",
+      "site/src/components/AdaptiveEventCardGrid.astro",
+      "site/src/components/OptimizedEventCardGrid.astro",
+      "site/src/lib/relatedCardLayout.mjs",
+      "all F0 token authorities"
+    ],
+    "consumer_css_may_own": [
+      "external rail geometry",
+      "skeleton appearance",
+      "direct fallback child visibility and appearance"
+    ],
+    "consumer_css_may_not_own": [
+      "object-fit",
+      "object-position",
+      "crop policy",
+      "frame clip policy"
+    ]
+  },
+  "tests": {
+    "source_contract": [
+      "site/tests/a0-mobile-listing-rail-resource-state.test.mjs",
+      "site/tests/mobile-listing-rail-row-state.test.mjs",
+      "site/tests/mobile-listing-rails.test.mjs"
+    ],
+    "runtime_contract": [
+      "site/tests/mobile-listing-rails.playwright.mjs",
+      "site/tests/today-temporal-media.playwright.mjs"
+    ],
+    "execution_status": "NOT_EXECUTED_IN_GITHUB_ONLY_A0_WINDOW",
+    "github_statuses": 0,
+    "github_check_runs": 0
+  },
+  "rollback": {
+    "unit": "A0-RB-MOBILE-LISTING-RAIL-RESOURCE-STATE",
+    "action": "revert the ordered branch range b774e1391824ee34e46614cbc9207627af630bc3 through 2dac9d16031d4f1505184fc9678f88c855c3988a",
+    "must_preserve": [
+      "FR0 media-frame.css",
+      "M0 card and grid sources",
+      "rail geometry, gestures, filters and action semantics",
+      "immutable published previews"
+    ]
+  },
+  "required_r0_execution": [
+    "cd site && node --test tests/a0-mobile-listing-rail-resource-state.test.mjs tests/mobile-listing-rail-row-state.test.mjs tests/mobile-listing-rails.test.mjs tests/mobile-state-regressions.test.mjs tests/m0-post-fr0-test-ownership.test.mjs",
+    "cd site && R9_RAIL_BASE_URL=http://127.0.0.1:4173 node tests/mobile-listing-rails.playwright.mjs",
+    "cd site && R12_TODAY_BASE_URL=http://127.0.0.1:4173 node tests/today-temporal-media.playwright.mjs",
+    "cd site && npm run check:preview",
+    "cd site && npm run check:design-system-production-surfaces"
+  ],
+  "promotion_gate": {
+    "required": [
+      "R0 integrates this exact branch range onto the current successor or exact descendant",
+      "all focused source and browser tests pass with exact exits",
+      "N0 accepts the exact tested successor",
+      "a canonical full fresh-real Kaggle preview is published for that exact SHA",
+      "V0 verifies pending, loaded, broken and temporal states on actual Date/Weekend routes"
+    ],
+    "source_status_after_integration": "SOURCE_INTEGRATED_RUNTIME_VERIFIED",
+    "thin_s_equality_after_v0": "ELIGIBLE",
+    "native_penpot_materialization_before_gate": false
+  }
+}
