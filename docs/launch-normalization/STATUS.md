@@ -7,7 +7,7 @@ Contract: `launch-normalized-ui.v1.yaml@1.11.0`
 ## Current finite owner-review stage — 2026-09-04
 
 - Executable branch: `events-bot-new@agent/static-site-single-kaggle-contract`.
-- Current committed source after scope/doc and rail corrections: `fdccd34f67f9b88ca28836fb58cdb7b44f38f105` (remote read-back verified).
+- Current committed source after mandatory completion/SoT corrections: `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f` (remote read-back verified).
 - Published source: `fdccd34f67f9b88ca28836fb58cdb7b44f38f105`.
 - Preview: https://kenigevents.ru/preview-real-fdccd34f6-normalized-20260904-v1/__preview/
 - Manifest: https://kenigevents.ru/preview-real-fdccd34f6-normalized-20260904-v1/preview-build.json
@@ -26,12 +26,34 @@ Contract: `launch-normalized-ui.v1.yaml@1.11.0`
 - Exact publication result: events-bot-new#621 comment **5546521380**; independent V0 trigger **5546525112**.
 - **NOT READY for final audio-review handoff yet:** final independent browser verdict pending;
   source-bound structural export replay passed on this exact published source.
+  Extended non-hub R0 smoke found completion mobile overflow (529px at390), so fdccd34f is not the final acceptance candidate.
 - Owner confirmed two external windows active: SoT/projection read-only review and
   independent product browser audit. No new optional normalization wave is authorized.
 - SoT window comment 5546460243 alleged an empty token graph. Exact Git bytes on
   its own pinned 729be161 and current fdccd34f disprove it: 5053730 bytes,
   2483 tokens, SHA256 `e20421f2143d128f35bb7da671c1b248c7e7321362e3e6a938975011e6f33ed4`.
   Both token/Astro checkers exit 0; factual correction posted as comment 5546505242.
+
+### Mandatory final successor in flight
+
+Source `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`, descendant of fdccd34f via
+`36672a4e3a8c2bbb774a05c18479af167d77a780` (completion heading wrapping).
+Expected prefix `preview-real-8b1bb8129-normalized-20260904-v1`; **not yet published**.
+Same immutable snapshot and clock; dedicated review kernel preflight COMPLETE before launch.
+
+- Source packet172/172 PASS; Astro/token checkers PASS, negative empty identity and
+  missing inline style ownership checks included.
+- Existing registry filled from actual initial/runtime identities for37 component/route
+  owners; parametric states have explicit source-bound regex contracts, not invented enums.
+- Local canonical real-DB focused generation on exact8b1bb812 succeeds after removing
+  unsupported exporter arguments. Same snapshot hash, clock; desktop/mobile overflow0.
+- Completion three state tabs at390/720/1440:9/9 PASS; local-only clear action PASS.
+- Local receipt SHA256 `1e9fd20b4dcb36d4fc12441153cee74b494d5dec3e0dcd8b47298f3aeff6b1fc`.
+- fd artifact navigation census:345 product HTML routes,32652 non-template internal
+  prefix anchors,0 absent target files. Extended non-hub smoke31/32; sole failure is
+  the completion heading corrected above. No lab reclassification to hide that failure.
+- Independent browser verdict remains pending; evidence must be attributed to exact
+  source or an explicit unaffected-source delta, never R0 smoke presented as V0.
 
 ### Completed clock correction
 
