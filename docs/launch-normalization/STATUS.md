@@ -7,7 +7,7 @@ Contract: `launch-normalized-ui.v1.yaml@1.11.0`
 ## Current finite owner-review stage — 2026-09-04
 
 - Executable branch: `events-bot-new@agent/static-site-single-kaggle-contract`.
-- Current committed source after scope/doc and rail corrections: `ee1a55447` (remote read-back pending full freeze).
+- Current committed source after scope/doc and rail corrections: `aed32da93129c2512fe2bfa7cdf2929d2e8c606d` (remote read-back verified).
 - Published source: `621a1fb51525030bc5b99720c1854fed99debb5d`.
 - Preview: https://kenigevents.ru/preview-real-621a1fb51-normalized-20260904-v1/__preview/
 - Manifest: https://kenigevents.ru/preview-real-621a1fb51-normalized-20260904-v1/preview-build.json
@@ -19,11 +19,27 @@ Contract: `launch-normalized-ui.v1.yaml@1.11.0`
 - Result: events-bot-new#621 comment 5545599877; independent review trigger 5545600019.
 - **NOT READY for final audio-review handoff:** latest footer/source correction not
   yet published; finite scope/authority correction delivered; source-bound
-  structural free-collection projection not yet validated; independent browser
+  structural free-collection projection validated on published621 (both viewports,
+  same five events; final candidate replay pending); independent browser
   baseline review executed for free/today/weekend/popular/event; final full-scope
   successor verdict not yet claimed.
-- Native independent reviewer has real Playwright access. No external window
-  activation is assumed. No new optional normalization wave is authorized.
+- Native independent reviewer has real Playwright access. Owner confirmed two external windows active: SoT/projection read-only review
+  and independent product browser audit. No new optional normalization wave is authorized.
+
+### Structural export evidence (baseline, not native Penpot acceptance)
+
+Existing decoder API: events-bot-new `scripts/current_ui_resource_graph/v1/specimens/capture.mjs`
+`captureFreeCollectionStructuralProjection`, adjacent validator verifies exact Git
+registry/source/style contents, not only hash syntax. Captured same event IDs
+`7920,8308,7915,8564,8080` at 1440×900 and390×844, same snapshot/reference clock.
+Records retain tree/text/SVG/image content hashes, parent links, component
+identities and containment (not fabricated per-leaf source identities),
+source-referenced token values, action/calendar/MediaFrame attributes.
+Local artifacts: `artifacts/codex/normalization-audioreview/projection-{1440,390}.json`.
+Tests: structural13/13 with live source forgery rejection; existing decoder17/17
+(`--noconftest`, self-contained Node specimen tests); product focused157/157;
+Astro/token scope16/16. These counts are test evidence, not product-completion %.
+Native P round-trip and full materialization are NOT claimed.
 
 Everything below is historical evidence, not a current SHA/URL or an instruction
 to restore superseded branches. Completion gates live in the contract.
