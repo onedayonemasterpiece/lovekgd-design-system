@@ -2,7 +2,7 @@
 
 **Contract ID:** `kenigevents.asp-conformance`
 
-**Version:** `1.1.0`
+**Version:** `1.2.0`
 
 **Status:** `ACTIVE`
 
@@ -10,6 +10,20 @@
 
 **Canonical path:**
 `docs/product-governance/astro-sot-penpot-conformance.md`
+
+## Owner-review stage boundary (owner decision 2026-09-04)
+
+The finite launch-normalization audio-review stage is governed by
+[`review_completion_stage`](../../contracts/launch-normalized-ui.v1.yaml).
+It requires validated source-bound structural projection data, not full native
+Penpot materialization before owner audio review. This is a stage distinction,
+not relaxation of the A=S=P conformance definition below: without verified P,
+no three-way equality or Penpot round-trip is claimed. Existing page-profile
+mutation prohibitions remain intact. Historical package/conveyor plans do not
+mandate moving Astro or restarting implementation.
+
+Before → after: mandatory P before this review → validated export readiness,
+with P deferred; reason: explicit owner product/time/resource decision.
 
 ## 1. Purpose
 

@@ -1,5 +1,22 @@
 # Нормализация UI KenigEvents — continuous product-first launch
 
+## Действующее решение владельца — 2026-09-04
+
+**БЫЛО → БУДЕТ:** открытая непрерывная нормализация с обязательной полной P,
+историческим integration merge target и гипотезой нового component package →
+одна нормализованная продуктовая сборка для аудиоревью на существующем Astro trunk.
+**ЗАЧЕМ:** конечный продуктовый результат при дефиците времени/Codex.
+**ПОСЛЕДСТВИЯ:** служебный visual polish не gate; проверенная структурная SoT-проекция
+обязательна, полная запись в Penpot нет; A=S=P без verified P не заявляется.
+**ТИП:** owner-approved stage/acceptance correction, не redesign/release.
+**СОГЛАСОВАНО:** прямое решение владельца в native Codex, 2026-09-04.
+
+Текущие правила завершения, scope, economics и остановки —
+[`review_completion_stage` контракта v1.11.0](../../contracts/launch-normalized-ui.v1.yaml).
+Текущие SHA/URL/gaps — только [STATUS](STATUS.md). Сведения и открытые циклы
+ниже сохранены как история/другие этапы и не отменяют этот конечный gate.
+
+
 Статус: `ACTIVE`  
 Координация: `onedayonemasterpiece/events-bot-new#621`  
 Параллельные роли: [`PARALLEL-WINDOWS.md`](PARALLEL-WINDOWS.md)  

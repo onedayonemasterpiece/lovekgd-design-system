@@ -1,15 +1,46 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.10.0
+version: 1.11.0
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
 consultant_doc: docs/launch-normalization/CONSULTANT-K0.md
 status_doc: docs/launch-normalization/STATUS.md
 
+review_completion_stage:
+  effective_owner_decision: '2026-09-04'
+  status: ACTIVE_NOT_COMPLETE
+  supersedes: historical_open_ended_launch_execution_and_mandatory_P_before_owner_review
+  objective: one_normalized_product_build_ready_for_owner_audio_review_then_stop
+  product_scope_authority: events-bot-new/site/src/design-system/astro-family-registry.v1.json
+  exclude_from_normalization_and_metrics:
+    - lab_and_internal_catalogs
+    - internal_connectivity_diagnostics
+    - experimental_review_only_routes
+    - preview_wrapper_visual_polish
+  preserve: [shared_product_dependencies, runtime_dependencies, endpoints, PWA_assets, fixtures]
+  unknown_static_reachability_is_not_service_only_evidence: true
+  completion_requires:
+    - normalized_product_roles_and_canonical_owners_without_redesign
+    - source_bound_static_and_hydrated_consumer_SoT
+    - validated_structural_free_collection_projection_with_cards_media_actions
+    - immutable_real_Kaggle_preview_with_explicit_catalog_mode_limit_snapshot_clock
+    - visual_computed_action_browser_checks_at_1440x900_and_390x844
+    - independent_personally_executed_browser_review
+    - current_unambiguous_target_documentation
+  full_Penpot_materialization_required_before_audio_review: false
+  claim_A_equals_S_equals_P_without_verified_Penpot_round_trip: false
+  move_Astro_to_new_component_package_required: false
+  projection_inventory_or_null_binding_is_readiness: false
+  production_release_or_Penpot_mutation_authorized_by_review: false
+  stop_after_completion_until_owner_audio_review: true
+  external_windows: bounded_nonoverlapping_useful_packets_direct_GitHub_results_in_issue_621_no_Codex_MCP
+  default_max_native_workers: 2
+  historical_modes_below_apply_only_where_compatible_with_this_stage: true
+
 authority:
   executable_ui:
     repository: onedayonemasterpiece/events-bot-new
-    branch: integration/ui-normalization-launch-20260902
+    branch: agent/static-site-single-kaggle-contract
   thin_sot_and_penpot_delivery:
     repository: onedayonemasterpiece/lovekgd-design-system
     branch: integration/launch-normalized-sot-penpot-20260902
@@ -21,6 +52,7 @@ static_build_topology:
   effective_decision: 2026-09-03
   canonical_implementation_owner: onedayonemasterpiece/events-bot-new
   kaggle_pipeline_count: 1
+  review_kernel_separate_from_scheduled_production_kernel: true
   object_storage_bucket_count_for_current_launch: 1
   full_build_executor: Kaggle_CPU
   full_builds_always_use_kaggle:
@@ -82,7 +114,8 @@ execution_reality:
   active_turn_can_process_multiple_backlog_items: true
   active_turn_must_generate_next_items_from_owned_scope: true
   stopped_window_with_ready_owned_work_is_idle_capacity: true
-  K0_must_allocate_ready_work_to_each_available_role_window: true
+  K0_must_allocate_ready_work_to_each_available_role_window: false
+  allocate_only_when_independent_packet_shortens_current_completion: true
   K0_may_not_centralize_all_ready_specialist_work_into_R0: true
   external_supervisor_required_for_zero_touch_reactivation_after_turn: true
   external_supervisor_currently_authorized: false

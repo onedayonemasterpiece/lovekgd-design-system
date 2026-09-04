@@ -2,11 +2,34 @@
 
 Status owner: `N0`  
 Coordination: `onedayonemasterpiece/events-bot-new#621`  
-Contract: `launch-normalized-ui.v1.yaml@1.9.0`  
+Contract: `launch-normalized-ui.v1.yaml@1.11.0`
 PM0 checklist: `PM0-READINESS-FORECAST.md@2.3.0`  
 Machine-readable N0 transaction: `docs/launch-normalization/n0-current-successor-acceptance.v1.json`
 
-## Operating and build boundary
+## Current finite owner-review stage — 2026-09-04
+
+- Executable branch: `events-bot-new@agent/static-site-single-kaggle-contract`.
+- Last committed source before scope/doc correction: `f0f84dcf6c10bec61725d0b33474723c280ce785`.
+- Published source: `621a1fb51525030bc5b99720c1854fed99debb5d`.
+- Preview: https://kenigevents.ru/preview-real-621a1fb51-normalized-20260904-v1/__preview/
+- Manifest: https://kenigevents.ru/preview-real-621a1fb51-normalized-20260904-v1/preview-build.json
+- Data: real; page_classes=all; **catalog_mode=slice, limit=300**, not full event catalog.
+- Snapshot: `issue621-real-621a1fb51-20260904T192527Z`;
+  SHA256 `de1e18c645c2e02f28fcebd225365494939e6957219797faf6abccb9c70b62cf`.
+- Review Kaggle kernel: `zigomaro/kenigevents-static-site-builder-review-preview`;
+  COMPLETE, create-only immutable publication; production root/ICS unchanged.
+- Result: events-bot-new#621 comment 5545599877; independent review trigger 5545600019.
+- **NOT READY for final audio-review handoff:** latest footer/source correction not
+  yet published; finite scope/authority correction in progress; source-bound
+  structural free-collection projection not yet validated; independent browser
+  review of published baseline running, no verdict claimed.
+- Native independent reviewer has real Playwright access. No external window
+  activation is assumed. No new optional normalization wave is authorized.
+
+Everything below is historical evidence, not a current SHA/URL or an instruction
+to restore superseded branches. Completion gates live in the contract.
+
+## Historical operating and build boundary
 
 ```yaml
 mode: DAY_PARALLEL
