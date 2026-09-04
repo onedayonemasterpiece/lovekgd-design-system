@@ -22,21 +22,31 @@ Contract: `launch-normalized-ui.v1.yaml@1.11.0`
   Production root and stable ICS unchanged.
 - Archive SHA256: `ded94e4b8ace32e7cf7090c1505cb77185e0559f20e9d097d2960a89c6800592`.
 - Result JSON SHA256: `7f0ff545be8147bb37e993db0eefa8a36a353c457ecee43901408993cf2be7ba`.
-- Predecessor fd product smoke: 18 archetypes × desktop/mobile = **36/36** HTTP200, no document overflow/page errors/same-prefix request failures; 4 clubs and 13 festivals populated. R0 smoke is not independent V0.
-- Current publication/independent reviewer handoff: events-bot-new#621 comment **5546774738**; candidate/test result **5546723958**.
-- **NOT READY for final audio-review handoff yet:** final independent browser verdict pending;
-  source-bound structural export replay passed on this exact published source.
-  Extended non-hub R0 smoke found completion mobile overflow (529px at390), so fdccd34f is not the final acceptance candidate.
-- External SoT review returned; its empty-graph finding was disproved. External V0 has
-  no published result and the actual browser bridge shows0 active sessions. The existing
-  separate native reviewer resumed real Playwright verification on exact8b; R0 is not V0.
-  No new optional normalization wave is authorized.
+- Current8b product smoke: 18 hub archetypes plus16 additional product routes × desktop/mobile = **68/68** HTTP200, no document overflow/page errors/same-prefix request failures; 4 clubs and13 festivals populated. R0 smoke is not independent V0.
+- Current publication/independent reviewer handoff: events-bot-new#621 comment **5546774738**; complete source/public checks **5546816301**; candidate/test result **5546723958**.
+- **COMPLETE FOR OWNER AUDIO REVIEW.** Independent browser review completed on exact8b:
+  Foundations PASS; MediaFrame PASS; EventCard/Grid PASS; Shell/Routes PASS.
+  Attributed review and completion: https://github.com/onedayonemasterpiece/events-bot-new/issues/621#issuecomment-5546939304
+- Separate native Playwright reviewer personally inspected all18 hub archetypes at
+  desktop/mobile, including all retained missing-hub screenshots. Fresh client-created
+  card loaded/no-source/broken probes,44px actions, calendar opening and local
+  consent/like replay passed. Factory probe is not organic-feed coverage; remote
+  writes were intercepted. R0 is not the independent reviewer.
+- Explicit limits: authenticated cloud persistence, organic personalized feed,
+  native OS share/calendar handlers and exhaustive lazy-image census not certified.
+  Artifact research route shows its existing unavailable state: source requires
+  non-production mode plus PUBLIC_ENABLE_AMBER_ARTIFACT_RESEARCH=tail. Not populated,
+  not reclassified as a lab, and no feature activation performed. Anonymous auth gates preserved.
+- Local independent evidence: events-bot-new artifacts/codex/normalization-audioreview/independent-browser-final/;
+  these are retained local artifacts, not public downloadable attachments.
+- External V0 produced no verdict at handoff; native independent browser review
+  completed instead. No optional normalization wave: next stage is owner audio review.
 - SoT window comment 5546460243 alleged an empty token graph. Exact Git bytes on
   its own pinned 729be161 and current fdccd34f disprove it: 5053730 bytes,
   2483 tokens, SHA256 `e20421f2143d128f35bb7da671c1b248c7e7321362e3e6a938975011e6f33ed4`.
   Both token/Astro checkers exit 0; factual correction posted as comment 5546505242.
 
-### Mandatory final successor published; final browser acceptance running
+### Mandatory final successor published and accepted for owner review
 
 Source `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`, descendant of fdccd34f via
 `36672a4e3a8c2bbb774a05c18479af167d77a780` (completion heading wrapping).
@@ -51,17 +61,17 @@ Same immutable snapshot and clock; dedicated review kernel preflight COMPLETE be
   unsupported exporter arguments. Same snapshot hash, clock; desktop/mobile overflow0.
 - Completion three state tabs at390/720/1440:9/9 PASS; local-only clear action PASS.
 - Local receipt SHA256 `1e9fd20b4dcb36d4fc12441153cee74b494d5dec3e0dcd8b47298f3aeff6b1fc`.
-- fd artifact navigation census:345 product HTML routes,32652 non-template internal
-  prefix anchors,0 absent target files. Extended non-hub smoke31/32; sole failure is
-  the completion heading corrected above. No lab reclassification to hide that failure.
-- Independent browser verdict remains pending; evidence must be attributed to exact
-  source or an explicit unaffected-source delta, never R0 smoke presented as V0.
+- Current8b artifact navigation census:345 product HTML routes,32652 non-template
+  internal prefix anchors,0 absent target files. Extended non-hub smoke32/32; the
+  predecessor completion heading failure is fixed without lab reclassification.
+- Independent browser verdict complete on exact source; see attributed completion above.
+  R0 mechanical smoke and independent visual/action coverage remain separately reported.
 
 ### Completed clock correction
 
 The predecessor `aed32da93129c2512fe2bfa7cdf2929d2e8c606d` was allowed to complete
 without interruption, but its artifact referenceIso incorrectly used kernel wall
-clock. It is superseded, not an acceptance target. Current fdccd34f propagates the
+clock. It is superseded, not an acceptance target. The superseded fdccd34f successor propagates the
 already frozen clock into Astro and checks manifest/date before archive; 4/4
 clock tests and 157/157 focused source tests pass. No new snapshot or production
 kernel interruption was required. Issue evidence: comment 5546393393.
@@ -76,12 +86,12 @@ Records retain tree/text/SVG/image content hashes, parent links, component
 identities and containment (not fabricated per-leaf source identities),
 source-referenced token values, action/calendar/MediaFrame attributes.
 Local artifacts: `artifacts/codex/normalization-audioreview/projection-{1440,390}.json`.
-Current fdccd34f replay: source/snapshot/clock match at both viewports; 13/13
+Current8b1bb812 replay: source/snapshot/clock match at both viewports; 13/13
 validator tests pass per packet, including forged source hash rejection.
-Packet SHA256 desktop `c843af37f12b0a3408d3408a468bfa5cff8f8e3b6170db29facd9b7a339fb7c6`,
-mobile `7199f2ba6b18cdb752fb8eb7d90a25c3d391e42669d50d5690edbe17826152c3`.
+Packet SHA256 desktop `c8181808d7955d7c5447eee4fd6ecd1e9cff21e5d5764c0ca0cb8c8a9ed4f3da`,
+mobile `26a17fd39883d4749cda6fda66c5e5ec175d2b23651708cb5252f3a826a8aebd`.
 Tests: structural13/13 with live source forgery rejection; existing decoder17/17
-(`--noconftest`, self-contained Node specimen tests); product focused157/157;
+(`--noconftest`, self-contained Node specimen tests); current product focused172/172;
 Astro/token scope16/16. These counts are test evidence, not product-completion %.
 Native P round-trip and full materialization are NOT claimed.
 
