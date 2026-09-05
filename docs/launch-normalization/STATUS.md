@@ -1,7 +1,7 @@
 # Launch normalization — factual status
 
 Coordination: `onedayonemasterpiece/events-bot-new#621`.
-Contract: [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.14.2.
+Contract: [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.14.3.
 Finite correction register: [Owner audio review — 2026-09-05](owner-audioreview-20260905.md), now AR-01–AR-18.
 
 ## Current verdict — owner clarification, 2026-09-05
@@ -33,38 +33,43 @@ The owner subsequently rejected variable-width cards and clarified initial
 full-pool row composition before pagination. Do not freeze the first12 source
 candidates as an immutable grouping before layout: only the already visible
 prefix is stable. Compatible natural OCR/visual filler grouping comes first;
-safest permitted20% vertical crop is reserved for genuine scarcity. The26fb02851 intermediate transaction completed without restart. It is not final
+the latest explicit owner instruction supersedes the hard20%/proof-required veto: fields are forbidden and minimal crop is the final fallback, with truthful unverified-safety diagnostics. The26fb02851 intermediate transaction completed without restart. It is not final
 framing acceptance; CODE continues with this clarification.
 
-## Latest real candidate —414a9cf10
+## Current published CODE successor —64f634207
 
-[Owner Home](https://kenigevents.ru/preview-real-414a9cf10-normalized-20260905-v1/)
-and [manifest](https://kenigevents.ru/preview-real-414a9cf10-normalized-20260905-v1/preview-build.json)
-are HTTP200 and match Astro414a9cf103e77345132afc9b08e0147446d6496a.
-Same immutable snapshot/clock and real/all comparison slice300; canonical review
-Kaggle COMPLETE;1428 create-only objects; no production/current/ICS mutation.
-Contract1.14.2 remains the semantic authority; executable family/token bindings
-are checked on this exact Astro. Shared full-pool row planning, protected vertical
-crop proof propagation, typography, modal lifecycle and schematic Floating Islands
-are implemented. The subsequent module/inline bridge regression in46fc was
-rejected and repaired here; passing source tests alone was not acceptance.
+Exact executable source `64f63420754eb702e877da281d9affe13dfd28b6` is pushed
+on the existing trunk. It includes the final no-fields cover fallback, shared
+exhibition card20px/deck+media32px corners, and desktop-only removal of redundant
+Today/Tomorrow/Date pills. Mobile shell and Weekend/Popular navigation are retained.
+The final listing correction also removes its competing contain CSS; mobile rails
+retain natural dimensions and absorb thumbnail rounding with the same no-fields
+fallback. Missing/broken media remains truthful; unverified crop is not OCR proof.
 
-CODE public journey passes1440/1920/390: Home wheel, persistent Today brand,
-Free12→111 unique/prefix-stable, exact8673 gallery/Escape/Back and dock.
-Desktop footer reaches the viewport end; the pre-existing mobile Reference4
-footer-hidden behavior is preserved, not claimed as a visible mobile footer.
-Public Popular Floating Islands checks pass1920/390 with actual controls,
-context, occupied-space geometry and menu lifecycle. These are engineering smoke,
-not independent REVIEW. All18 residual Free tail cards still lack usable
-protected-text crop proof: no unsafe crop or claim of all-row framing PASS.
-Native MATERIALS remains separate; no native Penpot update or A=S=P verdict
-is claimed by CODE.414a is available for review, not owner acceptance.
+139 focused tests pass; family/token SoT checks pass. Source-bound token graph SHA256 `42c84313c7c136083f9b5c4f50e0d70d79b354599d2bcc26079b54f1e21d6fcd`; family graph `069a2dda7bfa392527026019f8e10afb26ab283dc0b151dbf3118b3f549c8ec2`. Local rendered Home/Today/Free
+checks at1440/1920/390 have no visible fields (maximum numerical gap0.028CSSpx).
+This is engineering evidence, not independent REVIEW. The canonical review Kaggle
+transaction completed using the unchanged immutable snapshot/clock, real/all comparison
+slice300. [Owner Home](https://kenigevents.ru/preview-real-64f634207-normalized-20260905-v1/)
+and [manifest](https://kenigevents.ru/preview-real-64f634207-normalized-20260905-v1/preview-build.json)
+are HTTP200 and match the exact source.1428 create-only objects/301407622bytes;
+archive SHA256 `685545405219162bc0cc90217133d74a9c9a5e68ad187f618b000cf5dd5be1be`;
+manifest SHA256 `847e7b1b7ae492cae0d00bbc8bae0cb6dcae79e36c54e939de3babd067b4bbec`.
+Public Home/Today/Free at1440/1920/390: all9 measured loaded-media cells have no
+visible fields (maximum numerical gap0.0211CSSpx). This does not certify every
+asset's availability: not-yet-loaded/no-source states are recorded separately.
+Public18 route/viewport cells verify exhibition20/32px corners and contextual
+navigation. The3-width owner journey preserves Free111 unique/prefix-stable
+identities, gallery/Escape/Back and working navigation; Popular islands pass2
+widths. These are CODE engineering checks; independent acceptance remains open.
+Production/current/ICS are not switched. Native MATERIALS remains separately open;
+no native Penpot update or A=S=P verdict is claimed by CODE.
 
-Residual framing refinement: the same111-event published-runtime comparison at
-1440 reduces maximum combined image-frame gap96.97→36.05px with no protected
-image crop or missing identity. Flexible allocation is refined before pagination;
-unavoidable contain rows minimize worst unused area. Fields remain, so this is
-not a no-fields PASS. Evidence: [CODE414a result](https://github.com/onedayonemasterpiece/events-bot-new/issues/621#issuecomment-5552391219).
+The previous06ca43572 publication passed the public3-width shell and owner journey,
+but broader measurement exposed the separate listing's remaining3–7px fields;
+it is an intermediate, not the final no-fields target. [Factual checkpoint](https://github.com/onedayonemasterpiece/events-bot-new/issues/621#issuecomment-5553125957).
+Previous414a reduced fields without eliminating them and is superseded by the new
+explicit crop decision, not retroactively declared complete.
 
 ## Historical delivered2fe CODE candidate — rejected by later owner review
 
