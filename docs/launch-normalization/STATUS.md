@@ -47,13 +47,13 @@ Source milestones below are **not independent acceptance or publication**:
 
 ## Last actually delivered source and evidence
 
-- Executable trunk, last fresh read: `events-bot-new:agent/static-site-single-kaggle-contract` at `c6b5853561a6ba943e0bcfa87567d2a6b9615dc5`, tooling-only descendant of d1cc5c7d3 (UI unchanged); remote read-back confirmed.
+- Executable trunk, last fresh read: `events-bot-new:agent/static-site-single-kaggle-contract` at `4ff0aeb9fde9bccfcad6aac70f4acc862588dd15`, tooling-only descendant of d1cc5c7d3 (UI unchanged); remote read-back confirmed.
 - Continue existing branch `work/owner-audioreview-card-geometry-20260905`.
 - Source recovery checkpoint: `64294cb5e4595063e72f910960ca34302f1101b4`.
 - Latest tested UI correction: [d6fd109](https://github.com/onedayonemasterpiece/events-bot-new/commit/d6fd10919f39e2689a85388ebd6cfd53639fec61).
 - Clean verification head: `97c507be2521a244820caca5f7f5d641efca8bbc`, same UI as d6fd109; existing F0 workflow restored to read-only.
 - Subsequently `393a8e8d0fcad3cbb9e86ecf7a480498cd548f87` added the execution prompt package only. Always resolve the current branch; later documentation commits are not new UI evidence.
-- Integration into executable trunk is complete at d1cc5c7d3. The d1cc5c7d3 run failed before Astro because a WAL-format SQLite file needed immutable mode on the read-only Kaggle mount. Explicit snapshot-only repair c6b585356 passes17 builder/adapter tests and retains the exact DB hash. One same-snapshot review-Kaggle transaction is now in flight for `preview-real-c6b585356-normalized-20260905-v1`; no second alive run. No corrected published real-data build, production promotion, production data change, stable ICS change or native Penpot change is certified.
+- Integration into executable trunk is complete at d1cc5c7d3. The d1cc5c7d3 run failed before Astro because a WAL-format SQLite file needed immutable mode on the read-only Kaggle mount. Explicit snapshot-only repair c6b585356 passes17 builder/adapter tests and retains the exact DB hash. That version19 built421 pages and passed check:preview, but stopped at the nonempty Clubs gate: sparse remote export lost public release flags outside the optional provider secret bundle. Successor4ff0aeb9f forwards the two public flags in existing config to exporter and Astro (explicit0 preserved),18 regressions PASS. Direct same-snapshot projection reproduces disabled0/enabled4 clubs. One same-snapshot review transaction is now in flight for `preview-real-4ff0aeb9f-normalized-20260905-v1`, reusing checked version19 vector/cache output; no second alive run. See events-bot-new#621 comment5550561187. No corrected published real-data build, production promotion, production data change, stable ICS change or native Penpot change is certified.
 
 The earlier terminal ChatGPT answer saying no changes/reads/browser observations existed was incorrect. Remote reads/artifacts established saved work. Recovery does not retroactively turn the original source-only audit into independent browser acceptance.
 
