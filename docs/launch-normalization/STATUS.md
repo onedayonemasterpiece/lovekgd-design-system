@@ -33,11 +33,32 @@ The owner subsequently rejected variable-width cards and clarified initial
 full-pool row composition before pagination. Do not freeze the first12 source
 candidates as an immutable grouping before layout: only the already visible
 prefix is stable. Compatible natural OCR/visual filler grouping comes first;
-safest permitted20% vertical crop is reserved for genuine scarcity. The current
-26fb02851 build transaction is an intermediate checkpoint, not final framing
-acceptance; CODE continues with this clarification without restarting that run.
+safest permitted20% vertical crop is reserved for genuine scarcity. The26fb02851 intermediate transaction completed without restart. It is not final
+framing acceptance; CODE continues with this clarification.
 
-## Current delivered CODE candidate — 2026-09-05, not independent acceptance
+## Latest publication and active source successor
+
+[Owner Home26fb](https://kenigevents.ru/preview-real-26fb02851-normalized-20260905-v1/)
+and its [manifest](https://kenigevents.ru/preview-real-26fb02851-normalized-20260905-v1/preview-build.json)
+were read back HTTP200 with repo_sha26fb028510f3e9571f6b5585c717ee576e2a639c.
+Exact operation/snapshot/archive/publication evidence is recorded in
+[CODE result5551500203](https://github.com/onedayonemasterpiece/events-bot-new/issues/621#issuecomment-5551500203).
+Same real/all comparison slice300 and frozen clock; review kernel version23
+COMPLETE;1426 immutable objects; no production/current/ICS mutation.
+
+This is **intermediate, not accepted**. CODE completed the1440 public journey
+(Home wheel, persistent brand, Free12→111 stable IDs, detail/Back, footer/dock),
+but1920/390 probes found stale modal lifecycle state. The shared controller fix
+and schematic FI-P1/top-row composition are integrated in executable successor
+248c4219b; source/test/SoT follow-up4aec04a53 is pushed, not yet published.
+Full-pool framing/Home changes are integrated from5bd0c038d throughbbf46aec0;
+local real Free1440/390 preserves all111 IDs and prefix with no document overflow,
+and initial rows match natural source geometry. All18 tail cards still lack
+usable protected-text crop proof. A further joint renderer/payload correction is
+active: the packer alone must not be presented as working protected-crop delivery.
+Native MATERIALS and independent REVIEW are not claimed by CODE.
+
+## Historical delivered2fe CODE candidate — rejected by later owner review
 
 Executable trunk `events-bot-new:agent/static-site-single-kaggle-contract` is
 `2fe28b1f831ac607c0415a8aa6c2beab9eb67fac`, remote read-back confirmed.

@@ -1,6 +1,6 @@
 # Owner audio review — 2026-09-05
 
-Status: **REOPENED_AFTER_OWNER_AUDIO_REVIEW**. Delivery SHA, runs, artifact hashes and tool recovery belong to [STATUS.md](STATUS.md). The governing contract is [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.14.0 under [ASP conformance](../product-governance/astro-sot-penpot-conformance.md).
+Status: **REOPENED_AFTER_OWNER_AUDIO_REVIEW**. Delivery SHA, runs, artifact hashes and tool recovery belong to [STATUS.md](STATUS.md). The governing contract is [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.14.2 under [ASP conformance](../product-governance/astro-sot-penpot-conformance.md).
 
 This is the existing finite correction register, not a new normalization programme. Original source analysis is retained [at c4d84b4](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/c4d84b4b91ee1a7c86e2670eed7a6344e5d96a9f/docs/launch-normalization/owner-audioreview-20260905.md); the full pre-clarification register is retained [at 3f303238](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/3f303238a96f1b20832fcedf72535233b4bc5392/docs/launch-normalization/owner-audioreview-20260905.md).
 
