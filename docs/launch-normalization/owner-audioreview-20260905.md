@@ -67,6 +67,17 @@ heading/medallion composition; AR-14 retains factual Weekend corpus/export compa
 Home mosaic light square and scroll failure remain reproduction questions, not
 source-proven causes. Final nav skin is deferred, functionality is not.
 
+### Owner response to framing conflict (same CODE continuation)
+
+Variable card widths explicitly rejected. Before first paint, search compatible
+rows across the **full available eligible pool**, not only the first12 Free items;
+combine natural-ratio OCR with visual-only fillers. Preserve all eligible events,
+then freeze the already visible prefix during append/feedback. First-page
+incompatibility is not proof of full-pool scarcity. Only genuine remaining scarcity
+may use the safest vertical crop within20%, with protected-text safety retained.
+The previously reported8080/8308 pair diagnoses a bad fixed grouping, not a
+product-level blocker. CODE continues this correction on the same owners.
+
 ## Bounded real-data findings for AR-14
 
 Read from cached HTTP200 HTML of the exact rejected prefix, not current production DB and not the July committed fixtures used for corrected-source diagnostics:

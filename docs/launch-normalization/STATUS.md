@@ -1,7 +1,7 @@
 # Launch normalization — factual status
 
 Coordination: `onedayonemasterpiece/events-bot-new#621`.
-Contract: [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.14.1.
+Contract: [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.14.2.
 Finite correction register: [Owner audio review — 2026-09-05](owner-audioreview-20260905.md), now AR-01–AR-18.
 
 ## Current verdict — owner clarification, 2026-09-05
@@ -28,6 +28,14 @@ Brand persistence/Today/menu cleanup and functional schematic shell are in scope
 full voice/analytics/personalization/transport rollout is not. Optional analytics
 must not invalidate primary actions. Next handoff uses the product Home URL,
 same snapshot/clock and existing Kaggle pipeline, never production promotion.
+
+The owner subsequently rejected variable-width cards and clarified initial
+full-pool row composition before pagination. Do not freeze the first12 source
+candidates as an immutable grouping before layout: only the already visible
+prefix is stable. Compatible natural OCR/visual filler grouping comes first;
+safest permitted20% vertical crop is reserved for genuine scarcity. The current
+26fb02851 build transaction is an intermediate checkpoint, not final framing
+acceptance; CODE continues with this clarification without restarting that run.
 
 ## Current delivered CODE candidate — 2026-09-05, not independent acceptance
 

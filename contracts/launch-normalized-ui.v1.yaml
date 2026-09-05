@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.14.1
+version: 1.14.2
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -63,7 +63,11 @@ owner_review_correction:
     contain_in_arbitrary_fixed_frame_is_accepted_layout: false
     loaded_media_letterboxing_allowed: false
     joint_acceptance: [painted_image_bounds, protected_text, all_admitted_ids, row_geometry, stable_visible_order]
-    composition_order: [compatible_natural_ratio_grouping, proven_safe_vertical_crop_within_budget]
+    composition_order: [full_eligible_pool_grouping_before_first_page_limit, compatible_natural_ratio_grouping_with_visual_fillers, safest_proven_vertical_crop_within_budget_only_if_needed]
+    variable_card_width_within_row: prohibited_by_owner
+    initial_order: compose_compatible_rows_from_all_available_eligible_candidates_before_first_paint
+    visible_order: freeze_already_rendered_prefix_and_active_card_during_append_feedback
+    first_page_slice_alone_proves_corpus_infeasibility: false
     no_feasible_group: explicit_minimal_corpus_conflict_not_silent_letterboxing_or_loss
     prohibited_substitutes: [stretch, blur_padding, unconditional_cover, dropped_events]
     missing_or_broken_resource: distinct_truthful_fallback_not_loaded_media_exception
