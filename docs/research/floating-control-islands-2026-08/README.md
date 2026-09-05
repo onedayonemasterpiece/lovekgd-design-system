@@ -1,129 +1,64 @@
-# Floating control islands / detached chrome
+# Floating Islands / detached chrome — KenigEvents
 
-> **Status: `exploration input`.** This pack records source-informed service/control UI patterns from six supplied mobile screenshots. It is **not** an accepted component family, token decision, canonical Penpot component, or authorization to replace the current header or bottom navigation.
+Pattern ID: **`pattern.detached-chrome-control-islands`**. Продолжение существующего [PR #47](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/47).
 
-This is an anonymized reference pack for mobile application chrome that can detach from viewport edges and form role-owned surfaces: icon islands, context capsules, utility clusters, composers, navigation docks, transient utilities and persistent state docks.
+**2026-09-05: сквозная система документально спроектирована. Новая система ещё не внедрена, новый visual skin не принят; A=S=P и нормализация сайта не объявляются пройденными.** Исследовательские skeletons ниже остаются `exploration_input`, не native components и не источник новых foundation tokens.
+
+## Текущие документы
+
+| Документ | За чем идти |
+|---|---|
+| [Системная спецификация v1](system-design-v1.md) | Единственное место правил FI-01–FI-20: роли, композиции, состояния, геометрия, scroll/keyboard, layers, accessibility, Search adapter и A=S=P. |
+| [Матрица потребителей и состояний](consumer-matrix-v1.md) | Все 17 зарегистрированных архетипов, реальные owners/routes, шесть proposed compositions и state-fixture coverage. |
+| [Первый пакет реализации FI-P1](implementation-package-1.md) | Shared geometry + сменяемый контекст полок на «Популярном», совместимость с Today/Free/event-detail, 32 конкретных тест-сценария и критерии поставки. |
+| [Источники и решения](sources-and-decisions-v1.md) | Точные source/public SHA, записи владельца, личные browser observations, найденные расхождения, Penpot safety block и границы доказательств. |
+| [Pattern dossier / gate](planned-design-pattern.md) | Направление, текущий этап, адресное before→after уточнение допуска к проектированию и routing. |
+| [Planned-pattern JSON](planned-pattern.json) | Машиночитаемые lifecycle/proposed variant ссылки. Не второй контракт геометрии и не production manifest. |
+
+**Уточнение допуска:** документальный дизайн/fixtures готовятся сейчас; визуальное изменение требует честного baseline затронутого потребителя. Полный незавершённый AS-IS/P всего сайта не блокирует проектирование. Без реального native P никто не заявляет A=S=P. Production promotion, принятые shared foundations и STATUS остаются под действующими владельцами. Подробное owner amendment — FI-01, не переписанная в каждом prompt версия требования.
+
+Голосовой Search — один из потребителей, его product/API/capture/лимиты принадлежат [events-bot-new#587](https://github.com/onedayonemasterpiece/events-bot-new/pull/587). Интеграция/normalization — существующий [#621](https://github.com/onedayonemasterpiece/events-bot-new/issues/621). Tracker [#39](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/39) ссылается сюда, не создаёт альтернативный system design.
+
+## Сохранённая исследовательская база
 
 ![Source-informed six-screen reference board](assets/reference-board.svg)
 
-![Pattern anatomy and validation gates](assets/anatomy.svg)
+![Historical pattern anatomy and validation gates](assets/anatomy.svg)
 
-## Source and fidelity
+Это anonymized source-informed skeletons по шести ранее переданным владельцем mobile screenshots, а не готовые экраны KenigEvents. Текст gates на исторической anatomy board читается с текущим уточнением FI-01; картинка не переопределяет действующий документ.
 
-| Field | Result |
+| Поле | Исторически зафиксировано |
 |---|---|
 | Telegram source | `https://t.me/c/4337049383/1162` |
-| eventsBot MCP | Message metadata was read; media-byte materialization did not work |
-| Actual visual input | 6 images supplied directly by the owner in the current conversation |
-| Dimensions | Each direct attachment is `921×2048` |
-| Visual review | All 6 direct attachments were visually reviewed |
-| Fidelity | `source-informed anonymized skeletons` |
-| Raw screenshots in Git | **Not committed** because they contain names, messages, avatars, imagery and third-party branded content |
-| Machine-readable analysis | [`screen-observations.json`](screen-observations.json) |
-| Provenance | [`source-manifest.json`](source-manifest.json) |
+| eventsBot MCP | Metadata прочитаны; materialization исходных media bytes не удалась |
+| Прямой визуальный input | Шесть отдельных attachments 921×2048, просмотренных автором исходного исследования |
+| Media count в Telegram metadata | Два элемента альбома; это не число шести прямых attachments |
+| Raw screenshots в Git | Не сохраняются: private names/messages/avatars и чужие изображения/branding |
+| Наблюдения | [screen-observations.json](screen-observations.json) |
+| Provenance | [source-manifest.json](source-manifest.json) |
+| Полный исходный текст исследования | [README до системного проектирования](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/774bcf0659915dffa16431847d408b2a6a6f2302/docs/research/floating-control-islands-2026-08/README.md) |
 
-The earlier limitation “source pixels were not obtained” is removed for the design analysis because the six screenshots were supplied directly and reviewed. The MCP media-materialization failure remains a separate infrastructure issue and is not investigated in this pack.
+В окне 2026-09-05 перечитаны сохранённые observations; повторный просмотр исходных шести приватных изображений не заявляется. Новые настоящие KenigEvents browser captures перечислены отдельно в sources.
 
-The historical Telegram message metadata reported two media items for that album. That value is not the count of the six direct conversation attachments; the two sources are recorded separately in the manifest.
+| Пример | Сохраняемый вывод |
+|---|---|
+| Kimi home | Leading menu, mode context, audio utility и composer имеют разных owners. |
+| Kimi reading | Transient scroll utility не должна менять место чтения или identity composer. |
+| Telegram chat list | Контрпример: сравнительно монолитная шапка совместима с отдельными filter/FAB/navigation поверхностями. |
+| Telegram conversation | Back, identity, related utilities и pinned context — разные, но согласованные роли. |
+| Media player | Immersive canvas может начинаться сверху; это не автоматическое разрешение перекрыть важное содержимое. |
+| Media library | Persistent state и destination navigation имеют разные lifecycles; это не поручение добавить плеер в KenigEvents. |
 
-## Working terminology
+## Термины и непрерывность исследования
 
-There is no single standardized name that covers every observed screen. The working vocabulary is:
+`Detached chrome` / `floating chrome` описывают отделённую оболочку; `floating control islands` — композицию role-owned поверхностей. `Pill` и `capsule` — геометрия, не component identity. `Chip` — компактный filter/select/suggestion/input control, а не название всей шапки, composer или nav.
 
-- **detached chrome / floating chrome** — application chrome that is visually detached from a viewport edge or content boundary;
-- **floating control islands** — a composition in which controls are split into role-owned surfaces rather than one monolithic bar;
-- **floating top app bar / clustered top app bar** — leading, center/context and trailing/utility regions arranged as separate or clustered surfaces;
-- **context capsule / mode capsule** — a compact center surface for scope, mode or page identity;
-- **utility island / utility cluster** — one surface for related service actions;
-- **floating composer** — an inset task-input surface raised above the system edge;
-- **floating navigation dock** — a detached but semantically unified destination-navigation surface;
-- **transient floating utility / FAB** — an independently appearing action such as scroll recovery or creation;
-- **persistent mini-player / now-playing dock** — a state-and-action surface that remains available across screens.
+Исходный вывод сохранён: четыре слоя **surface → composition → control semantics → runtime/layout behavior**. Общий radius не является достаточным основанием объединить components. Состав действий определяется реальными KenigEvents consumers; чужие интерфейсы не копируются один в один.
 
-`Pill` and `capsule` describe geometry, not component identity. `Chip` is appropriate only for compact filter, select, suggestion or input controls. A whole header, composer or navigation dock should not be called a chip.
+Source-era поля `unresolved`, `reuse_existing=[]`, `new_component=[]` в observational JSON — исторические dispositions исходного research. Current applicability и предложенные composition IDs читаются из текущего пакета выше; они не означают принятие новых native families или tokens.
 
-## Six reviewed screens
+## Ранние exploratory variants
 
-| ID | Screen type | Pattern label | Observed service/control regions |
-|---|---|---|---|
-| A | Kimi home | `detached_top_islands` | leading menu island; centered mode/context capsule; trailing mute/audio island; quick-action chip row; large inset floating composer |
-| B | Kimi reading | `floating_composer_with_transient_scroll_utility` | same detached top composition; trailing utility capsule; content-heavy reading surface; transient scroll-to-bottom utility; floating composer |
-| C | Telegram chat list | `monolithic_header_filter_dock_fab_navigation` | relatively monolithic header zone; separate segmented/filter dock; context banner; FAB; floating bottom navigation dock |
-| D | Telegram conversation | `clustered_conversation_app_bar` | back island; identity/context capsule; grouped utility capsule; pinned context banner; bottom composer |
-| E | media player | `immersive_media_control_islands` | centered title/mode pill; edge utilities; playback control islands; content-first immersive canvas; bottom destinations without a mandatory common substrate |
-| F | media library | `persistent_mini_player_navigation_stack` | content-header actions; persistent mini-player/now-playing dock; separate bottom navigation model |
+[Distributed control islands](assets/variant-a-distributed.svg) и [Split dock + context island](assets/variant-b-split-dock.svg) сохранены как ранние non-source-faithful варианты. Они не трассировки шести изображений, не новые C1–C6 и не baseline/candidate evidence для A=S=P.
 
-Screen C is an important counterexample: rounded UI does not imply that every service region must be broken into islands. Its header remains comparatively unified while filters, context, FAB and navigation are separate layers.
-
-## Source-informed findings
-
-1. **Leading, center context and trailing utility may have different semantic owners.** Their lifecycle, state and accessibility rules should not be merged merely because the surfaces share a radius.
-2. **The content canvas does not have to begin below a full monolithic app bar.** Detached chrome may overlay a content-first canvas.
-3. **Related actions stay grouped.** Call + overflow, playback controls or other utility actions should not be split into unrelated pills when they form one semantic cluster.
-4. **Composer, navigation dock and mini-player stack are different compositions.** They have different tasks, state models and runtime behavior.
-5. **Transient utilities can appear above content flow.** Scroll recovery and FAB controls may show or hide independently of the main layout.
-6. **Persistent state can form a separate dock.** A now-playing surface may remain available without becoming part of destination navigation.
-7. **Bottom navigation can remain one navigation model without a visible common substrate.** Borderless destinations are still semantically grouped.
-8. **A visually identical radius does not prove common component identity.** Shared geometry is weaker evidence than state, semantics, accessibility and runtime behavior.
-
-## LoveKGD implications
-
-| Semantic slot / primitive | Responsibility | Disposition |
-|---|---|---|
-| `top-leading-context` | back, menu, close or scope entry | `unresolved` |
-| `top-center-context` | mode, page identity or scope summary | `unresolved` |
-| `top-trailing-utility` | search, share, call, overflow or mute | `unresolved` |
-| `context-banner` | pinned or persistent page context | `unresolved` |
-| `quick-action-chip-row` | compact suggestions, filters or shortcuts | `unresolved` |
-| `floating-composer` | task input plus attachments/voice | `unresolved` |
-| `floating-scroll-utility` | transient recovery or navigation action | `unresolved` |
-| `bottom-destination-navigation` | core destinations | `unresolved` |
-| `persistent-state-dock` | mini-player or other cross-screen state | `unresolved` |
-| `control-surface-material` | background, border, elevation, blur and contrast | `unresolved` |
-| `floating-chrome-anchor` | safe area, viewport inset, keyboard and scroll anchoring | unconfirmed `runtime_only candidate`; no accepted contract |
-| `content-occlusion-compensation` | last-item inset and reachability under floating chrome | unconfirmed `runtime_only candidate`; no accepted contract |
-
-Nothing is marked `reuse_existing` or `new_component`. Production registry and archetype-contract mapping must happen first.
-
-## Do not make one universal pill component
-
-Similar capsule geometry must be separated into four layers:
-
-1. **Surface primitive** — material, radius, border, elevation and contrast.
-2. **Composition** — top app bar, composer, navigation dock or mini-player dock.
-3. **Control semantics** — icon button, segmented control, chip, text input or destination item.
-4. **Runtime/layout behavior** — safe-area anchoring, keyboard avoidance, scroll compaction, occlusion and show/hide rules.
-
-A shared primitive is possible only where material, states, accessibility and underlay requirements match. Composition identity must not be inferred from rounded geometry alone.
-
-## Validation gates before any adoption
-
-The pattern must be tested against:
-
-- plain, photo, poster and saturated underlays;
-- expanded, compact and scrolled states;
-- keyboard open and closed;
-- safe areas and system-navigation insets;
-- narrow viewport and landscape;
-- content occlusion and last-item reachability;
-- reduced motion and high contrast.
-
-## Adoption gate
-
-Until production family mapping and runtime validation are complete, do not:
-
-- transfer skeleton geometry into tokens;
-- accept sizes, blur, elevation or spacing from these drawings;
-- replace existing header or bottom-navigation artifacts;
-- accept new component families from this pack;
-- perform speculative merges based on capsule geometry;
-- materialize canonical Penpot components.
-
-Permitted use now: owner review, archetype exploration, comparison with current Astro output and preparation of the fixture/state matrix.
-
-## Early exploratory variants
-
-These earlier abstract variants are retained as non-source-faithful exploration only. They are not traces of the six screenshots and are not contracts:
-
-- [Distributed control islands](assets/variant-a-distributed.svg)
-- [Split dock + context island](assets/variant-b-split-dock.svg)
+Для любого будущего visual adoption нужны реальные consumer baseline/candidate с теми же fixtures, assets, states и viewport, корректная component lineage, browser/device evidence и действующий owner review. Нельзя переводить blur, размеры, spacing или elevation исследовательских skeletons в foundations либо тихо заменять принятый nav. Сами эти требования не запрещают выполнять уже разрешённое документальное проектирование.
