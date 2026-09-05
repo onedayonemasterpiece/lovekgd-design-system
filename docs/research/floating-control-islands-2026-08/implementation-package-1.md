@@ -1,142 +1,138 @@
 # FI-P1 — shared geometry + реальный контекст полок
 
-Дата: 2026-09-05. Статус: **готовый проект первого implementation-пакета; код и тесты пакета ещё не реализованы**.
+Дата: 2026-09-05. Статус: **проект первого implementation-пакета; код и автотесты пакета ещё не реализованы**.
 
-Владелец требований — [system-design-v1.md](system-design-v1.md), идентификаторы FI-01–FI-20. [Матрица](consumer-matrix-v1.md) задаёт применимость; [источники](sources-and-decisions-v1.md) различают source/public/P и уже выполненные наблюдения. Этот файл — границы и проверяемая приёмка работы, не второй управляющий контур и не предложение перепроектировать систему с нуля.
+Обязательно читать вместе: [system-design-v1.md](system-design-v1.md), FI-01–FI-20, и [release-bindings-v1.md](release-bindings-v1.md), RB-01–RB-03. Это один pattern owner. [Матрица](consumer-matrix-v1.md) определяет consumers; [источники](sources-and-decisions-v1.md) и позднее release дополнение различают source/public/P и выполненные наблюдения. Этот файл — конкретный исполнимый scope и приёмка, не новый оркестратор или предложение снова придумать систему.
 
-## 1. Что пользователь получает в первой поставке
+## 1. Первый видимый результат
 
-На **`/populyarnoe/`** текущая содержательная полка получает компактный section-contained заголовок, согласованный с уже существующим контекстом страницы, городами/фильтрами и нижней навигацией. При движении вниз заголовок следующей полки заменяет прежний; при движении вверх возвращается предыдущий. Последнее действие карточки не прячется за нижними поверхностями. Это видимая продуктовая цель, не только установка измерителей.
+На **`/populyarnoe/`** текущая содержательная полка получает компактный section-contained заголовок, согласованный с существующим контекстом страницы, городами/фильтрами и нижней навигацией. Следующая полка заменяет его при scroll вниз, предыдущая возвращается при scroll вверх. Последнее действие карточки достижимо, focus не прячется за chrome. Это продуктовый результат, не только установка измерителей.
 
-За этим стоит один совместимый механизм занятой области в существующем EventLayout. Он учитывает nav, date accessory, event CTA, нижнее уведомление и верхний chrome. **Не меняется принятый внешний вид nav, не создаётся второй toast/controller, не переделываются карточки.** Текущий компактный page context сохраняется; новый section context его не дублирует.
+В существующем EventLayout один совместимый механизм occupied-space учитывает top chrome, nav, date accessory, event CTA и нижние уведомления. **Принятый skin nav, четыре destinations и текущий page context сохраняются.** Не создаются второй toast/controller или копии карточек.
 
-Зависимости проверяются на Today, Free и event-detail, поэтому пакет не превращается в page-local «исправление Popular». Четырёхролевая Search-композиция проверяется в UI fixture с реальными каноническими карточками; живой голосовой backend и новый публичный Search не входят в FI-P1.
+Shared regression: Today, Free, event-detail. Четырёхролевая Search-композиция проверяется в UI fixture с canonical cards; живой ASR/backend и новый публичный voice Search в FI-P1 не входят. Из release bindings в P1 входят **readonly geometry/status/served interfaces и UI fixtures**, не полное внедрение relay/analytics/profile backend.
 
-## 2. Точные границы
+## 2. Scope, fresh-read и безопасный baseline
 
-**Входит:** геометрический adapter над действующим shell; occupied rects/insets; защита last CTA/focus; адаптация существующего lower-surface offset; одно направление разделов C2 на Popular; маленький UI-only integration specimen C4; source-bound SoT projection необходимых состояний; адресные тесты; опубликованный immutable preview через текущий pipeline после реализации.
+**Входит:** adapter над существующим shell; occupied rects/insets; защита last CTA/focus; согласование lower-surface offset; C2 на Popular; UI-only C4 specimen; source-bound projection нужных состояний; 32 core сценария и пять binding-cases; immutable preview через действующий pipeline после реализации.
 
-**Не входит:** production promotion; full-site normalization closure; смена fonts/palette/общих foundations; новый header skin над hero; массовое оформление всех полок отдельными поверхностями; менять data quality/персонализацию; ASR, микрофонные разрешения или provider вызовы; новый Penpot file; новый builder/QA platform/оркестратор; внедрение новых моделей/зависимостей ради измерения rects.
+**Не входит:** production promotion и full-site normalization closure; fonts/palette/shared foundations; новый header skin над hero; массовый singleshelf redesign; data-quality/ranking rewrite; живые provider/микрофонные calls; новый Penpot file, builder, QA platform, outbox, transport или profile service. Reverse analytics/media delivery и downstream readout не объявляются готовыми по UI mocks.
 
-### Первый безопасный baseline
+Перед кодом fresh-read executable trunk `events-bot-new:agent/static-site-single-kaggle-contract`, #621 latest comments, DS contract/STATUS и затронутые families. Исходный проверенный source pin `2fe28b1f831ac607c0415a8aa6c2beab9eb67fac`, public `0b08f0a806a9531c8bf253672e1bb5c712764064`; **не откатывать будущий trunk к этим SHA**. Late documentary #587 extension прочитан на `c048ebe…`, его provenance — в release-bindings.
 
-До кода прочитать fresh HEAD executable trunk `events-bot-new:agent/static-site-single-kaggle-contract`, #621 latest comments, DS launch contract/STATUS и текущие изменённые семейства. На момент проектирования source HEAD `2fe28b1f831ac607c0415a8aa6c2beab9eb67fac`, published `0b08f0a806a9531c8bf253672e1bb5c712764064`. Не откатывать будущий trunk к этим SHA.
+Один coherent batch в существующей CODE/family-owner lane. Не интегрировать новый продукт в историческую R0-ветку. При пересекающейся текущей правке shared EventLayout можно готовить pure policy/fixtures, но не писать второго конкурирующего owner. Незавершённая unrelated page и отсутствие полного P всего сайта не запрещают работу над подготовленным target.
 
-Пакет реализуется в существующей CODE/family-owner lane, один coherent batch, не в исторической R0-ветке. Пока общий UI family owner занят пересекающимся изменением, можно готовить pure geometry tests/fixtures; нельзя параллельно переписывать EventLayout и потом объявлять конфликт чужой проблемой. Это coordination dependency, не запрет на документальный дизайн.
+Baseline cases: Popular top и две фактические полки; Today nav+date accessory; Free initial/append/last CTA; event-detail реального donor 5370 либо актуального аналогичного corpus event с gallery/CTA. Сам ID 5370 не заменяет будущие wide/narrow/no-image C5 cases. Сохранить exact source/corpus/clock, route, DOM/component/asset IDs, known deviations и available S/P. Missing native P остаётся pending, не искусственной тройкой A=S=P.
 
-Базовые cases: Popular top/две фактические полки; Today nav+date accessory; Free initial/append/last CTA; event-detail реального review donor 5370 или актуального сопоставимого corpus event с gallery/CTA. ID 5370 не подменяет обязательные wide/narrow/no-image варианты поздней C5 приёмки. В каждом case сохранить exact source, corpus/clock, routes, actual DOM/component/asset IDs, known deviations и доступную структурную проекцию. Неполный P явно остаётся pending; эта запись не разрешает объявить A=S=P.
+## 3. Source integration — конкретные места и ограничения
 
-## 3. Пакет кода — где и что меняется
-
-| Существующее место | Конкретное действие | Ограничение |
+| Место | Действие | Сохранить |
 |---|---|---|
-| `site/src/layouts/EventLayout.astro` | Найти действующих owners page-context, bottom stack и lower-surface state. Подключить один adapter; публиковать измеренные top/bottom insets и scope-aware rects. | Не оставлять старый и новый writers одних CSS vars активными одновременно. Route-mode resolver остаётся один. |
-| `site/src/components/MobileBottomNav.astro` | Зарегистрировать существующий root/controls как primary_navigation; сохранить четыре ссылки, selected semantics и существующий skin. | Не копировать компонент для desktop. Не добавлять hide-on-scroll. |
-| `site/src/components/Reference4MobileMenu.astro` | Предоставить actual occupied bounds и interaction state существующего меню, включая brand-tag overhang. | Не менять moving-parent donor, не добавлять неразрешённый modal/backdrop/body lock. |
-| `site/src/components/MobileToastRegion.astro` | Подключить общий offset/occlusion state через существующий lower-surface owner; проверить cleanup. | Сохранить queue, dedupe, generation, pause и persistent action/error lifecycle. Не создавать второй aria-live канал. |
-| Actual date accessory / `EventCtaPanel.astro` / event-detail lower owner | Обозначить внешние layout dependencies, согласовать измерения вместо локальной суммы высот. | Сохранить nav XOR CTA и текущие CTA boundaries; не менять transactional logic. |
-| `PopularListingSurface` и существующая header/section family | Добавить только семантические section boundaries/стабильные IDs и вариант compact sticky context с принадлежащими ему controls. | Не копировать EventCard/rail/grid; city filter остаётся своим owner. Если нынешняя heading family не подходит, один узкий candidate component, не второй shell. |
-| `KeyboardEventNavigation.astro` → `keyboardEventNavigation.mjs` и текущая scroll-context logic | Подключить доступные insets/rects к существующему focus/scroll owner; удержать native field/IME exemptions. | Не навешивать второй глобальный keydown/router. |
-| `site/src/design-system/astro-family-registry.v1.json`, существующие projections/materializer | Зарегистрировать новые candidate properties/versions и resolved geometry только затронутых семей, экспортировать состояния. | P-binding не заполняется выдуманным UUID или screenshot frame. |
-| Existing runtime catalog `/lab/design-system/`, `site/src/data/design-system-production-surface-contract.v1.json` | Добавить candidate showcase нужных states; authoritative consumer map без признания lab production-потребителем. | Default accepted versions не меняются до review/promotion. |
-| `docs/testing/static-site-autotest-scenarios.v1.yml`, существующий browser harness | Добавить сценарии из §6 по мере появления исполняемых тестов; не ставить implemented/PASS заранее. | Переиспользовать L0/L1/L2 платформенные adapters; без реального mail/ASR в layout suite. |
-| `docs/features/static-site-pages/design-system/README.md`, `mobile-shell.md`, `CHANGELOG.md` | Коротко связать feature/версию с этим pattern и зафиксировать адресные before→after изменения реализации. | Не копировать сюда все правила FI-* и не переписывать исторические July-лаборатории как актуальный контракт. |
+| `site/src/layouts/EventLayout.astro` | Найти actual owners page context/bottom stack/lower-surface state; расширить их единым measured adapter. | Один writer общих CSS vars, один route-mode resolver. |
+| `site/src/components/MobileBottomNav.astro` | Зарегистрировать root/controls как primary_navigation. | Четыре ссылки, один aria-current, existing skin и desktop/mobile reuse, никакого hide-on-scroll. |
+| `site/src/components/Reference4MobileMenu.astro` | Отдать actual bounds/state, включая brand-tag overhang. | Moving-parent donor, current close paths; без нового modal/backdrop/body lock. |
+| `site/src/components/MobileToastRegion.astro` | Получать общий offset/obscured state через existing lower-surface owner. | Queue/dedupe/generation/pause/persistent errors-actions, один announcement owner, cleanup. |
+| Actual date accessory / `EventCtaPanel.astro` / event lower owner | Согласовать их occupied-space dependencies. | Nav XOR CTA, hero/body/terminal boundaries, domain actions. |
+| `PopularListingSurface` и actual heading/section family | Stable section boundaries/IDs + compact sticky variant с собственными controls. | Rail/grid/EventCard/data order/cities; не создавать route-local lookalike. |
+| `KeyboardEventNavigation.astro` → `keyboardEventNavigation.mjs` и существующая scroll logic | Подключить common insets/rects к текущему focus/scroll owner. | Один глобальный listener/controller; native field/IME/overlay exemptions. |
+| Existing status/list/personalization/analytics adapters | Реализовать typed readonly мост RB-01–03 и fixtures. | Shell не dispatch/retry/store/log raw payload; actual served identity принадлежит renderer, consent/exposure — существующему owner. |
+| `site/src/design-system/astro-family-registry.v1.json`, existing projections/materializer | Candidate versions/properties/resolved geometry затронутых семей. | Native lineage и exact assets; никаких выдуманных UUID. |
+| Existing `/lab/design-system/` catalogue, `site/src/data/design-system-production-surface-contract.v1.json` | Candidate showcase, target consumer mapping и нужные states. | Lab не становится production route; accepted default version не меняется до review. |
+| `docs/testing/static-site-autotest-scenarios.v1.yml`, existing browser harness | Добавлять исполняемые cases из §6, переиспользуя equivalent IDs. | L0/L1/L2 adapters, true auth/side-effect classification; planned не implemented. |
+| Feature README, `mobile-shell.md`, `CHANGELOG.md` | Source/variant routing и адресный before→after реализации. | Нет пересказа всех FI/RB правил в новые хронологические документы. |
 
-Предлагаемое внутреннее выделение, **если эквивалентного модуля нет**: `site/src/lib/islandLayout.mjs` для чистого расчёта и `site/src/lib/islandLayoutRuntime.ts` для DOM adapter. Имена не основание создавать дубль: сначала расширить найденный актуальный owner. Модуль не содержит карточек, бизнес-данных, network calls, persistence или arbitrary event bus.
+Если эквивалентных модулей нет, предложенные внутренние места: `site/src/lib/islandLayout.mjs` (pure policy) и `site/src/lib/islandLayoutRuntime.ts` (DOM adapter). Сначала искать actual owner, не создавать дубль ради имён. Никаких network/persistence/business data в этих модулях.
 
-Proposed tests: `site/tests/island-layout.test.mjs`, `site/tests/island-layout-lifecycle.test.mjs` и suite в существующем browser runner (допустим один `site/e2e/islands/` adapter как feature suite, не самостоятельная тестовая платформа). Существующие package scripts и lockfile сохраняются; новый script объявляется только вместе с реально созданной точкой входа.
+Предложенные тесты: `site/tests/island-layout.test.mjs`, `site/tests/island-layout-lifecycle.test.mjs`; при необходимости `site/e2e/islands/` как feature suite существующего runner, не самостоятельная платформа. Script добавляется вместе с реальным entrypoint; lockfile/dependencies не обновляются ради простой геометрии.
 
-### Pure calculation contract
+### Pure policy contract
 
-Вход: normalized viewport/safe bounds, роли/режимы, измеренные rects, scope/lane, защищённые controls, interaction lock, текущий layout mode. Выход: placement/mode, occupied union, conservative compatibility insets и per-lane blocked intervals. Регистрация одинакового ID обновляет участника, а не добавляет двойной offset. Unknown role и non-finite/negative geometry отвергаются/диагностируются, не порождают NaN styles. Unregister идемпотентен.
+Вход: normalized viewport/safe bounds, modes/roles, measured rects, lanes/scopes, protected controls, interaction lock/current layout. Выход: placements/mode, occupied union, conservative compatibility insets и lane blocked intervals. Повторный instance ID обновляет участника; cleanup идемпотентен. Unknown role/non-finite/negative geometry не порождают NaN CSS. Dangling callbacks после route change не перемещают focus. Приоритеты/деградация — FI-09, не произвольный priority от страницы.
 
-Приоритеты и degradation ladder — FI-09; модуль не принимает произвольный числовой priority от страницы. При interaction lock откладывается несущественная перестановка. Для исчезнувшего protected element используется контролируемый cleanup; dangling callback не перемещает focus на новую route.
+В прочитанном source nav использует `--mobile-nav-h` (базово 64px в EventLayout), width `min(480px, viewport − 2 × --ke-space-3)`, existing radius и equal tracks. Это source values, **не подтверждённые computed values всех viewports**. На target baseline извлечь реальные значения и наследовать их; не создавать новый token set. Новые behavioral knobs — readable budget/hysteresis/feature enablement; material changes требуют адресного owner review.
 
-### Начальные geometry bindings, а не новые foundations
+## 4. Этапы и rollback
 
-В прочитанном source nav использует `--mobile-nav-h` (в EventLayout задано 64px), width `min(480px, viewport − 2 × --ke-space-3)`, существующий pill radius, четыре equal tracks. Это **source-наблюдение**, не гарантированные computed values на каждом viewport. FI-P1 извлекает реальные значения для выбранного baseline и наследует их; не заменяет их новым числовым token set.
+**P1a — совместимость:** exact affected baseline, pure policy/lifecycle tests, single writer. Feature OFF не меняет существующие DOM/data/geometry. RB adapters используют существующие owners; не создают новый транспорт или обязательную телеметрию.
 
-Новые knobs ограничены behavior: выбранный в FI-09 readable budget, hysteresis переходов, feature enablement. Gap/radius/elevation/typography/icon box берутся из accepted family. Нужда в новом material token выносится адресным proposed diff для общего foundation owner, а не исправляется внутри Popular CSS.
+**P1b — видимый consumer:** C2 включается на Popular только в isolated candidate через existing selection mechanism. Если нужен новый key: proposed `islands.section-context.v1`, default OFF и allowlisted composition, не произвольный query-param для server functions. C4 specimen — mocked_ui, ноль ASR/provider/product-mail side effects.
 
-## 4. Порядок реализации и отзыв изменения
+**P1c — regression/S:** core cases + пять release-binding fixtures. Target frames получают реальную source-bound projection. Native P материализуется через существующего sole writer при фактическом доступе/bindings; missing P не превращается в PASS. Остальные valid результаты сохраняются отдельно.
 
-**P1a — compatibility first.** Зафиксировать affected baseline; реализовать и проверить чистое вычисление и единую lifecycle registration. На выключенном варианте DOM/содержание/geometry существующих consumers не меняются. Compatibility vars имеют одного writer.
+**P1d — owner review:** опубликованный create-only immutable candidate через текущий Kaggle builder. Владелец получает Popular baseline/candidate и действия «прокрути вниз/вверх, дойди до последней карточки, открой окно». Verdict по конкретным cases, не общий «сайт нормализован».
 
-**P1b — один видимый consumer.** Включить C2 на Popular только в изолированном candidate через существующий механизм feature/candidate selection. Новый proposed key при отсутствии подходящего: `islands.section-context.v1`, default off, allowlisted composition, не произвольный query-param, дающий доступ к серверной функции. UI fixture C4 использует mocked_ui и гарантирует 0 ASR/provider/product-mail side effects. Это не новая опубликованная пользовательская voice capability.
+Rollback: выключить candidate key/откатить coherent batch; accepted shell/nav/CTA работоспособны. Data schema migration отсутствует. Active task не уничтожается при toggle. Production mixed-version rollout **не разрешён здесь**: будущий контракт должен указать owner/scope/removal deadline, иначе новая accepted family мигрирует всех production consumers одной поставкой. Старый код удаляется только по actual zero-consumer evidence.
 
-**P1c — shared regression и S.** Прогнать матрицу core cases; устранить коллизии на Today/Free/event-detail без изменения их контентного дизайна. Снять exact structural/export evidence и browser behavior. Materialize необходимые native linked frames через существующего sole writer, когда его реальный доступ и bindings готовы. Blocked P не превращает все остальные результаты в выдуманный PASS.
+## 5. Критерий поставки
 
-**P1d — owner review, не production.** Через действующий Kaggle builder опубликовать create-only immutable candidate. Дать владельцу Popular baseline/candidate + краткие действия «прокрути вниз/вверх; дойди до последней карточки; открой окно». Зафиксировать verdict по конкретным cases, не общий «сайт нормализован».
+На одном source/corpus опубликованном candidate подтверждены:
 
-Отзыв: выключить candidate key/откатить один coherent batch; accepted nav/CTA/shell остаются рабочими. Schema/data migration отсутствует. Если переключение допускается во время active task, owner сначала переводит её в безопасное состояние, не удаляя draft. Production mixed-version rollout **не разрешён этим документом**. Его будущий контракт должен назвать owner, scope и removal deadline; иначе новая accepted family мигрирует всех своих production consumers одной поставкой. Удалять старую реализацию можно после actual zero-consumer evidence, не после зелёного lab screenshot.
+1. Popular: прежний content/order/cards, обратимый section context, существующий page context без дублей; nav доступна после обычного scroll.
+2. Today/Free/event-detail: нет stack collisions и double safe area, last CTA/Tab target видимы; nav XOR CTA сохранён.
+3. Search UI specimen: четыре роли, pressure fallback, input DOM/IME/selection/Stop стабильны; никаких backend claims.
+4. RB fixtures: receipt states правдивы, actual occlusion/served interface согласован, visible-prefix/hide policy не обходится, optional OFF остаётся OFF.
+5. Есть исполняемые tests и exact evidence; для A=S=P — настоящие S и native P по active contract. Missing native/backend/device layers прямо обозначены.
 
-## 5. Проверяемая приёмка FI-P1
+Source readiness, published browser verification, A=S=P и owner visual acceptance — разные свидетельства, не один глобальный DONE. Общий STATUS из documentary lane не изменяется.
 
-FI-P1 считается реализованным, когда на одном source/corpus опубликованном candidate лично подтверждено:
+## 6. Автотесты
 
-1. Popular: тот же контент/порядок/карточки, working section context down/up и existing page context без дублей; nav доступна после обычного scroll.
-2. Общий shell: layout/interaction state не конфликтуют на Today/Free/event-detail; последний CTA и любой достигнутый Tab control видимы; нет двойной safe-area компенсации.
-3. Отдельный Search specimen: четыре роли, compact/focus fallback и сохранение input DOM/IME/Stop при смоделированных transitions; никакого заявления о живом ASR.
-4. Есть исполняемые тесты и exact evidence; отсутствующие native/P/backend уровни прямо названы. Для заявления A=S=P нужны действительные S и native P по active conformance contract, не лишь export readiness.
+**32 основных сценария ниже + 5 обязательных binding-cases в [release-bindings-v1.md §6](release-bindings-v1.md#6-пять-дополнительных-acceptance-cases--в-том-же-harness). Все пока спроектированы, не выполнены.** Proposed `islands.*` IDs в существующий registry попадают вместе с кодом; equivalent existing IDs переиспользуются.
 
-`SOURCE_READY`, `PREVIEW_BEHAVIOR_VERIFIED`, `ASP_VERIFIED` и owner visual acceptance — различные факты в отчёте, а не один самодельный глобальный статус. Не менять общий STATUS из отдельного окна без полномочий текущего владельца.
-
-## 6. Автотесты: конкретные сценарии
-
-Ниже **32 спроектированных сценария**. Они не запускались в документальном окне и ещё не добавлены как implemented в общий registry. `islands.*` — предложенные stable IDs. L0 — pure/contract; L1 — browser; L2 — native emulator/simulator; L3 — physical device. В колонке «Этап» P1 означает приёмку первой реализации, P2+ — дальнейшую активацию соответствующего consumer. Системные проверки нельзя заменить mock, даже когда mock полезен отдельно.
+L0 — pure/contract, L1 — browser, L2 — native emulator/simulator, L3 — physical device. P2+ означает gate соответствующей последующей активации, не лишний backend scope P1.
 
 | ID после `islands.` | Given → When → Then | Уровень / этап |
 |---|---|---|
-| `registration` | Root зарегистрирован → update/повторный init/unregister → один participant, один controller, один итоговый offset; повторный cleanup безопасен. | L0/L1, P1 |
-| `rect_union` | Два overlap rect и разнесённые по X острова → расчёт → overlap не суммируется дважды; lane учитывает только свои препятствия. | L0, P1 |
-| `invalid_geometry` | Unknown role/NaN/negative/disconnected root → update → диагностируемое исключение/безопасный fallback, не NaN CSS и не потеря навигации. | L0/L1, P1 |
-| `safe_area_once` | Safe bounds + nav + accessory → rotate/resize → safe inset учтён ровно один раз, reserved last-content space соответствует фактическому stack. | L0/L1; L2 перед mobile promotion |
-| `viewport_coordinates` | VV offsets/scale и DPR различаются → нормализация → rects в одних CSS units, screenshot mapping записан отдельно; scale не удвоен. | L0/L1; L2 перед keyboard/zoom promotion |
-| `budget_degradation` | Long title/короткий viewport/несколько ролей → budget не проходит → фиксированный compact→focus/flow ladder; размеры шрифта/targets не уменьшены. | L0/L1, P1 |
-| `observer_stability` | Font load/wrap/reserved padding → несколько ResizeObserver callbacks → расчёт стабилизируется, нет нескончаемого loop/duplicate listeners. | L1, P1 |
-| `pointer_lock` | Pointer удерживает Stop/CTA → layout/status меняется → control не подменён; при неизбежной геометрической потере gesture отменён без чужого действия. | L1, P1 UI mock; L2/P2+ capture |
-| `ime_identity` | Input с selection и незавершённой composition → compact/focus transition → тот же DOM/input state; Enter не submit во время IME. | L1, P1; L2/P2+ |
-| `nav_contract` | Любой nav-mode route → scroll top/middle/end → четыре прежних destinations, один aria-current, nav не исчезает от scroll, нет дублирующего primary row сверху. | L1, P1 |
-| `date_stack` | Today date accessory + notice + nav → изменение размера/active date → нет пересечения, выбор доступной даты не изменён. | L1, P1 |
-| `cta_exclusion` | Event immersive → hero/body/terminal transitions → nav XOR CTA по действующему owner; все label/actions сохранены. | L1, P1 |
-| `context_down_up` | Popular две реальные полки → пересечь boundary вниз и вверх → следующий/предыдущий compact H2 корректен, без stale duplicate heading. | L1, P1 |
-| `context_scope` | Long/short section и unintended overflow ancestor → scroll → sticky ограничен section/reading lane; short/explanation case не перекрывает следующий. | L1, P1; explanation fixture P2+ |
-| `last_action` | Free/Popular append, финальная карточка → scrollIntoView/Tab → весь target и focus outline достижимы выше occupied stack. | L1, P1 |
-| `transparent_gaps` | Разнесённые острова → click/scroll через свободную область между ними → underlying content получает действие, нет невидимого backdrop. | L1, P1 |
-| `focus_traversal` | Все visible controls/keyboard targets → Tab/Shift+Tab/jump → логичный order, focus не hidden/inert/полностью или частично перекрыт. | L1 + manual AT, P1 |
-| `menu_semantics` | Existing global menu → open/close/Escape/outside/scroll → donor paths сохранены, нет нового body lock; Escape не закрывает соседние owners. | L1, P1 |
-| `modal_gallery` | Открытая gallery/modal → keys/Tab/close → только active owner интерактивен, нет background shortcuts, focus возвращён живой цели. | L1, P1 |
-| `toast_lifecycle` | Passive/error/action toast + replacement → focus/hold/hidden/modal/time → pause/dedupe/generation корректны; error/action не исчезают как passive. | L0/L1, P1 |
-| `announcement_ownership` | Inline progress/status + toast → semantic update → одно нужное announcement, нет focus theft/повторной озвучки каждой геометрии. | L1 + manual AT, P1 |
-| `four_roles` | Search mock header/context/composer/nav → достаточно места → все роли совместимы; при малом месте fallback по budget, не жёсткий лимит числа островов. | L1, P1 specimen |
-| `section_target_independence` | Просматривается A, refinement B, pending C → scroll/ответ → три значения не подменяют друг друга. | L0/L1, P2+; adapter fixture P1 |
-| `one_shot_reveal` | Submit выделил draft → один reveal → ручной scroll истории → поздний answer → anchor остаётся, доступно «Новый ответ», нет второго автоскролла. | L0/L1, P2+; adapter fixture P1 |
-| `growth_history` | Expand/late image/append в старом section → Back/Forward/restore → тот же entry/anchor, не новый submit; native/app restoration не выполняются оба. | L1, P2+ |
-| `capture_overlay` | Recording active → request blocking overlay → stop/finish ack либо deferred open; недоступного активного Stop нет. | L0/L1 mock, P2+; L2/L3 реальный capture отдельно |
-| `keyboard_native` | Реальная Android/iOS клавиатура, включая dismiss/rotation → focus layout → поле/Stop/submit/close доступны, nav восстанавливается; OSK не подменена resize mock. | L2, перед mobile composer promotion |
-| `zoom_reflow` | 200% text / 400% browser zoom, narrow/landscape → чтение/input → нет потери функций/неоправданного horizontal page scroll, pinning уступает читаемости. | L1 + L2 pinch subset, P1 affected chrome |
-| `underlay_contrast` | Plain/photo/poster/saturated/graphite underlay → compact/expanded → readable label/icon/focus с теми же asset identities; отсутствие blur не ломает contrast. | L1 + visual, P1 existing; P2+ new header |
-| `fallbacks` | No JS/no VV/slow fonts/reduced motion/forced colors → открыть affected route → контент/навигация рабочие, meaningful status не исчезает вместе с animation. | L1, P1 |
-| `projection_lineage` | Exact source/corpus/S/P → сверить fields/assets/geometry/variants → mismatched binding FAIL, missing native binding BLOCKED, screenshot не native component. | L0 + native readback + visual, P1 affected claims |
-| `negative_consumers` | Feature off и незатронутые Home/info/Free/card consumers → comparison → нет скрытой смены font/grid/data/CTA/навигации, нет утечки experimental flag в production manifest. | L0/L1, P1 |
+| `registration` | Зарегистрированный root → update/init/unregister → один participant/controller/offset, повторный cleanup безопасен. | L0/L1 P1 |
+| `rect_union` | Overlap и разнесённые X rects → расчёт → нет double sum; lane учитывает свои препятствия. | L0 P1 |
+| `invalid_geometry` | Unknown/NaN/negative/disconnected → update → safe diagnostic/fallback, не NaN CSS/потеря nav. | L0/L1 P1 |
+| `safe_area_once` | Safe bounds + nav/accessory → rotate/resize → safe inset ровно один раз, last-content space соответствует stack. | L0/L1 P1; L2 перед mobile promotion |
+| `viewport_coordinates` | VV offsets/scale/DPR → normalize → CSS units едины, screenshot mapping отдельно, scale не удвоен. | L0/L1 P1; L2 zoom/keyboard |
+| `budget_degradation` | Long title/short viewport/много ролей → pressure → детерминированный compact/focus/flow, не уменьшение fonts/targets. | L0/L1 P1 |
+| `observer_stability` | Font/wrap/padding/ResizeObserver → update → стабилизация без loop/duplicate listeners. | L1 P1 |
+| `pointer_lock` | Held Stop/CTA → status/layout → control не подменён; неизбежная потеря geometry отменяет gesture без чужого action. | L1 P1 mock; L2 P2+ |
+| `ime_identity` | Selection/IME → layout transition → тот же input DOM/text, Enter не submit во время composition. | L1 P1; L2 P2+ |
+| `nav_contract` | Nav-mode route → top/middle/end → четыре destinations, один current, нет hide-on-scroll/второй primary row. | L1 P1 |
+| `date_stack` | Date accessory + notice + nav → resize/date choice → нет overlap, date availability semantics прежние. | L1 P1 |
+| `cta_exclusion` | Immersive event → hero/body/terminal → nav XOR CTA и все labels/actions сохранены. | L1 P1 |
+| `context_down_up` | Popular две реальные полки → down/up boundary → правильный следующий/предыдущий H2, без duplicate heading. | L1 P1 |
+| `context_scope` | Short/long section и overflow ancestor → scroll → sticky в своём lane/section; short/explanation не перекрывает следующий. | L1 P1; explanation P2+ |
+| `last_action` | Append/последняя карточка → scrollIntoView/Tab → весь target+focus outline доступны над stack. | L1 P1 |
+| `transparent_gaps` | Разнесённые islands → click/scroll между ними → underlying content доступен, нет invisible click-plane. | L1 P1 |
+| `focus_traversal` | Visible controls → Tab/Shift+Tab/jump → логичный order, focus не hidden/inert/occluded. | L1 + manual AT P1 |
+| `menu_semantics` | Existing menu → все close paths → donor сохранён, нет нового body lock, Escape не закрывает чужих owners. | L1 P1 |
+| `modal_gallery` | Modal/gallery → keys/Tab/close → active owner, нет background shortcuts, focus возвращён живой цели. | L1 P1 |
+| `toast_lifecycle` | Passive/error/action+replacement → focus/hold/hidden/time → pause/dedupe/generation, error/action не passive-expire. | L0/L1 P1 |
+| `announcement_ownership` | Inline status+toast → update → одно announcement, без focus theft/озвучки каждой geometry. | L1 + AT P1 |
+| `four_roles` | Search header/context/composer/nav → resize → coexist при budget, иначе FI-09, не лимит количества islands. | L1 P1 specimen |
+| `section_target_independence` | Viewed A/refinement B/pending C → scroll/answer → три состояния независимы. | L0/L1 P2+; adapter fixture P1 |
+| `one_shot_reveal` | Submit/reveal → manual history scroll → late answer → anchor остаётся, доступен explicit «Новый ответ», нет второго автоскролла. | L0/L1 P2+; fixture P1 |
+| `growth_history` | Expand/late media/append → Back/Forward → прежний entry/anchor, не submit; native/app restoration не оба. | L1 P2+ |
+| `capture_overlay` | Active capture → blocking overlay → stop/finish ack либо defer; hidden active mic отсутствует. | L0/L1 mock P2+; L2/L3 отдельно |
+| `keyboard_native` | Реальная Android/iOS OSK → focus/dismiss/rotation → поле/Stop/submit/close доступны, nav восстановлена. | L2 перед mobile composer promotion |
+| `zoom_reflow` | 200% text/400% browser zoom/narrow/landscape → interaction → функции сохранены, pinning уступает читаемости. | L1 P1; L2 pinch subset |
+| `underlay_contrast` | Plain/photo/poster/saturated/graphite → state → readable text/icon/focus; отсутствие blur не ломает contrast. | L1/visual P1; new header P2+ |
+| `fallbacks` | No JS/no VV/slow fonts/reduced motion/forced colors → route → usable content/nav/status. | L1 P1 |
+| `projection_lineage` | Exact source/corpus/S/P → compare → mismatch FAIL, missing native BLOCKED; screenshot не linked component. | L0/native/visual P1 claims |
+| `negative_consumers` | OFF + незатронутые Home/info/Free/cards → comparison → нет font/grid/data/CTA drift или experimental production flag. | L0/L1 P1 |
 
-### Разумная размерность, не матричный взрыв
+Binding-cases: `receipt_status`, `exposure_served_bridge`, `profile_freeze`, `global_hide_history`, `optional_off`. Их полные Given/When/Then и owner separation — только в release-bindings, не дублируются здесь.
 
-L0 запускается целиком на каждой правке pure policy. Для P1 L1: Popular в 390×844 и desktop 1280×800; narrow 320×700 и landscape 844×390 для pressure; Today/Free/event-detail — по mobile+desktop representative cases. Дополнительные 430/768/1728 и текущие 1440/1920 owner-review widths используются там, где меняется branch/geometry; не умножать все 32 сценария на все 17 архетипов без нового риска. На feature promotion добавить Chromium/Firefox/WebKit representative transitions согласно общему strategy. Native keyboard — короткая L2 выборка реально затронутых mobile задач, L3 только для непокрытого device/capture риска.
+### Размерность проверок
 
-## 7. Accessibility acceptance без уменьшения интерфейса
+L0 целиком при изменении pure policy. P1 L1: Popular 390×844 и 1280×800; pressure 320×700 и 844×390; Today/Free/event-detail по representative mobile+desktop. Дополнительные 430/768/1728 и актуальные 1440/1920 owner-review widths — при изменении responsive branch, не декартово произведение всех routes/states/browsers. Feature promotion добавляет Chromium/Firefox/WebKit representative transitions по общему strategy; WebKit headless не native Safari. L2 — короткая выборка keyboard/mobile задач, L3 — физический capture/device gap.
 
-Primary touch controls island-композиции: целевой hit area не менее 44×44 CSS px, с корректной accessible name; это **выбранный продуктовый target**, а не утверждение, что WCAG AA повсеместно требует именно 44px. Inline text links в обычной статье не превращаются в гигантские кнопки. Проверять соседние hit areas и видимый focus, не только bbox декоративной иконки. Основание различия — W3C [Target Size Enhanced](https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced).
+## 7. Accessibility
 
-Заголовки, landmarks, buttons/links, expanded/pressed/current states остаются нативно семантичными. Не назначать всему острову role=button, если внутри несколько действий; не добавлять role=toolbar без полного keyboard contract. Compact title имеет полный доступный смысл; icon-only close/mic/stop различимы не только цветом. Навигационные ссылки остаются ссылками, а не JavaScript кнопками перехода.
+Primary island touch controls: проектная цель hit area ≥44×44 CSS px с accessible name и проверкой соседних targets/focus. Это выбранный продуктовый target, **не утверждение о всеобщем AA требовании 44px**; inline article links не превращаются в большие buttons. Основание: [W3C Target Size Enhanced](https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced).
 
-Контраст текста/controls/focus проверяется на фактическом подслое согласно действующим accessibility требованиям DS; прозрачность/blur не считаются достаточным доказательством. Forced colors и отсутствие backdrop-filter имеют usable fallback. Не выставлять `user-scalable=no` или maximum-scale=1 ради совпадения геометрии. Интерактивное сообщение нельзя сделать недостижимым из-за таймера или aria-hidden оболочки.
+Настоящие H1/H2/landmarks, buttons/links и current/expanded/pressed states. Нельзя поставить role=button на весь остров с несколькими actions или role=toolbar без его keyboard contract. Compact title сохраняет смысл; mic/stop/close различимы не только цветом. Нет positive tabindex, disable zoom, hidden focused controls или двойных aria-live сообщений.
 
-Automated accessibility scan полезен, но не заменяет keyboard traversal и короткую проверку screen-reader announcements/heading traversal. Headless WebKit не называется Safari с настоящей клавиатурой.
+Контраст проверяется на фактическом underlay по DS requirements; blur сам по себе не evidence. Forced colors/no-backdrop-filter имеют usable fallback. Action/error не теряется по timer. Автоскан не заменяет traversal и короткий manual screen-reader check.
 
-## 8. Исполнение проверок и доказательства
+## 8. Реальные команды и evidence
 
-Проверенные существующие команды на source `2fe28b1…`:
+Подтверждённые в прочитанном `site/package.json` команды:
 
 ```sh
 npm --prefix site run check:astro-family-sot
@@ -145,21 +141,21 @@ npm --prefix site run check:design-system-iconography
 npm --prefix site run test:browser-release-gate
 ```
 
-Focused/browser команды (`local:focused`, `check:keyboard-event-navigation`, `check:desktop-cta-geometry`, `check:browser-release`, `check:listing-desktop-geometry`) существуют, но их target/config нужно брать из актуальных runners и immutable artifact, не запускать на случайном старом dist. Новые unit tests запускаются существующим Node test runner после создания файлов. Нельзя написать «32 passed», потому что есть только таблица из §6.
+Существуют `local:focused`, `check:keyboard-event-navigation`, `check:desktop-cta-geometry`, `check:browser-release`, `check:listing-desktop-geometry`. Target/config брать из актуального runner и правильного immutable artifact, не случайного dist. Новые unit tests запускаются Node test runner после их создания.
 
-**Найденная routing неточность:** старый `.codex/skills/static-site-design-system/SKILL.md` требует `check:design-system`, однако такого script нет в прочитанном `site/package.json`. Это не основание пропустить проверки или добавить пустой alias. Использовать реальные family/surface/iconography gates и адресно согласовать исправление ссылки с владельцем; в данном docs-only пакете skill/runtime не менялись.
+Найденный routing drift: старый DS skill требует `check:design-system`, которого в прочитанном package нет. Не пропускать проверки и не создавать пустой alias ради PASS; использовать реальные family/surface/iconography gates и согласовать адресное исправление ссылки. В документальном окне skill/runtime не менялись.
 
-Evidence per case: test ID, exact source/pattern/component version, route/build ID, snapshot/corpus+clock, viewport/DPR/scale, auth mode, layout mode, visible/occupied rects, protected control rects, steps/outcome, console errors, screenshot hashes и S/P binding status. Старые CODE test counts не переносятся в новый отчёт как собственный запуск. Diagnostic overlap metric не заменяет факт доступности control или визуальную проверку.
+Per-case evidence: scenario, exact source/pattern/component versions, build/route, corpus+clock, viewport/DPR/scale, auth/activation/consent/projection states где применимы, layout/occupied/protected rects, served identity/order, steps/outcome, console errors, screenshots/hash и S/P binding status. Не копировать старые CODE counts как собственный запуск. Geometry oracle не заменяет настоящую device/DB/network проверку.
 
-A=S=P сравнивается на одном deterministic корпусе; current-real preview нужен для актуального пользовательского review. Можно использовать один зафиксированный реальный snapshot в обоих ролях, если identities/clock одинаковы; нельзя смешивать произвольные свежие данные. Общая conformance authority остаётся active `kenigevents.asp-conformance`, не новый числовой diff threshold из FI-P1.
+A=S=P — одинаковый deterministic корпус и exact identities; current-real preview — актуальное продуктовое review. Один frozen real snapshot может выполнять обе роли, если версии/clock совпадают. Активный conformance contract задаёт допуски; новый удобный threshold не придумывается. Optional analytics OFF и отсутствие private data в fixtures проверяются отдельно.
 
-## 9. Что следует после первого пакета
+## 9. После FI-P1
 
-| Пакет | Добавляемая продуктовая часть | Входной gate |
+| Пакет | Продукт | Gate |
 |---|---|---|
-| P2 | C2 в остальных подготовленных multi-section consumers, C3 на одной действительно подходящей полке | Реальные target baselines и owner review C2/P1; variant не переносится механически на empty/short/info. |
-| P3 | C4 — настоящий conversational composer/answer sections | Совместимая #587 implementation; state/scroll tests, capture/overlay handshake и обязательный native keyboard evidence. |
-| P4 | Частичный detached header и media-from-top C5 | Owner review на реальных plain/photo/poster/graphite underlays; точные hero/crop/contrast/P bindings, не общая замена всех headers. |
-| Promotion | Выбранные approved variants в production, drift gates и удаление старых callers | Existing release authority, component migration/rollback contract, required conformance и явное разрешение на deployment. |
+| P2 | C2 у остальных подготовленных consumers и один подходящий C3 singleshelf | Target baselines/owner review P1; не переносить sticky на empty/short/info автоматически. |
+| P3 | Настоящий C4 conversation | Current #587 implementation, native keyboard/capture/receipt, FI-16 и RB-01–03; полный Search→hide→обычная подборка→receipt→authorized aggregate integration отдельно. |
+| P4 | Partial detached header/media-from-top C5 | Actual underlays/crop/contrast/P и owner review, не массовая замена шапки. |
+| Promotion | Approved selected variants в production | Existing release authority, migration/rollback и явное разрешение deployment. |
 
-P2/P3 не обязаны ждать всего P4 или нормализации непричастных страниц. Design/fixtures можно вести параллельно; изменения одного shared runtime owner интегрируются последовательно. #621 остаётся существующей coordination точкой, #47 — владельцем паттерна, #587 — владельцем Search. Новые агенты/службы управления для этого не требуются.
+P2/P3 не ждут всей P4 или чужой незавершённой страницы. Design/fixtures могут идти параллельно, shared runtime owner интегрируется последовательно. #47 владеет pattern, #587 — Search/release interfaces, #621 — текущей интеграцией. Новые агенты или управляющие службы не нужны.
