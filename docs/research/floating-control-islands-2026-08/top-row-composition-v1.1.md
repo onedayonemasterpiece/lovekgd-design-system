@@ -1,75 +1,83 @@
-# Floating Islands — актуальная композиция v1.3
+# Floating Islands — композиция и движение v1.4
 
-2026-09-05. Pattern `pattern.detached-chrome-control-islands`, существующий PR #47. Путь сохранён для входящих ссылок; текущая редакция **1.3**. [Core FI-01–20](system-design-v1.md), [release bindings RB-01–03](release-bindings-v1.md), [потребители](consumer-matrix-v1.md) продолжают действовать. Здесь адресные owner amendments, не второй конвейер или критерий A=S=P.
+2026-09-05. Существующий pattern `pattern.detached-chrome-control-islands`, PR #47. Путь сохранён ради входящих ссылок. [Core FI-01–20](system-design-v1.md), [RB-01–03](release-bindings-v1.md) и existing consumers продолжают действовать. [Редакция v1.3](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/67a39c0a0607206e53675d87204b9fedef6860fe/docs/research/floating-control-islands-2026-08/top-row-composition-v1.1.md) сохранена как история, не второй владелец требований.
 
-## 1. Нижний остров: последнее решение владельца
+**Новая задача владельца:** одобренную в целом SVG-схему дополнить реальным промежуточным переходом «Популярного» в остров, показать поведение острова второго уровня и desktop. Направление перехода задано владельцем; конкретная геометрия/размещение второго уровня ниже — proposed schematic для review, не внедрённая Astro/SoT/native Penpot версия.
 
-**Один цельный нижний floating island, стилистически ближе к macOS. Не отдельные острова-иконки и не ряд самостоятельных плиток.** Предыдущая формулировка исполнителя «отдельные блоки» была ошибочной интерпретацией и отменена уточнением владельца.
+## 1. Сохраняемые решения
 
-Широкий desktop-вариант 640×80 с сильной рамкой, боковыми подписями и feature32 icons **отклонён**, несмотря на технические проверки. Его стили удалены из текущего draft #638; прежний внешний вид нижней навигации восстановлен. Не переносить эту skin в integration по старым PASS-скриншотам.
+Брендовое меню «Полюбить Калининград Анонсы» не сжимается, не переставляется и не меняет состояния от соседних островов. Его собственное открытие/закрытие сохраняется. Его фактический occupied rect — препятствие для компоновки, не объект новой анимации.
 
-Направление последующего visual review: одна общая спокойная поверхность; аккуратная глубина, тонкая граница и мягкое отделение от контента, оптически согласованные icons и ненавязчивый active state. При выборе прозрачного материала текст/controls должны оставаться читаемыми на реальных светлых, тёмных и насыщенных подложках; нужен непрозрачный fallback. Это **направление для candidate, не уже принятая графика**. Сейчас новая macOS skin не реализуется вместо остальных недоделок и не добавляет слои или постоянную анимацию.
+На mobile нет дополнительной навигационной полки «Сегодня / Завтра / Выходные / Популярное». Основная навигация через существующий бренд/принятые navigation surfaces не дублируется ради схемы. Исходный экран показывает закрытые города, компактный нормальный H1, название первой полки и уже первую карточку, а не раскрытый фильтр на весь экран.
 
-Primary destinations, resolver и aria-current остаются едиными; desktop может иметь свою геометрию, но это не разрешение вновь создать отклонённую панель. Сохраняются nav XOR CTA и modality/focus/last-action guarantees. Одна поверхность не означает превращение всей nav в одну кнопку. Apple [Dock guide](https://support.apple.com/guide/mac-help/open-apps-from-the-dock-mh35859/mac) — reference общей идеи; никакие системные assets, hover magnification, auto-hide или native-привилегии не переносятся автоматически.
+Нижний dock — **один цельный остров**, будущее визуальное направление ближе к macOS, не отдельные иконки-острова. Отклонённая тяжёлая широкая desktop skin не возвращается. Новая схема движения не меняет нижнюю навигацию и не утверждает её новый skin. В рисунках и прототипе бренд/карточки/dock условные, не новые canonical assets.
 
-## 2. Брендовое меню не меняется
+Exact Free может использовать канонический медальон вместо дублирующего floating title при полной эквивалентности. H1/title/accessible name остаются; richer qualifiers («с детьми», город, дата, отрицание) не пропадают. Подложка старого пустого title удаляется. До успешной загрузки медальона и при asset failure остаётся текстовый fallback. Канонический знак не заменяется похожим SVG/emoji.
 
-«Полюбить Калининград Анонсы» сохраняет исходное место, внешний вид, размеры и собственное управление. Оно **не участвует** в сжатии, перестановке или state transitions соседних островов. Собственное намеренное открытие/закрытие сохраняется. Предложения v1.1/FI-02 сделать его glyph-trigger, «Меню» или новый motion отменены.
+## 2. Сразу преобразуется та же надпись, а не появляется копия
 
-Для компоновки допустимо прочитать занятый им rect, но нельзя изменять сам бренд ради fit. Контекстный выбор городов или раздела не становится новым global menu. Existing source и screenshots до эксперимента — baseline защиты, не только сравнение двух уже одинаково изменённых страниц.
+**Было → стало:** схема имела только начало и готовое закрепление, оставляя неоднозначность позднего переключения → преобразование начинается с первых положительных пикселей прокрутки. Изменяются размер надписи, положение, проявление подложки/границы/тени и скругление. Нет порога «сначала H1 полностью исчез, затем показали другой остров».
 
-## 3. Верхняя композиция и смысл полки
+Прогресс связан с текущей прокруткой, не с автономным таймером после IntersectionObserver. Остановилась прокрутка — остановилось преобразование; движение назад обращает ту же функцию. Быстрый flick сразу даёт состояние фактического scroll offset, без очереди догоняющих CSS transitions. После возврата к началу — ровно исходные координаты/размеры/прозрачность.
 
-Остальные подходящие поверхности по возможности образуют одну строку вокруг бренда с реальными свободными промежутками и краями. Не требуется сплошной substrate или одинаковая форма всех островов. Неприсутствующие роли не занимают фиктивные slots.
+Визуально это одна надпись, без двух одновременно читаемых «Популярное», crossfade-клона или замены текста другим label. В production сохраняются единственный semantic H1, стабильная цель действия и существующий scroll/heading owner. Способ projection выбирается совместимо с actual Astro, не физическим переносом DOM между несвязанными owners во время ввода.
 
-Небольшая навигационная полка может показать реальные controls; при сжатии — осмысленный summary/раскрытие. Полка событий оставляет сами карточки в контенте, наверх выходит лишь её контекст/управление. H1/H2 остаются в документе; floating locator не копирует heading/control tree. Viewed Search section, refinement base и pending draft различаются.
+**Траектория не проходит через бирку.** В предложенной модели сначала происходит сжатие/сдвиг в свободной области ниже неё, затем уже справа — подъём в верхний слот. Поэтому даже промежуточный кадр не накладывает заголовок на бренд. Города занимают соседний независимый слот и не пересекают название. На 320 px сокращаются именно города до «…», а не название или бренд.
 
-Width budget учитывает actual brand/controls/safe-area/hit areas. Высота строки — максимум соответствующих занятых областей, не сумма sticky этажей. Сначала убираются смысловые дубли и декоративные детали, затем выбираются permitted views, затем второстепенные controls возвращаются в раскрытие/flow. Бренд и читаемый смысл не являются последней жертвой сжатия. При zoom/малой высоте readable flow предпочтительнее tiny targets/clipping/ещё одного fixed ряда.
+В schematic specimen диапазон перехода — первые112 CSS px, с промежуточной точкой56px: это проверочные inputs для обсуждения движения, **не утверждённый hard-coded breakpoint/runtime token**. Для actual implementation endpoints и путь выводятся из computed title/control/brand bounds, реального шрифта и safe area. На full-fit desktop короткий title и контекст не растягиваются, чтобы заполнить всю ширину.
 
-Full/lean/compact независимы для участников. Большой экран не требует вернуть всю декорацию. Icon+label→label→icon допустимо для понятного контекстного action с теми же semantic identity/target/scope/name; не для защищённого бренда. Декоративный знак, action identifier, selection/disclosure indicator и медальон идентичности имеют разные правила. Touch не полагается исключительно на tooltip.
+## 3. Второй уровень — текущая полка, не ещё одно меню сайта
 
-## 4. Медальон вместо повторного floating-названия
+В этой модели `section_context` означает название реально читаемого раздела, например «Набирают популярность». Это не выбор города, не nav destination и не refinement base Search. «Часто сохраняют» / «Обсуждают сейчас» в specimen — условные названия для показа смены, не новое решение о ranking/grouping реального Popular.
 
-На **точной** подборке «Бесплатные события» канонический `0 ₽ / бесплатно` может один представлять floating page identity. Не нужен отдельный title island или пустая прямоугольная подложка. Настоящий H1, title документа, доступное имя, действия/возврат к заголовку сохраняются. Старый второй sticky mark в этой presentation не дублируется.
+В начале это обычный H2 в контенте, не отдельная постоянно закреплённая широкая полоса. При достижении рабочей границы он получает компактную surface. Для первой полки, расположенной сразу под H1, преобразование согласовано с движением первого уровня; следующие заголовки подходят из потока. Полные карточки, вопросы/ответы и фильтры не закрепляются вместе с ним.
 
-Замена требует полной эквивалентности смысла и source-bound asset. «Бесплатно с детьми», «на побережье», город, дата или отрицание не теряются за одним знаком. Нельзя заменять canonical mark похожей иконкой. При недоступном изображении **текстовое представление сохраняется/возвращается**; нельзя спрятать название до успешной загрузки знака.
+**На mobile:** первый уровень остаётся `[Популярное] [Все города ▾]` или `[Популярное] […]` в одной строке справа от бирки. Контекст полки — узкий второй уровень под этой парой, без full-width slab и без дополнительной навигации. В specimen390 его30px capsule заканчивается на100px от верха; фиксированная schematic бирка — на84px, то есть добавлено16px полезной высоты, а не ещё одна большая шапка. Эти числа не переносятся в foundations. На320 весь смысл названия допускается в две короткие строки; он не заменяется неизвестной пиктограммой.
 
-Предварительный runtime проверяет exact route без дополнительных query-параметров. Это консервативный predicate, не продуктовый запрет tracking params навсегда. Richer-scope отрицательные cases обязательны.
+**На desktop:** второй уровень различается по смыслу, но не требует отдельного вертикального ряда. После преобразования общая композиция — `[неподвижная бирка] [Популярное] [Текущая полка] [Города]`. Page/city controls44px, compact context30px выровнены по общей оси specimen. Есть нормальные зазоры, но нет растягивания группы по всему FHD. Реальные desktop cards/columns/crop этой схемой не перепроектируются.
 
-## 5. Города: раскрытие и восстановление
+Если доступная высота/zoom не позволяет безопасный mobile second-level, он возвращается в semantic flow либо получает согласованное объединённое представление. Читаемость/защищённое действие выше pinning. Новая маленькая capsule — proposed ответ на запрос владельца показать второй уровень, **не разрешение вернуть несколько независимых sticky rails** на каждом consumer.
 
-Закрытая кнопка показывает `Все города`, единственный город, `Города · N` либо `Города не выбраны`. Открывается readable rectangle с заголовком, явным закрытием, исходными checkbox controls/counts и подписью немедленного применения. На достаточной ширине допустимы две колонки, на узкой — одна. Закрытие не отменяет уже применённый фильтр; лишней кнопки «Применить» нет.
+## 4. Смена полок и обратимость
 
-Используется **тот же fieldset и тот же filter/storage owner**, а не копия состояния. Native popover — presentation, не модальное окно/новый global menu. Escape/close возвращают focus, outside/focus exit корректно завершают раскрытие, выбор не сбрасывается. No-JS сохраняет полку.
+У острова второго уровня есть `scope_section_id` и границы своей полки. Он не остаётся над чужими событиями. При приближении следующего H2 прежний контекст вытесняется вверх из собственного слота, следующий занимает его; визуальные границы не пересекаются. В коротком моменте handoff видны уходящий контекст и приходящий обычный заголовок, но не два постоянно закреплённых независимых ряда.
 
-При недостаточной полезной высоте раскрытие переходит в flow. После возвращения места оно должно восстановить пригодное anchored представление, а не навсегда застрять в fallback. При переходах сохраняются исходные controls, selection и focus; запоздалый native toggle не закрывает уже восстановленное раскрытие. Во время pointer-held/IME косметическое переключение откладывается.
+Обрезка уходящего контекста ограничена его slot clip; он не заезжает в первичную пару или бренд. Новая подложка формируется возле закрепления, а не превращает каждый приближающийся H2 в заранее плавающую кнопку. Верхние «Популярное» и города при смене полки не меняют identity/состояние/координаты.
 
-Размеры обновляются по фактическому контейнеру, viewport/scroll, доступной высоте и current shell occupied rects. Нижние препятствия вне горизонтального диапазона прямоугольника **не сокращают его высоту**; пересечения учитываются без двойной суммы. Counts/font load/container resize вызывают bounded remeasurement, а не новый фильтр/профиль/телеметрию.
+Обратная прокрутка восстанавливает предыдущую полку той же функцией. После конца последней полки контекст уходит, не висит над footer. Пустые/короткие полки, append/hidden recovery и focus должны следовать existing heading/list owner, не самодельному поиску ближайшего h2 в произвольном DOM. Смена контекста не вызывает submit, rerank, profile refresh, нового page view или повторного announcement на каждый pixel.
 
-Уничтожение adapter восстанавливает исходный fieldset, удаляет свои nodes/flags/listeners/observers и не возрождает их на следующем resize. Это часть functional acceptance, не только аккуратность кода.
+## 5. Раскрытие городов
 
-## 6. Один existing owner и текущая интеграционная граница
+Закрытый trigger содержит актуальный смысл выбора, либо «…» на узкой геометрии с полным accessible name. Его действие только «выбрать города», не global menu. По нажатию — прямоугольник с теми же checkbox controls, явным close и существующим немедленным применением. До действия прямоугольник не занимает первый экран.
 
-EventLayout остаётся shell authority. Сохраняются FI-07–17 и RB: disjoint rects, safe-area один раз, нет прозрачных hit planes, защищённые focus/input/Stop, честные receipt states, actual served identity, exact hides/frozen prefix и optional analytics OFF. Ни отказ от skin, ни новый disclosure не создают transport/profile/window framework.
+Сохраняются выбор, original fieldset identity, close/Escape/focus и честный inline fallback/recovery при недостаточной полезной высоте. Открытое раскрытие/IME/удерживаемая кнопка защищены от косметического relayout; смена pinning не перемещает цель под пальцем. При необходимости inline flow освобождаются все реальные родительские grid tracks, не только высота самого panel. Shell читает only overlapping occupied rects без двойного подсчёта safe area.
 
-В текущем draft #638 снят только отклонённый skin и продолжается contextual behavior. Новое нижнее оформление не считается prerequisite завершения городов/медальона/проекций. Карточки и full-pool framing не перепроектируются этой lane.
+В самостоятельном motion specimen раскрытие нарисовано примитивами и не меняет реальные события. Оно **не тест или замена** уже реализованного city filter в events-bot-new#638.
 
-Прочитан current integration source `46fc5268…`: он уже содержит отдельную реализацию top band и изменённое desktop menu в `Reference4MobileMenu`. Поэтому нельзя просто наложить обе версии или объявить два same-name controller совместимыми. При интеграции нужно сохранить последних owners, убрать отменённую brand presentation, соединить city/section geometry с existing shell и заново получить registry/generated graphs. Это **открытая работа**, не permission на второй контроллер или самовольный overwrite current trunk.
+## 6. Доступность, нагрузка и реальная архитектура
 
-## 7. Код и проверяемые факты
+Никакого spring/bounce/hover magnification по умолчанию. Движение объясняет сокращение chrome, а не отвлекает от карточек. Нет scroll hijack в production: работает existing document scroll owner. Read/compute/write группируются, listener очищается; не меряется весь каталог на каждом pixel.
 
-[Draft #638](https://github.com/onedayonemasterpiece/events-bot-new/pull/638), `work/floating-islands-owner-preview-20260905`. Experiment ограничен nonproduction `/preview-islands-*`, baseline `?islands=off`. Правдивый exact tested SHA/run находится в terminal receipt этого PR, а не выводится из текущего HEAD.
+Учитывать `prefers-reduced-motion`: остаются понятные компактные controls/контекст без пролёта и масштабирования. В specimen reduced-motion включает статичную первичную пару с начала. Это не утверждение полной WCAG-conformance. Источник: [W3C Animation from Interactions](https://w3c.github.io/wcag/understanding/animation-from-interactions.html).
 
-Исторические `ccde8553…`/run33964945528: настоящая генерация Astro Popular/Free и диагностические проверки на fixture2026-07-23, **но прежняя desktop skin отклонена**. Технический PASS не отменяет visual rejection. Rollback `be4a15d1…`/run33966294014: снова сгенерированы эти два маршрута; новая проверка сравнивает целиком прежние nav rect/paint/icon sizes и links. Это bounded diagnostic, не полная приёмка.
+Scroll-linked progress обоснован [MDN scroll-driven timelines](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations/Timelines). CSS scroll timelines не объявляются единственным обязательным механизмом: actual support и существующий runtime owner проверяются при интеграции. Независимый таймер/второй window manager не нужны.
 
-Следующий source `30a0c977…` добавляет восстановление city-panel, focus/control cleanup, lane-aware obstacle calculation и image-error identity fallback. Его browser результаты принимаются только после соответствующего terminal run и чтения artifacts. Перечень тестов сам по себе не PASS.
+FI/RB сохраняются: nav XOR CTA, focus/Stop/current pointer safety, drawer/modal/gallery lifecycle, receipts, exact hide/undo, frozen visible prefix, optional analytics OFF и source-bound geometry/assets. Никаких новых network/analytics/profile services для анимации.
 
-Read-only CI использует существующий `local:focused`; один временный exact-source readback нужен для личного анализа пересечения веток и затем удалён из workflow. Он не публикует страницы/шрифты/секреты и не запускает другого агента. my-data-hub/browser/Penpot при tool preflight не предоставили callable methods. Нет новой публичной Kaggle ссылки, native P или A=S=P PASS. Production/root/current/ICS/shared foundations/STATUS не изменялись.
+## 7. Артефакты и фактическая глубина проверки v1.4
 
-## 8. Приёмка и сохранённое исследование
+Подготовлены самостоятельные редакторские артефакты: mobile start/intermediate/pinned, narrow320, handoff двух полок и desktop before/after; все в editable SVG. Два GIF показывают изменение во времени. Self-contained HTML позволяет настоящую прокрутку собственного schematic viewport, ручной scrub, остановку/обратный ход, выбор390/320/1280, reduced motion и экспорт текущего кадра SVG. Ни backend, ни fonts/media downloads ему не требуются.
 
-Сравнивать сохранённый бренд с исходным baseline, а не только с адаптированным OFF; один нижний остров с прежней presentation до отдельного review; desktop/mobile, H1/context/actions, actual fieldset identity, repeated open/close, resize/fallback/recovery, Escape/focus exit, missing asset, no-JS и cleanup. Нативная OS-клавиатура не доказывается desktop resize. Source-bound S/P includes real assets, view/state IDs, actual geometry и lineage; отсутствующие native bindings остаются pending.
+Артефакты и исходный renderer передаются владельцу в текущем разговоре как `popular-islands-motion` package. **Эта запись сохраняет правила в Git; сами SVG/HTML bytes не объявляются закоммиченными этим Markdown-commit.** Это не выдуманная публичная ссылка или native Penpot page.
 
-[Исследование v1.1](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/eb3309591be368d729ea52c90b6ef99d1acbad6b/docs/research/floating-control-islands-2026-08/top-row-composition-v1.1.md#2-что-показало-исследование) сохранено как основания grouping/compaction/disclosure/reflow, не отменяющие новых owner decisions. [Исходная v1.2](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/74d315dabd7fb35e37b37e82618d0b81b2c50bdb/docs/research/floating-control-islands-2026-08/top-row-composition-v1.1.md) фиксирует историю отклонённой skin; она не активное руководство её внедрять.
+Выполнены12 pure-model checks: начало преобразования на первом pixel, первая карточка в initial viewport, неизменная бирка, отсутствие пересечений первичной пары/бирки на пути, непрерывность/одна визуальная надпись, обратимость, narrow city compaction, desktop one-band, смена/завершение полки, reduced-motion fixed geometry и отсутствие дополнительной mobile nav полки. Выполнены20 browser checks standalone HTML: состояния и реальные scroll events, возврат к нулю, раскрытие/закрытие, проигрывание/reduced motion, отсутствие JS errors/внешних network dependencies. Текущие PNG/SVG визуально просмотрены.
 
-Открытый следующий продуктовый результат: согласованный с текущими owners верхний ряд и current-corpus интерактивный Kaggle preview. Документы, private native mock и CI screenshots этот результат не подменяют. Нормализация не объявляется завершённой.
+Это **SCHEMATIC_MODEL_ONLY**, не32 новых production gates и не замена тестам Astro. Локальный browser отрисовал созданный HTML из памяти; private/публичные сайты и auth sessions не использовались. Native OS keyboard/устройства, контраст реальных assets, реальный text zoom и общий corpus/A=S=P здесь не сертифицировались. Penpot namespace в этом ходе не предоставил методов; новая страница Penpot не создана.
+
+## 8. Следующая source-bound интеграция, без ложного DONE
+
+Нельзя запускать схему как новый global controller поверх текущего shell. Перед actual implementation fresh-read existing trunk/#621, reconcile protected brand, single first-level pair и scoped second-level с current heading/rail owner. Original H1/H2 и controls сохраняют semantics; lifecycle/property mapping и measured states фиксируются в executable SoT. Не совмещать эту модель с историческим second sticky rail, adaptive branded menu или rejected lower skin.
+
+Нужные actual fixtures: initial/первые pixels/mid/pinned, boundary down/up/last-section exit,320/390/desktop, реальный длинный город и название полки, focused/open controls, no-JS/reduced motion/viewport pressure. Одинаковый corpus/clock/fonts/assets/source SHA для Astro, resolved SoT и native linked P. Снимок schematic SVG не считается P parity.
+
+Предыдущие диагностические результаты #638 и запись об устранённом city fallback доступны в [README](README.md) и самом [PR #638](https://github.com/onedayonemasterpiece/events-bot-new/pull/638); они не доказывают внедрение нового движения. Runtime, production, shared foundations, canonical components и STATUS этой документально-визуальной итерацией не менялись. Нормализация и полный FI-P1 не объявляются завершёнными.
