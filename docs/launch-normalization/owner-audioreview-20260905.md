@@ -1,151 +1,76 @@
 # Owner audio review — 2026-09-05
 
-Status: **REOPENED_AFTER_OWNER_AUDIO_REVIEW**. This is the finite correction of the rejected review candidate, not a new normalization programme. Runtime delivery state belongs to [STATUS.md](STATUS.md); the governing stage is [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml), under [ASP conformance](../product-governance/astro-sot-penpot-conformance.md).
+Status: **REOPENED_AFTER_OWNER_AUDIO_REVIEW**. Delivery SHA, runs, artifact hashes and tool recovery belong to [STATUS.md](STATUS.md). The governing contract remains [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.12.0 under [ASP conformance](../product-governance/astro-sot-penpot-conformance.md). No completion gate was weakened.
 
-## Basis and evidence boundary
+This is the existing finite correction register, updated after recovery of saved source work and new browser diagnostics, not a new normalization programme. Original detailed source analysis remains available [at c4d84b4](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/c4d84b4b91ee1a7c86e2670eed7a6344e5d96a9f/docs/launch-normalization/owner-audioreview-20260905.md).
 
-Reviewed source: `events-bot-new@8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`.
-Owner-reviewed build: `preview-real-8b1bb8129-normalized-20260904-v1`.
-Prior completion claim: [issue #621 comment 5546939304](https://github.com/onedayonemasterpiece/events-bot-new/issues/621#issuecomment-5546939304).
+## Primary owner input, fully read
 
-All three original transcripts, rather than their generated summaries, were read at `idea-hub@c4a234cbd6031ac03562793e02553f01d0e4330d`:
+The three full transcripts were personally read, including the original prose after `Полная расшифровка`, at `idea-hub@efb2fd05433b185d748a3842808b07f34dc8613f`. The generated summaries were not treated as approved product decisions. These are transcript reads, not listening to retained audio; the repository does not store the original audio files.
 
-- V1: [voice-20260905-000922-74b5720b](https://github.com/onedayonemasterpiece/idea-hub/blob/c4a234cbd6031ac03562793e02553f01d0e4330d/inbox/voice/2026/09/voice-20260905-000922-74b5720b.md).
-- V2: [voice-20260905-002114-a0677098](https://github.com/onedayonemasterpiece/idea-hub/blob/c4a234cbd6031ac03562793e02553f01d0e4330d/inbox/voice/2026/09/voice-20260905-002114-a0677098.md).
-- V3: [voice-20260905-003237-8a342775](https://github.com/onedayonemasterpiece/idea-hub/blob/c4a234cbd6031ac03562793e02553f01d0e4330d/inbox/voice/2026/09/voice-20260905-003237-8a342775.md).
+| Key | Exact path in idea-hub | Git blob SHA |
+| --- | --- | --- |
+| V1 | `inbox/voice/2026/09/voice-20260905-000922-74b5720b.md` | `313380e33f456569e6396e26864bdf9378b031a6` |
+| V2 | `inbox/voice/2026/09/voice-20260905-002114-a0677098.md` | `3aa4c76c01e3c87c483e78bbe18098dea11698fa` |
+| V3 | `inbox/voice/2026/09/voice-20260905-003237-8a342775.md` | `7c01e4a4f1c9976ed8151a7953195fba7c3a4598` |
 
-The owner additionally authorizes schematic Floating Island structure/behaviour; its final visual design is deferred for separate generative exploration. The owner is not required to diagnose component boundaries.
+The next recording `voice-20260905-012435-2f35f024` was read and excluded by content: GovTech/ontology lecture ideas, not this UI review. The owner identified the rejected `preview-real-8b1bb8129-normalized-20260904-v1` explicitly in V1/V2. The reference build uses source `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`, a real 300-event slice and frozen clock `2026-09-04T22:53:39+02:00`; it is not the full catalogue.
 
-This audit personally inspected Git source, existing contracts and the completion evidence description. It also executed isolated Node regressions for the actual packing/media module. **It did not personally reopen the published candidate in a working browser**: the installed browser bridge was not exposed as a callable namespace, and public fetch/container network attempts did not retrieve the preview. The previous reviewer's local screenshots were not retrieved. Source-derived explanations below are not fabricated computed-style observations.
+## Approved delta and limits
 
-The reported 172 tests, 68 route checks and 18-archetype independent review remain historical evidence of their stated scope. They do not override owner rejection or prove the absence of cross-route role drift, internal scrollers, organic-feed defects or Full-HD problems. Factory injection of event 7920 is not organic personalized-feed coverage. Five free-collection projection specimens are not exhaustive page-state acceptance. Hash-correct SoT can faithfully describe an unnormalized product.
+**БЫЛО:** aggregate normalization completion; stretched remainder; OCR crop-area ceiling used without text-location proof.
 
-## Approved correction and interpretation boundary
+**БУДЕТ:** reopened correction; comparable semantic roles share actual owners; a partial normal grid retains regular column width; layout preserves admitted events; OCR crop needs both the total 20% ceiling and protection of important text, otherwise contain. Floating Island uses the existing shell schematically, not a new final design.
 
-**БЫЛО:** the finite stage was labelled complete; the shared grid explicitly stretched its remainder; an OCR crop-area ceiling could authorize centred cropping without text-location evidence.
+**ЗАЧЕМ:** correct owner-visible inconsistencies without delegating component diagnosis to the owner.
 
-**БУДЕТ:** completion is reopened; same-role appearance is checked across product consumers; the normal grid retains regular column width in the incomplete row; layout does not remove admitted events; OCR cropping requires both the existing total 20% ceiling and preservation of important text, otherwise contain. Floating Island is a schematic behavioural implementation in the existing shell.
+**ПОСЛЕДСТВИЯ:** source, static/client-created consumers, current SoT, regression expectations and actual browser result must agree. Same-snapshot publication and projection validation remain required.
 
-**ЗАЧЕМ:** remove observed drift and regressions without asking the owner to reverse-engineer components, redesigning the product or losing content to a layout optimizer.
+**ТИП:** bounded owner-review correction. **СОГЛАСОВАНО:** explicit owner reviews and follow-up request. Search behavior proposals and withdrawn observations below are not new approved requirements. Palette changes require evidence/decision, not an arbitrary replacement.
 
-**ПОСЛЕДСТВИЯ:** update affected canonical roots, runtime consumers, existing SoT identities and negative tests together. Current source-bound projection must be regenerated only after the corrected candidate is accepted. Full native Penpot remains deferred; no A=S=P or production release follows automatically.
+## Compact correction map
 
-**ТИП:** bounded owner-review stage amendment. **СОГЛАСОВАНО:** explicit owner voice review and follow-up request on 2026-09-05. Tentative ideas and withdrawn complaints below are not approvals. Typography consistency/restoring accepted Hero Talk are regression closure; changing remainder behaviour and keyboard section traversal are explicit owner deltas, not defects inferred merely from old source.
+`SOURCE+DIAGNOSTIC` below means a saved implementation with the specified focused check, **not final acceptance on the real September build**. Remaining items are deliberately explicit. None of AR-01–AR-14 is declared fully closed by a broad test count.
 
-## Correction register
+| ID / source symptom | Route/state and reproduction | Canonical owner and other consumers | Correction / actual check / remaining |
+| --- | --- | --- | --- |
+| **AR-01 V2 — inconsistent headings and hierarchy** | Rejected build: comparable desktop title sizes/weights differ between Today/Popular, Exhibitions, Free, Unusual, Festivals and Clubs; measured at 1440/390/1920. | Existing `foundations.css`, `surface-foundations.css`, route foundations and `f0-typography-authority.v1.json`; listing headers, collections, exhibition and club surfaces. Home feed is an ordinary section, not the editorial Hero Talk exception. | SOURCE+DIAGNOSTIC: common H1/H2 roles migrated; 11 routes × 3 widths checked with independent expected metrics and poisoned local overrides. Recovery additionally fixed `HomeColdStartFeed` H2. Remaining: all non-covered roles, wrap quality, comparable spacing and justified theme differences. Dark Exhibitions is not palette-normalized merely because its type now matches. |
+| **AR-02 V2 — wrong static Home, missing animated Hero Talk** | Original home component replaced the donor's scenes/mosaic with a static feature. Accepted donor was found at `events-bot-new@4243401a4`. | `HomeHeroTalk.astro`, `homeHeroTalk.ts`, editorial/current-event bindings; Home route. | SOURCE+DIAGNOSTIC: donor scene behavior restored with current eligible events and literal-title fallback rather than expired IDs or invented editorial claims. A complete timed desktop cycle, pause, initial responsive variants, reduced-motion and no-JS checks ran. Remaining: actual September scene eligibility/content/media and full-cycle independent review on the published successor. |
+| **AR-03 V2 — brand returns to review hub instead of Home** | Personally activated the brand on the rejected product route and reached `/__preview/`, despite HTTP200. | `siteHomeHref()` in `events.ts`; shared brand, breadcrumbs, mobile navigation and other callers. | SOURCE+DIAGNOSTIC: product Home separated from service hub centrally; branch source and focused browser journeys use product Home. Remaining: immutable-prefix/PWA/current-candidate acceptance on the published successor. |
+| **AR-04 V1/V3 — two instead of three, huge lone card, oversized cards** | Original packing can drop admitted items; shared grid explicitly stretches remainders. Rejected Home/free/event recommendations differ. | `relatedCardLayout.mjs`, `AdaptiveEventCardGrid.astro` and its runtime; Home, free and other collections, related and personal feeds. | SOURCE+DIAGNOSTIC: input preservation and regular-width remainder in static/runtime paths; counts 1/2/3/4/5/7/10 checked on actual Home DOM filtered by an explicit local-profile fixture. Strengthened oracle rejects an intentionally stretched singleton without needing another card. **Still open:** media/body tracks differ in `home-hydrated-4.png` although outside rectangles match; Home/free flow mode retains intrinsic media geometry. Three-column event 5370, true hydrated feed packing, 24-item real free example and density need final fixes/checks. |
+| **AR-05 V1/V2/V3 — framing, OCR cropping, medallions** | Owner flags tall posters, top text cropping, external medallions and missing Tretyakov placement on 5370. | Existing media treatment/geometry, EventCard/MediaFrame, EventTokenMedallions; static and client-created cards. | SOURCE+DIAGNOSTIC: unknown/unlocated OCR text remains contained; area budget alone cannot authorize crop. Existing synthetic geometry regressions pass. Not a completed text-location-aware crop solution. Actual poster grouping/internal media tracks, loaded/broken/no-source census and event 5370 edge-overlap remain open. Do not overlay a medallion on text without source-bound safe-region proof. |
+| **AR-06 V2 — action panel has no useful text label** | Event 5370: compact calendar plus icon-only share can leave both unlabelled visually. | `DesktopEventActionPanel`, CalendarLink and existing action/reaction owners; full/compact panel consumers. | SOURCE correction retains visible Share text. Remaining: actual event 5370 at all panel modes/widths, long labels, focus, hit targets and screenshots. aria-label is not a visible label. |
+| **AR-07 V1 — Today changes repeatedly after load** | Browser on real rejected build navigated `/segodnya/` to `/date-2026-09-05/` while manifest clock is September 4. | Existing date availability/runtime and listing hydration; Today/Tomorrow/date consumers. | SOURCE+DIAGNOSTIC: frozen preview clock no longer substitutes the wall clock. Date source tests pass. This identifies one real cause, not every observed phase. Cold/warm/profile loading sequence, image/font readiness and unnecessary layout rebuilds remain to be captured. Do not disable personalization globally. |
+| **AR-08 V2 — exhibition new count inconsistent across routes** | Real shell lacked the badge on other routes while Exhibitions showed 4. | Shared EventLayout/projection input plus exhibition seen-state runtime; all shell consumers. | SOURCE+DIAGNOSTIC: shared count input and mobile/navigation behavior corrected. Current fixtures show 5, **not the reviewed slice's 4**. Remaining: exact-snapshot route transitions, seen/unseen updates and meaning after interactions; never copy a fixed badge count. |
+| **AR-09 V2 — July–December and misleading Checked date** | Actual rejected festival HTML shows July–December and Checked September 4 despite visible current-month grouping. | `pages/festivali/index.astro`, actual projection coverage and generation timestamp. | SOURCE correction derives display period and uses `Обновлено` for generated data. Focused festival pages inspected. Remaining: same-snapshot coverage, source-review timestamps if any and mobile line-break quality. Generation time must not be relabelled verified-source time. |
+| **AR-10 V2 — festival/club hearts inconsistent or missing counts** | Festival controls mean local edition bookmarks; event likes use event IDs; club entity semantics differ. | Existing shared action/reaction family with entity-specific adapters, not event APIs for every heart. | OPEN. Public count is not available merely because a local heart exists. Do not display invented zero/public proof. Need consistent visual states/dimensions, meaningful local-vs-public labels and actual toggle/count adapters. Club freshness source correction does not close club reactions. |
+| **AR-11 V3 — vertical keyboard should traverse reading sections** | Old imported keyboard router used native Down / double Down to cards. Owner requested title → text paragraphs → practical summary → cards. | Existing `KeyboardEventNavigationPrototype` through production wrapper; text, gallery, dialog, cards. | PARTIAL SOURCE. Removed old double-Down bypass; current ordinary scrolling steps are **not** the requested semantic paragraph/section traversal. Implement in the existing router with input/modifier/dialog guards; inspect DOM/visual/keyboard order. The production-imported Prototype is not excluded as lab-only. |
+| **AR-12 V2/current request — schematic Floating Island** | Current page context should remain accessible without swallowing title/content/CTA or mobile bottom navigation. | Existing EventLayout/shell/navigation/actions, not a second shell. | SOURCE+DIAGNOSTIC: persistent context/back-to-title, focus and mobile-menu suspension exercised at three widths; mobile bottom navigation retained. Final skin deferred. Event media-to-top composition, scrolling occlusion and all affected real routes are not accepted yet. |
+| **AR-13 V2/V3 — Unusual placeholder, collections and clubs differ** | Real Unusual is `withheld unavailable`, not a populated list; clubs have justified unique cards. | Unusual quality/publication gate, list/editorial collection surfaces, InterestClubCard, shared type/freshness/reaction owners. | PARTIAL SOURCE: common role adoption and club update label. Distinct editorial/list/club semantics preserved. Unusual data/publication blocker unresolved; placeholder is not accepted as a completed collection. Do not activate quality-gated data for a prettier screenshot. |
+| **AR-14 V1/V2/V3 — suspicious facts, images, weekends, exhibition dates** | Specific real-slice HTML evidence below. | Ingestion/source facts, immutable snapshot exporter, occurrence families, media payload; not speculative CSS or production DB edits. | PARTIAL DIAGNOSTIC. No speculative time rounding, duplicate deletion, recurrence changes or fake media. Exact upstream causes, weekend coverage and 5370 other-date relationships remain open. |
+| **AR-15 — withdrawn or undecided** | V2 gallery thumbnails found by the owner; V3 search suggestion vs collection route left undecided; V1 ends on Not interested without an outcome. | Existing gallery/search/reaction behavior. | Not new implementation tasks. Preserve gallery; do not invent a reaction failure or change search semantics. Existing disabled artifact flag remains unchanged. |
 
-### AR-01 — Shared heading roles, not per-route token names (V2; mandatory)
+## Bounded real-data findings for AR-14
 
-**Confirmed source:** `surface-foundations.css` preserves unrelated home/unusual/collection display scales; `route-theme-foundations.css` has a separate festival heading scale. `ExhibitionsPersonalSurface.astro` still owns `.ex-intro h1` with `clamp(3rem,7vw,6.8rem)`, line-height `.83`, tracking `-.07em`. Moving values into route-named tokens did not establish role equality. `ListingPageHeader.astro` is another actual heading consumer.
+These were read from cached HTTP200 HTML captured from the exact rejected prefix, not from a current production DB or the July committed fixtures used by the focused corrected-code diagnostics.
 
-**Correction:** map comparable section-page headings to one existing semantic typography owner and migrate consumers, removing their competing declarations. Preserve explicitly justified roles such as long event titles and the accepted editorial Hero Talk; do not flatten every h1 indiscriminately or legalize every difference as a named variant. Include label/update metadata and vertical spacing.
+- **8702**, `Экспедиция в Железнодорожных воротах`, 15:00: published payload identifies the Cathedral while description refers to railway gates. It has no event photo: desktop media fallback and mobile gallery count 0. This is an absent-source-media state, not evidence that a supplied photo failed to load. Venue/content conflict needs source verification.
+- **8589**, map-reading event, 18:00: published no-source media/gallery count 0. Its subject is not sufficient evidence that the event is invalid.
+- **8737**, the silent-film screening: `data-event-starts-at="2026-09-05T19:09:00+02:00"` is already in emitted HTML. The unusual minute was not introduced by client time formatting. There is no authority to round it to 19:00 without source evidence.
+- Similar expedition titles also occur for 8198, 7598 and 8726 with differing venue/media/time. Similarity alone does not establish duplicates; none was deleted.
+- Unusual HTML records `data-ds-state="withheld unavailable"` and `data-unusual-feed-status="unavailable"`. Captured HTML SHA256: `0a824fe0352746f4cdaebaf893264dbb7a591ee1f525a5cafa3049d4c26d7bd2`. Source quality gating explains why the empty surface is possible, not why this exact upstream projection was withheld.
+- Festival captured HTML SHA256: `38eac7623706710dfb79ccf3653ca897b78855ddf6c79fa56f6074bda9479bd3`. It contains 13 festival cards; the old period/freshness presentation is confirmed. This does not validate the corrected period on a newly published September build.
 
-**Acceptance:** compare the same role at the same viewport across Today/Tomorrow/Date/Weekend, Exhibitions, Festivals, Popular, Unusual, Collections and Clubs. Record computed family/size/weight/line-height/tracking/margins. Expected relationships must come from the approved role contract, not be learned from the same defective snapshot. Negative control: one consumer reintroducing its private heading size fails.
+## What the previous PASS failed to establish
 
-### AR-02 — Restore the accepted Hero Talk instead of its static namesake (V2; mandatory)
+Route existence cannot prove the correct destination. Document overflow cannot prove nested card geometry. A registered token can faithfully preserve a wrong per-page scale. An overall card rectangle can hide misaligned image/body tracks. A source or factory probe cannot prove organic feed data/seen state. Initial screenshots cannot prove loading chronology, long-scroll navigation or keyboard order.
 
-**Confirmed source:** current `HomeHeroTalk.astro` accepts one `event` and renders a static editorial card. The actual donor exists at `events-bot-new@4243401a4`, in `site/src/components/HomeHeroTalk.astro` and `site/src/lib/homeHeroTalk.ts`: scenes, text fragments, photo-mosaic and text-only modes, animation/cursor and event links. Historical owner-selected reference is `https://kenigevents.ru/preview-20260730-hero-talk-date-donor-r2/`. This is not `PrelaunchPage.astro`, which is a separate launch/signup page.
+The recovery found a further test defect: the negative H2 override originally targeted a hidden duplicate; it now poisons the actually measured visible consumer and asserts that the poison reached it. The later singleton check derives expected width from the composition instead of comparing a lone card to itself. Breadcrumbs are measured independently of a clear H1. These regressions narrow real false positives without turning the entire UI into an approved baseline.
 
-**Critical data constraint:** the donor deck requires current events matching exact editorial event IDs in `homeHeroTalkEditorial.ts`. Blindly copying it onto the September slice can produce no scenes. Recover the actual editorial chains and generation/binding path; do not revive expired events or invent event-specific phrases. Resolve missing current bindings explicitly. Preserve historically accepted mobile text-only behaviour unless a later owner decision changes it.
+The corrected-source role checks use independently specified H1/H2 metrics, not values learned from the rejected screenshot. The entire palette, all spacing and internal media tracks are still outside a valid aggregate PASS. Current source/runtime/check coverage and concrete artifact paths are in STATUS.
 
-**Acceptance:** real current scene(s), meaningful fragment links, an observed complete cycle, photo/text variants when eligible, no-JS and reduced-motion fallbacks; no static replacement silently presented as the restored feature.
+## Continuation boundary
 
-### AR-03 — Brand navigation must lead to product Home (V2; mandatory)
+Continue the existing branch and checker. First finish shared card internal tracks/framing/density and the concrete event-detail/keyboard/action gaps; resolve data/publication issues with source evidence. Reconcile same-role colors/spacing without silently inventing a new palette or flattening justified archetypes. Then use the existing Kaggle path for a real immutable successor, validate the existing structural projection and conduct independent owner-facing browser review. Production and Penpot do not change automatically.
 
-**Confirmed source:** `siteHomeHref()` in `site/src/lib/events.ts` returns `/__preview/` for preview mode. A link can pass HTTP-200 and same-prefix checks while taking the user to the wrong destination.
-
-**Correction:** separate product-home navigation from review-hub navigation centrally; inspect actual brand, breadcrumbs, mobile navigation and PWA consumers. Preserve the immutable preview prefix and production/secret-candidate semantics. Keep the hub available as a service entry, not the brand's home.
-
-**Acceptance:** activate the brand from multiple product routes and verify product Home and its Hero Talk, not just an existing URL.
-
-### AR-04 — Card count, regular-width remainder and Full-HD density (V1,V3; mandatory)
-
-**Confirmed source:** `AdaptiveEventCardGrid.astro` declares `remainder-policy="stretch"`, `stretch-N-of-M` states in server and runtime paths, and `flex-grow:1`. The singleton taking a whole row follows this policy. `packRelatedCardRows()` can also reduce selected card count when OCR ratios cannot share an intrinsic-ratio partition.
-
-**Personally reproduced:** three eligible synthetic documents with ratios 1,1,1.2 and rowSize=3 become IDs 1,2 on the unchanged module. A mixed four-item case also loses admitted items. This proves a module defect; the precise cause of two cards on the live event 5370 still needs its actual payload/DOM trace.
-
-**Correction:** the caller owns eligibility/limit; layout must retain the admitted set. Use safe contained frames when no full intrinsic partition exists. A partial row retains regular column width, including after hydration/filtering/reaction; update the public remainder vocabulary, registry and CSS/runtime together. Preserve ranking where order matters. Geometry reordering is allowed only in the applicable recommendation composition, never automatically in chronological listings.
-
-**Acceptance:** counts 1,2,3,4,5,7,10 and the owner-reported 24-item free collection; complete rows of three where the desktop composition calls for three; equal media/card tracks per row, no disappearing IDs, no huge singleton, consistent DOM/keyboard order. Check 1920×1080 as well as 1440×900 and mobile. The suggested 10–20% reduction is a density target to test, not permission to apply `transform:scale()` or make text unreadable.
-
-### AR-05 — OCR/media framing and medallions (V1,V2,V3; mandatory safeguards)
-
-**Confirmed source:** `resolveRelatedCardMediaTreatment()` permits centred `cover` on classified OCR media solely from measured aspect ratio and a ≤20% area crop. It does not locate text. The `imageCrop.mjs` protected-photo resolver is not OCR text-region proof.
-
-**Correction:** retain total crop ceiling 20%, not 20% per edge. Preserve main text; a headline near the top cannot be removed by symmetric centring. Without current source-bound text-safe evidence use contain. This conservative fallback is the bounded code candidate, not a claim that text-aware cropping has been implemented. Verify loaded/no-source/broken/unknown states and actual wide/tall assets.
-
-Medallion placement is semantic: preserve the Tretyakov mark's intended edge overlap on event 5370 where supported by the accepted component; do not substitute its asset. Placing marks over poster content is conditional on a proven safe region. The owner's suggestion about unused image space is not blanket permission to cover text.
-
-### AR-06 — One useful visible calendar/share label (V2; mandatory)
-
-**Confirmed source:** `DesktopEventActionPanel.astro` renders share as icon+count; compact calendar rules hide its label. Both controls can therefore become icon-only. aria-label/title does not satisfy the visible-label requirement.
-
-**Correction:** enforce a group-level invariant: calendar OR share retains readable visible text at every supported panel width. Which one is labelled may change; wrap/stack when necessary. Preserve existing hooks and CalendarLink behaviour; do not repeat broad specificity/passthrough regressions.
-
-**Acceptance:** event 5370 plus long titles/admission labels and both primary-action modes; wide/compact panels, resize and keyboard focus, 44px targets, no clipping.
-
-### AR-07 — Stable initial render on Today (V1; mandatory investigation and fix)
-
-The owner observes three loading/rearrangement phases. Their exact cause is not established by source excerpts. Trace initial HTML, font/media readiness, hydration, local consent/profile and actual network updates. Reserve required geometry and avoid redundant rerender/reordering; do not disable personalization or all JavaScript. Capture a short reload sequence/trace and compare cold, warm and existing-local-profile states.
-
-### AR-08 — New-exhibition badge across the shared shell (V2; mandatory)
-
-`pages/vystavki/index.astro` computes an optional header badge and supplies it to `EventLayout`; this establishes route-local input, not a shared global new/seen count. Inspect later runtime updates before attributing every symptom to that alone. Use one authoritative projection and local seen-state meaning across Weekend, Festivals and Exhibitions. Verify transitions between routes and after marking seen; do not copy an arbitrary fixed count.
-
-### AR-09 — Festival period and truthful freshness label (V2; mandatory)
-
-**Confirmed source:** the festival page hardcodes July–December in the eyebrow and facts while month sections derive from actual data. `lastReviewed` is derived from `festivalProjection.generated_at`, then labelled `Проверено`. Build/export time is not independent source verification.
-
-Derive the displayed coverage from the actual dataset/declared programme interval. Use `Обновлено` for generation time, or a genuinely sourced review timestamp for `Проверено`; do not mislabel one as the other. Reconcile the September–December observation against the exact published projection, not an unrelated Git fixture.
-
-### AR-10 — Consistent reactions without fabricated social proof (V2; mandatory)
-
-Festival UI explicitly describes a local bookmark keyed by festival edition; event likes use event identity and counts. Club cards have their own entity semantics. Share the existing reaction/action visual family and state vocabulary through entity adapters, not by routing every heart to event ID APIs. Unknown public count is not zero. Preserve local-only meaning unless actual backend support proves otherwise. Verify visible count/state, toggling and consistent dimensions where the same role applies.
-
-### AR-11 — Vertical keyboard journey (V3; approved behaviour delta)
-
-The production `KeyboardEventNavigation.astro` imports `KeyboardEventNavigationPrototype.astro`; its documented previous rule is native single Down / double Down to cards. The user now wants a coherent sequence through the main event content, practical summary and recommendations, while horizontal navigation already works.
-
-Update the existing router's section/focus traversal deliberately, with context guards. Preserve text inputs, modifier keys, dialog/gallery handling and native scrolling where the router does not own interaction. Do not globally steal ArrowDown. Compare visual, DOM and keyboard order after grid changes. The production-imported Prototype file is not excluded as a laboratory; it also contains global reaction/calendar styles that must be considered in action ownership.
-
-### AR-12 — Schematic Floating Island, existing shell (V2 + current request)
-
-Implement only the accepted structural/interaction purpose: compact persistent navigation/context, current section/date/category as applicable, and accessible entry to necessary controls. Allow event media to reach its intended top composition instead of retaining a large redundant header. Reuse the actual shell/navigation/action owners and state, rather than adding a second independent shell or rebuilding lists on scroll.
-
-The schematic must not overlap required content/CTA, trap focus or introduce internal page scrollers; account for safe-area, mobile bottom navigation, layering and open/closed states. Final shape, palette, effects and generative styling are explicitly deferred. Defer only the skin, not navigation correctness. Do not add drag/resize or other unrequested features.
-
-### AR-13 — Preserve distinct collection/club compositions (V2,V3; mandatory)
-
-Keep editorial/text collections distinct from event-list collections. A real `подборка готовится` state needs a data/publishing explanation, not automatic normalization of an empty placeholder. Club cards can retain their justified composition while headings, update labels and reactions use shared roles. Do not force every collection, exhibition row and club into EventCard merely to simplify a registry.
-
-### AR-14 — Bounded factual/data diagnostics (V1,V2,V3; investigate before deciding)
-
-Trace the exact published snapshot/export inputs for: missing images; the surprising railway-gates expedition item; the 18:00 map-reading item; 19:09 vs 19:00; only two available weekends; Unusual pending state; exhibition `other dates`. Distinguish bad source facts, export/slice coverage, occurrence-family logic, media availability and UI presentation. Slice300 is a hypothesis, not a universal explanation. Do not round times, delete events, change recurrence or activate collections merely to make screenshots attractive. Close each item with the demonstrated cause and safe scoped correction, or an explicit unresolved data requirement. No speculative production DB writes.
-
-### AR-15 — Withdrawn and undecided observations (not implementation tasks)
-
-The owner withdrew the missing-gallery-thumbnails complaint after finding them. Preserve/check the existing gallery, do not build another one. The search suggestion leading to a collection vs prefilling search was an open product question, not a confirmed request to change semantics or trigger search. V1 ends on pressing `неинтересно` without describing its outcome; do not invent a reaction failure. The disabled artifact collection remains governed by its existing flag; no activation is authorized here.
-
-## Why the previous acceptance missed this
-
-1. Route existence and document overflow are not correctness of destinations, nested scroll regions, relative heading roles or multi-phase loading.
-2. A source/hash-complete registry is not a proof of single effective CSS ownership. Transitive imported styles and higher-specificity state rules can remain competing owners.
-3. A factory probe verifies construction, not real feed population/packing/seen state; page-count coverage does not measure state/interaction coverage.
-4. Initial screenshots/contact sheets alone do not cover long scrolling, Full-HD geometry, resize, loading chronology and keyboard journeys. The old report does not establish all these checks; its raw local evidence was not available to this auditor.
-5. The criteria must assert independent product relationships, not accept every captured value as its own baseline. Add negative controls that genuinely detect the reported defect before accepting a fix.
-
-## Bounded implementation and acceptance sequence
-
-First correct shared heading roles, grid retention/remainder/density, media safety and action groups. Then integrate shell/navigation/badge/loading corrections and restore the actual Hero Talk dependency closure. Resolve the bounded data questions in parallel without speculative content changes. Implement the Floating Island behaviour schematically and retain distinct archetypes. Do not wait for its final visual design.
-
-Use the existing source registry, generators, checker, browser harness and Kaggle build path. Ordinary code/docs/source review may be done directly in ChatGPT+GitHub. The scarce coding agent handles actual runtime integration, existing suites, full-source graph regeneration and publication. It may issue a self-contained bounded prompt to an external ChatGPT window, with exact refs, non-overlapping writable paths, questions, acceptance and return location in #621; it must not claim that window has started until confirmed or repeat its active work. No new roles/process engine are needed.
-
-Required final evidence: same-snapshot/clock before–after for repaired cases; 1440×900, 1920×1080 and 390×844 plus actual affected seams; internal overflow, heading-role comparisons, real static AND organically hydrated lists, cardinality/partial rows, first-paint sequence, labels, keyboard and navigation checks. Preserve existing safe no-source/broken/empty states. Intercept remote writes where appropriate and label such evidence accurately. Full published successor uses the existing Kaggle review kernel and immutable prefix; source SHA must match manifest. A source-only patch or local diagnostic is not this final result.
-
-Each mandatory AR item needs evidence on the final candidate; investigations need a factual disposition, and only AR-15 / the Floating Island skin are explicitly deferred here. A broad `PASS` cannot coexist with a known unresolved owner-visible normalization defect. Do not declare native Penpot or A=S=P without actually testing them.
-
-## Isolated code experiment — scope, not delivery claim
-
-A correction branch in events-bot-new, `work/owner-audioreview-card-geometry-20260905`, is reserved for the bounded AR-04/AR-05 code candidate. Its current delivered files/checks and remaining integration requirements are recorded in #621/STATUS, not implied by this audit document.
-
-The experiment uses the exact original `relatedCardLayout.mjs` Git blob `1088e47f5e82062b4f7140b60ead6eb1b5ee898f` and `imageCrop.mjs` blob `5f02e51518859e2ea222770462f3c4a669a7f489`. Synthetic geometry is injected through the existing function option; the local imported override catalogue is an empty unused test dependency, not the production catalogue. Seven focused tests give 3 failures/4 passes on the original and 7 passes on the candidate. This does not certify the full repository, CSS layout, original test suite, generated graphs, actual event 5370, browser behaviour or deployment. The candidate contains content-preserving fallback rows and fail-closed unlocated OCR text; it does not implement regular-width CSS, final density or proven top-biased text-safe cropping.
+No new registry, pipeline, design system or parallel orchestration programme is required. The scarce coding agent is not needed for GitHub source edits or ordinary Actions diagnostics; only genuinely unavailable runtime/integration/publication work may be handed to it as a bounded executor task after the exact remaining cause is established.
