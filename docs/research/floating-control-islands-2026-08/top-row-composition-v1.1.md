@@ -1,95 +1,75 @@
-# Floating Islands — композиция, уточнение владельца v1.2
+# Floating Islands — актуальная композиция v1.3
 
-Дата: 2026-09-05. Существующий pattern `pattern.detached-chrome-control-islands`, PR #47. Путь файла сохранён для существующих ссылок; **текущая revision 1.2**, прежняя [v1.1@eb330959](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/eb3309591be368d729ea52c90b6ef99d1acbad6b/docs/research/floating-control-islands-2026-08/top-row-composition-v1.1.md) — история. Общая система: [FI-01–20](system-design-v1.md); продуктовые стыки: [RB-01–03](release-bindings-v1.md). Эта revision адресно меняет composition rules ниже, не отменяет A=S=P/release gates.
+2026-09-05. Pattern `pattern.detached-chrome-control-islands`, существующий PR #47. Путь сохранён для входящих ссылок; текущая редакция **1.3**. [Core FI-01–20](system-design-v1.md), [release bindings RB-01–03](release-bindings-v1.md), [потребители](consumer-matrix-v1.md) продолжают действовать. Здесь адресные owner amendments, не второй конвейер или критерий A=S=P.
 
-## 1. Общее брендовое меню не меняется
+## 1. Нижний остров: последнее решение владельца
 
-**«Полюбить Калининград Анонсы» — неизменяемый внешний участник компоновки. Оно не сжимается, не заменяется кружком с точками, не меняет свой вид/место при scroll, resize, смене раздела или появлении соседнего острова по правилам Floating Islands.** Его существующее собственное открытие/закрытие не отключается.
+**Один цельный нижний floating island, стилистически ближе к macOS. Не отдельные острова-иконки и не ряд самостоятельных плиток.** Предыдущая формулировка исполнителя «отдельные блоки» была ошибочной интерпретацией и отменена уточнением владельца.
 
-**Было → стало:** v1.1 разрешал compact/glyph trigger и смену motion глобального branded menu → прямое уточнение владельца исключает это меню из адаптивной системы. Оно сохраняет baseline source/geometry/interaction. Для layout допустимо читать его occupied rect, но нельзя изменять его DOM, styling, state или расположение. Все предложения v1.1 и FI-02 о новой presentation branded global menu отменены в этой части.
+Широкий desktop-вариант 640×80 с сильной рамкой, боковыми подписями и feature32 icons **отклонён**, несмотря на технические проверки. Его стили удалены из текущего draft #638; прежний внешний вид нижней навигации восстановлен. Не переносить эту skin в integration по старым PASS-скриншотам.
 
-Не требуется ещё одно меню вместо него. Контекстные disclosures полки/городов имеют собственный scope и не называются global menu. Четыре primary destinations нижнего dock остаются общей навигационной моделью.
+Направление последующего visual review: одна общая спокойная поверхность; аккуратная глубина, тонкая граница и мягкое отделение от контента, оптически согласованные icons и ненавязчивый active state. При выборе прозрачного материала текст/controls должны оставаться читаемыми на реальных светлых, тёмных и насыщенных подложках; нужен непрозрачный fallback. Это **направление для candidate, не уже принятая графика**. Сейчас новая macOS skin не реализуется вместо остальных недоделок и не добавляет слои или постоянную анимацию.
 
-## 2. Общая верхняя композиция
+Primary destinations, resolver и aria-current остаются едиными; desktop может иметь свою геометрию, но это не разрешение вновь создать отклонённую панель. Сохраняются nav XOR CTA и modality/focus/last-action guarantees. Одна поверхность не означает превращение всей nav в одну кнопку. Apple [Dock guide](https://support.apple.com/guide/mac-help/open-apps-from-the-dock-mh35859/mac) — reference общей идеи; никакие системные assets, hover magnification, auto-hide или native-привилегии не переносятся автоматически.
 
-Остальные подходящие острова по возможности образуют **одну строку** вокруг зарезервированного места бренда. Свободные промежутки и края являются частью дизайна; общего непрозрачного прямоугольника вокруг всех участников не требуется. Не растягивать соседние controls на всю ширину экрана только ради заполнения.
+## 2. Брендовое меню не меняется
 
-```text
-[неизменяемый бренд]    [контекст страницы / медальон]    [города / контекст полки]
-```
+«Полюбить Калининград Анонсы» сохраняет исходное место, внешний вид, размеры и собственное управление. Оно **не участвует** в сжатии, перестановке или state transitions соседних островов. Собственное намеренное открытие/закрытие сохраняется. Предложения v1.1/FI-02 сделать его glyph-trigger, «Меню» или новый motion отменены.
 
-Это схема ролей, не обязательные три элемента на каждой странице. Пустые роли не монтируются. Дополнительные имеющие смысл utilities участвуют в геометрическом договоре. Внутри одной задачи related controls группируются; карточки событий остаются в контенте, не переносятся целой полкой в fixed header.
+Для компоновки допустимо прочитать занятый им rect, но нельзя изменять сам бренд ради fit. Контекстный выбор городов или раздела не становится новым global menu. Existing source и screenshots до эксперимента — baseline защиты, не только сравнение двух уже одинаково изменённых страниц.
 
-Бюджет строки учитывает **фактическое** место бренда, safe-area, доступную ширину и hit areas остальных controls. Высота — максимум занятых областей одного ряда, а не сумма независимых sticky этажей. При нехватке места сначала сокращается повторное оформление, затем разрешённые views и secondary controls переходят в своё раскрытие/flow. Бренд не является последней жертвой сжатия. При zoom/малой высоте readable flow лучше tiny controls или обрезки смысла.
+## 3. Верхняя композиция и смысл полки
 
-Full/lean/compact — независимые views участников, а не глобальное «на mobile скрыть все labels». Для чтения lean с короткими понятными подписями может оставаться базовым и на широком экране. Свободная ширина не требует возвращать всю декорацию.
+Остальные подходящие поверхности по возможности образуют одну строку вокруг бренда с реальными свободными промежутками и краями. Не требуется сплошной substrate или одинаковая форма всех островов. Неприсутствующие роли не занимают фиктивные slots.
 
-## 3. Медальон может сам быть островом идентичности
+Небольшая навигационная полка может показать реальные controls; при сжатии — осмысленный summary/раскрытие. Полка событий оставляет сами карточки в контенте, наверх выходит лишь её контекст/управление. H1/H2 остаются в документе; floating locator не копирует heading/control tree. Viewed Search section, refinement base и pending draft различаются.
 
-**Допускается semantic replacement, не только уменьшение двух дублирующих элементов.** На точной подборке «Бесплатные события» canonical медальон `0 ₽ / бесплатно` может один представлять page context; отдельный floating title в этом состоянии не нужен.
+Width budget учитывает actual brand/controls/safe-area/hit areas. Высота строки — максимум соответствующих занятых областей, не сумма sticky этажей. Сначала убираются смысловые дубли и декоративные детали, затем выбираются permitted views, затем второстепенные controls возвращаются в раскрытие/flow. Бренд и читаемый смысл не являются последней жертвой сжатия. При zoom/малой высоте readable flow предпочтительнее tiny targets/clipping/ещё одного fixed ряда.
 
-Условия замены:
+Full/lean/compact независимы для участников. Большой экран не требует вернуть всю декорацию. Icon+label→label→icon допустимо для понятного контекстного action с теми же semantic identity/target/scope/name; не для защищённого бренда. Декоративный знак, action identifier, selection/disclosure indicator и медальон идентичности имеют разные правила. Touch не полагается исключительно на tooltip.
 
-- полная эквивалентность смысла, явный route/scope binding и тот же canonical asset;
-- отсутствие дополнительного значимого ограничения, которое знак не передаёт;
-- сохранение настоящего H1, title документа, доступного имени и navigation/action semantics;
-- удаление пустой подложки прежнего острова и второго compact-медальона, а не только скрытие текста;
-- весь знак и hit area видимы; область прежнего широкого title не остаётся невидимой преградой.
+## 4. Медальон вместо повторного floating-названия
 
-«Бесплатно с детьми», «Бесплатно на побережье», дата/город/отрицание не эквивалентны одному `0 ₽`. Дополнительный scope остаётся текстом или собственной осмысленной частью контекста. Медальон конкретного организатора не становится автоматически названием любого раздела. При нехватке asset/readable-size binding текстовый вариант остаётся fallback, не generic звезда/Unicode вместо настоящего знака.
+На **точной** подборке «Бесплатные события» канонический `0 ₽ / бесплатно` может один представлять floating page identity. Не нужен отдельный title island или пустая прямоугольная подложка. Настоящий H1, title документа, доступное имя, действия/возврат к заголовку сохраняются. Старый второй sticky mark в этой presentation не дублируется.
 
-Первый code candidate использует только exact Free route без дополнительных query-параметров. Это консервативный предварительный predicate, не долгосрочный запрет tracking params. Его нельзя распространять на дочерние подборки по substring-match.
+Замена требует полной эквивалентности смысла и source-bound asset. «Бесплатно с детьми», «на побережье», город, дата или отрицание не теряются за одним знаком. Нельзя заменять canonical mark похожей иконкой. При недоступном изображении **текстовое представление сохраняется/возвращается**; нельзя спрятать название до успешной загрузки знака.
 
-## 4. Города: из компактного острова в прямоугольный выбор
+Предварительный runtime проверяет exact route без дополнительных query-параметров. Это консервативный predicate, не продуктовый запрет tracking params навсегда. Richer-scope отрицательные cases обязательны.
 
-Компактный trigger показывает текущий смысл: `Все города`, название единственного выбранного города, `Города · N` либо `Города не выбраны`. Название не обрезается до неразличимого остатка. Иконка pin и caret помогают распознать выбор; их размеры принадлежат существующей icon-role системе.
+## 5. Города: раскрытие и восстановление
 
-Открытая форма — **прямоугольная карточка выбора**, а не бесконечно вытянутая исходная полоса. Внутри: заголовок «Города», явное закрытие, те же варианты с checkbox state/count и понятная подпись способа применения. До двух колонок на достаточной ширине, одна при очень узком viewport. Большой список может прокручиваться внутри доступной высоты, но controls закрытия и выбранное состояние достижимы.
+Закрытая кнопка показывает `Все города`, единственный город, `Города · N` либо `Города не выбраны`. Открывается readable rectangle с заголовком, явным закрытием, исходными checkbox controls/counts и подписью немедленного применения. На достаточной ширине допустимы две колонки, на узкой — одна. Закрытие не отменяет уже применённый фильтр; лишней кнопки «Применить» нет.
 
-Первый вариант сохраняет существующее **немедленное** применение. Не добавляется кнопка «Применить» поверх controller, который уже изменил выдачу. Закрытие не сбрасывает selection. Escape/close возвращают focus к trigger; outside dismiss не перехватывает focus открываемой другой поверхности. На слишком малом effective viewport прямоугольник раскрывается в потоке, без обрезки. No-JS показывает исходную полку.
+Используется **тот же fieldset и тот же filter/storage owner**, а не копия состояния. Native popover — presentation, не модальное окно/новый global menu. Escape/close возвращают focus, outside/focus exit корректно завершают раскрытие, выбор не сбрасывается. No-JS сохраняет полку.
 
-Source implementation **перемещает оригинальный fieldset** внутрь того же controls owner, не клонирует чекбоксы и не создаёт второй фильтр. Сохраняются existing state, storage, counts, hidden/empty rules и labels. Native popover — одна из presentation mechanisms, не новый modal или глобальное меню. Во время открытого выбора/IME/focus cosmetic relayout не подменяет targets.
+При недостаточной полезной высоте раскрытие переходит в flow. После возвращения места оно должно восстановить пригодное anchored представление, а не навсегда застрять в fallback. При переходах сохраняются исходные controls, selection и focus; запоздалый native toggle не закрывает уже восстановленное раскрытие. Во время pointer-held/IME косметическое переключение откладывается.
 
-## 5. Иконки и допустимая компактизация
+Размеры обновляются по фактическому контейнеру, viewport/scroll, доступной высоте и current shell occupied rects. Нижние препятствия вне горизонтального диапазона прямоугольника **не сокращают его высоту**; пересечения учитываются без двойной суммы. Counts/font load/container resize вызывают bounded remeasurement, а не новый фильтр/профиль/телеметрию.
 
-У подходящего контекстного action допустима цепочка `icon+label → label → icon`, когда action/meaning/scope/name остаются теми же. **Это больше не относится к защищённому брендовому меню.** Различаются decorative icon, action identifier, selection/disclosure/status и identity medallion.
+Уничтожение adapter восстанавливает исходный fieldset, удаляет свои nodes/flags/listeners/observers и не возрождает их на следующем resize. Это часть functional acceptance, не только аккуратность кода.
 
-Неизвестный glyph не заменяет смысл title или активного ограничения. Tooltip не единственное объяснение touch-control. В раскрытой поверхности возвращаются понятные подписи. Рядом не появляются два неразличимых `…` с разными scopes. Primary touch targets ориентируются на существующее ≥44×44 product requirement, не на размер рисованной пиктограммы.
+## 6. Один existing owner и текущая интеграционная граница
 
-H1/H2 остаются в semantic flow. Floating page/section locator либо отдельный context action не является вторым heading и не клонирует все controls раздела. Viewed section, refinement base и pending Search draft остаются независимыми. Exact hides и frozen prefix по RB продолжают действовать при всех views.
+EventLayout остаётся shell authority. Сохраняются FI-07–17 и RB: disjoint rects, safe-area один раз, нет прозрачных hit planes, защищённые focus/input/Stop, честные receipt states, actual served identity, exact hides/frozen prefix и optional analytics OFF. Ни отказ от skin, ни новый disclosure не создают transport/profile/window framework.
 
-## 6. Desktop нижний dock — отдельная presentation
+В текущем draft #638 снят только отклонённый skin и продолжается contextual behavior. Новое нижнее оформление не считается prerequisite завершения городов/медальона/проекций. Карточки и full-pool framing не перепроектируются этой lane.
 
-**Одна navigation model не означает одинаковую mobile/desktop геометрию.** Сохраняются destinations/resolver/aria-current, keyboard semantics и правила modal/CTA suppression. Разрешён отдельный desktop-вариант: крупнее icons/labels, иное расположение подписи, подходящая ширина/поля, лучшее отделение от светлого контента/плакатов/тёмных карточек.
+Прочитан current integration source `46fc5268…`: он уже содержит отдельную реализацию top band и изменённое desktop menu в `Reference4MobileMenu`. Поэтому нельзя просто наложить обе версии или объявить два same-name controller совместимыми. При интеграции нужно сохранить последних owners, убрать отменённую brand presentation, соединить city/section geometry с existing shell и заново получить registry/generated graphs. Это **открытая работа**, не permission на второй контроллер или самовольный overwrite current trunk.
 
-Первый проверяемый design choice: opaque existing surface, existing strong border/elevation roles, подпись рядом со значком, canonical `feature=32px`, более широкий округлый прямоугольник. Числа640×80 — **размер полученного draft specimen**, не новое обязательное foundation правило. В исходном comparative specimen dock480×66. На mobile candidate не меняет прежнюю geometry.
+## 7. Код и проверяемые факты
 
-Заметность проверяется не только размером: контраст текста/active state, отделение от разных подложек, focus, отсутствие перекрытого last CTA и попадание pointer. Не увеличивать z-index поверх gallery/modal, не делать пульсацию/постоянное движение ради внимания. Более сильная рамка — сравниваемый preliminary skin, не уже принятое владельцем окончательное оформление. Его сомнение о незаметности старого dock не выдано за измеренный повсеместный дефект.
+[Draft #638](https://github.com/onedayonemasterpiece/events-bot-new/pull/638), `work/floating-islands-owner-preview-20260905`. Experiment ограничен nonproduction `/preview-islands-*`, baseline `?islands=off`. Правдивый exact tested SHA/run находится в terminal receipt этого PR, а не выводится из текущего HEAD.
 
-## 7. Стабильность, accessibility и runtime ownership
+Исторические `ccde8553…`/run33964945528: настоящая генерация Astro Popular/Free и диагностические проверки на fixture2026-07-23, **но прежняя desktop skin отклонена**. Технический PASS не отменяет visual rejection. Rollback `be4a15d1…`/run33966294014: снова сгенерированы эти два маршрута; новая проверка сравнивает целиком прежние nav rect/paint/icon sizes и links. Это bounded diagnostic, не полная приёмка.
 
-Сохраняются FI-07–17: один existing layout owner, readonly occupied rects, safe-area один раз, no invisible hit plane, protected pointer/focus/IME, controlled hysteresis, native field input и scope-aware scroll. Новая геометрия нижнего dock требует переизмерения existing lower-stack owner, а не отдельной суммы keyboard height/offset.
+Следующий source `30a0c977…` добавляет восстановление city-panel, focus/control cleanup, lane-aware obstacle calculation и image-error identity fallback. Его browser результаты принимаются только после соответствующего terminal run и чтения artifacts. Перечень тестов сам по себе не PASS.
 
-Новая page identity не перемещает бренд. Открытие другого modal/gallery приостанавливает конфликтующие controls через их lifecycle, не оставляет скрытый Stop. Нельзя сломать open-close brand menu, называя его «статичным». Нельзя разрешить whole-site hide-on-scroll из-за правила сжатия contextual row.
+Read-only CI использует существующий `local:focused`; один временный exact-source readback нужен для личного анализа пересечения веток и затем удалён из workflow. Он не публикует страницы/шрифты/секреты и не запускает другого агента. my-data-hub/browser/Penpot при tool preflight не предоставили callable methods. Нет новой публичной Kaggle ссылки, native P или A=S=P PASS. Production/root/current/ICS/shared foundations/STATUS не изменялись.
 
-Visual source bindings включают canonical asset, view/role, full/short/accessible label, semantic equivalence reason, exact geometry и перемещённый original control. Для desktop icons фиксируется effective role, не только mobile default. A=S=P требует реальных resolved S и native linked P; screenshot или новый JSON-marker не закрывает lineage.
+## 8. Приёмка и сохранённое исследование
 
-## 8. Первый фактический код и проверенные границы
+Сравнивать сохранённый бренд с исходным baseline, а не только с адаптированным OFF; один нижний остров с прежней presentation до отдельного review; desktop/mobile, H1/context/actions, actual fieldset identity, repeated open/close, resize/fallback/recovery, Escape/focus exit, missing asset, no-JS и cleanup. Нативная OS-клавиатура не доказывается desktop resize. Source-bound S/P includes real assets, view/state IDs, actual geometry и lineage; отсутствующие native bindings остаются pending.
 
-Создан [draft events-bot-new#638](https://github.com/onedayonemasterpiece/events-bot-new/pull/638) в `work/floating-islands-owner-preview-20260905` от9bed6f5c20078f9ec934e817662d9dbbba2bd8eb. Adapter включается только на non-production `preview-islands-*`; `?islands=off` сравнивает исходное представление. Production, брендовые source files, EventLayout, shared foundations и STATUS этим кодом не менялись.
+[Исследование v1.1](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/eb3309591be368d729ea52c90b6ef99d1acbad6b/docs/research/floating-control-islands-2026-08/top-row-composition-v1.1.md#2-что-показало-исследование) сохранено как основания grouping/compaction/disclosure/reflow, не отменяющие новых owner decisions. [Исходная v1.2](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/74d315dabd7fb35e37b37e82618d0b81b2c50bdb/docs/research/floating-control-islands-2026-08/top-row-composition-v1.1.md) фиксирует историю отклонённой skin; она не активное руководство её внедрять.
 
-Первый [CI run33964702848](https://github.com/onedayonemasterpiece/events-bot-new/actions/runs/33964702848) реально сгенерировал Popular и Free через **существующий local:focused runner**, отдельно на committed fixture corpus с clock2026-07-23. Оба jobs success. Chromium149.0.7827.55 проверил390×844/1280×800/1920×1080: brand geometry, H1, nav links, city open/select/close/Escape и desktop icons. Это **DIAGNOSTIC_PASS_NOT_ACCEPTANCE**, не свежий production snapshot, не Kaggle owner preview и не native P.
-
-ZIP artifacts лично получены/hash-verified, JSON/скриншоты прочитаны. На первом mobile Free screenshot обнаружена оставшаяся прямоугольная подложка предыдущего title, которую initial tests не ловили; отправлена source correction `ccde8553b1472a04e5e54a98624585c53c9e808c` с новыми assertions прозрачности, ширины/границ medallion и неизменности бренда при scroll. Её terminal evidence берётся из #638, не предполагается по первому run.
-
-15 pure/source Node tests — отдельно от browser cases. До полной интеграции остаются family/impact/scenario регистрации, полный one-row variant, актуальный same-corpus Kaggle preview, native P и visual owner review. Исходные карточки/кроп/full-pool framing в draft не перепроектировались.
-
-Установленные my-data-hub/browser/Penpot не предоставили callable methods в текущем окне. Генерация/скриншоты получены через разрешённый read-only GitHub diagnostic, **не обходом publication authority**. Публичной новой интерактивной ссылки пока нет. Единственный опубликованный путь остаётся Kaggle StaticSiteBuilder; нельзя переименовать локальный dist или диагностический CI в опубликованный owner preview.
-
-## 9. Research и приёмка
-
-Первичное исследование Fluent toolbar, Adobe ActionGroup, Material historical top app bar, NN/g navigation recognition, W3C disclosure/reflow/label-in-name и MDN container queries сохранено в [предыдущем immutable тексте §2](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/eb3309591be368d729ea52c90b6ef99d1acbad6b/docs/research/floating-control-islands-2026-08/top-row-composition-v1.1.md#2-что-показало-исследование). Оно обосновывает принципы, не отменяет новое прямое решение владельца и не доказывает usability здесь.
-
-Дополнение к existing tests: brand DOM+rect/state invariance во всех migrated views; exact Free equivalence и richer-scope negative cases; отсутствие пустой плоскости title; original checkbox identity/selection/persistence; rectangle viewport/focus/close; distinct desktop/mobile dock and last-action reachability; source-bound responsive icon identity; receipt/hide/analytics OFF regression. Не создавать второй QA framework или угадывать PASS по числу таблиц.
-
-Приёмка черновика начинается с **реальных generated-page screenshots и действий на actual candidate**, не с ещё одной коллекции абстрактных прямоугольников. Полный rendered интерактивный preview нужен следующим продуктовым результатом; документы и CI diagnostics его не подменяют.
+Открытый следующий продуктовый результат: согласованный с текущими owners верхний ряд и current-corpus интерактивный Kaggle preview. Документы, private native mock и CI screenshots этот результат не подменяют. Нормализация не объявляется завершённой.
