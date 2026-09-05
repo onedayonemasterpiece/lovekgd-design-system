@@ -1,6 +1,6 @@
 schema_version: kenigevents.asp-page-profile.v1
 profile_id: free-collection.owner-review.v1
-profile_version: 1.2.0
+profile_version: 1.2.1
 status: OWNER_APPROVED_CORRECTION_REQUIRED
 
 requirements_contract:
@@ -23,6 +23,7 @@ programme_contract:
 
 # Explicitly approved page-scoped change under the global contract section 8.
 # Reproduction of rejected Astro is no longer this page's product oracle.
+# This exception never permits Astro to be delivered ahead of executable UI SoT.
 authority_mode: EXPLICIT_EXCEPTION
 owner_change:
   date: '2026-09-05'
@@ -31,13 +32,27 @@ owner_change:
   after: ordinary_shared_event_listing_with_free_filter_personalized_order_and_incremental_loading
   reason: owner_rejected_the_product_composition_not_only_visual_parity
   consequences:
-    - migrate_existing_source_static_and_client_consumers_then_SoT_projection_and_tests_together
+    - migrate_existing_static_and_client_consumers_and_executable_UI_SoT_with_tests_in_the_same_delivery
     - old_two_group_frames_and_five_specimen_packets_are_history_not_target_page_design
     - shared_asset_catalog_work_and_other_product_routes_may_continue
   approved: explicit_owner_statement_Free_is_an_ordinary_filtered_event_list_not_separate_exhibitions
-  completion_condition: corrected_product_behavior_and_same_state_Astro_SoT_projection_verified
+  completion_condition: paired_Astro_and_executable_UI_SoT_change_verified_on_the_same_resolved_state
   does_not_waive: global_asset_geometry_provenance_cancellation_and_verified_Penpot_claim_gates
   production_promotion_authorized: false
+
+# Applies the existing A=S requirement to this correction; not a new SoT layer.
+source_delivery:
+  unit: requested_change_to_Astro_and_executable_UI_SoT_together
+  implementation_without_matching_SoT: WIP_not_delivered_not_ready
+  this_profile_or_STATUS_or_issue_comment_replaces_executable_SoT: false
+  affected_SoT: [component_owners, variants_states, composition, asset_bindings, geometry_tokens, interaction_semantics, actual_consumers_dependencies]
+  source_derived_SoT: regenerate_and_validate_existing_bindings_without_manual_duplicate_definitions
+  rejected_timed_and_exhibitions_variant_must_not_remain_current_in_S: true
+  evidence: existing_receipt_pins_matching_A_S_revisions_and_resolved_scenario_state
+  cross_repository_commits: one_linked_verified_delivery_not_a_later_SoT_task
+  native_Penpot_may_follow_verified_A_S: true
+  executable_SoT_may_follow_delivered_Astro: false
+  clarification: v1_2_1_corrects_sequential_wording_without_changing_filtered_listing_semantics
 
 product:
   route: /podborki/besplatnye-sobytiya/
@@ -150,6 +165,7 @@ local_acceptance:
     - normal_no_profile_initial_render_loading_failure_and_empty_state_are_checked
     - no_timed_and_exhibitions_marker_or_two_group_oracle_survives_as_current_acceptance
     - source_projection_and_existing_free_capture_validator_use_the_new_profile_not_historical_grouping
+    - changed_Astro_with_stale_or_missing_executable_SoT_is_rejected_even_when_the_page_looks_correct
   expected_results_are_not_generated_from_rejected_markup: true
   source_test_or_static_mock_is_organic_runtime_acceptance: false
   personal_visual_inspection_required: true
@@ -167,8 +183,8 @@ materialization:
   page_reconstruction_allowed_now: false
   existing_rejected_page_may_be_promoted_or_canonicalized: false
   resume_condition:
-    - implement_and_validate_corrected_filtered_listing_behavior
-    - regenerate_existing_source_bound_projection_at_that_exact_state
+    - paired_corrected_Astro_and_executable_UI_SoT_delivery_is_validated
+    - current_projection_is_part_of_that_same_delivery_and_resolves_the_same_state
     - resolve_assets_geometry_active_single_writer_and_receipt_per_global_contract
   full_page_Penpot_required_before_this_owner_review: false
   separate_materials_catalog_work: governed_by_programme_contract_AR_16_not_blocked_by_this_page_exception
