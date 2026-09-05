@@ -39,7 +39,7 @@ Source milestones below are **not independent acceptance or publication**:
   at1440/390/1920. Local-profile ranking changed order without changing the pool.
   Later source retires oversized landing chrome and updates structural states;
   the new public structural capture remains pending.
-- Current focused Node packet:244/244 PASS; strict route-theme and club-theme
+- Current frozen-source Node packet:266/266 PASS (plus27 additional contracts and5 Python adapter tests); strict route-theme and club-theme
   checks PASS; same-snapshot full Kaggle candidate not published yet.
 - Unusual before-build result records semantic stage disabled/provider_calls0;
   the new candidate must execute the existing warm semantic path honestly.
@@ -47,13 +47,13 @@ Source milestones below are **not independent acceptance or publication**:
 
 ## Last actually delivered source and evidence
 
-- Executable trunk, last fresh read: `events-bot-new:agent/static-site-single-kaggle-contract` at `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`.
+- Executable trunk, last fresh read: `events-bot-new:agent/static-site-single-kaggle-contract` at `d1cc5c7d3e5756ea3f5cc0f240541d6fc95a52c1`, direct fast-forward from8b1bb8129; remote read-back confirmed.
 - Continue existing branch `work/owner-audioreview-card-geometry-20260905`.
 - Source recovery checkpoint: `64294cb5e4595063e72f910960ca34302f1101b4`.
 - Latest tested UI correction: [d6fd109](https://github.com/onedayonemasterpiece/events-bot-new/commit/d6fd10919f39e2689a85388ebd6cfd53639fec61).
 - Clean verification head: `97c507be2521a244820caca5f7f5d641efca8bbc`, same UI as d6fd109; existing F0 workflow restored to read-only.
 - Subsequently `393a8e8d0fcad3cbb9e86ecf7a480498cd548f87` added the execution prompt package only. Always resolve the current branch; later documentation commits are not new UI evidence.
-- No corrected published real-data build, integration into executable trunk, production promotion, production data change, stable ICS change or native Penpot change has been certified.
+- Integration into executable trunk is complete at d1cc5c7d3. One same-snapshot review-Kaggle transaction is in flight for `preview-real-d1cc5c7d3-normalized-20260905-v1`. No corrected published real-data build, production promotion, production data change, stable ICS change or native Penpot change is certified.
 
 The earlier terminal ChatGPT answer saying no changes/reads/browser observations existed was incorrect. Remote reads/artifacts established saved work. Recovery does not retroactively turn the original source-only audit into independent browser acceptance.
 
