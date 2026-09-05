@@ -49,6 +49,24 @@ The three full transcripts, including `Полная расшифровка`, wer
 | **AR-17 latest owner — shared lower windows with closing timer** | App-owned modal/notification flows across pages/devices currently need a full consumer migration. | Start with existing `MobileToastRegion.astro` / `KenigEventsToast`, existing dialog/sheet roots and shell. Consolidate owners, not another parallel framework. | **SOURCE_IMPLEMENTED_LOCAL_DIAGNOSTICS, INDEPENDENT_REVIEW_PENDING.** Current CODE uses the shared bottom stack and remaining-time bar, queue/dedupe, pauses, persistent error/action states. Reuse correct behavior; migrate to shared bottom grammar with safe-area/keyboard/nav stacking. Forms, confirmation and actionable error remain until explicit action; passive success/info may expire with visible timer and retrievable information/time control. All app-owned consumers still migrate visually. Timer is not a drag handle. Native browser/OS surfaces are not reimplemented. |
 | **AR-18 owner-approved — bottom floating-island navigation on desktop and mobile** | Rejected source hid `MobileBottomNav.astro` outside its mobile media rule. Owner has now confirmed the shared lower navigation and specified floating-island format. | Existing shell and navigation owners, route resolver/current-state model, AR-12/17 stacking. | **SOURCE_IMPLEMENTED_LOCAL_DIAGNOSTICS, INDEPENDENT_REVIEW_PENDING.** Current CODE renders the same4 primary destinations, labels, icons/order and state semantics as a lower floating island on both devices; desktop compact, mobile responsive with clearance from edges rather than an attached full-width bar. Thematic/date tabs remain contextual; no duplicate primary menu. Coordinate context and notification surfaces, preserve mobile navigation and keyboard/focus accessibility. Navigation does not inherit a notification timer. Final skin remains for owner generative review. Published4ff0aeb9f exposes4 targets, each at least44×44, on51/54 user-archetype/viewport cells; the3 Focus-group cells do not meet that navigation condition and remain a separate intake, not an accepted exception. Compiled real5370 successor checks floating margins and modal suppression/restoration. Independent acceptance and native bindings remain open. |
 
+## Follow-up on exact2fe — owner reviews11:47 and11:58
+
+Full source transcripts: idea-hub@8a4a4a64b92a0954116c582d7f4ae831ac9350ce,
+voice-20260905-114734-c1cd7b0a and voice-20260905-115824-d80a561e;
+full intake events-bot-new#621/5551113067. Read as text, not claimed audio listening.
+AR-01/02 reopen card title/metadata/status/action weight hierarchy (H1 improvement
+preserved). AR-03/12/18 reopen full brand persistence, explicit desktop Today,
+Home real wheel/Back/menu journeys, footer end clearance and working schematic
+islands. Erroneous mobile All collections entry is removed, not mass route deletion.
+AR-04/05 reopen painted-image framing on Free desktop/8673 related cards and
+verify suspected mobile Vini Love by actual ID/asset. Contract1.14.1 resolves the
+protective-contain ambiguity: no arbitrary fixed frame letterboxing acceptance;
+text safety/all IDs/row geometry are tested jointly. Infeasible actual sets require
+explicit minimal evidence, not crop/stretch/drop. AR-13 includes Free mobile
+heading/medallion composition; AR-14 retains factual Weekend corpus/export comparison.
+Home mosaic light square and scroll failure remain reproduction questions, not
+source-proven causes. Final nav skin is deferred, functionality is not.
+
 ## Bounded real-data findings for AR-14
 
 Read from cached HTTP200 HTML of the exact rejected prefix, not current production DB and not the July committed fixtures used for corrected-source diagnostics:

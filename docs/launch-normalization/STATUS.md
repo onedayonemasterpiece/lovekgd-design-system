@@ -1,7 +1,7 @@
 # Launch normalization — factual status
 
 Coordination: `onedayonemasterpiece/events-bot-new#621`.
-Contract: [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.14.0.
+Contract: [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.14.1.
 Finite correction register: [Owner audio review — 2026-09-05](owner-audioreview-20260905.md), now AR-01–AR-18.
 
 ## Current verdict — owner clarification, 2026-09-05
@@ -13,6 +13,21 @@ The latest owner clarification requires visible convergence of heading hierarchy
 The clarification and navigation-approval turns themselves changed documentation only. Subsequent CODE implementation and publication are recorded below; they do not constitute independent acceptance or Penpot restoration. The owner explicitly approved lower primary navigation **in floating-island format on both mobile and desktop**. AR-18 has CODE implementation and bounded public browser evidence below, not independent acceptance; there is no owner-choice blocker. Final visual skin remains deferred to owner generative review; approval is not implementation or browser acceptance.
 
 The owner perceived little difference from July30. That is an important product observation, not a measured historical comparison performed here. The bounded retrospective must distinguish structural-only work, visible implementation, integration, publication and personal verification; it must not invent a completion percentage or restart the programme.
+
+## New owner review intake — correction active, not waiting only for REVIEW
+
+Both full transcripts voice-20260905-114734-c1cd7b0a and
+voice-20260905-115824-d80a561e were read as text, with #621/5551113067 and later
+Floating Islands/release bindings. The2fe candidate below is **rejected for
+remaining framing, card typography and shell defects**, not a normalization PASS.
+CODE continues on the same trunk/worktree. Shared framing requirements have been
+reconciled in contract1.14.1 before geometry changes: full-source protection in
+an arbitrary fixed frame is not accepted letterboxing. Joint acceptance includes
+painted bounds, text safety, all IDs, row geometry and stable visible order.
+Brand persistence/Today/menu cleanup and functional schematic shell are in scope;
+full voice/analytics/personalization/transport rollout is not. Optional analytics
+must not invalidate primary actions. Next handoff uses the product Home URL,
+same snapshot/clock and existing Kaggle pipeline, never production promotion.
 
 ## Current delivered CODE candidate — 2026-09-05, not independent acceptance
 

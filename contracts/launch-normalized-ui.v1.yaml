@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.14.0
+version: 1.14.1
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -59,7 +59,21 @@ owner_review_correction:
     maximum_total_area_fraction: 0.2
     preserve_important_text_required: true
     area_budget_alone_authorizes_crop: false
-    unproven_text_safety: contain
+    unproven_text_safety: preserve_full_source_and_solve_natural_frame
+    contain_in_arbitrary_fixed_frame_is_accepted_layout: false
+    loaded_media_letterboxing_allowed: false
+    joint_acceptance: [painted_image_bounds, protected_text, all_admitted_ids, row_geometry, stable_visible_order]
+    composition_order: [compatible_natural_ratio_grouping, proven_safe_vertical_crop_within_budget]
+    no_feasible_group: explicit_minimal_corpus_conflict_not_silent_letterboxing_or_loss
+    prohibited_substitutes: [stretch, blur_padding, unconditional_cover, dropped_events]
+    missing_or_broken_resource: distinct_truthful_fallback_not_loaded_media_exception
+    clarification:
+      before: protective_contain_could_be_misread_as_accepted_fixed_ratio_letterboxing
+      after: protection_and_no_fields_are_joint_constraints_on_frame_and_row_selection
+      reason: existing_REL_053_reaffirmed_by_owner_reviews_114734_and_115824
+      consequences: fixed_5_by_4_document_frames_and_separate_green_geometry_checks_do_not_pass
+      type: existing_product_requirement_clarification
+      approved_by: owner_issue_621_comment_5551113067_and_CODE_continuation
   action_group:
     at_least_one_visible_label: calendar_or_share
     aria_label_or_tooltip_is_visible_label: false
