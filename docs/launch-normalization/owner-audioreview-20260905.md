@@ -89,3 +89,15 @@ Current source also fixes inverse share legibility and removes Free landing
 chrome. Full same-snapshot Kaggle candidate, current public structural capture,
 independent REVIEW and MATERIALS native catalogs remain open. These diagnostics
 do not mark AR-01/04/05/10/17/18 globally PASS.
+
+## Published CODE candidate — 4ff0aeb9f, not independent acceptance
+
+Same-snapshot real/all slice300 is now publicly reachable; see current STATUS
+and events-bot-new#621 comment5550647244 for exact identity/hashes and REVIEW
+trigger. Ordinary-role36 cells, user-archetype54 cells, Free111-event loading
+and profile-preserving ranking, Exhibitions six theme/viewport cells have CODE
+engineering evidence. Current Free structural captures validate source bindings
+at1440/390; they are not native Penpot catalogs. A narrow5370 inverse Share
+CSS-scope defect remains in that exact publication and is being corrected in
+its successor. Unusual quality gating, independent AR acceptance and four
+MATERIALS catalog links remain open; no blanket AR PASS follows from these counts.
