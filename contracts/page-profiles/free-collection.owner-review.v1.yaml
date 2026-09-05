@@ -1,272 +1,190 @@
 schema_version: kenigevents.asp-page-profile.v1
 profile_id: free-collection.owner-review.v1
-profile_version: 1.1.0
-status: BLOCKED_OWNER_REJECTED
+profile_version: 1.2.0
+status: OWNER_APPROVED_CORRECTION_REQUIRED
 
 requirements_contract:
   id: kenigevents.asp-conformance
-  version: 1.1.0
+  version: 1.2.0
   status: ACTIVE
   repository: onedayonemasterpiece/lovekgd-design-system
   path: docs/product-governance/astro-sot-penpot-conformance.md
-  commit: f134001382f547cebe8b025da24065128b174ffb
-  git_blob_sha1: 24e02d3048f2feba912cb990f8226b23006e8c2c
-  sha256: 54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72
+  commit: a3e4f0c34a93ddf366ad8d7ec1c067a4b938c794
+  git_blob_sha1: 1f16a114cb9bb2a1b3796d1a8b98c65978ac8e7f
+  sha256: d384b63e63bccffc67dff4b48149c5d901364360782f76ae8b0ee2ab33cf29fd
+  lock: contracts/requirements-lock.yaml
 
-asset_registry:
-  id: kenigevents.ui-assets.v1
-  version: 1.0.0
-  status: ACTIVE_FAIL_CLOSED
-  repository: onedayonemasterpiece/lovekgd-design-system
-  path: contracts/assets/ui-asset-registry.v1.yaml
-  commit: a0d66b832e97689536329fad4f0684cfe1001ca1
-  git_blob_sha1: cef9ec2ae159027267e8ec1e8e6a20686f995ff9
-  sha256: 03e0209794b58c59dcb04edba8593d25866a9d701df1b8671861c0cc79ebb7bc
+programme_contract:
+  path: contracts/launch-normalized-ui.v1.yaml
+  applicable_stage: review_completion_stage
+  current_status_authority: docs/launch-normalization/STATUS.md
+  owner_review_register: docs/launch-normalization/owner-audioreview-20260905.md
+  coordination_issue: onedayonemasterpiece/events-bot-new#621
 
-authority_mode: ASTRO_AS_IS_REFERENCE
+# Explicitly approved page-scoped change under the global contract section 8.
+# Reproduction of rejected Astro is no longer this page's product oracle.
+authority_mode: EXPLICIT_EXCEPTION
+owner_change:
+  date: '2026-09-05'
+  type: PAGE_EXCEPTION
+  before: dedicated_FreeCollectionSurface_with_timed_exhibition_split_and_as_is_grouping_oracle
+  after: ordinary_shared_event_listing_with_free_filter_personalized_order_and_incremental_loading
+  reason: owner_rejected_the_product_composition_not_only_visual_parity
+  consequences:
+    - migrate_existing_source_static_and_client_consumers_then_SoT_projection_and_tests_together
+    - old_two_group_frames_and_five_specimen_packets_are_history_not_target_page_design
+    - shared_asset_catalog_work_and_other_product_routes_may_continue
+  approved: explicit_owner_statement_Free_is_an_ordinary_filtered_event_list_not_separate_exhibitions
+  completion_condition: corrected_product_behavior_and_same_state_Astro_SoT_projection_verified
+  does_not_waive: global_asset_geometry_provenance_cancellation_and_verified_Penpot_claim_gates
+  production_promotion_authorized: false
 
 product:
   route: /podborki/besplatnye-sobytiya/
-  surface_name: Подборка бесплатных событий
+  surface_name: Бесплатные события
+  archetype: shared_filtered_event_listing
+  current_outcome: OWNER_APPROVED_IMPLEMENTATION_PENDING
   intended_terminal_outcome: READY_FOR_OWNER_REVIEW
-  current_outcome: BLOCKED_BEFORE_OWNER_REVIEW
   user_jobs:
-    - Понять, какие события действительно бесплатны.
-    - Быстро увидеть, что, где и когда происходит.
-    - Выбрать интересное событие.
-    - Сохранить событие в календарь.
-    - Дать обратную связь, поделиться или отметить интерес.
-    - Продолжить навигацию по мобильному сайту.
+    - Найти интересные актуальные события с подтверждённым бесплатным входом.
+    - Просматривать один список, включая бесплатные выставки, без искусственных секций по типу.
+    - Получать персональный порядок и следующую порцию результатов, не выходя за фильтр.
+    - Видеть дату, время, место, условия входа и общие действия карточки.
+  shared_owners: existing_listing_header_filters_EventCard_AdaptiveEventCardGrid_feed_and_personalization
+  free_specific_scope: eligibility_filter_title_and_existing_semantic_free_identity
+  new_standalone_free_listing_framework: forbidden
+  special_editorial_landing_or_oversized_donor_hero_required: false
+  source_medallion_may_be_preserved_without_controlling_page_composition: true
 
-reference_case:
-  scenario_mobile: free-collection-september-mobile-v3
-  fixture_corpus: ui-reference-events.v2
-  fixture_order:
-    - event.real.8006
-    - event.real.8200
-    - event.real.2182
-    - event.real.6711
-    - event.real.7609
-  reference_iso: 2026-08-29T14:00:00+02:00
-  timezone: Europe/Kaliningrad
+listing_semantics:
+  membership:
+    predicate: existing_confirmed_free_admission_and_applicable_public_active_date_filters
+    free_filter_applies_to: [initial_SSG, client_rerank, load_more, profile_change, retry, fallback]
+    unknown_or_paid_admission_to_fill_a_row: forbidden
+    exhibitions: included_in_the_same_eligible_pool_and_ranked_sequence
+    unknown_time_or_multiday_duration_is_not_exclusion: true
+    occurrence_identity_and_duplicate_policy: existing_shared_product_contract_not_new_per_page_heuristic
+  sequence:
+    result_stream_count: 1
+    forced_exhibition_or_timed_partition: forbidden
+    per_type_tail_or_separate_exhibition_heading: forbidden
+    ordering: existing_personalization_over_the_complete_eligible_pool
+    no_profile_or_unavailable_personalization: stable_shared_unpersonalized_fallback_same_filter
+    initial_static_fallback_is_final_personalized_acceptance: false
+    all_eligible_results_reachable_through_existing_loading_mechanism: true
+    incremental_loading_preserves_filter_identity_order_and_duplicate_policy: true
+    no_infinite_scroll_or_new_backend_is_implied: true
+    no_unrequested_reorder_while_reading_and_no_lost_focus: true
+  presentation:
+    h1: Бесплатные события
+    header_filters_spacing_colors_and_actions: ordinary_shared_listing_roles
+    desktop_full_row_columns:
+      '1440x900': 3
+      '1920x1080': 3
+    desktop_fewer_than_three_results: regular_column_width_not_stretch_or_fake_items
+    mobile_and_intermediate_widths: existing_shared_responsive_listing_contract
+    no_debug_or_fixture_copy_in_product_header: true
+    count_is_secondary_metadata_not_a_separate_editorial_section: true
+    count_scope: actual_filtered_result_set_under_current_state_not_non_exhibition_subset
+    loaded_count_and_known_total_are_distinct: true
+    unknown_total_must_not_be_invented: true
+    Russian_count_forms: ['1 событие', '2 события', '5 событий', '11 событий', '21 событие', '22 события', '25 событий']
+    empty_loading_error_and_exhausted_are_distinct_states: true
+    no_matching_items_copy: Подходящих событий пока нет
+
+source_diagnosis:
+  repository: onedayonemasterpiece/events-bot-new
+  inspected_sha: f2250f02190573cbdc16a921521269f7b1983db8
+  route: site/src/pages/podborki/[slug]/index.astro
+  composition: site/src/components/FreeCollectionSurface.astro
+  eligibility: site/src/data/searchCollections.ts
+  confirmed:
+    - route_special_cases_free_slug_instead_of_using_an_ordinary_shared_listing
+    - FreeCollectionSurface_splits_the_incoming_events_into_regularEvents_and_exhibitionEvents
+    - separate_static_grids_use_a_literal_timed_and_exhibitions_variant
+    - section_title_interpolates_regularEvents_length_with_invariant_word_sobytiy
+    - both_static_grids_already_declare_rowSize_3
+    - surface_script_only_handles_sticky_medallion_not_personalized_order_or_loading
+    - other_materialized_collection_route_also_uses_the_same_incorrect_invariant_count_suffix
+  desktop_two_cards_exact_cause: requires_current_target_measurement_two_remaining_items_are_not_proof_of_two_CSS_columns
+  source_read_is_new_browser_reproduction: false
+
+review_target:
+  before_source: 8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f
+  before_build: preview-real-8b1bb8129-normalized-20260904-v1
+  before_snapshot: issue621-audioreview-20260904T205339Z
+  snapshot_sha256: 14950c626a9e1e977e0d734fc4e7ddf93769ea038ddbde2d9db732d402da5049
+  clock: '2026-09-04T22:53:39+02:00'
+  catalog_mode: slice
+  catalog_limit: 300
   locale: ru-RU
+  timezone: Europe/Kaliningrad
+  successor: resolve_current_exact_source_manifest_and_profile_state_in_issue_621
+  same_snapshot_facts_are_preserved_but_rejected_grouping_is_not_an_expected_result: true
+  list_count: derive_from_the_eligible_corpus_and_state_not_from_specimen_export_count
+  projection_sample: source_bound_specimens_from_the_corrected_list_not_a_complete_five_item_page
+  personalization_comparison_pins: [profile_or_no_profile, eligible_ids, resolved_order, loading_stage, cursor]
 
 required_review_surfaces:
   desktop:
-    viewport: 1280xauto
-    states: [top, scrolled, full]
+    viewport: 1440x900
+    states: [initial, personalized, load_more, scrolled, exhausted]
+  full_hd:
+    viewport: 1920x1080
+    states: [initial, personalized, load_more, scrolled, exhausted]
   mobile:
     viewport: 390x844
-    states: [top, scrolled, full]
+    states: [initial, personalized, load_more, scrolled, exhausted]
 
 local_acceptance:
   inherited_global_contract_gates: true
-  factual_exactness:
-    expected_event_count: 5
-    all_events_free_in_reference_case: true
-    exact_fields:
-      - fixture_id
-      - order
-      - grouping
-      - content
-      - date
-      - time
-      - admission
-      - place
-      - counts
-      - image
-      - crop_and_focal_intent
-    stale_or_cross_fixture_data_allowed: false
-  visual_regions:
-    - media_crop
-    - title_and_text_wrapping
-    - metadata
-    - calendar_and_utility_actions
-    - feedback_and_social_proof
-    - shell_and_mobile_navigation
-  interaction_semantics:
-    - calendar
-    - not_interested
-    - share
-    - like_or_interest
-    - mobile_navigation
-  immutable_asset_identity_required: true
-  exact_geometry_proof_required: true
-  fallback_icons_allowed: false
-  approximate_geometry_allowed: false
-  cancelled_or_unreceipted_run_allowed: false
+  source_and_browser_regressions:
+    - mixed_two_timed_and_three_exhibitions_are_one_ordered_five_item_stream
+    - profile_can_interleave_exhibitions_and_timed_events_without_regrouping_by_type
+    - three_eligible_results_fill_three_ordinary_desktop_columns
+    - true_one_or_two_result_case_retains_ordinary_column_width_and_correct_count
+    - loaded_and_total_counts_use_shared_Russian_pluralization_for_0_1_2_5_11_21_22_25
+    - load_more_retry_and_profile_change_cannot_admit_paid_or_unknown_price_events
+    - no_duplicates_no_layout_admission_loss_and_stable_reading_focus
+    - late_resources_and_long_card_content_do_not_break_shared_internal_tracks
+    - normal_no_profile_initial_render_loading_failure_and_empty_state_are_checked
+    - no_timed_and_exhibitions_marker_or_two_group_oracle_survives_as_current_acceptance
+    - source_projection_and_existing_free_capture_validator_use_the_new_profile_not_historical_grouping
+  expected_results_are_not_generated_from_rejected_markup: true
+  source_test_or_static_mock_is_organic_runtime_acceptance: false
+  personal_visual_inspection_required: true
+  measurements_and_screenshots_pin_actual_source_viewport_and_list_state: true
 
-asset_bindings:
-  status: BLOCKED_UNRESOLVED_ASSET_IDENTITY
-  required_slots:
-    - asset_id: icon.action.not_interested
-      semantic_slot: card.utility.not_interested
-      registry_status: UNRESOLVED_BLOCKING
-    - asset_id: icon.action.calendar_add
-      semantic_slot: card.primary_action.calendar_add
-      registry_status: UNRESOLVED_BLOCKING
-    - asset_id: icon.action.share
-      semantic_slot: card.social.share
-      registry_status: UNRESOLVED_BLOCKING
-    - asset_id: icon.action.favorite
-      semantic_slot: card.social.favorite
-      registry_status: UNRESOLVED_BLOCKING
-  acceptance:
-    exact_source_path_required: true
-    immutable_commit_required: true
-    git_blob_sha1_or_sha256_required: true
-    svg_view_box_required: true
-    nominal_icon_box_required: true
-    fill_stroke_contract_required: true
-    astro_consumer_binding_required: true
-    penpot_consumer_binding_required: true
-    owner_disposition_required: true
-
-geometry_proof:
-  status: BLOCKED_UNRESOLVED_GEOMETRY
-  authority: pinned_astro_computed_style_and_source
-  critical_regions:
-    - event_card_outer_surface
-    - event_card_media_mask
-    - admission_pill
-    - calendar_primary_action
-    - not_interested_action
-    - social_action_row
-    - share_control
-    - favorite_control
-  required_context:
-    - astro_repository
-    - astro_commit
-    - source_component_path
-    - selector_or_state_identity
-    - scenario_id
-    - viewport
-    - dpr
-    - font_set
-    - locale
-    - fixture_id
-    - reference_clock
-  required_properties:
-    - width
-    - height
-    - border_radius_top_left
-    - border_radius_top_right
-    - border_radius_bottom_right
-    - border_radius_bottom_left
-    - border_width
-    - border_style
-    - overflow
-    - clipping_or_mask
-    - padding
-    - gap
-    - alignment
-    - aspect_ratio
-    - icon_box
-    - icon_text_gap
-    - resolved_token_name_and_value
-  proof_status:
-    event_card_outer_surface: unresolved
-    event_card_media_mask: unresolved
-    admission_pill: unresolved
-    calendar_primary_action: unresolved
-    not_interested_action: unresolved
-    social_action_row: unresolved
-    share_control: unresolved
-    favorite_control: unresolved
+asset_and_geometry_proof:
+  inherit: requirements_contract
+  registry_lock: contracts/requirements-lock.yaml
+  required: exact_current_source_assets_and_geometry_not_substitute_icons_or_freehand_rebuild
+  historical_unresolved_asset_records_are_not_a_fresh_current_census: true
+  resolve_current_bindings_before_materialization: true
 
 materialization:
-  status: BLOCKED
-  allowed_to_mutate_penpot: false
-  blockers:
-    - asset-bindings-not-content-addressed
-    - geometry-not-proven-from-pinned-astro-computed-style
-    - materialization-provenance-receipt-missing
-    - stop-cancel-semantics-not-proven
-    - owner-rejected-current-frame
+  status: BLOCKED_REJECTED_PAGE_COMPOSITION
+  page_reconstruction_allowed_now: false
+  existing_rejected_page_may_be_promoted_or_canonicalized: false
   resume_condition:
-    - resolve all required asset identities
-    - record exact geometry proof for every critical region
-    - start a new explicitly identified materialization run
-    - prove active lease and cancellation checks
-    - emit a complete provenance receipt
+    - implement_and_validate_corrected_filtered_listing_behavior
+    - regenerate_existing_source_bound_projection_at_that_exact_state
+    - resolve_assets_geometry_active_single_writer_and_receipt_per_global_contract
+  full_page_Penpot_required_before_this_owner_review: false
+  separate_materials_catalog_work: governed_by_programme_contract_AR_16_not_blocked_by_this_page_exception
+  historical_Packet_equals_new_source: false
+  A_equals_S_equals_P_without_verified_P_round_trip: false
 
-provenance_receipt_requirements:
-  required: true
-  fields:
-    - run_id
-    - actor_type
-    - actor_id
-    - triggered_by
-    - astro_repository
-    - astro_commit
-    - route
-    - scenario
-    - viewport
-    - ui_sot_repository
-    - ui_sot_commit
-    - requirements_contract_hash
-    - page_profile_hash
-    - asset_registry_hash
-    - materializer_name
-    - materializer_version
-    - materializer_commit
-    - started_at
-    - completed_at
-    - final_state
-    - penpot_file_id
-    - penpot_page_id
-    - penpot_frame_ids
-    - mutation_count
-    - mutated_object_ids
-    - asset_binding_digest
-    - geometry_proof_digest
-    - validation_result
-    - owner_review_state
-  missing_receipt_result: NON_ACCEPTED_EVIDENCE
-
-run_control:
-  states: [ACTIVE, CANCEL_REQUESTED, CANCELLED, COMPLETED, FAILED, STALE]
-  owner_stop_prevents_later_mutations: true
-  queued_writes_recheck_active_run_lease: true
-  post_cancel_mutation_is_invalid: true
-  stale_run_may_promote_frame: false
-  continued_mutation_proves_executor_identity: false
-
-owner_review_incident:
-  incident_id: free-collection-penpot-visual-drift-2026-08-30
-  date: '2026-08-30'
-  owner_decision: REJECTED
-  observed:
-    - Иконки не соответствуют Astro и ранее согласованному визуальному языку дизайн-системы.
-    - Использованы визуально общие или подменённые символы без доказанной asset identity.
-    - Скругления, pill-формы и геометрия карточки заметно расходятся с референсом.
-    - После owner stop наблюдались дальнейшие изменения Penpot.
-  diagnosis:
-    - The previous profile named semantic interactions but did not bind exact graphical asset bytes.
-    - The previous profile did not require per-region computed-style geometry proof before mutation.
-    - Executor identity and cancellation state were not proven by a materialization receipt.
-  attribution:
-    codex_or_other_executor_proven: false
-    note: >
-      Continued mutations are evidence of missing provenance/run control, not
-      proof that Codex or any named actor performed them.
-  consequence:
-    current_penpot_snapshot_approved: false
-    current_penpot_snapshot_may_be_used_as_visual_truth: false
-    owner_review_may_resume: false
-
-known_baseline:
-  normative: false
-  astro_head: d447b6c1514784b8c75ad1cb6cbe9d0ff2986790
-  ui_sot_head: 4d663d2d67d624c0eb86070c73213ca9e2971a49
-  penpot_file_id: 3be9e5e1-190f-8090-8008-713c0fbe6260
-  diagnostic_page_id: fb44de8f-cd63-8060-8008-8f839b2fe1df
-  last_observed_penpot_revision: 3111
-  evidence_root: evidence/page-closure/free-collection-v3/renderer-integrity
-  owner_review_state: REJECTED_2026_08_30
-
-notes:
-  - known_baseline is descriptive and may advance without changing this profile.
-  - This profile specializes the canonical contract and does not restate or override global policy.
-  - A UI SoT may reference bytes stored elsewhere, but it must centrally own immutable content-addressed bindings.
-  - No Penpot materialization is authorized until asset and geometry blockers are resolved.
+history:
+  prior_profile_version: 1.1.0
+  prior_profile_commit: fff1f868c66330cbd4d460cded40072793b56d68
+  prior_profile_blob: 0d279aeeb55a31d9ebbb5d6896c13f59479d3275
+  preserved_in_git: original_asset_blockers_geometry_fields_run_control_and_2026_08_30_incident
+  historical_reference_case:
+    normative: false
+    scenario_mobile: free-collection-september-mobile-v3
+    fixture_corpus: ui-reference-events.v2
+    specimen_ids: [event.real.8006, event.real.8200, event.real.2182, event.real.6711, event.real.7609]
+    reference_iso: '2026-08-29T14:00:00+02:00'
+    expected_five_was_a_specimen_case_not_the_full_current_filtered_catalogue: true
+  old_as_is_grouping_and_surface_layout_are_not_product_acceptance: true
