@@ -1,6 +1,6 @@
 # Owner audio review — 2026-09-05
 
-Status: **REOPENED_AFTER_OWNER_AUDIO_REVIEW**. Delivery SHA, runs, artifact hashes and tool recovery belong to [STATUS.md](STATUS.md). The governing contract is [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.14.2 under [ASP conformance](../product-governance/astro-sot-penpot-conformance.md).
+Status: **REOPENED_AFTER_OWNER_AUDIO_REVIEW**. Delivery SHA, runs, artifact hashes and tool recovery belong to [STATUS.md](STATUS.md). The governing contract is [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.14.3 under [ASP conformance](../product-governance/astro-sot-penpot-conformance.md).
 
 This is the existing finite correction register, not a new normalization programme. Original source analysis is retained [at c4d84b4](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/c4d84b4b91ee1a7c86e2670eed7a6344e5d96a9f/docs/launch-normalization/owner-audioreview-20260905.md); the full pre-clarification register is retained [at 3f303238](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/3f303238a96f1b20832fcedf72535233b4bc5392/docs/launch-normalization/owner-audioreview-20260905.md).
 
@@ -34,7 +34,7 @@ The three full transcripts, including `Полная расшифровка`, wer
 | **AR-02 V2 — static Home replaced animated Hero Talk** | Donor scenes/mosaic replaced by a static feature; donor located at `events-bot-new@4243401a4`. | `HomeHeroTalk.astro`, `homeHeroTalk.ts`, editorial/current-event bindings and Home. | SOURCE+DIAGNOSTIC: scene behavior restored with eligible events and literal-title fallback rather than expired IDs/invented claims; timed desktop cycle/pause, responsive initial states, reduced motion/no-JS ran. Real September scene eligibility/content/media and complete independent review remain. |
 | **AR-03 V2 — brand opens review hub instead of Home** | Actual rejected product brand navigation reached `/__preview/` despite HTTP200. | `siteHomeHref()` in `events.ts`; brand, breadcrumbs, mobile navigation and other callers. | SOURCE+DIAGNOSTIC: product Home separated centrally. Published prefix/PWA/current-candidate acceptance remains. AR-18 now also checks coherent primary destinations across devices. |
 | **AR-04 V1/V3 — missing row item, huge singleton, density** | Packing dropped admitted items; grid stretched remainders. Home/free/recommendations differ. | `relatedCardLayout.mjs`, `AdaptiveEventCardGrid.astro` and runtime; static/client-created Home, collections, related/personal feeds. | SOURCE+DIAGNOSTIC: input preservation and normal-width remainders; actual Home DOM with explicit local-profile fixture1/2/3/4/5/7/10; poisoned singleton rejected. Published4ff0aeb9f Free12→111 passes internal track/regular remainder checks at3 widths; compiled real5370 successor0b08f0a80 also passes packed internal anatomy at3 widths. Earlier24-item/two-grid reference is superseded by the accepted one-listing profile. True organic cloud feed and full independent density/framing review remain; equal outer rectangles alone are insufficient. |
-| **AR-05 V1/V2/V3 — OCR framing and medallions** | Tall posters/top text; missing Tretyakov mark on5370; external medallion placement. | Shared media geometry/treatment, EventCard/MediaFrame, EventTokenMedallions; static and dynamic consumers. | Unlocated/unknown OCR is contained; area ceiling alone no longer authorizes crop. Synthetic regressions pass. Actual poster grouping/internal tracks, loaded/broken/no-source census and5370 edge placement remain. Do not place medallions over important text without source-bound safe-region proof. |
+| **AR-05 V1/V2/V3 — OCR framing and medallions** | Tall posters/top text; missing Tretyakov mark on5370; external medallion placement. | Shared media geometry/treatment, EventCard/MediaFrame, EventTokenMedallions; static and dynamic consumers. | Natural/proven grouping comes first; latest owner decision requires minimal cover as final fallback, with unverified safety labeled honestly. Synthetic regressions pass. Actual poster grouping/internal tracks, loaded/broken/no-source census and5370 edge placement remain. Do not place medallions over important text without source-bound safe-region proof. |
 | **AR-06 V2 — action group lacks useful visible text** | Compact calendar plus icon-only Share can leave no visible label. | `DesktopEventActionPanel`, CalendarLink and shared action/reaction owners; compact/full states. | SOURCE keeps visible Share. Actual5370 modes/widths, long labels, focus and hit targets still need acceptance. aria-label is not a visible label. |
 | **AR-07 V1 — Today changes repeatedly after loading** | Actual `/segodnya/` redirected to `/date-2026-09-05/` despite September4 manifest clock. | Date availability/runtime and listing hydration across date routes. | SOURCE+DIAGNOSTIC for frozen clock; date tests pass. Public4ff0aeb9f Today retains its exact `/segodnya/` URL at3 widths with frozen September4 manifest; full cold/warm/profile chronology and avoidable relayout remain uncertified. Do not disable personalization to hide the symptom. |
 | **AR-08 V2 — inconsistent exhibition new-count** | Rejected shell lacked badge elsewhere; Exhibitions showed4. | Shared EventLayout/projection count input and seen-state runtime; all shell consumers. | SOURCE+DIAGNOSTIC: shared input and mobile navigation. Published same-snapshot4ff0aeb9f screenshots show shared4-new badge rather than fixture5; complete seen-state transition acceptance remains. No hardcoded badge value. |
@@ -61,8 +61,7 @@ islands. Erroneous mobile All collections entry is removed, not mass route delet
 AR-04/05 reopen painted-image framing on Free desktop/8673 related cards and
 verify suspected mobile Vini Love by actual ID/asset. Contract1.14.1 resolves the
 protective-contain ambiguity: no arbitrary fixed frame letterboxing acceptance;
-text safety/all IDs/row geometry are tested jointly. Infeasible actual sets require
-explicit minimal evidence, not crop/stretch/drop. AR-13 includes Free mobile
+crop safety/all IDs/row geometry are tested jointly. The later owner correction below supersedes proof-required contain: crop replaces fields; stretching and dropping remain forbidden. AR-13 includes Free mobile
 heading/medallion composition; AR-14 retains factual Weekend corpus/export comparison.
 Home mosaic light square and scroll failure remain reproduction questions, not
 source-proven causes. Final nav skin is deferred, functionality is not.
@@ -74,9 +73,9 @@ rows across the **full available eligible pool**, not only the first12 Free item
 combine natural-ratio OCR with visual-only fillers. Preserve all eligible events,
 then freeze the already visible prefix during append/feedback. First-page
 incompatibility is not proof of full-pool scarcity. Only genuine remaining scarcity
-may use the safest vertical crop within20%, with protected-text safety retained.
+uses the safest available crop. The later explicit owner decision is **no fields; final fallback is crop**. Twenty percent is preferred, not a veto. Missing OCR proof must be labeled unverified, not replaced with fields or fabricated safety. Natural mobile geometry still avoids needless crop.
 The previously reported8080/8308 pair diagnoses a bad fixed grouping, not a
-product-level blocker. CODE continues this correction on the same owners.
+product-level blocker. CODE continues this correction on the same owners. Exhibition large cards/decks/media use shared card/hero corner roles. Hide the redundant contextual date pills only on desktop Today, Tomorrow and Date, preserving mobile and primary navigation.
 
 ## Bounded real-data findings for AR-14
 

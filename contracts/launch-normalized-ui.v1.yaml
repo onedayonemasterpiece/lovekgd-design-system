@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.14.2
+version: 1.14.3
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -56,28 +56,31 @@ owner_review_correction:
   normal_grid_remainder: regular_column_width_not_stretch
   update_remainder_source_runtime_registry_tests_together: true
   OCR_crop:
-    maximum_total_area_fraction: 0.2
-    preserve_important_text_required: true
-    area_budget_alone_authorizes_crop: false
-    unproven_text_safety: preserve_full_source_and_solve_natural_frame
-    contain_in_arbitrary_fixed_frame_is_accepted_layout: false
+    preferred_total_area_fraction: 0.2
+    preferred_budget_is_hard_veto: false
+    preserve_important_text: use_best_available_current_evidence_without_fabricated_proof
+    unproven_text_safety: explicit_minimal_cover_fallback_not_contain_fields
     loaded_media_letterboxing_allowed: false
-    joint_acceptance: [painted_image_bounds, protected_text, all_admitted_ids, row_geometry, stable_visible_order]
-    composition_order: [full_eligible_pool_grouping_before_first_page_limit, compatible_natural_ratio_grouping_with_visual_fillers, safest_proven_vertical_crop_within_budget_only_if_needed]
+    natural_ratio_contain_without_fields_allowed: true
+    composition_order: [full_eligible_pool_grouping_before_first_page_limit, compatible_natural_ratio_grouping_with_visual_fillers, safest_proven_crop, minimal_cover_fallback]
+    fallback_binding: {treatment: document-fallback-cover, permission: fallback-minimal, unproven_safety: unverified-text}
+    joint_acceptance: [painted_image_bounds, truthful_crop_safety, all_admitted_ids, row_geometry, stable_visible_order]
     variable_card_width_within_row: prohibited_by_owner
-    initial_order: compose_compatible_rows_from_all_available_eligible_candidates_before_first_paint
     visible_order: freeze_already_rendered_prefix_and_active_card_during_append_feedback
     first_page_slice_alone_proves_corpus_infeasibility: false
-    no_feasible_group: explicit_minimal_corpus_conflict_not_silent_letterboxing_or_loss
-    prohibited_substitutes: [stretch, blur_padding, unconditional_cover, dropped_events]
+    no_feasible_group: balanced_cover_target_minimizing_worst_crop_preserving_all_events
+    prohibited_substitutes: [stretch, blur_padding, repeated_edges, dropped_events, fake_text_safety]
     missing_or_broken_resource: distinct_truthful_fallback_not_loaded_media_exception
     clarification:
-      before: protective_contain_could_be_misread_as_accepted_fixed_ratio_letterboxing
-      after: protection_and_no_fields_are_joint_constraints_on_frame_and_row_selection
-      reason: existing_REL_053_reaffirmed_by_owner_reviews_114734_and_115824
-      consequences: fixed_5_by_4_document_frames_and_separate_green_geometry_checks_do_not_pass
-      type: existing_product_requirement_clarification
-      approved_by: owner_issue_621_comment_5551113067_and_CODE_continuation
+      supersedes: proof_required_contain_fallback_and_hard_twenty_percent_veto
+      approved_by: owner_CODE_continuation_2026_09_05_no_fields_final_crop
+  exhibition_large_radii:
+    row: ke_shape_radius_card
+    deck_and_media: ke_shape_radius_hero
+  contextual_date_navigation:
+    hidden_desktop_routes: [today, tomorrow, date]
+    desktop_min_width_px: 981
+    preserve: [mobile_navigation, weekend, popular, primary_navigation]
   action_group:
     at_least_one_visible_label: calendar_or_share
     aria_label_or_tooltip_is_visible_label: false
