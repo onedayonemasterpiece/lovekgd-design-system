@@ -1,104 +1,139 @@
 {
   "schema_version": 1,
   "pattern_id": "pattern.detached-chrome-control-islands",
-  "display_name": "Detached chrome / floating control islands",
+  "display_name": "KenigEvents site-wide Floating Islands",
+  "updated_at": "2026-09-05",
   "direction_status": "accepted_for_roadmap",
   "implementation_status": "not_started",
-  "current_phase": "reference_captured",
-  "owner_decision": "design_and_implement_after_as_is_archetype_parity",
+  "current_phase": "system_design_documented",
+  "owner_decision": "document_design_now_adopt_on_honest_target_baseline_without_claiming_unverified_conformance",
+  "system_specification": "system-design-v1.md",
+  "consumer_matrix": "consumer-matrix-v1.md",
+  "implementation_package": "implementation-package-1.md",
+  "evidence_and_decisions": "sources-and-decisions-v1.md",
   "reference_pack": {
     "artifact_id": "floating-control-islands-reference-2026-08",
     "status": "exploration_input",
     "source_informed": true,
     "final_lovekgd_design": false,
-    "files": [
-      "README.md",
-      "screen-observations.json",
-      "source-manifest.json",
-      "assets/reference-board.svg",
-      "assets/anatomy.svg"
-    ]
+    "files": ["README.md", "screen-observations.json", "source-manifest.json", "assets/reference-board.svg", "assets/anatomy.svg"],
+    "historical_gate_text_superseded_by": "system-design-v1.md#fi-01-уточнение-старого-entry-gate"
+  },
+  "design_gate": {
+    "documentary_design_allowed_now": true,
+    "full_site_normalization_required_before_documentary_design": false,
+    "native_penpot_required_before_documentary_design": false,
+    "conditions": ["read_actual_owners_and_archetypes", "separate_existing_evidence_from_proposals", "preserve_shared_runtime_and_release_authority"]
   },
   "required_entry_gate": {
-    "gate_id": "as_is_archetypes_and_three_way_parity",
+    "gate_id": "honest_affected_consumer_baseline_before_visual_change",
+    "scope": "affected_consumer",
     "all_conditions_required": true,
-    "conditions": [
-      "all_current_production_routes_mapped_to_as_is_archetypes",
-      "target_archetype_contracts_stable",
-      "astro_git_sot_penpot_baseline_version_equal",
-      "fixtures_states_and_semantic_regions_equal",
-      "current_top_and_bottom_chrome_ownership_known",
-      "safe_area_keyboard_scroll_overlay_and_occlusion_have_browser_evidence",
-      "no_speculative_component_merges_for_affected_surfaces"
-    ]
+    "conditions": ["pinned_source_and_corpus_clock", "explicit_component_asset_state_ownership", "known_deviations_recorded_without_canonizing_defects", "available_structural_evidence_and_missing_P_explicit", "compatible_shared_family_integration_lane"],
+    "three_way_equality_claim_requires_verified_native_P": true,
+    "production_requires_existing_conformance_and_release_gates": true,
+    "normalization_exit_gate_changed": false
   },
   "design_program": {
-    "site_specific_variants_required": true,
-    "abstract_variants_are_final_output": false,
-    "third_party_screen_cloning_allowed": false,
-    "universal_site_wide_replacement_allowed": false,
-    "consumer_selection": "evidence_backed_after_parity_gate",
-    "steps": [
-      "map_real_lovekgd_archetypes_and_user_jobs",
-      "select_applicable_semantic_regions",
-      "design_custom_variants_on_real_page_fixtures",
-      "separate_surface_composition_control_and_runtime_contracts",
-      "define_responsive_state_fallback_and_accessibility_behavior",
-      "perform_owner_review_on_specific_lovekgd_pages",
-      "accept_versioned_pattern_and_variant_contracts",
-      "materialize_native_penpot_and_isolated_astro_candidates",
-      "verify_browser_and_device_conformance",
-      "migrate_selected_consumers_and_enable_drift_gates"
-    ]
+    "consumer_selection": "actual_registry_mapping_documented_now",
+    "first_visible_consumer": "popular-listing",
+    "first_package": "FI-P1",
+    "runtime_scope": "extend_existing_EventLayout_owner_not_parallel_shell",
+    "search_role": "consumer_with_owned_domain_API",
+    "full_site_skin_redesign_in_first_package": false
   },
-  "design_layers": [
-    "surface_primitive",
-    "composition",
-    "control_semantics",
-    "runtime_layout_behavior"
+  "design_layers": ["surface_primitive", "composition", "control_semantics", "runtime_layout_behavior"],
+  "bottom_architectures": ["floating_composer", "floating_navigation_dock", "persistent_state_dock_plus_navigation", "transactional_CTA_in_existing_exclusive_mode"],
+  "site_specific_variant_registry": [
+    {
+      "variant_id": "islands.discovery.v1",
+      "composition_id": "C1",
+      "definition": "consumer-matrix-v1.md",
+      "representative_route": "/segodnya/",
+      "representative_archetype_id": "today-listing",
+      "user_job": "retain_page_identity_and_primary_destinations",
+      "status": "proposed_documented",
+      "baseline_binding": {"source_sha": "0b08f0a806a9531c8bf253672e1bb5c712764064", "evidence_status": "target_baseline_to_capture", "penpot_binding": null},
+      "candidate_binding": null
+    },
+    {
+      "variant_id": "islands.section-context.v1",
+      "composition_id": "C2",
+      "definition": "consumer-matrix-v1.md",
+      "representative_route": "/populyarnoe/",
+      "representative_archetype_id": "popular-listing",
+      "user_job": "retain_current_section_while_reading_and_scrolling_back",
+      "status": "proposed_documented",
+      "baseline_binding": {"source_sha": "4ff0aeb9fde9bccfcad6aac70f4acc862588dd15", "evidence_status": "bounded_browser_observation_only", "penpot_binding": null},
+      "candidate_binding": null
+    },
+    {
+      "variant_id": "islands.single-shelf.v1",
+      "composition_id": "C3",
+      "definition": "consumer-matrix-v1.md",
+      "representative_route": "/vystavki/",
+      "representative_archetype_id": "exhibitions",
+      "applicability_condition": "one_actual_independent_shelf_with_a_useful_visual_boundary",
+      "user_job": "perceive_one_content_block_without_fixing_its_cards_to_viewport",
+      "status": "proposed_documented",
+      "baseline_binding": null,
+      "candidate_binding": null
+    },
+    {
+      "variant_id": "islands.conversation.v1",
+      "composition_id": "C4",
+      "definition": "consumer-matrix-v1.md",
+      "representative_route": "/poisk/",
+      "representative_archetype_id": "search",
+      "user_job": "read_retained_answers_and_refine_with_reachable_input_and_stop",
+      "status": "proposed_documented",
+      "baseline_binding": {"source_sha": "0b08f0a806a9531c8bf253672e1bb5c712764064", "evidence_status": "anonymous_existing_search_observation_not_conversational_runtime", "penpot_binding": null},
+      "candidate_binding": null
+    },
+    {
+      "variant_id": "islands.immersive-detail.v1",
+      "composition_id": "C5",
+      "definition": "consumer-matrix-v1.md",
+      "representative_route_family": "/sobytiya/*/",
+      "representative_archetype_id": "event-detail",
+      "user_job": "view_event_media_and_act_without_competing_navigation_or_occlusion",
+      "status": "proposed_documented",
+      "baseline_binding": null,
+      "candidate_binding": null
+    },
+    {
+      "variant_id": "islands.transactional-reading.v1",
+      "composition_id": "C6",
+      "definition": "consumer-matrix-v1.md",
+      "representative_route": "/partnerstvo/",
+      "representative_archetype_id": "information-pages",
+      "user_job": "read_or_complete_a_form_without_losing_focus_or_error_state",
+      "status": "proposed_documented",
+      "baseline_binding": null,
+      "candidate_binding": null
+    }
   ],
-  "bottom_architectures": [
-    "floating_composer",
-    "floating_navigation_dock",
-    "persistent_state_dock_plus_navigation",
-    "borderless_semantically_grouped_navigation"
-  ],
-  "site_specific_variant_registry": [],
   "variant_registry_policy": {
-    "populate_before_parity_gate": false,
-    "speculative_entries_allowed": false,
-    "required_fields": [
-      "variant_id",
-      "target_archetype_id",
-      "route_fixtures",
-      "user_job",
-      "affected_regions",
-      "baseline_binding",
-      "candidate_binding",
-      "runtime_contract",
-      "status",
-      "evidence"
-    ]
+    "documented_proposals_allowed_before_full_site_parity": true,
+    "speculative_production_entries_allowed": false,
+    "missing_binding_is_not_evidence": true,
+    "registry_is_not_release_or_component_manifest": true,
+    "exact_target_baseline_required_before_visual_implementation": true,
+    "accepted_status_requires_owner_and_conformance_evidence": true
   },
   "authority": {
-    "component_family_accepted": false,
-    "tokens_accepted": false,
-    "reuse_existing": [],
-    "new_component": [],
-    "canonical_penpot_materialization_allowed_now": false,
+    "new_component_family_accepted": false,
+    "new_tokens_accepted": false,
+    "existing_approved_navigation_preserved": true,
+    "canonical_penpot_materialization_authorized_by_this_documentary_task": false,
     "header_replacement_authorized_now": false,
-    "bottom_navigation_replacement_authorized_now": false
+    "bottom_navigation_replacement_authorized_now": false,
+    "production_promotion_authorized_now": false,
+    "shared_STATUS_changed": false,
+    "asp_conformance_claimed": false,
+    "normalization_complete_claimed": false
   },
-  "completion_criteria": [
-    "custom_variants_exist_for_selected_real_lovekgd_archetypes",
-    "each_variant_has_accepted_git_sot_contract",
-    "exact_baseline_and_candidate_bindings_exist",
-    "native_penpot_and_astro_candidate_share_one_version",
-    "mobile_desktop_scroll_keyboard_safe_area_underlay_occlusion_and_accessibility_verified",
-    "owner_review_closed_on_specific_pages",
-    "selected_production_consumers_migrated",
-    "drift_gates_enabled_for_promoted_variants"
-  ],
+  "completion_criteria": ["accepted_site_specific_variants", "pinned_A_S_native_P_for_claimed_cases", "browser_and_required_device_checks", "authorized_selected_consumer_migration", "rollback_and_drift_protection"],
   "checklist_binding": {
     "pull_request": "https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/39",
     "branch": "docs/design-system-progress-checklist-20260820",
