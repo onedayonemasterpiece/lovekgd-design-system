@@ -1,246 +1,95 @@
-# Floating Islands v1.1 — одна верхняя строка и осмысленная компактизация
+# Floating Islands — композиция, уточнение владельца v1.2
 
-Дата: 2026-09-05. Существующий pattern: `pattern.detached-chrome-control-islands`, PR #47. **Документальное уточнение системы, не внедрённый UI и не принятый visual skin.** Родитель — [system-design-v1.md](system-design-v1.md); обязательные upstream-стыки — [release-bindings-v1.md](release-bindings-v1.md). Здесь один владелец новых правил верхней композиции; C1–C6 и их потребители сохраняются.
+Дата: 2026-09-05. Существующий pattern `pattern.detached-chrome-control-islands`, PR #47. Путь файла сохранён для существующих ссылок; **текущая revision 1.2**, прежняя [v1.1@eb330959](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/eb3309591be368d729ea52c90b6ef99d1acbad6b/docs/research/floating-control-islands-2026-08/top-row-composition-v1.1.md) — история. Общая система: [FI-01–20](system-design-v1.md); продуктовые стыки: [RB-01–03](release-bindings-v1.md). Эта revision адресно меняет composition rules ниже, не отменяет A=S=P/release gates.
 
-## 1. Решение владельца и конкретная поправка к v1
+## 1. Общее брендовое меню не меняется
 
-Новая первичная постановка владельца в этом разговоре: верхние острова при наличии места образуют **одну строку**, оставляя свободное пространство между собой и по краям. Допустимы сочетания «Заголовок | Полка | Медальон», «Заголовок | Полка | Общее меню», «Заголовок | Полка | компактное меню с тремя точками | Медальон». Острова имеют разные форматы; при сокращении оформления иконка может исчезнуть, а при следующей степени компактности появиться снова. Цель — чистый контентный интерфейс, а не максимальное количество постоянно показанных controls.
+**«Полюбить Калининград Анонсы» — неизменяемый внешний участник компоновки. Оно не сжимается, не заменяется кружком с точками, не меняет свой вид/место при scroll, resize, смене раздела или появлении соседнего острова по правилам Floating Islands.** Его существующее собственное открытие/закрытие не отключается.
 
-**Было → стало:** v1 согласовывал верхние поверхности, но допускал page context, section heading и filter rail отдельными закреплёнными этажами → v1.1 сначала рассматривает их как участников одной общей строки. Второй закреплённый этаж не создаётся автоматически из-за нехватки ширины. Сначала выбираются пригодные компактные представления, затем второстепенная часть возвращается в поток/своё раскрытие. Читаемость и достижимость важнее соблюдения одной строки любой ценой.
+**Было → стало:** v1.1 разрешал compact/glyph trigger и смену motion глобального branded menu → прямое уточнение владельца исключает это меню из адаптивной системы. Оно сохраняет baseline source/geometry/interaction. Для layout допустимо читать его occupied rect, но нельзя изменять его DOM, styling, state или расположение. Все предложения v1.1 и FI-02 о новой presentation branded global menu отменены в этой части.
 
-Три адресных уточнения имеют приоритет над прежними формулировками:
+Не требуется ещё одно меню вместо него. Контекстные disclosures полки/городов имеют собственный scope и не называются global menu. Четыре primary destinations нижнего dock остаются общей навигационной моделью.
 
-- **FI-05/09:** shared top-row packing вместо суммы независимых верхних bands; место снизу, composer и nav по-прежнему учитываются общей системой.
-- **FI-11:** section context может проецироваться в общий ряд как locator/disclosure, при сохранении единственного настоящего H2 в документе. Не требуется физически переносить H2 из раздела в header. Нельзя клонировать весь heading/control tree, делать второй semantic heading или оставлять два активных экземпляра одного действия.
-- **FI-02:** для нового versioned menu candidate разрешено спроектировать компактный trigger и новую связь trigger/panel. Старый moving-parent brand-tag motion остаётся baseline, а не запретом на запрошенную компактизацию. Меняются представление и нужная геометрия открытия; прежние назначения, Auth, содержимое и гарантии закрытия/возврата focus сохраняются. Это не разрешение менять production или вводить произвольный modal/body lock.
+## 2. Общая верхняя композиция
 
-Документальное направление владельца принято; конкретные формы, символы, числовая геометрия и варианты ниже — выбранные предложения для candidate/review. Активные A=S=P/release gates и запрет изменения общих foundations/STATUS не отменены.
-
-## 2. Что показало исследование
-
-Источники прочитаны через web 2026-09-05. Это первичные design-system документы, рекомендации W3C и исследования их авторов. Они задают основания и риски, но **не доказывают полезность нового варианта именно на KenigEvents**.
-
-| Источник | Что действительно поддерживает | Наше решение / ограничение переноса |
-|---|---|---|
-| [R1 — Microsoft Fluent 2, Toolbar](https://fluent2.microsoft.design/components/web/react/core/toolbar/usage) | Однострочная toolbar, overflow вместо автоматической второй строки; смысловые группы и понятные icon labels. | Берём принцип packing/grouping, но не назначаем всей шапке role=toolbar и не копируем office-плотность. |
-| [R2 — Adobe React Spectrum, ActionGroup](https://react-spectrum.adobe.com/v3/ActionGroup.html) | Отдельные политики collapse items, collapse labels; выбранная группа при collapse сохраняет признак selection и summary identity. | Density — договор конкретного острова. Исчезновение текста не должно скрыть выбранный фильтр. Это reference API, не новая React-зависимость Astro. |
-| [R3 — Google Material 2, Top app bar](https://m2.material.io/components/app-bars-top/android) | Разделение title/navigation/actions, overflow вторичных действий, отказ от уменьшения шрифта ради одной строки. | Исторический донор принципов, не текущая skin authority. Не наследуем blanket hide-on-scroll. |
-| [R4 — NN/g, Hidden navigation study, 2016](https://www.nngroup.com/articles/hamburger-menus/) | Исследование 179 участников на шести сайтах выявило риски скрытой навигации. На mobile сравнивались hidden/combo, а не все три условия. | Сохраняем четыре видимых primary destinations. Не переносим проценты исследования на этот сайт и не запрещаем любое compact secondary menu. |
-| [R5 — NN/g, Hamburger recognizability, 2025](https://www.nngroup.com/articles/hamburger-menu-icon-recognizability/) | В более новом исследовании распознавания важны знакомый символ, расположение и label; похожие list/filter icons могут путать. Оно не измеряло task-success/time uplift. | Понятность значка отдельно от удобства нахождения функции. `…` не считаем доказанно лучшим главным меню. |
-| [R6 — W3C, Disclosure navigation](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/) | Обычная навигация сайта не требует сложной ARIA menu/menubar модели. | Сохраняем links, disclosure и Tab; геометрическая строка не становится единым keyboard widget. |
-| [R7 — W3C, Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) | При увеличении/reflow содержание и функции должны оставаться доступными; sticky content не оправдывает потерю доступа. | Flow fallback допустим и обязателен раньше unreadable fixed row. |
-| [R8 — W3C, Label in Name](https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html) | Видимая текстовая подпись должна входить в accessible name. | `Меню`/`Меню сайта` и голосовое управление согласованы при смене формата. |
-| [R9 — W3C, Target Size Minimum](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html) | AA 2.5.8 описывает 24 CSS px и предусмотренные исключения/spacing. | Наши ≥44×44 для основных island controls — более строгая продуктовая цель, не ложное описание всего WCAG AA. |
-| [R10 — MDN, Container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Containment/Container_queries) | Компонент может адаптироваться по доступному контейнеру, а не только device width. | CSS-first; фактические sibling widths, focus locks и hysteresis дополняет небольшой existing shell adapter. |
-
-Apple HIG Toolbars также был открыт, но substantive текст не извлечён; он **не используется как доказательство конкретных правил**. Не делалось новых интервью/пользовательского эксперимента. Нет исследования, доказывающего, что любая немонотонная смена иконок полезна: предлагаемое поведение допускается только при сохранении идентичности и ясного смысла.
-
-**Вывод:** чистота — это меньше конкурирующих элементов и меньше усилий для понимания задачи. Пустой интерфейс, в котором приходится искать меню и угадывать символы, не является успехом.
-
-## 3. Anatomy: одна строка, отдельные острова
-
-Предпочтительный логический порядок для русского интерфейса:
+Остальные подходящие острова по возможности образуют **одну строку** вокруг зарезервированного места бренда. Свободные промежутки и края являются частью дизайна; общего непрозрачного прямоугольника вокруг всех участников не требуется. Не растягивать соседние controls на всю ширину экрана только ради заполнения.
 
 ```text
-свободный край  [страница]  промежуток  [полка / её управление]
-                промежуток  [меню сайта]  промежуток  [медальон]  свободный край
+[неизменяемый бренд]    [контекст страницы / медальон]    [города / контекст полки]
 ```
 
-Это **одна горизонтальная полоса**, перенос в схеме — только для чтения документа. Полоса не имеет обязательной общей заливки, рамки или перехватывающего клики substrate. Острова могут быть capsule, небольшим округлым прямоугольником, текстовым контекстом или кругом, а не одинаковыми pills. Высота полосы равна максимуму фактических высот участников, не их сумме.
+Это схема ролей, не обязательные три элемента на каждой странице. Пустые роли не монтируются. Дополнительные имеющие смысл utilities участвуют в геометрическом договоре. Внутри одной задачи related controls группируются; карточки событий остаются в контенте, не переносятся целой полкой в fixed header.
 
-Состав задаётся реальным consumer. Не создаём медальон ради заполнения четвёртого слота; не ограничиваем систему четырьмя островами. Дополнительные реальные utilities участвуют в том же packing, родственные действия группируются. Примеры без меню допустимы, только когда существующий menu owner остаётся явно достижимым в данной композиции; это не удаление вторичной навигации.
+Бюджет строки учитывает **фактическое** место бренда, safe-area, доступную ширину и hit areas остальных controls. Высота — максимум занятых областей одного ряда, а не сумма независимых sticky этажей. При нехватке места сначала сокращается повторное оформление, затем разрешённые views и secondary controls переходят в своё раскрытие/flow. Бренд не является последней жертвой сжатия. При zoom/малой высоте readable flow лучше tiny controls или обрезки смысла.
 
-### Три разных смысла «полки»
+Full/lean/compact — независимые views участников, а не глобальное «на mobile скрыть все labels». Для чтения lean с короткими понятными подписями может оставаться базовым и на широком экране. Свободная ширина не требует возвращать всю декорацию.
 
-1. **Небольшая навигационная/фильтрующая полка:** при достаточной ширине в ряд входят её реальные controls. При сокращении остаётся понятный summary и раскрытие тех же функций.
-2. **Контекст текущего раздела:** компактное название полки, при необходимости переход между разделами. Не придумывать кликабельность статичному заголовку без задачи.
-3. **Полка с карточками событий:** сами карточки остаются в контенте. Вверх попадают только её контекст/уместные controls. Это не фиксированный carousel поверх страницы.
+## 3. Медальон может сам быть островом идентичности
 
-Таким образом, слово «полка» не сужено до любой одинокой иконки и не означает, что весь event rail надо втиснуть в header.
+**Допускается semantic replacement, не только уменьшение двух дублирующих элементов.** На точной подборке «Бесплатные события» canonical медальон `0 ₽ / бесплатно` может один представлять page context; отдельный floating title в этом состоянии не нужен.
 
-### Иерархия и пустое место
+Условия замены:
 
-В reading-состоянии ведущая информация — текущая задача/раздел; page locator и общие utilities тише. Один яркий акцент соответствует active state или важному действию, а не отдельный accent на каждый остров. Brand identity остаётся узнаваемой, но не обязана занимать второй фиксированный этаж. Крупный полноценный H1 остаётся в начале страницы; его компактный locator — другая роль, не уменьшение H1 во всём продукте.
+- полная эквивалентность смысла, явный route/scope binding и тот же canonical asset;
+- отсутствие дополнительного значимого ограничения, которое знак не передаёт;
+- сохранение настоящего H1, title документа, доступного имени и navigation/action semantics;
+- удаление пустой подложки прежнего острова и второго compact-медальона, а не только скрытие текста;
+- весь знак и hit area видимы; область прежнего широкого title не остаётся невидимой преградой.
 
-Общая группа ограничивается существующим content container, предпочитает естественную ширину и свободные края. Не растягивать острова `justify-content:space-between` по всему FHD ради заполнения пространства; не разносить родственные controls так далеко, что они перестают восприниматься группой. Зазоры — фиксированные/bounded существующие spacing roles. Свободный ресурс не заставляет добавлять иконки и подписи обратно, когда reading-вариант уже понятен.
+«Бесплатно с детьми», «Бесплатно на побережье», дата/город/отрицание не эквивалентны одному `0 ₽`. Дополнительный scope остаётся текстом или собственной осмысленной частью контекста. Медальон конкретного организатора не становится автоматически названием любого раздела. При нехватке asset/readable-size binding текстовый вариант остаётся fallback, не generic звезда/Unicode вместо настоящего знака.
 
-## 4. Форматы отдельных островов и иконки
+Первый code candidate использует только exact Free route без дополнительных query-параметров. Это консервативный предварительный predicate, не долгосрочный запрет tracking params. Его нельзя распространять на дочерние подборки по substring-match.
 
-Состояние задаётся не глобальным «всем скрыть labels на 768px», а разрешёнными views конкретного участника:
+## 4. Города: из компактного острова в прямоугольный выбор
 
-| Участник | Развёрнутый | Компактный | Экстракомпактный / предел |
-|---|---|---|---|
-| Page context | Полное название, optional полезный identity mark | Короткое проверенное название без декоративной иконки | Текстовый locator остаётся; неизвестная пиктограмма не заменяет смысл страницы. |
-| Фильтрующая полка | Реальные варианты/controls и выбранный scope | Текст выбранного scope + раскрытие остальных | Узкий summary, например `Калининград · 2 фильтра`; active restrictions доступны сразу. Не безымянный funnel без контекста. |
-| Section context | Полное название + необязательная вспомогательная иконка | Короткий label с сохранённым смыслом | Текстовый context selector; если он не помещается — flow/раскрытие, а не бессмысленный символ. |
-| Общее меню | Значок + `Меню сайта` | `Меню` без значка | Один стабильный glyph, в том числе предложенный круг `…`, с именем `Меню сайта` и полными labels внутри. |
-| Medallion | Canonical mark с допустимым пояснением | Только canonical mark пригодного размера | Проверенный compact variant того же identity либо перенос в свой контекст/поток. Не микроскопическая копия и не чужой знак. |
-| Важное состояние | Понятный текст + meaningful status | Короткий текст/статус, достаточный для действия | Нельзя убрать единственное предупреждение, Stop, dirty state или отличительный признак выбранного режима. |
+Компактный trigger показывает текущий смысл: `Все города`, название единственного выбранного города, `Города · N` либо `Города не выбраны`. Название не обрезается до неразличимого остатка. Иконка pin и caret помогают распознать выбор; их размеры принадлежат существующей icon-role системе.
 
-### Не монотонность иконок, а устойчивость смысла
+Открытая форма — **прямоугольная карточка выбора**, а не бесконечно вытянутая исходная полоса. Внутри: заголовок «Города», явное закрытие, те же варианты с checkbox state/count и понятная подпись способа применения. До двух колонок на достаточной ширине, одна при очень узком viewport. Большой список может прокручиваться внутри доступной высоты, но controls закрытия и выбранное состояние достижимы.
 
-Допустимая цепочка для одной и той же функции:
+Первый вариант сохраняет существующее **немедленное** применение. Не добавляется кнопка «Применить» поверх controller, который уже изменил выдачу. Закрытие не сбрасывает selection. Escape/close возвращают focus к trigger; outside dismiss не перехватывает focus открываемой другой поверхности. На слишком малом effective viewport прямоугольник раскрывается в потоке, без обрезки. No-JS показывает исходную полку.
 
-```text
-[значок + «Меню сайта»] → [«Меню»] → [значок меню]
- icon + label             label       icon
-```
+Source implementation **перемещает оригинальный fieldset** внутрь того же controls owner, не клонирует чекбоксы и не создаёт второй фильтр. Сохраняются existing state, storage, counts, hidden/empty rules и labels. Native popover — одна из presentation mechanisms, не новый modal или глобальное меню. Во время открытого выбора/IME/focus cosmetic relayout не подменяет targets.
 
-Иконка действительно исчезает и возвращается. Но `semantic_id`, функция, scope, accessible name и panel target не меняются. В последнем формате не выбирается новый символ только потому, что он визуально меньше. `full/compact/glyph` — совместимые views одного action, не разные actions.
+## 5. Иконки и допустимая компактизация
 
-Различать **декоративную** иконку, **идентификатор действия**, **признак disclosure/selection/status** и **identity medallion**. Первую можно убрать рано; последнюю нельзя заменить generic star. Caret при раскрытии и выбранный state не обязаны исчезать вместе с декоративным значком. В раскрытом меню текстовые labels возвращаются всегда, даже если trigger — только glyph.
+У подходящего контекстного action допустима цепочка `icon+label → label → icon`, когда action/meaning/scope/name остаются теми же. **Это больше не относится к защищённому брендовому меню.** Различаются decorative icon, action identifier, selection/disclosure/status и identity medallion.
 
-Hover/focus tooltip помогает desktop, но не является единственным объяснением для touch. Icon-only допускается для знакомого action в понятном месте. Неизвестную функцию оставляем текстом, а не рассчитываем на long-press. У visible label и accessible name должна быть согласованная формулировка; внутри SVG `aria-hidden`, когда имя задаёт сам control. Ни один compact variant не получает новый положительный tabindex.
+Неизвестный glyph не заменяет смысл title или активного ограничения. Tooltip не единственное объяснение touch-control. В раскрытой поверхности возвращаются понятные подписи. Рядом не появляются два неразличимых `…` с разными scopes. Primary touch targets ориентируются на существующее ≥44×44 product requirement, не на размер рисованной пиктограммы.
 
-### Три точки или значок меню
+H1/H2 остаются в semantic flow. Floating page/section locator либо отдельный context action не является вторым heading и не клонирует все controls раздела. Viewed section, refinement base и pending Search draft остаются независимыми. Exact hides и frozen prefix по RB продолжают действовать при всех views.
 
-Предложение владельца с `…` сохранено как допустимый extra-compact вариант. **В одинаковом hit box `…` и hamburger не экономят разное количество места.** Это выбор смысла и узнаваемости.
+## 6. Desktop нижний dock — отдельная presentation
 
-Выбранный рабочий путь: label `Меню` пока он помещается; при pressure — один согласованный glyph global menu, `…` включён в пару для owner/usability review. Четыре primary destinations остаются в нижнем nav, поэтому верхнее меню в этом режиме собирает дополнительные разделы и сервисные действия. Внутри оно явно озаглавлено `Меню сайта`, а не `Действия с текущей полкой`. Если верхний trigger окажется единственным входом в primary navigation конкретного consumer, безусловно прятать его за неоднозначными точками нельзя: нужен label либо другой проверенный navigation presentation.
+**Одна navigation model не означает одинаковую mobile/desktop геометрию.** Сохраняются destinations/resolver/aria-current, keyboard semantics и правила modal/CTA suppression. Разрешён отдельный desktop-вариант: крупнее icons/labels, иное расположение подписи, подходящая ширина/поля, лучшее отделение от светлого контента/плакатов/тёмных карточек.
 
-Не рисовать рядом два неразличимых `…`: один для полки и один для сайта. Контекстное раскрытие получает собственный label (`Разделы`, `Фильтры`, выбранный scope), а глобальное сохраняет стабильное место. Не менять hamburger на точки при каждом повороте; выбранный glyph один на согласованный variant.
+Первый проверяемый design choice: opaque existing surface, existing strong border/elevation roles, подпись рядом со значком, canonical `feature=32px`, более широкий округлый прямоугольник. Числа640×80 — **размер полученного draft specimen**, не новое обязательное foundation правило. В исходном comparative specimen dock480×66. На mobile candidate не меняет прежнюю geometry.
 
-### Медальон и его принадлежность
+Заметность проверяется не только размером: контраст текста/active state, отделение от разных подложек, focus, отсутствие перекрытого last CTA и попадание pointer. Не увеличивать z-index поверх gallery/modal, не делать пульсацию/постоянное движение ради внимания. Более сильная рамка — сравниваемый preliminary skin, не уже принятое владельцем окончательное оформление. Его сомнение о незаметности старого dock не выдано за измеренный повсеместный дефект.
 
-Медальон принадлежит странице, текущему section либо конкретному событию — scope задан явно. Он не меняется автоматически на знак случайной карточки под курсором. При scroll разделов разрешён source-backed section medallion; при выборе старой Search базы displayed scope и refinement base по-прежнему различаются.
+## 7. Стабильность, accessibility и runtime ownership
 
-Верхний медальон сохраняет canonical asset ID/provenance и реальный readable-size variant. Детальный seal не масштабируется бесконечно вниз ради ряда. Неинтерактивный mark не получает fake button semantics; интерактивный сохраняет action и достаточный hit box. Если есть несколько допустимых marks, их порядок/выбор определяет существующий owner, а не layout-алгоритм по привлекательности. Остальные доступны в своём обычном контексте.
+Сохраняются FI-07–17: один existing layout owner, readonly occupied rects, safe-area один раз, no invisible hit plane, protected pointer/focus/IME, controlled hysteresis, native field input и scope-aware scroll. Новая геометрия нижнего dock требует переизмерения existing lower-stack owner, а не отдельной суммы keyboard height/offset.
 
-## 5. Как выбирается одна строка
+Новая page identity не перемещает бренд. Открытие другого modal/gallery приостанавливает конфликтующие controls через их lifecycle, не оставляет скрытый Stop. Нельзя сломать open-close brand menu, называя его «статичным». Нельзя разрешить whole-site hide-on-scroll из-за правила сжатия contextual row.
 
-### Геометрический договор
+Visual source bindings включают canonical asset, view/role, full/short/accessible label, semantic equivalence reason, exact geometry и перемещённый original control. Для desktop icons фиксируется effective role, не только mobile default. A=S=P требует реальных resolved S и native linked P; screenshot или новый JSON-marker не закрывает lineage.
 
-Для width `W` доступный бюджет:
+## 8. Первый фактический код и проверенные границы
 
-```text
-L = max(existing edge gap, safe-start)
-R = max(existing edge gap, safe-end)
-B = min(W − L − R, existing content-container capacity)
-fit = Σ фактических ширин выбранных views + Σ межостровных gaps ≤ B
-row height = max(фактических высот views)
-```
+Создан [draft events-bot-new#638](https://github.com/onedayonemasterpiece/events-bot-new/pull/638) в `work/floating-islands-owner-preview-20260905` от9bed6f5c20078f9ec934e817662d9dbbba2bd8eb. Adapter включается только на non-production `preview-islands-*`; `?islands=off` сравнивает исходное представление. Production, брендовые source files, EventLayout, shared foundations и STATUS этим кодом не менялись.
 
-Все размеры — в одной CSS-pixel системе координат FI-08. Safe area применяется один раз. Визуальный glyph может быть меньше hit box; именно controls, читаемый текст, border/focus и выступающие части определяют нужный бюджет. Верхняя полоса не получает высоту по невидимым измерительным nodes.
+Первый [CI run33964702848](https://github.com/onedayonemasterpiece/events-bot-new/actions/runs/33964702848) реально сгенерировал Popular и Free через **существующий local:focused runner**, отдельно на committed fixture corpus с clock2026-07-23. Оба jobs success. Chromium149.0.7827.55 проверил390×844/1280×800/1920×1080: brand geometry, H1, nav links, city open/select/close/Escape и desktop icons. Это **DIAGNOSTIC_PASS_NOT_ACCEPTANCE**, не свежий production snapshot, не Kaggle owner preview и не native P.
 
-Пространство снаружи группы делится по существующему выравниванию content container; centered cluster — стартовый review вариант. Стабильный envelope/слоты выбранного row profile сохраняются между обычными section/status updates, чтобы menu не ездило влево-вправо из-за каждого нового заголовка/счётчика. При смене profile ожидаемое перемещение допустимо только на безопасной границе взаимодействия.
+ZIP artifacts лично получены/hash-verified, JSON/скриншоты прочитаны. На первом mobile Free screenshot обнаружена оставшаяся прямоугольная подложка предыдущего title, которую initial tests не ловили; отправлена source correction `ccde8553b1472a04e5e54a98624585c53c9e808c` с новыми assertions прозрачности, ширины/границ medallion и неизменности бренда при scroll. Её terminal evidence берётся из #638, не предполагается по первому run.
 
-Числа **12px края, 8px зазоры, 16px запас для обратного расширения** в offline model ниже — искусственные проверочные inputs, не принятые tokens. Для actual candidate берутся measured existing spacing/target/font bindings. Предлагаемый обычный visual row порядка 48–64 CSS px требует проверки на реальном шрифте, медальоне и large text; это не фиксированная высота, обрезающая содержимое.
+15 pure/source Node tests — отдельно от browser cases. До полной интеграции остаются family/impact/scenario регистрации, полный one-row variant, актуальный same-corpus Kaggle preview, native P и visual owner review. Исходные карточки/кроп/full-pool framing в draft не перепроектировались.
 
-### Два независимых измерения
+Установленные my-data-hub/browser/Penpot не предоставили callable methods в текущем окне. Генерация/скриншоты получены через разрешённый read-only GitHub diagnostic, **не обходом publication authority**. Публичной новой интерактивной ссылки пока нет. Единственный опубликованный путь остаётся Kaggle StaticSiteBuilder; нельзя переименовать локальный dist или диагностический CI в опубликованный owner preview.
 
-`reading|overview` — режим задачи; `full|lean|compact|flow` — степень доступной геометрии. Desktop не означает full. По умолчанию для чтения предпочитается **lean: понятные текстовые labels без повторных иконок/метаданных**. Развёрнутый вариант нужен, когда реально полезны подробности/выбор, а не потому, что ширина позволяет заполнить экран.
+## 9. Research и приёмка
 
-### Детерминированная последовательность
+Первичное исследование Fluent toolbar, Adobe ActionGroup, Material historical top app bar, NN/g navigation recognition, W3C disclosure/reflow/label-in-name и MDN container queries сохранено в [предыдущем immutable тексте §2](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/eb3309591be368d729ea52c90b6ef99d1acbad6b/docs/research/floating-control-islands-2026-08/top-row-composition-v1.1.md#2-что-показало-исследование). Оно обосновывает принципы, не отменяет новое прямое решение владельца и не доказывает usability здесь.
 
-1. Выбрать фактические роли, required scope/state и permitted views. Удалить только несуществующие роли, не пустые placeholders с фиксированной шириной.
-2. Сохранить активные input/focus/hold/open-menu locks. В этом состоянии косметическое переупаковывание не запускается.
-3. Попробовать подходящий lean/full profile в одной строке. Порядок ролей не меняется по их ширине или личной статистике.
-4. Убрать повторные count/декоративные marks, применить explicit short labels; сгруппировать связанные controls. Нельзя обрезать цену/отрицание/дату/город, делающие выборку отличимой.
-5. Применить доступные icon/summary views. Compact одного участника не заставляет всех остальных стать glyph-only.
-6. Если смыслы не помещаются, вернуть необязательный medallion/secondary control в его собственное раскрытие или поток, затем развернутую полку туда же. В верхнем ряду оставить понятный page/scope locator и global entry.
-7. Если и минимальный ряд мешает читаемости при zoom/landscape/keyboard, использовать обычный flow с читаемым reflow. Не добавлять постоянный второй fixed этаж, горизонтально прокручиваемую шапку, tiny controls или clipping.
+Дополнение к existing tests: brand DOM+rect/state invariance во всех migrated views; exact Free equivalence и richer-scope negative cases; отсутствие пустой плоскости title; original checkbox identity/selection/persistence; rectangle viewport/focus/close; distinct desktop/mobile dock and last-action reachability; source-bound responsive icon identity; receipt/hide/analytics OFF regression. Не создавать второй QA framework или угадывать PASS по числу таблиц.
 
-Ни одна из ступеней не удаляет функцию: в candidate registry хранится, **где она стала доступна**. Safe stop/cancel, несохранённое действие и critical scope нельзя отправить в неочевидное вложенное меню. Допускается дополнительная краткая строка текста внутри одного острова в измеренном row band, но не автоматический wrap нескольких самостоятельных island rows. User-opened panel — временное раскрытие, не второй постоянно закреплённый этаж.
-
-### Стабильность
-
-Уменьшение при реальной нехватке места происходит сразу после безопасного завершения текущего gesture; обратное расширение — с запасом/hysteresis. Колебание ширины на 1px не заставляет значки мигать. Hover показывает tooltip, а не расширяет весь ряд под указателем. Смена scrollbar, font load, badge count и incoming result не превращаются в перестановку всего chrome.
-
-Pointer-held/IME/open disclosure не переносятся между DOM-копиями. Если resize физически делает current gesture target недоступным, interaction отменяется без исполнения чужого action, затем layout пересчитывается. Фокус остаётся на том же живом control либо переносится в его понятный доступный counterpart до скрытия прежнего. Simple model проверяет только решение `cancel-before-relayout`, не доказывает browser dispatch.
-
-## 6. Section context в общей строке: без ловушки DOM
-
-**Выбранный implementation approach:** actual H1/H2 остаются в semantic document flow. Общий row получает `page/section locator` и, где есть задача, единственный `context disclosure`. Locator — не ещё один H2. Если это только визуальное повторение существующего текста, оно исключается из повторной AT-озвучки; если это отдельная кнопка перехода/выбора раздела, она имеет собственное action name, например `Разделы страницы. Сейчас: …`, а не heading role.
-
-Section owner публикует `scope_id`, title/short-title, boundary/sentinel и разрешённые context controls. Один existing scroll owner выбирает active section по reading boundary **под фактической верхней полосой**, с восстановлением вверх. Full query/answer/cards не копируются. Исходные section headings доступны поиску по странице, deep links, screen-reader heading navigation, no-JS и печати.
-
-Для реальной фильтрующей полки controls создаются единственным владельцем и имеют одну активную presentation. Нельзя одновременно оставить кликабельные копии `Все / Калининград / …` в header и под ним, рассинхронизировав selection. При сжатии collapsed panel показывает те же функции с теми же action IDs и текущим scope. Если существующая family не поддерживает такое переключение, это её versioned adapter/task в P1, а не повод собрать второй набор кнопок на странице.
-
-Geometry row ↔ active-section detection не образуют feedback loop: сначала определяется row envelope, затем единый observer boundary; write не вызывает новое расширение из того же scroll tick. Семантический selector не считает overlay scroll новой page section. Original v1 section-contained sticky остаётся допустимым для явно немигрированного consumer, но его нельзя одновременно включать под shared row и получать новый лишний этаж.
-
-## 7. Меню, раскрытия и переходы
-
-Compact trigger всегда открывает **тот же глобальный набор назначения**, не переключается с `Меню сайта` на `Действия полки` в зависимости от свободного места. Backend/Auth/state controller не копируются. Для новой view меняется только presentation, в следующей версии затронутой family.
-
-Рабочий candidate: на desktop non-modal disclosure ограничен effective viewport и привязан к стабильному trigger; на mobile presentation использует существующую нижнюю non-modal surface, сохраняя ясные title/close и reachable content. Это view adapters одного disclosure owner, не два меню. Нативные `details/summary` либо соответствующая existing disclosure implementation сохраняют links/Tab; ARIA `menu` не назначается ради внешнего вида.
-
-Trigger остаётся в своём row slot при открытии: механически заставлять кружок ехать вместе со старой большой brand-plane не требуется. Это явный v1.1 delta к donor motion, не скрытая same-version правка. Закрытие — явный close/trigger, Escape, переход и outside action согласно owner; существующий scroll-close не закрывает длинное меню от его **внутренней** прокрутки. Background page-scroll behavior согласуется отдельно с немодальной семантикой. Другая настоящая modal/gallery по-прежнему имеет собственный focus/interaction приоритет FI-14–16.
-
-Одновременно открытое новое disclosure закрывает прежнее только через его lifecycle, без потери dirty input. При active capture blocking overlay требует capture handshake, а не скрытия Stop. После закрытия фокус возвращается инициатору. Перекрытия, timer pause, unknown receipts и optional analytics OFF остаются по FI/RB; новый верхний ряд не отменяет эти правила.
-
-## 8. Примеры и применимость
-
-Ниже proposals, а не screenshots нового runtime. Медальон добавляется только при действительном page/section binding.
-
-```text
-Полный смысл, достаточно места:
-[Популярное]  [контекст полки + доступные фильтры]  [Меню сайта]  [mark]
-
-Чистый reading-вариант:
-[Популярное]  [Набирают популярность]  [Меню]  [mark]
-
-Компактно, те же действия:
-[Популярное]  [текущая полка / фильтры]  […]  [mark]
-
-Узко, mark доступен в контексте, а не уничтожен:
-[Популярное]  [текущая полка ▾]  […]
-```
-
-`Набирают популярность` — предложенный короткий locator текущей полки, не изменение её ranking definition; перед visual acceptance это поле подтверждается у owner. Короткие labels — явные данные, не LLM-пересказ runtime и не обрезка по `max-length`. Для «Бесплатно с детьми» нельзя оставить только «Бесплатно», а для «не концерты» убрать отрицание.
-
-C1/C2 (Home/listings/Popular/calendar/collection): row по фактическим page context, time/filter rail и section. Calendar сохраняет дату и enabled-days contract. Не дублировать bottom date accessory новой top rail без явной consumer migration. C3 singleshelf: в row её управление/контекст, не все карточки. C4 Search: текущий читаемый section не становится refinement base; composer показывает выбранную базу отдельно, row её не переназначает. C5 event: уместный page/event medallion и title; CTA/nav XOR и hero/crop сохраняются. C6 information/forms: минимум необходимых roles, не искусственная полка. Подробный общий census — [consumer matrix](consumer-matrix-v1.md).
-
-## 9. Actual source, куда интегрировать
-
-Fresh-read: #47 остаётся open draft, исходный HEAD этого уточнения `4af505fea7d2ca4351db9c6d9bb8bd241bdc31c0`. Текущий прочитанный STATUS сообщает executable/public candidate `2fe28b1f831ac607c0415a8aa6c2beab9eb67fac`, version22, а не прежний 0b08. Это receipt сведения, не новая личная browser проверка.
-
-| Проверенный source @2fe28b1… | Что важно для v1.1 |
-|---|---|
-| `site/src/layouts/EventLayout.astro`, начало файла | Существующие shell imports, explicit modes и route derivation сохраняются; не появляется второй layout owner. |
-| `site/src/components/Reference4MobileMenu.astro`, 1–110 | Реальный trigger — `details/summary` brand-tag; contents включают sections, submenu и service actions. Новый glyph не считается уже существующей menu view. |
-| `site/src/components/listings/ListingDiscoveryRail.astro`, полностью | DOM marker v5; date-context script сравнивает rail.top с header.bottom и breakpoint 981. Это конкретное предположение «rail ниже header», которое нужно заменить в migrated shared-row варианте, не оставить второго writer. |
-| `site/src/components/EventTokenMedallions.astro`, 1–145 | Реальные organizer/source/program/badge identities, evidence, short labels и layout roles. Иконка `info` не является универсальной заменой medallion. |
-| `site/src/components/design-system/SemanticIcon.astro`, полностью | Единая four-role icon-size система и `Icon` delegate. В локальном semantic перечне `…` не найден; полный delegate/asset registry здесь не проаудирован, поэтому **не утверждается отсутствие** canonical dots asset во всём проекте. |
-
-Before materialization resolve exact `menu glyph` asset/viewBox/hash у существующего icon owner. Если binding отсутствует, candidate отмечается BLOCKED для этого visual variant; для работы остаётся текстовый `Меню`. Нельзя брать Unicode ellipsis в Penpot вместо canonical icon и объявлять A=S=P. В текстовых схемах документа `…` — notation, не asset.
-
-## 10. Изменение первого пакета реализации
-
-**FI-P1 теперь включает top-row composition, а не добавляет section context ещё одним этажом.** Первый реальный consumer остаётся Popular. В нём проверяются как минимум: page locator + реальные context/filter controls + один global menu trigger; дополнительный medallion только при valid source. Four-role packing проверяется ещё и на подходящем consumer/явно marked layout fixture, без фиктивного Popular medallion.
-
-Работа: existing EventLayout coordination → variant views текущих owners → explicit short labels/essential scope → scoped active section → one-row fit и pressure fallback → shared lower surface/keyboard compatibility → S projection. Изменяется существующая family version/candidate registry; не создаются per-page CSS z-index, второй menu/card builder или новая foundation scale. Общий [FI-P1](implementation-package-1.md) и его FI/RB guards сохраняются.
-
-### A=S=P review input
-
-Для каждого actual fixture exporter должен дать: exact source/corpus/clock, route/C1–C6, profile/view IDs каждого острова, semantic/action/scope IDs, короткий и полный labels, selection/receipt/activation states, canonical asset hashes, text/icon visibility, rects/hit boxes, moved-to-flow target, top-row occupied union, viewport/DPR/scale, component versions и comparison baseline. Новые properties дополняют существующую source-bound projection; очередной независимый materializer не нужен.
-
-Изолированные baseline/candidate pairs: Popular full/lean/compact; реальная длинная date/filter label; подходящий medallion consumer; Search viewed≠refinement; zoom/reflow; open menu/focused filter; фото/плакат underlay только при существующем проверенном C5 fixture. P — native linked variants, не нарисованные похожие кружки. Состояния размеров указываются конкретно, не одна мобильная картинка на все экраны.
-
-## 11. Проверки и owner research
-
-Новые top-row cases расширяют existing FI-P1/RB scenarios, не требуют полного декартова произведения всех архетипов:
-
-| Сценарий | Given → When → Then / владелец |
-|---|---|
-| Row versus extra tier | Page+section+filters → migrated C2 scroll → одна occupied top band, немигрированный rail не закрепляется вторым этажом. Shell/section, L1. |
-| Independent views | Разная ширина участников → resize → каждый выбирает допустимую view, не all-labels-off. Shell/family, L0/L1. |
-| Icon→text→icon | Одна menu action → full/lean/glyph → icon visibility меняется, action/target/scope/name неизменны. Menu/icon owner, L0/L1/native projection. |
-| Scope preservation | Длинная дата/город/«бесплатно с детьми»/отрицание → compact → ограничения не исчезают; нет glyph-only бессмысленного title. Feature+layout, L1. |
-| Menu identity | Global и section disclosure → открыть оба последовательно → явные разные labels/содержимое, нет двух неопределённых `…` и nested overflow ради ширины. L1 + usability. |
-| One semantic heading | Active section меняется down/up → row locator → H1/H2 order и deep links сохранены, нет второго heading/action tree. L1 + AT. |
-| Stable target | Badge/title update, hover, ±1px, open menu/focus/IME/hold → relayout → нет дрожания/подмены target; forced invalid gesture отменён. L0/L1. |
-| Medallion integrity | Exact source mark → compact/flow → тот же identity; читаемость/asset hash, own scope и доступность пояснения сохранены. S/P/visual. |
-| Empty space hit testing | Свободный промежуток/край строки → pointer/wheel → underlying content доступен, shadow/host не создают hit plane. L1. |
-| Pressure and accessibility | 320, landscape, 200% text/400% zoom/keyboard → fit fails → readable flow, не clipping/tiny targets/лишние sticky rows. L1 + L2 keyboard subset. |
-| Source versus defaults | CSS/font/asset revision меняется → exporter → новые реальные widths и geometry, не синтетические размеры модели. L0 + visual. |
-| Existing behavior | OFF/unmigrated consumers/nav+CTA/receipt/hides/analytics off → обычные действия → прежние FI/RB гарантии, нет нового backend/telemetry. Existing L1/regressions. |
-
-Короткая qualitative проверка на 5–8 участниках — **предлагаемый этап**, не проведённое исследование или статистически достаточный A/B test. Дать без подсказок задачи: назвать текущую страницу/полку; найти другой раздел сайта; изменить фильтр; понять знак медальона; вернуться к предыдущей полке. Сравнить label `Меню` и compact glyph при одинаковом контенте, чередуя порядок вариантов. Фиксировать first-click errors, успешность/время задач, ошибку scope и субъективную перегруженность. Количество кликов по скрытому меню само по себе не успех. Регресс понимания или потеря действия блокирует выбор, даже если строка стала ниже. Чистоту владелец оценивает на actual paired screenshots, не по synthetic rectangles.
-
-## 12. Реальные проверки этого уточнения и их границы
-
-GitHub read выполнен; primary web research выполнен. **Browser и Penpot actual calls в этом ходе вернули `FORBIDDEN: This conversation does not support developer MCPs`.** Обхода через другой browser/Penpot API не выполнялось. Нет новых screenshots, native file/page/revision, телефонной клавиатуры или A=S=P evidence. Previous-turn captures сохраняют только прежнюю ограниченную ценность и не выдаются за проверку v1.1.
-
-Приложен [top-row-model.py](top-row-model.py): offline reference model с искусственными ширинами. Локально выполнены **14 unit tests**, включая sweep целых ширин 160–1920, one-row fit/зазоры, safe area один раз, height=max, icon→text→icon при сохранённом action, hysteresis, locks/forced-cancel и отрицательные cases. Пример при этих inputs: 390px вмещает четыре роли в compact, 320px переносит medallion в flow, 1920px reading остаётся lean. Это проверка арифметики/решения модели, **не доказательство**, что реальные длинные названия и медальоны сайта влезают при тех же размерах.
-
-Модель не является shipped runtime, browser observer, acceptance-test implementation или финальной типографикой. При реализации реальный harness должен проверить DOM, interaction, доступность и S/P на source-bound fixtures. Production, общие foundations и STATUS в этом уточнении не меняются.
+Приёмка черновика начинается с **реальных generated-page screenshots и действий на actual candidate**, не с ещё одной коллекции абстрактных прямоугольников. Полный rendered интерактивный preview нужен следующим продуктовым результатом; документы и CI diagnostics его не подменяют.
