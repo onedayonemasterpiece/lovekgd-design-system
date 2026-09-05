@@ -4,6 +4,8 @@
 
 **Статус: документальное решение для implementation/owner review. Новая система не объявлена реализованной или принятой.** Продолжение PR #47, не новый владелец паттерна. Действующие принятые части оболочки сохраняются. Production, shared foundations, STATUS и canonical Penpot этим пакетом не меняются.
 
+**Уточнение v1.1:** [одна верхняя строка и осмысленная компактизация](top-row-composition-v1.1.md) — обязательная часть этого же pattern. Верхние роли сначала размещаются в один согласованный ряд; новый fixed этаж не является автоматическим fallback. Форматы иконок/подписей принадлежат конкретным ролям. Адресные изменения FI-02/05/09/11 отмечены ниже. [Release bindings RB-01–03](release-bindings-v1.md) сохраняются.
+
 Навигация по пакету: [источники и расхождения](sources-and-decisions-v1.md), [потребители и композиции](consumer-matrix-v1.md), [проверки и первый пакет](implementation-package-1.md). Исторический reference pack и исходные шесть наблюдений остаются в этой же папке. Схемы сторонних приложений — исследовательский материал, не baseline KenigEvents.
 
 ## 1. Назначение и граница решения
@@ -41,7 +43,7 @@
 
 На immersive event-detail действует `nav XOR transactional CTA`. Общая система не добавляет вторую панель поверх CTA. Существующий lifecycle CTA — hero → основной контент → terminal boundary — сохраняется до отдельного согласованного изменения его owner.
 
-Верхнее меню не становится модальным только из-за слова drawer. Текущий moving-parent/brand-tag donor, close paths и отсутствие неразрешённого backdrop/body lock сохраняются. Настоящие модальные окна имеют иной interaction contract.
+Верхнее меню не становится модальным только из-за слова drawer. Для немигрированных consumers moving-parent/brand-tag donor остаётся baseline. Новый top-row candidate получает явно versioned compact trigger/panel geometry по [v1.1 §7](top-row-composition-v1.1.md#7-меню-раскрытия-и-переходы); его нельзя ограничить прежним motion так, чтобы компактный trigger оказался невозможен. Содержание, действия и гарантии закрытия/focus сохраняются; неразрешённый backdrop/body lock не добавляется. Настоящие модальные окна имеют иной interaction contract.
 
 В текущем candidate уже существует компактная ссылка контекста страницы («Наверх: Популярное»). Система развивает её и разделяет с section context, а не создаёт второй конкурирующий header controller.
 
@@ -55,9 +57,9 @@
 
 | Роль | Работа пользователя | Владелец содержания | Типичное размещение / lifetime |
 |---|---|---|---|
-| `brand_global` | Узнать сайт, открыть глобальное меню, перейти домой | Существующий shell/brand/menu | Верхний leading cluster; route lifetime |
+| `brand_global` | Узнать сайт, открыть глобальное меню, перейти домой | Существующий shell/brand/menu | Участник общей top-row composition; route lifetime |
 | `page_context` | Понять текущую страницу, вернуться к её началу | Route composition + shell | Компактный верхний контекст после выхода H1; route lifetime |
-| `section_context` | Понять текущую полку/раздел ответа | Heading существующего section | Sticky в пределах section; только пока section активен |
+| `section_context` | Понять текущую полку/раздел ответа | Heading существующего section | Locator общей top row в v1.1; section-contained sticky только у явно немигрированного consumer |
 | `primary_navigation` | Перейти между четырьмя основными разделами | MobileBottomNav + resolver | Нижний dock; nav-mode |
 | `task_composer` | Написать/произнести запрос, дополнить, остановить запись | Search owner | Отдельный нижний task dock; task lifetime |
 | `transactional_action` | Основное действие текущего события | Event CTA owner | Нижний CTA по существующим границам; вместо nav |
@@ -81,7 +83,7 @@
 Подробная применимость и исключения — в consumer matrix. Выбранные варианты:
 
 - **C1 Discovery:** brand/global + компактный page context + nav; date/filter accessory только у объявившего его потребителя.
-- **C2 Sectioned reading:** C1 + section-contained context. Применимо к полкам и нескольким разделам результатов; вся полка не закрепляется.
+- **C2 Sectioned reading:** C1 + текущий section context в общей top row по v1.1. Применимо к полкам и нескольким разделам результатов; вся полка не закрепляется.
 - **C3 Single detached shelf:** C1 + одна самостоятельная контентная полка в потоке. Отделяется поверхность целого блока, не создаётся nested card-in-card для каждого события.
 - **C4 Conversational task:** brand/global + answer section context + composer + nav при достаточной геометрии. Отдельные lifecycle; возможен временный focus layout при вводе.
 - **C5 Immersive detail:** частичный brand/global над media только в проверенном варианте + контекст события + существующий CTA вместо nav. Gallery имеет собственный верхний слой.
@@ -90,6 +92,8 @@
 Наличие места не является причиной показывать все роли. На idle Search не нужен отдельный пустой state dock. На information-page не нужен composer, пока пользователь явно не открыл поиск. В Home несколько обычных полок не превращаются в ряд тяжёлых плавающих контейнеров.
 
 ### FI-05. Геометрический характер вариантов
+
+**Верхние роли v1.1 сначала размещаются в одной общей строке** с отдельными поверхностями и свободными промежутками/краями. Header/page/section/filter не образуют независимые sticky этажи. Алгоритм permitted views, смешанной компактизации, icon→text→icon и flow fallback находится один раз в [top-row-composition-v1.1.md](top-row-composition-v1.1.md). Он не требует полноэкранного substrate, одинаковых форм всех островов или наполнения всей свободной ширины.
 
 Desktop: острова выравниваются относительно существующего content container, оставляя контенту ширину; nav сохраняет компактный нижний центр. Task dock допускает более широкое поле, чем nav, но не накрывает его. На широком экране допускается разнесение task/state и nav по непересекающимся слотам **только по фиксированному правилу варианта**, а не прыжок вслед за курсором.
 
@@ -118,7 +122,7 @@ Header redesign ограничен chrome: brand/global, page context, utilities
 | Следующий section пересёк boundary | Предыдущий context уступает следующему | Не закрепляются два section headers друг над другом |
 | Scroll назад | Восстанавливается предыдущий section context | Не запрашивается заново его выдача |
 | Input focus / уменьшение полезного viewport | Пересчёт expanded → compact/focus/flow по §6 | Не теряется текст, selection, IME или mic stop |
-| Открытие non-modal global menu | Сохраняется donor; конфликтующие utility/toast приостановлены | Нет самовольного body lock |
+| Открытие non-modal global menu | Сохраняется согласованная версия menu presentation; конфликтующие utility/toast приостановлены | Нет самовольного body lock |
 | Открытие modal/gallery | Только владелец активного overlay принимает соответствующий input | Нет click-through и фоновых keyboard shortcuts |
 | Закрытие overlay | Возврат focus и сохранённого layout/anchor | Нет автоматического submit или restart recording |
 | Backend unavailable | Owner меняет содержимое статуса, shell сохраняет безопасную геометрию | Нет исчезновения активной кнопки под пальцем |
@@ -161,6 +165,8 @@ min_readable_block = max(160 CSS px,
 
 160 — **предлагаемый behavioral default для проверки**, не новый принятый foundation token и не универсальный закон UX. Не уменьшать font/control sizes ради прохождения budget. На overview дополнительно проверяется, что видна осмысленная часть content, а не только chrome. Budget не применяется как требование одновременно показать страницу за полноэкранной gallery/modal.
 
+Для верхней части сначала действует width-fit/semantic compaction [v1.1 §5](top-row-composition-v1.1.md#5-как-выбирается-одна-строка). Его результат — одна row band либо readable flow, не новый постоянный sticky этаж. Затем к общей верхней/нижней композиции применяется следующий height-budget fallback.
+
 Порядок деградации детерминирован:
 
 1. Убрать декоративные/повторные подробности, свернуть idle utilities в принадлежащее им раскрытие.
@@ -185,9 +191,11 @@ Geometry cycle «padding меняет observer → observer меняет padding
 
 ### FI-11. Section context
 
-Основной документ имеет настоящий H1. Разделы имеют соответствующие H2/H3. Закрепляется **сам компактный заголовок раздела в его semantic section**, а не клон с ещё одним heading/control tree. Sticky ограничен containing section и верхним inset своего lane. Следующий section вытесняет предыдущий; обратная прокрутка восстанавливает предыдущий естественно. Контейнер с unintended overflow не должен незаметно стать новым scroll ancestor.
+Основной документ имеет настоящий H1, разделы — H2/H3. **Для migrated v1.1 общий row показывает section locator/disclosure, а настоящие headings остаются в semantic flow.** Locator не получает heading role; отдельная кнопка выбора раздела имеет собственные action/name, не является клоном всех section controls. Только визуальное повторение текста исключается из повторной AT-озвучки. Выбор active scope выполняет один existing scroll owner по section boundaries. Подробности — [v1.1 §6](top-row-composition-v1.1.md#6-section-context-в-общей-строке-без-ловушки-dom).
 
-Длинный вопрос, полный модельный ответ, весь card rail и раскрытые фильтры не закрепляются. Длинный title компактно переносится (целевой предел две строки); полный смысл доступен при раскрытии/возврате к разделу. Критические ограничения, неопределённость или цена не скрываются исключительно для красоты.
+Section-contained sticky самого heading допустим у явно немигрированного consumer. Его нельзя одновременно оставить под shared top row как второй закреплённый этаж. В обоих вариантах следующий section сменяет предыдущий, а scroll вверх восстанавливает прежний scope; unintended overflow не должен незаметно стать новым scroll ancestor.
+
+Длинный вопрос, полный модельный ответ и весь card rail не закрепляются. Title/активные ограничения получают semantic short view либо остаются читаемыми в потоке/своём раскрытии; critical смысл не заменяется неизвестной иконкой. Для небольшой фильтрующей полки допускаются её реальные controls в общей строке, а при pressure — summary/раскрытие тех же действий, не второй control tree. Критические ограничения, неопределённость или цена не скрываются исключительно для красоты.
 
 Short/explanation-only разделы участвуют в том же алгоритме; они не получают пустую grid или sticky-header выше собственного контента. На границе разделов важнее непрерывное чтение, чем постоянное присутствие декоративного context pill.
 
@@ -310,7 +318,7 @@ P — native linked component instances с теми же IDs/versions/assets/con
 
 ## 11. Внедрение и критерий результата
 
-First package описан отдельно и рассчитан на существующую implementation lane #621, не на нового оркестратора. Он начинает с measurement/coordination действующих нижних поверхностей и защищённого контекста, без redesign карточек/типографики и без голосового backend. После bounded baseline/test evidence — изолированные варианты на конкретных consumers; затем owner review и управляемая миграция.
+First package описан отдельно и рассчитан на существующую implementation lane #621, не на нового оркестратора. Он начинает с measurement/coordination действующих поверхностей и защищённого контекста. После owner clarification v1.1 первая видимая реализация включает **одну верхнюю строку Popular**, а не дополнительный sticky этаж; [top-row contract §10](top-row-composition-v1.1.md#10-изменение-первого-пакета-реализации) уточняет существующий FI-P1 без voice backend или новых foundation tokens. После bounded baseline/test evidence — изолированные варианты на конкретных consumers; затем owner review и управляемая миграция.
 
 Материальное изменение компонента получает новую версию и candidate в существующем runtime catalog. Старая версия не объявляется deprecated до согласованного плана перехода; mixed production rollout допускается только по явно указанному owner/границе/сроку удаления флага. Иначе мигрируются все consumers изменённой approved family в одной поставке. Draft docs не являются разрешением тихо изменить geometry той же версии.
 
@@ -326,4 +334,4 @@ First package описан отдельно и рассчитан на суще�
 - W3C [Modal Dialog Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/): focus внутри настоящего modal, возврат при закрытии и inert background. Не основание объявлять modal любое меню.
 - MDN [position](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position): sticky зависит от scrolling ancestor/containing block и создаёт stacking context.
 
-Остальные правила геометрии и приоритетов выше — проектные решения KenigEvents, подлежащие указанным browser/device проверкам, а не утверждение об уже проверенной совместимости.
+Остальные правила геометрии и приоритетов выше — проектные решения KenigEvents, подлежащие указанным browser/device проверкам, а не утверждение об уже проверенной совместимости. Новое исследование однострочного chrome, иконок, disclosure и reflow — [v1.1 §2](top-row-composition-v1.1.md#2-что-показало-исследование), с отдельным различением research/model/browser evidence.
