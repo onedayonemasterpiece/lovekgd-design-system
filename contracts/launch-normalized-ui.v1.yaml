@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.13.0
+version: 1.14.0
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -150,24 +150,39 @@ owner_visible_normalization_clarification:
     browser_OS_share_auth_and_permission_surfaces_are_not_reimplemented: true
     semantic_exceptions_do_not_exempt_app_owned_surfaces_from_visual_migration: true
   primary_navigation:
-    decision_required: true
-    status: OWNER_CHOICE_PENDING
-    recommendation: shared_four_destination_bottom_navigation_with_compact_desktop_dock
-    recommendation_is_owner_approved: false
+    decision_required: false
+    status: OWNER_APPROVED_IMPLEMENTATION_PENDING
+    decision_date: '2026-09-05'
+    decision: shared_four_destination_bottom_floating_island_on_mobile_and_desktop
+    owner_approval: explicit_followup_bottom_bar_also_in_floating_island_format
     existing_destinations: [afisha, dates, search, personal]
     shared_identity_labels_icons_current_state_and_destination_semantics: required
-    desktop_pixel_copy_of_full_width_mobile_bar: not_required
+    presentation: floating_island_with_responsive_width_and_clearance_from_viewport_edges
+    desktop_variant: compact_bottom_floating_island
+    mobile_variant: bottom_floating_island_not_edge_attached_full_width_bar
+    desktop_pixel_copy_of_mobile_geometry: not_required
+    final_visual_skin: deferred_to_owner_generative_design
+    implementation_stage: schematic_composition_actions_states_and_accessibility
     primary_secondary_and_page_context_navigation_must_not_duplicate: true
     island_navigation_notification_stacking_owned_together: true
-    code_must_not_silently_choose_or_remove_working_mobile_navigation: true
+    preserve_working_mobile_navigation_during_migration: true
+    navigation_does_not_inherit_notification_auto_dismiss_timer: true
+    approval_is_implementation_or_browser_acceptance: false
+    amendment:
+      before: desktop_dock_was_a_recommendation_awaiting_owner_choice
+      after: bottom_floating_island_navigation_approved_on_both_device_classes
+      reason: explicit_owner_confirmation_and_floating_island_format_clarification
+      consequences: CODE_implements_shared_shell_variants_VISUAL_and_MATERIALS_use_approved_form_REVIEW_checks_both
+      type: BOUNDED_STAGE_AMENDMENT
+      approved: explicit_owner_reply_2026_09_05
   amendment:
     before: no_Penpot_mutation_and_runtime_only_agent_routing_with_insufficient_visible_completion_criteria
     after: visible_convergence_required_bounded_four_native_catalogs_shared_bottom_surfaces_and_CODE_delivery
     reason: explicit_owner_correction_visual_result_missing_and_catalogs_overlay_navigation_requested
     consequences: source_consumers_tests_SoT_native_catalogs_and_current_delivery_prompts_must_agree
     type: BOUNDED_STAGE_AMENDMENT
-    approved: owner_requested_visible_convergence_catalogs_bottom_surfaces_and_approved_execution_scheme
-    not_approved: desktop_dock_choice_remains_a_recommendation
+    approved: owner_requested_visible_convergence_catalogs_bottom_surfaces_execution_scheme_and_floating_island_navigation
+    not_approved: final_visual_skin_remains_deferred
 
 authority:
   executable_ui:
