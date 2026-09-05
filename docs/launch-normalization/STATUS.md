@@ -1,16 +1,16 @@
 # Launch normalization — factual status
 
 Coordination: `onedayonemasterpiece/events-bot-new#621`.
-Contract: [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.13.0.
+Contract: [launch-normalized-ui.v1.yaml](../../contracts/launch-normalized-ui.v1.yaml) v1.14.0.
 Finite correction register: [Owner audio review — 2026-09-05](owner-audioreview-20260905.md), now AR-01–AR-18.
 
 ## Current verdict — owner clarification, 2026-09-05
 
 **REOPENED_AFTER_OWNER_AUDIO_REVIEW. NORMALIZATION COMPLETION IS NOT ACCEPTED.**
 
-The latest owner clarification requires visible convergence of heading hierarchy, reaction blocks, spacing and color combinations, not merely preservation of old values under token names. It also requires four native Penpot catalog pages, shared lower windows/notifications with safe timer behavior, and an explicit desktop/mobile navigation decision. See the contract's `owner_visible_normalization_clarification`, the only normative definition of this amendment.
+The latest owner clarification requires visible convergence of heading hierarchy, reaction blocks, spacing and color combinations, not merely preservation of old values under token names. It also requires four native Penpot catalog pages, shared lower windows/notifications with safe timer behavior, and implementation of the approved desktop/mobile navigation decision. See the contract's `owner_visible_normalization_clarification`, the only normative definition of this amendment.
 
-These are **updated requirements, not delivered UI**. This clarification turn changed documentation only. No new UI tests, screenshots, published build or Penpot restoration are claimed. The proposed compact desktop bottom dock remains `OWNER_CHOICE_PENDING`; approval of the execution plan is not approval of that design choice.
+These are **updated requirements, not delivered UI**. The clarification and navigation-approval turns changed documentation only. No new UI tests, screenshots, published build or Penpot restoration are claimed. The owner explicitly approved lower primary navigation **in floating-island format on both mobile and desktop**. AR-18 is `OWNER_APPROVED_IMPLEMENTATION_PENDING`, not `OWNER_CHOICE_PENDING`: CODE proceeds with shared destinations and adaptive floating geometry. Final visual skin remains deferred to owner generative review; approval is not implementation or browser acceptance.
 
 The owner perceived little difference from July30. That is an important product observation, not a measured historical comparison performed here. The bounded retrospective must distinguish structural-only work, visible implementation, integration, publication and personal verification; it must not invent a completion percentage or restart the programme.
 
@@ -49,14 +49,14 @@ Home checks use existing DOM and an explicit local profile to retain1/2/3/4/5/7/
 2. **Visible role unification.** Complete same-role headings, controls/reactions, spacing and semantic color combinations are not normalized/certified. Exhibitions remains dark. The owner did not authorize preserving a kaleidoscope merely because each color has a token; nor has a new brand palette been approved. A bounded role selection must lead to actual changes across consumers, not a catalogue of excuses.
 3. **Behavior/data.** Removing double-Down did not deliver semantic reading traversal. Action variants, loading chronology, festival/club local/public reactions and organic state remain. Real8737 already has19:09;8702/8589 have no-source media;8702 has venue/content contradiction. Unusual withheld cause, weekend coverage and exhibition other-date links need upstream evidence. No speculative production data edits.
 4. **Native materials, AR-16.** Icons, medallions, artifacts and windows/notifications each require one native reviewable page in the existing Penpot file. Required, not restored. Use one assigned existing R0.PENPOT writer, exact file/page/revision, native linked components/assets, active/disabled/deprecated annotations and final-source refresh. Existing product artifact switches stay unchanged.
-5. **Bottom surfaces/navigation, AR-17/18.** All app-owned dialogs/notifications must migrate to shared bottom presentation/lifecycle with meaningful variants. Existing `MobileToastRegion.astro` has a progress bar/pauses/persistent error/action states but is top-anchored; reuse rather than build another timer. Forms/actions cannot expire. Desktop dock is proposed, not approved; choose explicitly and check primary/contextual navigation with the entire bottom stack.
+5. **Bottom surfaces/navigation, AR-17/18.** All app-owned dialogs/notifications must migrate to shared bottom presentation/lifecycle with meaningful variants. Existing `MobileToastRegion.astro` has a progress bar/pauses/persistent error/action states but is top-anchored; reuse rather than build another timer. Forms/actions cannot expire. Bottom floating-island primary navigation is now approved for both mobile and desktop; implementation and non-occlusion checks of the combined navigation/island/notification stack remain open. The navigation itself does not auto-dismiss with notification timers; final skin remains deferred.
 6. **Final gates.** Same-snapshot Kaggle successor, updated validated projection/catalog bindings and independent review remain. Full page-by-page Penpot materialization is still deferred; bounded catalogs are now mandatory. No A=S=P without P.
 
 ## Execution after the clarification
 
 CODE is the principal implementation/integration/candidate owner under the now explicitly amended contract; old R0-runtime-only routing does not override this assignment. VISUAL supplies concrete visible-role decisions and bounded historical delta; DATA supplies facts/adapter semantics. MATERIALS is an assigned ChatGPT/Penpot executor of the existing sole-writer role, not an extra orchestrator. REVIEW independently checks the new real candidate and catalog evidence. No parallel edits to the same owners/STATUS.
 
-Current prompt package lives in `events-bot-new/docs/features/static-site-pages/design-system/window-prompts/20260905-owner-review-completion-package.md` on the continuing branch. Read its current revision: the original immutable393a8e8 package predates the latest owner clarification. The normative contract and AR-register take precedence.
+Current prompt package lives in `events-bot-new/docs/features/static-site-pages/design-system/window-prompts/20260905-owner-review-completion-package.md` on the continuing branch. Read its current revision: the original immutable393a8e8 package predates the latest owner clarification, and immutable64784c01 predates navigation approval. The normative contract and AR-register take precedence.
 
 Penpot tool discovery in the clarification turn found both Penpot and Penpot business installed/enabled, but neither exposed callable methods in this conversation. No native file/page was opened or mutated here. Resolve in an execution context with those methods; do not substitute Figma, invent page IDs, or call source inventory a restored catalog. Stable source-bound materials can be prepared/recovered before CODE finishes, then changed bindings refreshed against the final source.
 
