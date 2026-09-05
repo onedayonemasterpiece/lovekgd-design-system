@@ -1,55 +1,53 @@
 # Floating Islands — KenigEvents
 
-Pattern **`pattern.detached-chrome-control-islands`**, существующий [PR #47](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/47). 2026-09-05. Текущая документальная composition revision **v1.6**. Runtime, visual acceptance и native A=S=P — отдельные результаты.
+Pattern **`pattern.detached-chrome-control-islands`**, существующий [PR #47](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/47). 2026-09-05. Текущая документальная composition revision **v1.7**. Runtime, visual acceptance и native A=S=P — отдельные результаты.
 
-## Текущая поправка владельца
+## Текущий договор
 
-**[Навигация и контекст v1.6](top-row-composition-v1.1.md)** — единственный владелец последних адресных правил; прежний путь сохранён.
+**[Навигация и контекст v1.7](top-row-composition-v1.1.md)** — единое место последних адресных изменений, без нового хронологического дубля требований.
 
-**Desktop после закрепления: бирка → текущая полка → города → меню с выделенным «Популярное». Меню постоянно у правого края.** Его right anchor, rect и visible targets не меняются от прокрутки или длины названия полки. Сначала резервируется правая область меню, затем доступная слева область для полки и городов. Resize может менять профиль, но не его правую привязку. На неизменной ширине профиль меню одинаков до/после scroll, без внезапного перемещения active item.
+**Не сжимать desktop-меню заранее.** До прокрутки оно полное, когда помещается в нынешней композиции. Будущее появление других островов в верхней строке не является основанием скрыть пункты на первом экране. Постоянен правый край меню; ширина/профиль могут измениться только при actual fit pressure. Требование v1.6 «одинаковый профиль на первом и самом плотном экране» отменено.
 
-**Mobile: контекст и соседний city trigger одинаковы по высоте и вертикальному выравниванию.** Двойной page+section island сохраняется. Кнопка «…» сокращается по ширине, не превращается в маленький низкий круг возле высокого контекста. Материал/радиус/граница согласованы; glyph обычного размера по центру. Если дочерняя подпись переносится, оба острова растут вместе. Бренд для этого не масштабируется.
+После закрепления порядок сохраняется: **бирка → текущая полка → города → меню с выделенным «Популярное» у правого края**. Сначала сохраняется полный nav, затем по необходимости сокращаются города; nav overflow допустим лишь если читаемая минимальная city presentation тоже не помещается. Это не правило скрыть города всегда: при достаточной ширине остаются прямые варианты или весь набор. Активная страница/выбор/действия не теряются, held/focused controls не подменяются.
 
-| Режим | Page identity | Плавающий контекст |
+| Режим | Название страницы | Плавающий контекст |
 |---|---|---|
-| Desktop с видимым right-menu | Выделенное «Популярное» в навигации | Только текущая полка, слева от городов и меню. |
-| Mobile без desktop-полосы | «Популярное» внутри combined island | Page+section в одной поверхности, города отдельной поверхностью той же высоты. |
-| Тесный desktop | Current item остаётся видимым; допустим named trigger «Популярное ▾» | Shelf-only пока identity действительно видна; безымянный trigger её не заменяет. |
+| Desktop с видимым right-menu | Обычный H1 уезжает вверх с документом; page identity остаётся в selected «Популярное» меню | **Только текущая полка**. Нет второго floating «Популярное». |
+| Mobile | С первых пикселей H1 label плавно и диагонально превращается в остров | **Одна combined surface: страница + полка**. Города рядом той же высоты; никакой дополнительной desktop-nav полосы. |
+| Тесный desktop без visible identity | Нужен visible named current trigger либо combined identity | Shelf-only недопустим при безымянно скрытой текущей странице. |
 
-Desktop начинается с обычного H1 и развёрнутого ряда доступных городских вариантов. При pinning города могут сохранять несколько прямых choices и «Ещё города». «Ещё разделы» — другое раскрытие. Не прятать current item, не сокращать всё только от scroll offset и не возвращать дополнительную навигационную полку на mobile.
+**Большая карточка:** `Бесплатно · Вход свободный` сокращается до **`Бесплатно`**. Регистрация, временные/аудиторные ограничения, закрытый доступ, платный вход на площадку и неизвестные условия не удаляются вместе с тавтологией. Нужна единая presentation для SSR и подгружаемых EventCard, а не CSS скрытие или глобальная подмена источников/описаний. Полный договор и реальные source dependencies — §5–6 owning specification.
 
-Смена полки не меняет выбранную страницу/города и не двигает меню. Mobile morph остаётся immediate/reversible/diagonal, без отдельного горизонтального этапа; текущий state viewer не выдаётся за доказанную анимацию. Настоящая бирка неизменна, нижний dock один цельный, rejected skin не возвращается. Free medallion equivalence, original city controls и FI/RB guards сохранены.
+Mobile context/city сохраняют общие верх/низ, совместимый radius/material; точки обычного размера и сокращают ширину, не высоту. При необходимом wrap растут оба. Бренд не переставляется/не компактируется от соседей. Нижний dock — один цельный остров; rejected heavy skin не возвращается, новое macOS-like оформление не утверждается этой схемой.
 
-## Документы
+## Карта источников
 
 | Документ | Ответственность |
 |---|---|
-| [Композиция v1.6](top-row-composition-v1.1.md) | Правый menu anchor, порядок desktop, общий H мобильной пары, overflow/identity/motion/owner и acceptance boundaries. |
-| [Core FI-01–20](system-design-v1.md) | Общая система, C1–C6, occupied-space, scroll/keyboard/layers, Search adapter/A=S=P с current amendments. |
-| [RB-01–03](release-bindings-v1.md) | Receipts, served/exposure, frozen prefix/hides/undo, optional analytics OFF и upstream owners. |
-| [Consumer matrix](consumer-matrix-v1.md) | Registry consumers; current manifest проверяется перед migration. |
-| [FI-P1](implementation-package-1.md) | Existing bounded integration lane, не второй orchestrator. |
-| [Historical sources](sources-and-decisions-v1.md) | Прежние reads/evidence и их границы. |
-| [Dossier](planned-design-pattern.md), [JSON](planned-pattern.json) | Lifecycle/proposed variants, не release readiness и не native evidence. |
+| [Композиция v1.7](top-row-composition-v1.1.md) | Current-state fit, right anchor, desktop/mobile H1 behavior, city overflow, короткая free-card label и границы реализации. |
+| [Core FI-01–20](system-design-v1.md) | Roles/C1–C6, occupied-space, scroll/keyboard/layers, Search adapter/A=S=P с текущими owner amendments. |
+| [RB-01–03](release-bindings-v1.md) | Receipts, served/exposure, frozen prefix/hides/undo, optional analytics OFF и существующие upstream owners. |
+| [Consumer matrix](consumer-matrix-v1.md) | Actual registry routes/owners; latest manifest проверяется перед integration. |
+| [FI-P1](implementation-package-1.md) | Existing bounded source-integration lane, не новая orchestration задача. |
+| [Historical sources](sources-and-decisions-v1.md) | Исторические checked facts с их датами и evidence boundaries. |
+| [Dossier](planned-design-pattern.md), [planned JSON](planned-pattern.json) | Lifecycle/proposals, не текущая release readiness/native evidence. |
 
-## Артефакты v1.6 и выполненная проверка
+## Артефакты и личные проверки v1.7
 
-В разговоре переданы editable SVG: desktop1440/1920 по4 состояния с stationary right-menu; mobile390/430/320 с равновысокой парой, отдельные frames, layout JSON и HTML viewer/export. Pure primitives/text, без image generation/raster embedding/font files. В схеме64/80px — пример common row height, не approved runtime tokens. На320 дочерний текст переносится без потери смысла, оба острова увеличиваются.
+Editable SVG: desktop1280/1440/1920 по4 состояния, individual frames, mobile320/390/430 с прежней равной высотой пары. Исходный desktop показывает полный nav и ряд городов. В данной модели1440/1920 сохраняют full nav и после закрепления; при1280 возникает actual shared-row deficit и допускается overflow. При2320 все примеры помещаются. Числа — specimen inputs, не breakpoints/tokens.
 
-**18 локальных model/XML tests прошли. 50 проверок standalone HTML viewer в локальном Chromium прошли.** Проверяются right anchor/unchanged rect, порядок/gaps, видимый current, membership/overflow, mobile common height/top/radius/wrap, защищённый бренд, editable export и отсутствие external requests/JS errors. Контрольные SVG-отрисовки просмотрены. Это **SCHEMATIC_ONLY**, не Astro/native Penpot/A=S=P и не новый CI итог #638. HTML — переключатель схем, не работающие product filters или проверенная scroll-анимация.
+В schematic EventCard уже короткое «Бесплатно»; карточки/цены — примеры, не факты реальной афиши. Standalone HTML переключает/экспортирует векторные состояния, не реализует product filters или непрерывную scroll-анимацию.
 
-Файлы пакета `popular-nav-correction-v16` переданы в разговоре. Их локальное наличие не объявляется GitHub blobs/public website; эта ветка сохраняет нормативный текст. Предыдущие [v1.5-схемы](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/b3df0b52ea56dd5eeaed8321a1b04119408fcb4b/docs/research/floating-control-islands-2026-08/README.md) с меню посередине и низким mobile-circle больше не определяют целевую компоновку.
+**24 XML/model tests и77 standalone browser-viewer checks прошли.** Проверены полнота исходного nav, actual justification перед collapse, right anchor, отсутствие compaction при достаточном месте, H1 desktop/mobile distinctions, membership/current, mobile heights, короткая label и отсутствие внешних запросов/JS errors/raster embedding. Desktop initial/pinned кадры просмотрены. Это **SCHEMATIC_ONLY**, не CI Astro/native-P acceptance. Пакет разговора `popular-nav-correction-v17`; эти Markdown commits не загружают SVG/HTML bytes в Git автоматически.
 
-## Известные source gaps и отдельный runtime checkpoint
+## Source continuity и честная граница
 
-Предыдущее чтение events source **414a9cf103e77345132afc9b08e0147446d6496a** показало exclusion `item.key !== 'popular'` в visibleHeaderNavigation. Это historical observation, не fresh runtime audit текущего v1.6. Перед actual implementation проверить latest EventLayout/Reference4/CSS/feature-gates и восстановить/подтвердить selected popular в действительно видимом menu owner до удаления desktop page-context. Не внедрять иллюстративные gated пункты автоматически.
+В текущем ходе прочитан draft#638 `ea07efaa…`: EventCard SSR отображает `eventAdmissionLabel(event)` в `[data-card-status]` и использует status также в share metadata. Найден dynamic fill того же поля в EventLayout. При реализации карточной подписи необходимо согласовать обе ветви и не менять полный доменный статус других surfaces. **Runtime-formatter в этой проектной итерации ещё не изменён.**
 
-Ранее проверенный [events#638](https://github.com/onedayonemasterpiece/events-bot-new/pull/638): ea07efaa58d6eb911cfb6cb62914cd8ae10c2dd6 / [run33969915797](https://github.com/onedayonemasterpiece/events-bot-new/actions/runs/33969915797),23 Node+114 browser assertions на July23 fixtures закрыли конкретный city inline-fallback defect. Это не внедрение v1.6. Актуальный PR/HEAD читается заново при продолжении.
+Историческое чтение executable414a9cf… выявляло исключение popular из visibleHeaderNavigation. Это не новое чтение latest integration; перед убиранием desktop floating title нужно fresh-read настоящего navigation/Reference4/CSS owner и восстановить/подтвердить видимый selected item. Feature-gated «Клубы» не включаются в production из-за illustrative SVG.
 
-[История доступа/артефактов](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/67a39c0a0607206e53675d87204b9fedef6860fe/docs/research/floating-control-islands-2026-08/README.md) сохраняется. Успех GitHub не доказывает доступность Penpot. Новая native страница здесь не создавалась.
+[Events#638](https://github.com/onedayonemasterpiece/events-bot-new/pull/638) ea07 / run33969915797 — исторический проверенный city-fallback repair на July23 fixtures. Его23 Node/114 browser counts не относятся к новой policy меню или цены. Ссылки на прежние normative revisions и артефакты доступны через Git history; v1.6 initial collapsed menu больше не руководство.
 
-## Граница результата
+Runtime/production/root/current/ICS, shared foundations/canonical components/STATUS в этом ходе не менялись. Actual source/SoT integration, актуальный same-corpus Kaggle preview и native P остаются открытыми. Изменение A должно сопровождаться тем же label/layout decision в S и обязательными проверками P; документы/схемы не подменяют этого результата. #621 — integration/publisher, #587 — Search/release, #39 — tracker.
 
-Не менялись runtime/production/root/current/ICS/shared foundations/canonical components/STATUS. Source-bound family/impact/scenario mapping, same-corpus Kaggle interactive preview и native P остаются отдельной интеграцией. Current spec требует проверки menu anchor и common mobile row height вместе с actual full labels/assets/geometry; schematic PNG/SVG не дают A=S=P PASS.
-
-#621 — интеграция и единый publisher, #587 — Search/release, #39 — tracker. Нет второго menu/filter/router и переписывания требований в новый prompt. Первичные research [observations](screen-observations.json), [provenance](source-manifest.json), прежние SVG и [offline model](top-row-model.py) остаются exploration/history, не новыми принятыми токенами.
+Исходные observations/provenance/research SVG и offline model сохраняются как history/exploration, не принятые tokens. Нет image generation, добавочных навигационных владельцев, нового фильтра или раздачи font files.
