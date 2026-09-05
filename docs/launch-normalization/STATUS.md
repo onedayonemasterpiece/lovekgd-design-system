@@ -14,6 +14,29 @@ These are **updated requirements, not delivered UI**. This clarification turn ch
 
 The owner perceived little difference from July30. That is an important product observation, not a measured historical comparison performed here. The bounded retrospective must distinguish structural-only work, visible implementation, integration, publication and personal verification; it must not invent a completion percentage or restart the programme.
 
+## CODE continuation — 2026-09-05, not acceptance
+
+Current role-branch source milestone: `94eaec04c` (resolve full SHA in events-bot-new),
+followed by notification intake `b5fb2ebd0`. Neither is a published real candidate.
+- Card correction `8b4324849`: multi-column flow/packed cards share four internal
+  subgrid tracks; normal-width remainders and admission/order preserved. Local
+  committed-fixture diagnostics cover seven Home counts and nine widths; actual
+  stretched-singleton and shifted-media negative controls reject drift.
+- Keyboard `72d5e1de7` plus `94eaec04c`: H1 → visible prose → practical summary
+  → related cards, preserving guards. Browser diagnostics found an action-panel
+  `[data-event-title]` collision; selector now requires H1. Real5370 local HTML
+  used the frozen snapshot; the corrected-router check injected current module
+  source into older749 HTML, so it is not compiled candidate acceptance.
+- AR-17 shared lower-surface migration is in progress. No claim that all media
+  viewers or authenticated forms have passed. AR-18 remains owner choice pending.
+- VISUAL supplied actionable role convergence at issue621 comment5550007027.
+  Its Exhibitions light/dark theme choice remains unapproved, not a retained
+  exception. CODE requested owner choice and continues independent changes.
+- Unusual before-build result records semantic stage disabled/provider_calls0.
+  The committed empty fallback was retained; this is not evidence that a newly
+  computed collection failed its quality gate. DATA was given this evidence in
+  comment5549980301; no production data or gate bypass performed.
+
 ## Last actually delivered source and evidence
 
 - Executable trunk, last fresh read: `events-bot-new:agent/static-site-single-kaggle-contract` at `8b1bb81298bfca2fe2aaa3ceb7e5f654748b301f`.
