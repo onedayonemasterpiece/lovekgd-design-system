@@ -36,13 +36,13 @@ prefix is stable. Compatible natural OCR/visual filler grouping comes first;
 safest permitted20% vertical crop is reserved for genuine scarcity. The26fb02851 intermediate transaction completed without restart. It is not final
 framing acceptance; CODE continues with this clarification.
 
-## Latest real candidate —592a31612
+## Latest real candidate —414a9cf10
 
-[Owner Home](https://kenigevents.ru/preview-real-592a31612-normalized-20260905-v1/)
-and [manifest](https://kenigevents.ru/preview-real-592a31612-normalized-20260905-v1/preview-build.json)
-are HTTP200 and match Astro592a316127660f0a172743ef8bd74d59fd127b8f.
+[Owner Home](https://kenigevents.ru/preview-real-414a9cf10-normalized-20260905-v1/)
+and [manifest](https://kenigevents.ru/preview-real-414a9cf10-normalized-20260905-v1/preview-build.json)
+are HTTP200 and match Astro414a9cf103e77345132afc9b08e0147446d6496a.
 Same immutable snapshot/clock and real/all comparison slice300; canonical review
-Kaggle26 COMPLETE;1428 create-only objects; no production/current/ICS mutation.
+Kaggle COMPLETE;1428 create-only objects; no production/current/ICS mutation.
 Contract1.14.2 remains the semantic authority; executable family/token bindings
 are checked on this exact Astro. Shared full-pool row planning, protected vertical
 crop proof propagation, typography, modal lifecycle and schematic Floating Islands
@@ -58,7 +58,13 @@ context, occupied-space geometry and menu lifecycle. These are engineering smoke
 not independent REVIEW. All18 residual Free tail cards still lack usable
 protected-text crop proof: no unsafe crop or claim of all-row framing PASS.
 Native MATERIALS remains separate; no native Penpot update or A=S=P verdict
-is claimed by CODE.592a is available for review, not owner acceptance.
+is claimed by CODE.414a is available for review, not owner acceptance.
+
+Residual framing refinement: the same111-event published-runtime comparison at
+1440 reduces maximum combined image-frame gap96.97→36.05px with no protected
+image crop or missing identity. Flexible allocation is refined before pagination;
+unavoidable contain rows minimize worst unused area. Fields remain, so this is
+not a no-fields PASS. Evidence: [CODE414a result](https://github.com/onedayonemasterpiece/events-bot-new/issues/621#issuecomment-5552391219).
 
 ## Historical delivered2fe CODE candidate — rejected by later owner review
 
