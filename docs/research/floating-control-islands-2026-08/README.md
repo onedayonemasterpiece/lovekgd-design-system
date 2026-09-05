@@ -1,43 +1,43 @@
 # Floating Islands — KenigEvents
 
-Pattern ID: **`pattern.detached-chrome-control-islands`**. Existing owner: [PR #47](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/47). 2026-09-05, **текущая composition revision v1.2**.
+Pattern **`pattern.detached-chrome-control-islands`**, existing owner [PR #47](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/47). 2026-09-05, current composition **v1.3**.
 
-## Начать здесь
+## Начать здесь: последние решения владельца
 
-**Брендовое меню «Полюбить Калининград Анонсы» не меняется.** Оно занимает своё существующее место и не участвует в сжатии/перестановке/state transitions соседних островов. Предложенная в v1.1 замена его на текстовый/glyph trigger отменена прямым уточнением владельца. Собственное existing открытие/закрытие меню сохраняется.
+**Нижний остров один цельный, стилистически ближе к macOS. Не отдельные острова-иконки или плитки.** Широкий desktop-вариант с тяжёлой рамкой отклонён и удалён из draft #638. Прежнее оформление восстановлено; новая Mac-like skin пока направление для последующего review, не реализованный или принятый дизайн.
 
-[Актуальный контракт композиции v1.2](top-row-composition-v1.1.md) сохранён по прежнему пути, чтобы существующие ссылки в core/пакетах вели в текущую редакцию. Он имеет приоритет в трёх адресно изменённых вопросах: защищённый бренд, **эквивалентный medallion вместо дублирующего floating title**, отдельная desktop presentation нижнего dock. Остальные FI/RB requirements не отменяются.
+**Брендовое меню «Полюбить Калининград Анонсы» не меняется:** не сжимается и не переставляется по состояниям соседних островов; его собственное существующее управление сохраняется. Остальные contextual islands компонуют вокруг его реального места. Exact Free может использовать canonical медальон вместо дублирующего floating title, сохраняя H1 и richer-scope qualifiers. Города раскрывают исходный fieldset в прямоугольнике с реальным восстановлением после resize/fallback.
 
-| Документ | Область |
+| Документ | Ответственность |
 |---|---|
-| **[Композиция v1.2](top-row-composition-v1.1.md)** | Неизменяемый branded menu; одна contextual row вокруг него; semantic Free identity; прямоугольное раскрытие городов; desktop-specific dock; текущий код/evidence и границы. |
-| [Системный core FI-01–20](system-design-v1.md) | Общие roles/C1–C6, occupied-space/scroll/keyboard/layers, Search adapter и A=S=P. Старые разрешения изменить бренд и безусловно сохранить отдельный title читаются с отменяющей v1.2 поправкой, не являются параллельным разрешением. |
-| [Release bindings RB-01–03](release-bindings-v1.md) | Receipts, served/exposure, frozen prefix/hides/undo, optional analytics OFF, existing transport/profile ownership. |
-| [Матрица consumers](consumer-matrix-v1.md) | Actual registry routes/owners и scenarios; current manifest проверяется перед migration. Вместо ещё одного набора routes v1.2 накладывает новые presentation правила на тех же consumers. |
-| [FI-P1](implementation-package-1.md) | Общий порядок исходного slice; scope уточнён v1.2. Частичный draft #638 не объявляется полным выполнением FI-P1. |
-| [Исходное evidence](sources-and-decisions-v1.md) | Historical sources и прежние ограниченные browser captures; не сегодняшний production PASS. |
-| [Planned dossier](planned-design-pattern.md), [JSON](planned-pattern.json) | Lifecycle/base C1–C6. Proposed registry не deployment manifest и не proof native P. |
+| **[Актуальная композиция v1.3](top-row-composition-v1.1.md)** | Последние owner corrections, один нижний остров, защищённый бренд, эквивалентный medallion, city-panel lifecycle и текущая граница source/acceptance. Имя файла сохранено ради входящих ссылок. |
+| [Core FI-01–20](system-design-v1.md) | Общие roles/C1–C6, occupied-space, scroll/keyboard/layers, Search adapter и A=S=P. Старые разрешения менять бренд/сохранять rejected skin перекрыты актуальной composition revision. |
+| [Release bindings RB-01–03](release-bindings-v1.md) | Честные receipts, served/exposure, frozen prefix/hides/undo, optional analytics OFF; existing transport/profile authority. |
+| [Матрица consumers](consumer-matrix-v1.md) | Реальные registry routes/owners/scenarios. Current release manifest проверяется перед migration; нет второй таблицы маршрутов. |
+| [Первый пакет FI-P1](implementation-package-1.md) | Общий порядок bounded integration. Частичный #638 не равен полному FI-P1; актуальные owner corrections имеют приоритет. |
+| [Источники исходного дизайна](sources-and-decisions-v1.md) | Historical source/public/browser evidence с его собственными датами и ограничениями. |
+| [Dossier](planned-design-pattern.md), [JSON](planned-pattern.json) | Lifecycle и proposed variants, не production manifest/доказательство native P. |
 
-## Уже есть исполняемый черновик
+## Исполняемая работа и текущий честный результат
 
-[Events PR #638](https://github.com/onedayonemasterpiece/events-bot-new/pull/638), branch `work/floating-islands-owner-preview-20260905`: preview-only код поверх существующих controls, не новый global menu/filter/nav controller. Точная реализация/текущий head/terminal artifacts — в этом PR и [source note](https://github.com/onedayonemasterpiece/events-bot-new/blob/work/floating-islands-owner-preview-20260905/docs/features/static-site-pages/design-system/floating-islands-owner-review.md).
+[Draft events #638](https://github.com/onedayonemasterpiece/events-bot-new/pull/638), `work/floating-islands-owner-preview-20260905`. Последняя сохранённая source revision **30a0c977362a4e791c9f5a83d8c7def534d6f3c1**. Rollback rejected dock — **be4a15d1…**, [run33966294014](https://github.com/onedayonemasterpiece/events-bot-new/actions/runs/33966294014) passed focused generated-page diagnostics.
 
-Первый [run33964702848](https://github.com/onedayonemasterpiece/events-bot-new/actions/runs/33964702848) **реально сгенерировал Astro Popular и Free**, затем Chromium снял/проверил390×844,1280×800,1920×1080. 15 unit/source tests отдельно. Artifact ZIP bytes получены и hashes сверены; screenshots лично просмотрены. На Free найден leftover background старого title; следующая source correction добавляет проверки его удаления/границ. Последующий PASS берётся только из соответствующего run, не переносится с первого.
+На30a0c977 реализованы city-panel resize/recovery, original fieldset/selection/focus preservation, cleanup, lane-aware obstacles и Free image-error text fallback. [Run33966645022](https://github.com/onedayonemasterpiece/events-bot-new/actions/runs/33966645022) **частично не прошёл**: 22 Node checks и обычные Popular/Free browser cases прошли, Free recovery7/7, Popular recovery27/28. При искусственно отключённом Popover API inline rectangle конфликтует с horizontal/sticky rail, реальный outside click не проходит. Этот отрицательный результат сохранён; тест не ослаблялся.
 
-Это **generated-page diagnostics на committed fixture corpus2026-07-23**, не current-real Kaggle publication и не A=S=P. Нет новой публичной интерактивной ссылки или native Penpot. Инструменты my-data-hub/browser/Penpot установлены, но не предоставили callable methods в этом окне. Read-only CI не заменяет единый canonical publisher и не получает owner-release credit.
+Поправка CSS для этого случая подготовлена, но её `GitHub.create_tree` запись заблокирована OpenAI safety-status validation. **Она не закоммичена и не проверена.** Другой путь записи не использовался. Точная граница: [#638 comment5551914914](https://github.com/onedayonemasterpiece/events-bot-new/pull/638#issuecomment-5551914914). Обновлённое описание PR содержит final receipt и artifact hashes; старые PASS-скриншоты rejected skin не являются текущей приёмкой.
 
-## Что сохраняется
+Generated pages — настоящий Astro через existing `local:focused`, но на committed fixture2026-07-23. Это не свежий September corpus, не public Kaggle preview, не нативная OS-клавиатура и не A=S=P. Read-only CI не создаёт второго publisher. my-data-hub/browser/Penpot не предоставили callable methods в этом окне.
 
-Четыре primary destinations и единый resolver — одинаковы на desktop/mobile; geometry/иконки/подписи могут отличаться. Mobile dock не обязан расти вместе с desktop. Основное H1 остаётся в документе, даже когда floating page identity представлена одним medallion. City disclosure использует те же checkboxes и немедленное применение; оно не становится глобальным меню.
+## Открытые интеграционные границы
 
-Проектирование и draft diagnostics разрешены сейчас, без ложного объявления всей нормализации завершённой. Перед интеграцией нужны current source, registry/impact/scenario updates, affected baseline, owner review, exact assets/geometry и release gates. Без real native P нет A=S=P. Общие foundations, production/root/current/ICS и STATUS не изменяются этим пакетом.
+Прочитан actual trunk46fc5268… с параллельной top-band/menu implementation, не слит в draft. Нужно согласовать owners с защищённым брендом, завершить единую верхнюю композицию, family/impact/scenario registration, current-corpus Kaggle preview и required native conformance. Не накладывать конкурирующие controllers и не отменять crop/full-pool изменения других задач.
 
-#621 владеет runtime integration и Kaggle published-preview; #587 — Search/release interfaces; #39 — tracker. Нового оркестратора/публикационного конвейера нет. Не смешивать 14 исторических offline-model checks, 32+5 planned runtime scenarios и 15 новых source tests с выполненными browser cases.
+Один источник A=S=P остаётся active conformance contract. Без actual native P нет PASS. Production/root/current/ICS/shared foundations/STATUS не меняются этой lane. #621 — integration и единый Kaggle путь; #587 — Search/release; #39 — tracker. Ни нового оркестратора, ни нового глобального меню/фильтра/профиля не создаётся.
 
-## Историческая research база
+## Сохранённая исследовательская история
 
-Сохранены без переработки: [screen-observations.json](screen-observations.json), [source-manifest.json](source-manifest.json), [reference board](assets/reference-board.svg), [anatomy](assets/anatomy.svg), ранние [distributed](assets/variant-a-distributed.svg)/[split dock](assets/variant-b-split-dock.svg). Это source-informed/anonymized exploration, не наши accepted screens/tokens. Raw private/third-party screenshots не публикуются.
+[screen-observations.json](screen-observations.json), [source-manifest.json](source-manifest.json), [reference board](assets/reference-board.svg), [anatomy](assets/anatomy.svg), [distributed](assets/variant-a-distributed.svg)/[split dock](assets/variant-b-split-dock.svg) остаются exploration, не accepted screens/tokens. Raw private/third-party screenshots не публикуются.
 
-[Исследование v1.1@eb330959](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/eb3309591be368d729ea52c90b6ef99d1acbad6b/docs/research/floating-control-islands-2026-08/top-row-composition-v1.1.md#2-что-показало-исследование) остаётся обоснованием principled grouping/compaction/reflow, но не отменяет новое прямое указание владельца о бренде. [Offline model](top-row-model.py) — историческая арифметика со synthetic slots, включая теперь **неприменимый к branded menu** compact/glyph пример; не подключать его как production policy.
+[Исследование v1.1@eb330959](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/eb3309591be368d729ea52c90b6ef99d1acbad6b/docs/research/floating-control-islands-2026-08/top-row-composition-v1.1.md#2-что-показало-исследование) обосновывает grouping/compaction/reflow, но не отменяет owner corrections. [Offline model](top-row-model.py) — историческая synthetic geometry; его теперь неприменимый branded-menu compact example не подключать как runtime policy.
 
-Цель — меньше смысловых дублей и более удобный контентный интерфейс. Ни количество документов, ни красиво уменьшенный header не заменяет работающие controls и проверку реального preliminary candidate.
+Технический PASS, visual approval, source integration и опубликованный продукт — разные факты. Цель — работающий чистый интерфейс, не число документов или формально зелёных проверок.
