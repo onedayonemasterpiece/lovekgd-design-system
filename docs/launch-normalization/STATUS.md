@@ -16,26 +16,34 @@ The owner perceived little difference from July30. That is an important product 
 
 ## CODE continuation — 2026-09-05, not acceptance
 
-Current role-branch source milestone: `94eaec04c` (resolve full SHA in events-bot-new),
-followed by notification intake `b5fb2ebd0`. Neither is a published real candidate.
-- Card correction `8b4324849`: multi-column flow/packed cards share four internal
-  subgrid tracks; normal-width remainders and admission/order preserved. Local
-  committed-fixture diagnostics cover seven Home counts and nine widths; actual
-  stretched-singleton and shifted-media negative controls reject drift.
-- Keyboard `72d5e1de7` plus `94eaec04c`: H1 → visible prose → practical summary
-  → related cards, preserving guards. Browser diagnostics found an action-panel
-  `[data-event-title]` collision; selector now requires H1. Real5370 local HTML
-  used the frozen snapshot; the corrected-router check injected current module
-  source into older749 HTML, so it is not compiled candidate acceptance.
-- AR-17 shared lower-surface migration is in progress. No claim that all media
-  viewers or authenticated forms have passed. AR-18 remains owner choice pending.
-- VISUAL supplied actionable role convergence at issue621 comment5550007027.
-  Its Exhibitions light/dark theme choice remains unapproved, not a retained
-  exception. CODE requested owner choice and continues independent changes.
-- Unusual before-build result records semantic stage disabled/provider_calls0.
-  The committed empty fallback was retained; this is not evidence that a newly
-  computed collection failed its quality gate. DATA was given this evidence in
-  comment5549980301; no production data or gate bypass performed.
+Current CODE source continues on `work/owner-audioreview-card-geometry-20260905`.
+Source milestones below are **not independent acceptance or publication**:
+- `64aa37e2d9dc8884cff4fcea13613c777b31f3c6`: packed geometry readiness,
+  row-aligned feedback tail and executable Exhibitions inline runtime. Real5370
+  local builds now pass internal media/body bounds at1440/390/1920, keyboard
+  H1/prose/practical/cards, floating island and modal clearance; no page JS errors.
+- Real Exhibitions CODE smoke at the same source covers graphite and same-page
+  light comparison at all three widths: same five rendered IDs, distinct shared
+  backgrounds, like reversal/shared toast and desktop gallery Escape. Mobile
+  compact-deck interaction is preserved. This is not VISUAL/V0 acceptance.
+- AR-17 now has shared lower-window/form/notification implementation and focused
+  queue/timer/keyboard/navigation tests. Complete authenticated/native scenarios
+  and independent review remain open, not `REQUIRED_NOT_IMPLEMENTED`.
+- AR-18 approved floating navigation is implemented with the same four
+  destinations on mobile and desktop. Final skin and native catalogs remain
+  separate; no owner-choice blocker remains.
+- Free profile v1.2.0 correction (#621/5550253003) is included before candidate
+  freeze: one confirmed-free pool, shared feed, initial12 and incremental load,
+  exact loaded/total forms. Source `d33f01fab5c79ea0195c8e4289526072d9d769d2`
+  local real smoke reached all111 eligible IDs without duplicates/paid entries
+  at1440/390/1920. Local-profile ranking changed order without changing the pool.
+  Later source retires oversized landing chrome and updates structural states;
+  the new public structural capture remains pending.
+- Current focused Node packet:244/244 PASS; strict route-theme and club-theme
+  checks PASS; same-snapshot full Kaggle candidate not published yet.
+- Unusual before-build result records semantic stage disabled/provider_calls0;
+  the new candidate must execute the existing warm semantic path honestly.
+  No quality-gate bypass or invented collection readiness.
 
 ## Last actually delivered source and evidence
 
