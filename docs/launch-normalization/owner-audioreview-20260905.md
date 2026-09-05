@@ -76,28 +76,18 @@ New code must implement shared bottom surfaces and the approved floating-island 
 
 Accessibility implementation references for AR-17: W3C APG Dialog (Modal), `https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/`; WCAG2.2 Timing Adjustable, `https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html`. Bottom placement does not erase focus/modality/timing requirements.
 
-## CODE local checkpoint — 2026-09-05, not independent acceptance
+## Current published CODE evidence — 2fe28b1f8, not independent acceptance
 
-Source64aa37e2d real5370 local smoke passed three-width packed anatomy and
-keyboard/gallery/navigation checks. Exhibitions graphite/light local smoke
-passed six theme/viewport cells including like reversal and desktop modal
-closure. The existing Free profile v1.2.0 correction supersedes the split
-landing: source d33f01fab local smoke reached all111 confirmed-free IDs from
-the frozen slice300, with12 initially loaded; profile ranking changed order
-without pool loss. Historical two-grid/five-item packets are not the page oracle.
-Current source also fixes inverse share legibility and removes Free landing
-chrome. Full same-snapshot Kaggle candidate, current public structural capture,
-independent REVIEW and MATERIALS native catalogs remain open. These diagnostics
-do not mark AR-01/04/05/10/17/18 globally PASS.
+The existing CODE work is integrated and published on executable trunk
+`2fe28b1f831ac607c0415a8aa6c2beab9eb67fac`. See [STATUS](STATUS.md) for the
+exact same-snapshot URL, Kaggle/artifact identity, packet scopes and current
+structural projection hashes. This supersedes the prior4ff publication's known
+inverse Share defect and missing ordinary title consumers.
 
-## Published CODE candidate — 4ff0aeb9f, not independent acceptance
-
-Same-snapshot real/all slice300 is now publicly reachable; see current STATUS
-and events-bot-new#621 comment5550647244 for exact identity/hashes and REVIEW
-trigger. Ordinary-role36 cells, user-archetype54 cells, Free111-event loading
-and profile-preserving ranking, Exhibitions six theme/viewport cells have CODE
-engineering evidence. Current Free structural captures validate source bindings
-at1440/390; they are not native Penpot catalogs. A narrow5370 inverse Share
-CSS-scope defect remains in that exact publication and is being corrected in
-its successor. Unusual quality gating, independent AR acceptance and four
-MATERIALS catalog links remain open; no blanket AR PASS follows from these counts.
+Current public CODE packets cover48 ordinary-role cells and54 owner-archetype
+HTTP cells, Free111-event loading/profile pool preservation, Exhibitions six
+cells,5370 keyboard/internal grid/gallery, and Home cycle/no-JS/reduced motion.
+These are bounded engineering observations, not blanket AR PASS. Standalone
+Focus-group's missing nav, organic/auth/native states, Unusual quality gating,
+independent REVIEW and four MATERIALS native catalog links remain open.
+Current structural exports are source-validated, not Penpot round trips.

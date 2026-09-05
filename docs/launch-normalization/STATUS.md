@@ -10,51 +10,70 @@ Finite correction register: [Owner audio review — 2026-09-05](owner-audiorevie
 
 The latest owner clarification requires visible convergence of heading hierarchy, reaction blocks, spacing and color combinations, not merely preservation of old values under token names. It also requires four native Penpot catalog pages, shared lower windows/notifications with safe timer behavior, and implementation of the approved desktop/mobile navigation decision. See the contract's `owner_visible_normalization_clarification`, the only normative definition of this amendment.
 
-These are **updated requirements, not delivered UI**. The clarification and navigation-approval turns changed documentation only. No new UI tests, screenshots, published build or Penpot restoration are claimed. The owner explicitly approved lower primary navigation **in floating-island format on both mobile and desktop**. AR-18 is `OWNER_APPROVED_IMPLEMENTATION_PENDING`, not `OWNER_CHOICE_PENDING`: CODE proceeds with shared destinations and adaptive floating geometry. Final visual skin remains deferred to owner generative review; approval is not implementation or browser acceptance.
+The clarification and navigation-approval turns themselves changed documentation only. Subsequent CODE implementation and publication are recorded below; they do not constitute independent acceptance or Penpot restoration. The owner explicitly approved lower primary navigation **in floating-island format on both mobile and desktop**. AR-18 has CODE implementation and bounded public browser evidence below, not independent acceptance; there is no owner-choice blocker. Final visual skin remains deferred to owner generative review; approval is not implementation or browser acceptance.
 
 The owner perceived little difference from July30. That is an important product observation, not a measured historical comparison performed here. The bounded retrospective must distinguish structural-only work, visible implementation, integration, publication and personal verification; it must not invent a completion percentage or restart the programme.
 
-## CODE continuation — 2026-09-05, not acceptance
+## Current delivered CODE candidate — 2026-09-05, not independent acceptance
 
-Current CODE source continues on `work/owner-audioreview-card-geometry-20260905`.
-Source milestones below are **not independent acceptance or publication**:
-- `64aa37e2d9dc8884cff4fcea13613c777b31f3c6`: packed geometry readiness,
-  row-aligned feedback tail and executable Exhibitions inline runtime. Real5370
-  local builds now pass internal media/body bounds at1440/390/1920, keyboard
-  H1/prose/practical/cards, floating island and modal clearance; no page JS errors.
-- Real Exhibitions CODE smoke at the same source covers graphite and same-page
-  light comparison at all three widths: same five rendered IDs, distinct shared
-  backgrounds, like reversal/shared toast and desktop gallery Escape. Mobile
-  compact-deck interaction is preserved. This is not VISUAL/V0 acceptance.
-- AR-17 now has shared lower-window/form/notification implementation and focused
-  queue/timer/keyboard/navigation tests. Complete authenticated/native scenarios
-  and independent review remain open, not `REQUIRED_NOT_IMPLEMENTED`.
-- AR-18 approved floating navigation is implemented with the same four
-  destinations on mobile and desktop. Final skin and native catalogs remain
-  separate; no owner-choice blocker remains.
-- Free profile v1.2.0 correction (#621/5550253003) is included before candidate
-  freeze: one confirmed-free pool, shared feed, initial12 and incremental load,
-  exact loaded/total forms. Source `d33f01fab5c79ea0195c8e4289526072d9d769d2`
-  local real smoke reached all111 eligible IDs without duplicates/paid entries
-  at1440/390/1920. Local-profile ranking changed order without changing the pool.
-  Later source retires oversized landing chrome and updates structural states;
-  the new public structural capture remains pending.
-- Current frozen-source Node packet:266/266 PASS (plus27 additional contracts and5 Python adapter tests); strict route-theme and club-theme
-  checks PASS; same-snapshot full Kaggle candidate not published yet.
-- Unusual before-build result records semantic stage disabled/provider_calls0;
-  the new candidate must execute the existing warm semantic path honestly.
-  No quality-gate bypass or invented collection readiness.
+Executable trunk `events-bot-new:agent/static-site-single-kaggle-contract` is
+`2fe28b1f831ac607c0415a8aa6c2beab9eb67fac`, remote read-back confirmed.
+The existing CODE branch was fast-forward integrated at d1cc5c7d3; subsequent
+repairs continue directly on this trunk, not on a second candidate branch.
+Ancestry: 8b1bb8129 → d1cc5c7d3 → c6b585356 → 4ff0aeb9f → 0b08f0a80 → 2fe28b1f8.
 
-## Last actually delivered source and evidence
+[Current owner URL](https://kenigevents.ru/preview-real-2fe28b1f8-normalized-20260905-v1/__preview/)
+and [manifest](https://kenigevents.ru/preview-real-2fe28b1f8-normalized-20260905-v1/preview-build.json)
+are HTTP200 and match the exact source. This is real/all **slice300**, not the
+full catalog: same immutable snapshot `issue621-audioreview-20260904T205339Z`,
+SHA256 `14950c626a9e1e977e0d734fc4e7ddf93769ea038ddbde2d9db732d402da5049`,
+frozen clock `2026-09-04T22:53:39+02:00` as the rejected before-reference.
+Canonical review Kaggle kernel `zigomaro/kenigevents-static-site-builder-review-preview`
+version22 COMPLETE; run `issue621-owner-review-2fe28b1f8-20260905`;
+create-only publication1427 objects/294968913 bytes; no production root/current/ICS mutation.
+Archive SHA256 `bf908e2ec86f18e9a7a3c7483f62015e017fafe5a5db5b84c8db2c3a6971a955`;
+manifest SHA256 `d141f42e8a86ce04c2d992a9dc6a92afff0d588f33b8ba18e375fcb0a453cf63`.
 
-- Executable trunk, last fresh read: `events-bot-new:agent/static-site-single-kaggle-contract` at `4ff0aeb9fde9bccfcad6aac70f4acc862588dd15`, tooling-only descendant of d1cc5c7d3 (UI unchanged); remote read-back confirmed.
-- Continue existing branch `work/owner-audioreview-card-geometry-20260905`.
-- Source recovery checkpoint: `64294cb5e4595063e72f910960ca34302f1101b4`.
-- Latest tested UI correction: [d6fd109](https://github.com/onedayonemasterpiece/events-bot-new/commit/d6fd10919f39e2689a85388ebd6cfd53639fec61).
-- Clean verification head: `97c507be2521a244820caca5f7f5d641efca8bbc`, same UI as d6fd109; existing F0 workflow restored to read-only.
-- Subsequently `393a8e8d0fcad3cbb9e86ecf7a480498cd548f87` added the execution prompt package only. Always resolve the current branch; later documentation commits are not new UI evidence.
-- Same-snapshot real/all slice300 candidate **published** at [4ff0aeb9f owner URL](https://kenigevents.ru/preview-real-4ff0aeb9f-normalized-20260905-v1/__preview/), [manifest](https://kenigevents.ru/preview-real-4ff0aeb9f-normalized-20260905-v1/preview-build.json). Kaggle version20 COMPLETE, checked archive c329892b53eb7eaac55d517dcca15cef451c08637a1c3d14c63a33b29fd97d6d,1427 objects; HTTP200/SHA read-back. Same snapshot/clock as rejected before-reference. CODE public smoke:18 archetypes×3 widths HTTP200/no observed page errors or document overflow;12 ordinary-role routes×3 PASS; Free12→111 plus explicit local-profile pool preservation; Exhibitions6 theme/viewport cells. Free current structural export validates exact public source at1440/390, not Penpot. Exact evidence and independent REVIEW trigger: events-bot-new#621 comment5550647244.
-- Known narrow public residual: related Share foreground on5370 remains brown because the parent's scoped selector cannot reach the child grid. CODE successor0b08f0a80 fixes its uniquely bounded global scope (241 focused tests PASS); compiled focused reproduction is in progress. No-JS Home test observed an unstyled DOM before CDN CSS; full-load read-back shows one visible scene, test readiness corrected. These do not justify blanket AR completion. Unusual remains quality-gated not_approved/item_count0. No production promotion, data/ICS mutation, native Penpot change or independent verdict claimed.
+Visible implementation includes shared ordinary title roles (including previously
+omitted Favorites, Partners and mobile Search), internal card media/body geometry,
+normal-width remainders, Free as one confirmed-free personalized feed, shared
+lower modal/notification surfaces, floating navigation on mobile and desktop,
+Exhibitions graphite/default and same-page light comparison, semantic5370 keyboard
+reading, and actual inverse Share foreground. The latter required a real Astro
+CSS-scope correction, not merely a passing source regex.
+
+Current source:242 focused Node tests and11 structural tests PASS; strict F0
+route/club, family/token SoT checks exit0. Local canonical title-class before/after
+reproduction corrected7 failing cells; all12 after cells PASS. Kaggle build,
+preview and unified-prototype gates exit0. CODE personally executed public packets:
+-16 ordinary-role routes ×3 widths =48 PASS (1440/390/1920);
+-18 owner archetypes ×3 =54 HTTP200, no observed JS errors/document overflow;
+-5370 internal grid, inverse Share, keyboard and gallery/navigation checks at3 widths;
+-Exhibitions graphite/light six cells, like reversal and desktop gallery closure;
+-Free12→111 confirmed-free events without pool loss/duplicates at3 widths; explicit
+ local-profile ranking test, not organic authenticated-backend acceptance;
+-Home scene cycle/pause, seven hydrated DOM counts, no-JS and reduced-motion checks;
+-context navigation return-to-title at3 widths.
+All six public packet processes exit0, and nested Home/context observations were
+read explicitly (not inferred from process exit). Nav4×44px targets observed in
+51/54 archetype cells; standalone Focus-group has no nav in3 cells. This is an
+open bounded review item, not a retroactively approved exception or blanket failure.
+
+Current Free structural exports at1440/390 validate exact source bindings for
+EventCard/MediaFrame/AdaptiveEventCardGrid/FreeCollectionSurface/Foundations,
+first5 IDs7915/7916/7920/8080/8564 of111. Export SHA256:
+`a08de655369817e47ee7db52fd69af3abad96833cc4c090dbe1b414693115408` (1440),
+`f81f5b066c6cf734cb0c09038b014cf6e4ef2c6be91a0b31eca38ded773681b0` (390).
+Status **STRUCTURAL_EXPORT_VALIDATED_NOT_PENPOT_ROUND_TRIP**. Local artifacts
+are not represented as accessible remote files or native Penpot objects.
+
+**Still open:** independent REVIEW of mandatory AR cases, four MATERIALS native
+catalogs and owner visual acceptance. Unusual remains quality-gated
+`not_approved/item_count0`; no provider/quality bypass. Authenticated/native OS
+scenarios and all organic feed states are not claimed from local-profile fixtures.
+Future Search/multi-island planning (#621/5550659316) does not expand this gate.
+No production promotion, production data mutation, native Penpot write or independent
+V0 verdict was performed by CODE.
 
 The earlier terminal ChatGPT answer saying no changes/reads/browser observations existed was incorrect. Remote reads/artifacts established saved work. Recovery does not retroactively turn the original source-only audit into independent browser acceptance.
 
