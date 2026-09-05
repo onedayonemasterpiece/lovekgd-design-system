@@ -2,25 +2,32 @@
 
 Pattern ID: **`pattern.detached-chrome-control-islands`**. Продолжение существующего [PR #47](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/47).
 
-**2026-09-05: сквозная система документально спроектирована. Новая система ещё не внедрена, новый visual skin не принят; A=S=P и нормализация сайта не объявляются пройденными.** Исследовательские skeletons остаются `exploration_input`, не native components и не источник новых foundation tokens.
+**2026-09-05: система документально спроектирована; верхняя композиция уточнена до v1.1 по владельцу. Runtime новой системы, новый visual skin, A=S=P и завершение нормализации не заявлены.** Исследовательские skeletons остаются `exploration_input`, не native components или новые foundation tokens.
 
 ## Текущая спецификация — одна точка входа
 
-Правила системы состоят из **FI-01–FI-20** (composition/layout/interaction) и обязательных **RB-01–RB-03** (стыки с текущими delivery/analytics/personalization owners). Эти части не дублируют друг друга; обе принадлежат тому же pattern. При реализации читать обе, а не только историческую редакцию voice или список CSS-правил.
+**Главная поправка v1.1: сначала одна верхняя строка с отдельными островами и свободным пространством.** Page context, полка/controls, меню и подходящий medallion компактируются согласованно, но каждый по своей карте представлений. Допустимо icon+label → label → icon при неизменных action/meaning. Нет автоматического второго sticky этажа, glyph-only непонятного заголовка или уменьшения target ради одной строки.
 
 | Документ | За чем идти |
 |---|---|
-| [Системная спецификация v1](system-design-v1.md) | FI-01–FI-20: роли, композиции, состояния, геометрия, scroll/keyboard, layers, accessibility, Search adapter и A=S=P. |
-| [Обязательные release bindings v1](release-bindings-v1.md) | RB-01–RB-03: честные receipt states, occupied-space→exposure/served-list bridge, profile freeze/global hides/undo, три MeasurementQuestions и пять дополнительных acceptance cases. Учтено параллельное обновление #587 до `c048ebe…`. |
-| [Матрица потребителей и состояний](consumer-matrix-v1.md) | Все 17 archetypes прочитанного реального registry, owners/routes, шесть proposed compositions и state fixtures. Полноту текущего release manifest заново проверяют перед миграцией. |
-| [Первый пакет реализации FI-P1](implementation-package-1.md) | Shared geometry + контекст полок «Популярного», совместимость Today/Free/event-detail; 32 основных сценария плюс обязательные пять bindings-cases; критерии поставки. |
-| [Источники и решения](sources-and-decisions-v1.md) | Source/public SHA исходного fresh-read, записи владельца, личные browser observations, Penpot safety block и границы доказательств. Поздний parallel-source read отдельно зафиксирован в release-bindings. |
-| [Pattern dossier / gate](planned-design-pattern.md) | Направление, этап, адресное before→after уточнение допуска к проектированию. |
-| [Planned-pattern JSON](planned-pattern.json) | Lifecycle/proposed variant ссылки; не production manifest или второй контракт геометрии. Обязательные consumer bindings читаются из этого entrypoint. |
+| **[Одна верхняя строка и компактизация v1.1](top-row-composition-v1.1.md)** | Исследование первичных источников, anatomy/whitespace, независимые views, иконки/меню/медальоны, width fit, стабильность, semantic heading projection, accessibility и actual integration. |
+| [Системная спецификация v1 с адресными поправками](system-design-v1.md) | FI-01–FI-20: роли, C1–C6, occupied-space/keyboard/scroll/layers, Search adapter и A=S=P. FI-02/05/09/11 согласованы с v1.1. |
+| [Обязательные release bindings](release-bindings-v1.md) | RB-01–03: honest receipt state, occlusion→served/exposure, frozen prefix/global hides/undo, analytics OFF и MeasurementQuestions. |
+| [Матрица потребителей и состояний](consumer-matrix-v1.md) | Все 17 archetypes прочитанного actual registry; C1–C6 и fixtures, согласованные с общей row. Current release manifest проверяется перед migration. |
+| **[Первый пакет FI-P1](implementation-package-1.md)** | One-row Popular как первый видимый результат; compatible existing menu/rail adapters; regression Today/Free/event-detail; source/preview/rollback/acceptance. |
+| [Offline top-row model](top-row-model.py) | 14 выполненных unit checks на искусственных размерах. Не Astro/runtime/browser, не typography tokens, не P materialization. `python top-row-model.py`. |
+| [Источники исходного проектирования](sources-and-decisions-v1.md) | Исторические source/public pins и ограниченные browser captures. Поздние release reads — RB; новые source/web/tool boundaries — v1.1 §§2/9/12. |
+| [Pattern dossier](planned-design-pattern.md), [planned-pattern JSON](planned-pattern.json) | Lifecycle, C1–C6 и target binding status. Не второй release manifest; current composition refinement маршрутизируется через эту точку входа и core spec. |
 
-**Уточнение допуска:** документальный дизайн/fixtures готовятся сейчас; визуальное изменение требует честного baseline затронутого потребителя. Полный незавершённый AS-IS/P всего сайта не блокирует проектирование. Без реального native P никто не заявляет A=S=P. Production promotion, shared foundations и STATUS остаются под действующими владельцами. Подробный owner amendment — FI-01.
+Это один pattern с разделёнными ответственностями, не три competing specs. Core описывает общую систему, v1.1 уточняет верхнюю композицию, RB — только стыки с существующим продуктом. Иконки, реальные медальоны, карточки и меню сохраняют canonical owners.
 
-Голосовой Search — один из потребителей; product/API/capture/лимиты принадлежат [events-bot-new#587](https://github.com/onedayonemasterpiece/events-bot-new/pull/587). Интеграция/normalization — [#621](https://github.com/onedayonemasterpiece/events-bot-new/issues/621). Tracker [#39](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/39) направляет сюда, не создаёт альтернативный system design.
+32 core и 5 binding сценариев остаются **спроектированными runtime cases**, а не пройденными тестами. 12 top-row acceptance categories расширяют соответствующие случаи, не требуют 12 новых workflows. 14 tests модели проверяют только арифметику/решения на synthetic inputs; не заменяют real font/DOM/browser/native/P evidence.
+
+**Допуск:** документально проектировать можно сейчас. Визуальное изменение требует honest baseline затронутого consumer, versioned family и owner review; без native P нет A=S=P. Нормализация всего сайта не объявляется пройденной. Production/shared foundations/STATUS не меняются этой documentary lane.
+
+**Инструменты v1.1:** GitHub reads/writes доступны. Browser/Penpot actual calls вернули `FORBIDDEN: This conversation does not support developer MCPs`; новых screenshots/native objects нет, обхода нет. Existing STATUS теперь сообщает public/source2fe28b1…/version22; это receipt, не повторённая здесь browser проверка. Полезность нового compact UI на людях ещё не измерена.
+
+Голосовой Search — один из потребителей, его product/API/capture/resource authority — [events-bot-new#587](https://github.com/onedayonemasterpiece/events-bot-new/pull/587). Integration/normalization — [#621](https://github.com/onedayonemasterpiece/events-bot-new/issues/621), tracker — [#39](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/39). Нового оркестратора/конвейера нет.
 
 ## Сохранённая исследовательская база
 
@@ -28,40 +35,36 @@ Pattern ID: **`pattern.detached-chrome-control-islands`**. Продолжени�
 
 ![Historical pattern anatomy and validation gates](assets/anatomy.svg)
 
-Это anonymized source-informed skeletons по шести ранее переданным владельцем mobile screenshots, не готовые экраны KenigEvents. Текст gates на исторической anatomy board читается с текущим FI-01; картинка не переопределяет документ.
+Anonymized source-informed skeletons по шести прежним screenshots, не готовые KenigEvents pages. Исторический текст gates на anatomy board читается с FI-01; картинка не переопределяет актуальный документ.
 
-| Поле | Исторически зафиксировано |
+| Поле | Историческая фиксация |
 |---|---|
 | Telegram source | `https://t.me/c/4337049383/1162` |
-| eventsBot MCP | Metadata прочитаны; materialization исходных media bytes не удалась |
-| Прямой визуальный input | Шесть отдельных attachments 921×2048, просмотренных автором исходного исследования |
-| Media count в Telegram metadata | Два элемента альбома; это не число шести прямых attachments |
-| Raw screenshots в Git | Не сохраняются: private names/messages/avatars и чужие изображения/branding |
+| eventsBot MCP | Metadata прочитаны; materialization media bytes не удалась |
+| Direct input | Шесть attachments921×2048, просмотренных автором исходного исследования |
+| Telegram media count | Два элемента альбома, не число прямых attachments |
+| Raw screenshots в Git | Нет: private names/messages/avatars/third-party content |
 | Наблюдения | [screen-observations.json](screen-observations.json) |
 | Provenance | [source-manifest.json](source-manifest.json) |
-| Полный исходный текст | [README до системного проектирования](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/774bcf0659915dffa16431847d408b2a6a6f2302/docs/research/floating-control-islands-2026-08/README.md) |
+| Полный прежний текст | [README@774bcf0](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/774bcf0659915dffa16431847d408b2a6a6f2302/docs/research/floating-control-islands-2026-08/README.md) |
 
-В окне 2026-09-05 перечитаны observations; повторный просмотр исходных шести приватных изображений не заявляется. Новые настоящие KenigEvents browser captures перечислены отдельно в sources.
+Повторный просмотр исходных приватных screenshots не заявляется. Их сохранённые принципы:
 
-| Пример | Сохраняемый вывод |
+| Пример | Сохраняемый смысл |
 |---|---|
-| Kimi home | Leading menu, mode context, audio utility и composer имеют разных owners. |
-| Kimi reading | Transient scroll utility не меняет место чтения или identity composer. |
-| Telegram chat list | Сравнительно монолитная шапка совместима с отдельными filter/FAB/navigation поверхностями. |
-| Telegram conversation | Back, identity, related utilities и pinned context — разные согласованные роли. |
-| Media player | Immersive canvas может начинаться сверху; важный контент не разрешается перекрыть автоматически. |
-| Media library | Persistent state и destination navigation различны; новый плеер в KenigEvents не поручен. |
+| Kimi home | Menu/context/audio/composer имеют разных owners. |
+| Kimi reading | Scroll recovery не меняет место чтения или identity composer. |
+| Telegram list | Сравнительно монолитная шапка совместима с отдельными filters/navigation; не всё обязано стать island. |
+| Telegram conversation | Back/identity/utilities/pinned context различаются по смыслу и lifecycle. |
+| Media player | Immersive canvas допускает верхние controls, но не закрытие важного content. |
+| Media library | Persistent state и navigation различны; разработка плеера для сайта не поручена. |
 
 ## Термины и непрерывность
 
-`Detached chrome` / `floating chrome` описывают отделённую оболочку; `floating control islands` — композицию role-owned поверхностей. `Pill` и `capsule` — геометрия, не component identity. `Chip` — компактный filter/select/suggestion/input control, не название всей шапки, composer или nav.
+`Pill/capsule` — геометрия, не component identity; `chip` — компактный filter/select/suggestion/input control, не вся шапка/composer/nav. Четыре слоя: surface → composition → control semantics → runtime/layout. Общий radius не объединяет разные функции.
 
-Четыре слоя: **surface → composition → control semantics → runtime/layout behavior**. Общий radius не является достаточным основанием объединить components. Состав действий определяется реальными consumers; чужие интерфейсы не копируются один в один.
+Source-era `unresolved`, `reuse_existing=[]`, `new_component=[]` в observational JSON сохраняют историческое значение. Current applicability и proposals читаются выше; promotion не выводится из таблицы.
 
-Source-era `unresolved`, `reuse_existing=[]`, `new_component=[]` в observational JSON — исторические dispositions. Current applicability/proposals читаются выше; принятие новых native families/tokens не заявлено.
+[Distributed](assets/variant-a-distributed.svg) и [Split dock](assets/variant-b-split-dock.svg) — ранние non-source-faithful explorations, не C1–C6 и не A=S=P evidence. Исходные observations/assets не переписаны новым исследованием.
 
-## Ранние exploratory variants
-
-[Distributed control islands](assets/variant-a-distributed.svg) и [Split dock + context island](assets/variant-b-split-dock.svg) — ранние non-source-faithful варианты, не трассировки шести изображений, не C1–C6 и не A=S=P evidence.
-
-Для visual adoption нужны реальные baseline/candidate с теми же fixtures/assets/states/viewport, component lineage, browser/device evidence и owner review. Нельзя переносить blur/размеры/spacing/elevation skeletons в foundations либо тихо заменять принятый nav. Эти guards не запрещают уже разрешённое документальное проектирование.
+Для adoption нужны реальные baseline/candidate на одинаковых fixtures/assets/states/viewports, lineage, browser/device checks и owner approval. Skeleton geometry/blur/spacing не становится canonical tokens; compact glyph в текстовой схеме не заменяет hash-bound SVG asset.
