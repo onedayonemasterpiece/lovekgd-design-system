@@ -36,27 +36,29 @@ prefix is stable. Compatible natural OCR/visual filler grouping comes first;
 safest permitted20% vertical crop is reserved for genuine scarcity. The26fb02851 intermediate transaction completed without restart. It is not final
 framing acceptance; CODE continues with this clarification.
 
-## Latest publication and active source successor
+## Latest real candidate —592a31612
 
-[Owner Home26fb](https://kenigevents.ru/preview-real-26fb02851-normalized-20260905-v1/)
-and its [manifest](https://kenigevents.ru/preview-real-26fb02851-normalized-20260905-v1/preview-build.json)
-were read back HTTP200 with repo_sha26fb028510f3e9571f6b5585c717ee576e2a639c.
-Exact operation/snapshot/archive/publication evidence is recorded in
-[CODE result5551500203](https://github.com/onedayonemasterpiece/events-bot-new/issues/621#issuecomment-5551500203).
-Same real/all comparison slice300 and frozen clock; review kernel version23
-COMPLETE;1426 immutable objects; no production/current/ICS mutation.
+[Owner Home](https://kenigevents.ru/preview-real-592a31612-normalized-20260905-v1/)
+and [manifest](https://kenigevents.ru/preview-real-592a31612-normalized-20260905-v1/preview-build.json)
+are HTTP200 and match Astro592a316127660f0a172743ef8bd74d59fd127b8f.
+Same immutable snapshot/clock and real/all comparison slice300; canonical review
+Kaggle26 COMPLETE;1428 create-only objects; no production/current/ICS mutation.
+Contract1.14.2 remains the semantic authority; executable family/token bindings
+are checked on this exact Astro. Shared full-pool row planning, protected vertical
+crop proof propagation, typography, modal lifecycle and schematic Floating Islands
+are implemented. The subsequent module/inline bridge regression in46fc was
+rejected and repaired here; passing source tests alone was not acceptance.
 
-This is **intermediate, not accepted**. CODE completed the1440 public journey
-(Home wheel, persistent brand, Free12→111 stable IDs, detail/Back, footer/dock),
-but1920/390 probes found stale modal lifecycle state. The shared controller fix
-and schematic FI-P1/top-row composition are integrated in executable successor
-248c4219b; source/test/SoT follow-up4aec04a53 is pushed, not yet published.
-Full-pool framing/Home changes are integrated from5bd0c038d throughbbf46aec0;
-local real Free1440/390 preserves all111 IDs and prefix with no document overflow,
-and initial rows match natural source geometry. All18 tail cards still lack
-usable protected-text crop proof. A further joint renderer/payload correction is
-active: the packer alone must not be presented as working protected-crop delivery.
-Native MATERIALS and independent REVIEW are not claimed by CODE.
+CODE public journey passes1440/1920/390: Home wheel, persistent Today brand,
+Free12→111 unique/prefix-stable, exact8673 gallery/Escape/Back and dock.
+Desktop footer reaches the viewport end; the pre-existing mobile Reference4
+footer-hidden behavior is preserved, not claimed as a visible mobile footer.
+Public Popular Floating Islands checks pass1920/390 with actual controls,
+context, occupied-space geometry and menu lifecycle. These are engineering smoke,
+not independent REVIEW. All18 residual Free tail cards still lack usable
+protected-text crop proof: no unsafe crop or claim of all-row framing PASS.
+Native MATERIALS remains separate; no native Penpot update or A=S=P verdict
+is claimed by CODE.592a is available for review, not owner acceptance.
 
 ## Historical delivered2fe CODE candidate — rejected by later owner review
 
