@@ -28,18 +28,19 @@ function fixture() {
  const write=(p,v)=>{mkdirSync(dirname(join(repo,p)),{recursive:true});writeFileSync(join(repo,p),v);};
  const bytes=JSON.stringify({families});write(profile.shared_identity.registry_path,bytes);
  for(const f of families)write(f.astro_root,`synthetic source ${f.id}`);
- const behaviorPaths=[profile.route_policy.source,...profile.behavior_sources,...Object.values(profile.capture_handoff).filter(x=>typeof x==='string'&&x.endsWith('.ts'))];
+ const behaviorPaths=[profile.route_policy.source,...profile.behavior_sources];
  for(const p of behaviorPaths)write(p,`synthetic behavior ${p}`);
  git(['add','.']);git(['commit','-qm','synthetic fixture']);const expectedSha=git(['rev-parse','HEAD']);
  const blocks=profile.route_policy.composition.map(f=>node(f,{},f==='HomeColdStartFeed'?[node('AdaptiveEventCardGrid')]:[]));
- const tree=node('EventLayout',{'data-shell-composition':'home-navigation-only'},[node('HomePage',{},blocks),node(null,{'data-mobile-bottom-nav':''}),node(null,{class:'site-nav'}),node(null,{'data-reference4-fullscreen':''})]);
+ const tree=node('EventLayout',{'data-shell-composition':'home-navigation-only','data-site-base-path':'/preview-home/'},[node('HomePage',{},blocks),node(null,{'data-mobile-bottom-nav':''}),node(null,{class:'site-nav'}),node(null,{'data-reference4-fullscreen':''}),node('HomeSearchEntry',{'data-home-search-launcher':'',href:'/preview-home/poisk/','aria-label':'Search'}),node(null,{class:'site-header'})]);
+ tree.children[4].identity.variant='floating-link';tree.children[4].identity.state='ready';tree.children[4].tag='a';tree.children[4].computed.position='fixed';tree.children[5].computed.position='absolute';tree.children[5].bounds.height=0;
  annotate(tree);
- const record={schema:profile.export.schema,route:'/',profile_id:profile.profile_id,fixture_state:'synthetic-test-only',viewport:{width:390,height:844,dpr:1},provenance:{repo_sha:expectedSha,manifest:{repo_sha:expectedSha},manifest_sha256:digest('synthetic manifest'),registry_path:profile.shared_identity.registry_path,registry_sha256:digest(bytes),profile_sha256:digest(profileBytes),snapshot:{id:'synthetic-not-production',sha256:digest('synthetic')},reference_clock:'2026-09-06T12:00:00Z'},source_bindings:families.map(f=>({id:f.id,version:f.version,path:f.astro_root,sha256:digest(readFileSync(join(repo,f.astro_root))),styles:[],...(f.penpot_binding?{penpot_binding:f.penpot_binding}:{})})),behavior_bindings:behaviorPaths.map(path=>({path,sha256:digest(readFileSync(join(repo,path)))})),event_ids:[],composition:profile.route_policy.composition,feed:{budget:30,candidate_pool_count:0,mode:'empty',stable_visible_prefix:true},shell:{policy:'home-navigation-only',top_participant_count:0,global_navigation:true,lower_island_count:1,home_chat_count:0},page_end:{state:'shown',reason:null},tree,assets:{},tokens:{"--ke-space-1":"synthetic-test-token"}};
+ const record={schema:profile.export.schema,route:'/',profile_id:profile.profile_id,fixture_state:'synthetic-test-only',viewport:{width:390,height:844,dpr:1},provenance:{repo_sha:expectedSha,manifest:{repo_sha:expectedSha},manifest_sha256:digest('synthetic manifest'),registry_path:profile.shared_identity.registry_path,registry_sha256:digest(bytes),profile_sha256:digest(profileBytes),snapshot:{id:'synthetic-not-production',sha256:digest('synthetic')},reference_clock:'2026-09-06T12:00:00Z'},source_bindings:families.map(f=>({id:f.id,version:f.version,path:f.astro_root,sha256:digest(readFileSync(join(repo,f.astro_root))),styles:[],...(f.penpot_binding?{penpot_binding:f.penpot_binding}:{})})),behavior_bindings:behaviorPaths.map(path=>({path,sha256:digest(readFileSync(join(repo,path)))})),event_ids:[],composition:profile.route_policy.composition,feed:{budget:30,candidate_pool_count:0,mode:'empty',stable_visible_prefix:true},shell:{policy:'home-navigation-only',top_participant_count:0,global_navigation:true,header_in_flow:false,lower_island_count:1,home_chat_count:0},page_end:{state:'shown',reason:null},tree,assets:{},tokens:{"--ke-space-1":"synthetic-test-token"}};
  return {record,options:{expectedSha,expectedEventIds:[],repoRoot:repo,profilePath},close:()=>rmSync(repo,{recursive:true,force:true})};
 }
 test('executable profile asserts owner route exception without claiming acceptance',()=>{
  assert.equal(assertHomeProfile(profile).acceptance,false);
- for(const change of [p=>p.route_policy.top_participants_mounted=true,p=>p.route_policy.global_navigation=false,p=>p.route_policy.mobile_navigation='replacement-menu',p=>p.route_policy.composition.reverse(),p=>p.feed.budget=12,p=>p.export.penpot_round_trip=true,p=>p.capture_handoff.one_logical_adoption=false]){const p=cp(profile);change(p);assert.throws(()=>assertHomeProfile(p));}
+ for(const change of [p=>p.route_policy.top_participants_mounted=true,p=>p.route_policy.global_navigation=false,p=>p.route_policy.mobile_navigation='replacement-menu',p=>p.route_policy.composition.reverse(),p=>p.feed.budget=12,p=>p.export.penpot_round_trip=true,p=>p.search_entry.capture_runtime_mounted=true,p=>p.route_policy.header_in_flow=true]){const p=cp(profile);change(p);assert.throws(()=>assertHomeProfile(p));}
 });
 test('exact source-bound synthetic shape validates structural-only, not native/visual acceptance',()=>{const f=fixture();try{const result=assertHomeStructuralProjection(f.record,f.options);assert.equal(result.valid,true);assert.equal(result.penpot_round_trip,false);assert.equal(result.visual_acceptance,false);}finally{f.close();}});
 test('forged source, registry, behavior, profile and native bindings fail closed',()=>{const f=fixture();try{
@@ -72,6 +73,12 @@ test('navigation-only preserves desktop global navigation and existing mobile Re
    assert.throws(()=>assertHomeStructuralProjection(r,f.options),/viewport navigation/);
  }
  for(const change of [r=>r.shell.global_navigation=false,r=>r.tree.children[2].attributes={},r=>r.tree.children[3].attributes={},r=>r.tree.attributes['data-shell-composition']='home-lower-only',r=>r.tree.attributes['data-floating-section-context']='']) {
+   const r=cp(f.record);change(r);assert.throws(()=>assertHomeStructuralProjection(r,f.options));
+ }
+}finally{f.close();}});
+
+test('floating Search replaces inline capture and Hero has no header flow gap',()=>{const f=fixture();try{
+ for(const change of [r=>r.tree.children[4].identity.variant='inline-capture',r=>r.tree.children[4].attributes.href='/poisk/',r=>r.tree.children[4].attributes.href='https://other.invalid/poisk/',r=>r.tree.children[4].computed.position='static',r=>r.tree.children[4].attributes['data-home-search-entry']='',r=>r.tree.children[0].children[0].bounds.y=80,r=>{r.tree.children[5].computed.position='relative';r.tree.children[5].bounds.height=80;},r=>r.shell.header_in_flow=true]) {
    const r=cp(f.record);change(r);assert.throws(()=>assertHomeStructuralProjection(r,f.options));
  }
 }finally{f.close();}});

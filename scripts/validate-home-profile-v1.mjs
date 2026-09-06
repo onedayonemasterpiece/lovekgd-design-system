@@ -14,11 +14,11 @@ export function assertHomeProfile(p) {
   check(p.requirements_contract?.version === '1.2.0' && p.requirements_contract.sha256 === 'd384b63e63bccffc67dff4b48149c5d901364360782f76ae8b0ee2ab33cf29fd', 'active conformance lock');
   const policy=p.route_policy;
   check(policy?.id === 'home-navigation-only' && policy.top_participants_mounted === false && policy.top_participants_scope === 'contextual-title-city-section-islands-only' && policy.global_navigation === true && policy.desktop_navigation === 'existing-shared-site-nav' && policy.mobile_navigation === 'existing-Reference4MobileMenu' && policy.top_participant_listeners_started === false && policy.other_routes_policy === 'unchanged', 'home route exception');
-  check(same(policy.composition,['HomeHeroTalk','HomeSearchEntry','HomeQuickNav','HomeColdStartFeed','HeroTalkPageEnd']), 'five-block order');
-  check(same(policy.lower_navigation,['afisha','dates','search','personal']) && policy.active_navigation === 'afisha' && policy.brand_in_flow, 'shared bottom navigation');
+  check(same(policy.composition,['HomeHeroTalk','HomeQuickNav','HomeColdStartFeed','HeroTalkPageEnd']), 'four-block content order');
+  check(same(policy.lower_navigation,['afisha','dates','search','personal']) && policy.active_navigation === 'afisha' && policy.brand_in_flow===false && policy.header_in_flow===false && policy.hero_start==='viewport-top', 'shared bottom navigation');
   check(p.families?.length === 7 && new Set(p.families.map(x=>x.id)).size === 7 && p.families.every(x=>Number.isInteger(x.version)&&x.version>0&&x.path&&x.states.length), 'family inventory');
   check(p.feed?.budget===30&&p.feed.ranking_input==='full-eligible-pool'&&p.feed.stable_visible_prefix, 'feed contract');
-  check(p.capture_handoff?.target==='/poisk/'&&p.capture_handoff.one_logical_adoption&&p.capture_handoff.owner_origin_prefix_scoped&&p.capture_handoff.answers_history_catalog_search_on_home===false, 'capture ownership');
+  check(p.search_entry?.target==='/poisk/'&&p.search_entry.variant==='floating-link'&&p.search_entry.placement==='floating-outside-content-order'&&p.search_entry.base_prefix_preserved&&p.search_entry.capture_runtime_mounted===false&&p.search_entry.inline_input_on_home===false&&p.search_entry.answers_history_catalog_search_on_home===false, 'search link without home capture');
   check(p.shared_identity?.route_local_cards_icons_geometry===false&&p.export?.penpot_round_trip===false&&p.export.native_mutation_authorized===false, 'shared owners and honest stage');
   return {valid:true, profile_id:p.profile_id, acceptance:false};
 }
@@ -33,7 +33,7 @@ export function assertHomeStructuralProjection(r,{expectedSha,expectedEventIds,r
   check(typeof r.fixture_state==='string'&&r.fixture_state.length>0, 'fixture state');
   check(Array.isArray(expectedEventIds)&&expectedEventIds.length<=30&&same(r.event_ids,expectedEventIds)&&new Set(r.event_ids).size===r.event_ids.length, 'exact fixture order');
   check(r.feed?.budget===30&&r.feed.candidate_pool_count>=r.event_ids.length&&Number.isInteger(r.feed.candidate_pool_count)&&r.feed.stable_visible_prefix===true&&['general','personal','empty'].includes(r.feed.mode), 'full pool/feed metadata');
-  check(r.shell?.policy==='home-navigation-only'&&r.shell.top_participant_count===0&&r.shell.global_navigation===true&&r.shell.lower_island_count===1&&r.shell.home_chat_count===0,'measured shell counts');
+  check(r.shell?.policy==='home-navigation-only'&&r.shell.top_participant_count===0&&r.shell.global_navigation===true&&r.shell.header_in_flow===false&&r.shell.lower_island_count===1&&r.shell.home_chat_count===0,'measured shell counts');
   const suppressed=r.page_end?.state==='suppressed';
   check(suppressed?typeof r.page_end.reason==='string'&&r.page_end.reason.trim():r.page_end?.state==='shown'&&r.page_end.reason===null,'page end disposition');
   const composition=profile.route_policy.composition.filter(id=>!suppressed||id!=='HeroTalkPageEnd');
@@ -56,7 +56,7 @@ export function assertHomeStructuralProjection(r,{expectedSha,expectedEventIds,r
   check(r.tokens&&typeof r.tokens==='object'&&!Array.isArray(r.tokens)&&Object.keys(r.tokens).length>0&&Object.entries(r.tokens).every(([k,v])=>k.startsWith('--ke-')&&typeof v==='string'),'measured shared tokens');
   const behavior=new Map((r.behavior_bindings||[]).map(x=>[x.path,x]));
   check(behavior.size===(r.behavior_bindings||[]).length,'unique behavior bindings');
-  for(const file of [profile.route_policy.source,...profile.behavior_sources,...Object.values(profile.capture_handoff).filter(x=>typeof x==='string'&&x.endsWith('.ts'))])check(behavior.has(file)&&sha(source(file))===behavior.get(file).sha256,`behavior binding ${file}`);
+  for(const file of [profile.route_policy.source,...profile.behavior_sources])check(behavior.has(file)&&sha(source(file))===behavior.get(file).sha256,`behavior binding ${file}`);
   const nodes=[],seen=new Set();
   function visit(n,parent=null) {
     check(n&&typeof n.anatomy_path==='string'&&n.stable_id===`home.${sha(JSON.stringify(n.anatomy_path)).slice(0,24)}`&&!seen.has(n.stable_id)&&n.parent_id===parent,'stable anatomy/parent');
@@ -76,6 +76,16 @@ export function assertHomeStructuralProjection(r,{expectedSha,expectedEventIds,r
   const homeNodes=subtree(homes[0]);
   const actual=homeNodes.filter(n=>profile.route_policy.composition.includes(n.identity?.family)).map(n=>n.identity.family);
   check(same(actual,composition),'actual DOM composition');
+  const hero=homeNodes.find(n=>n.identity?.family==='HomeHeroTalk');
+  check(hero&&Math.abs(hero.bounds.y)<=1,'hero starts at viewport top; capture at scroll zero');
+  const headers=nodes.filter(n=>(n.attributes?.class||'').split(/\s+/u).includes('site-header'));
+  check(headers.length===1&&(['absolute','fixed'].includes(headers[0].computed.position)||headers[0].bounds.height===0),'header has no flow gap');
+  const launchers=nodes.filter(n=>n.identity?.family==='HomeSearchEntry');
+  check(launchers.length===1&&launchers[0].identity.variant==='floating-link'&&launchers[0].identity.state==='ready'&&launchers[0].tag==='a'&&Object.hasOwn(launchers[0].attributes,'data-home-search-launcher'),'one floating search link');
+  const launcher=launchers[0],base=r.tree.attributes['data-site-base-path']||'/';
+  check(base.startsWith('/')&&!base.startsWith('//')&&launcher.attributes.href===`${base.replace(/\/+$/u,'')}/poisk/`&&launcher.attributes['aria-label']?.trim(),'base-prefixed accessible Search destination');
+  check(['absolute','fixed'].includes(launcher.computed.position),'search launcher outside content flow');
+  check(!nodes.some(n=>['data-home-search-entry','data-home-search-state','data-home-record','data-home-submit'].some(k=>Object.hasOwn(n.attributes||{},k)))&&!homeNodes.some(n=>n.tag==='textarea'),'no mounted home input/capture');
   check(nodes.filter(n=>Object.hasOwn(n.attributes||{},'data-mobile-bottom-nav')).length===1,'one native shared bottom navigation');
   const desktopNav=nodes.filter(n=>(n.attributes?.class||'').split(/\s+/u).includes('site-nav'));
   const mobileMenu=nodes.filter(n=>Object.hasOwn(n.attributes||{},'data-reference4-fullscreen'));

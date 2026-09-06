@@ -1,7 +1,7 @@
 {
   "schema_version": "kenigevents.asp-page-profile.v1",
   "profile_id": "home.owner-review.v1",
-  "profile_version": "1.1.0",
+  "profile_version": "2.0.0",
   "status": "ACTIVE_EXECUTABLE_PROFILE_NOT_ACCEPTANCE",
   "authority_mode": "ASTRO_AS_IS_REFERENCE",
   "requirements_lock": "contracts/requirements-lock.yaml",
@@ -16,19 +16,21 @@
     "desktop_navigation": "existing-shared-site-nav",
     "mobile_navigation": "existing-Reference4MobileMenu",
     "top_participant_listeners_started": false,
-    "brand_in_flow": true,
+    "brand_in_flow": false,
+    "header_in_flow": false,
+    "hero_start": "viewport-top",
     "lower_navigation": ["afisha","dates","search","personal"],
     "active_navigation": "afisha",
     "other_routes_policy": "unchanged",
-    "composition": ["HomeHeroTalk","HomeSearchEntry","HomeQuickNav","HomeColdStartFeed","HeroTalkPageEnd"],
+    "composition": ["HomeHeroTalk","HomeQuickNav","HomeColdStartFeed","HeroTalkPageEnd"],
     "page_end_suppression": "allowed_only_with_recorded_no_useful_action_or_shared_suppression_reason",
-    "forbidden": ["contextual-upper-floating-island","city-shelf","sticky-quick-nav","floating-title","second-composer","home-chat"]
+    "forbidden": ["contextual-upper-floating-island","city-shelf","sticky-quick-nav","floating-title","inline-input","capture-runtime-mount","second-composer","home-chat"]
   },
   "families": [
     {"id":"EventLayout","version":3,"path":"site/src/layouts/EventLayout.astro","role":"shared-route-policy","states":["ready"],"policies":["home-navigation-only","contextual"]},
-    {"id":"HomePage","version":2,"path":"site/src/pages/index.astro","role":"five-block-composition","states":["populated","empty"]},
+    {"id":"HomePage","version":2,"path":"site/src/pages/index.astro","role":"four-block-composition","states":["populated","empty"]},
     {"id":"HomeHeroTalk","version":2,"path":"site/src/components/HomeHeroTalk.astro","role":"existing-editorial-scenes","states":["populated","generic","empty"],"variants":["editorial-scenes","service-fallback"],"replay_cases":["photo","text-only","generic-empty","generic-stale","terminal","reduced-motion"],"change_boundary":"generic-service-fallback-only; hero-redesign-not-authorized"},
-    {"id":"HomeSearchEntry","version":1,"path":"site/src/components/HomeSearchEntry.astro","role":"inline-capture-handoff","states":["disabled","signed-out","idle","requesting","recording","saving","submitted","error"]},
+    {"id":"HomeSearchEntry","version":2,"path":"site/src/components/HomeSearchEntry.astro","role":"floating-search-link","variants":["floating-link","inline-capture"],"home_variant":"floating-link","states":["ready","disabled","signed-out","idle","requesting","recording","saving","submitted","error"],"home_state":"ready","compatibility_only_variant":"inline-capture"},
     {"id":"HomeQuickNav","version":2,"path":"site/src/components/HomeQuickNav.astro","role":"inline-route-links","states":["populated"]},
     {"id":"HomeColdStartFeed","version":2,"path":"site/src/components/HomeColdStartFeed.astro","role":"shared-ranked-feed","variants":["shared-ranked-finite-feed"],"states":["static-fallback","general","personalized","populated","empty"],"replay_cases":["stable-feedback","hidden","undo"]},
     {"id":"HeroTalkPageEnd","version":1,"path":"site/src/components/HeroTalkPageEnd.astro","role":"shared-compact-placement","states":["service-continuation","suppressed"],"variants":["compact-service"]}
@@ -42,26 +44,20 @@
     "actions": ["calendar","like","not_interested","share"],
     "route_local_cards_icons_geometry": false
   },
-  "capture_handoff": {
-    "presentation": "site/src/lib/assistant/homeSearchEntry.ts",
-    "identity": "site/src/lib/assistant/searchHandoff.ts",
-    "receiver": "site/src/lib/assistant/homeHandoffReceiver.ts",
-    "shared_capture": "site/src/lib/assistant/microphoneCapture.ts",
-    "shared_compressed_capture": "site/src/lib/assistant/compressedCapture.ts",
-    "capability": "site/src/lib/assistant/homeSearchCapability.ts",
-    "shared_store": "site/src/lib/assistant/voiceStore.ts",
-    "shared_controller": "site/src/lib/assistant/conversationController.ts",
+  "search_entry": {
     "target": "/poisk/",
-    "new_task_identity": true,
-    "owner_origin_prefix_scoped": true,
-    "explicit_nonempty_submit_only": true,
-    "one_logical_adoption": true,
-    "answers_history_catalog_search_on_home": false
+    "variant": "floating-link",
+    "placement": "floating-outside-content-order",
+    "base_prefix_preserved": true,
+    "capture_runtime_mounted": false,
+    "inline_input_on_home": false,
+    "answers_history_catalog_search_on_home": false,
+    "compatibility_capture_variant": "not-mounted-on-home"
   },
-  "behavior_sources": ["site/src/lib/heroTalkPlacement.ts"],
+  "behavior_sources": ["site/src/lib/heroTalkPlacement.ts","site/src/lib/assistant/homeSearchCapability.ts"],
   "feed": {"budget":30,"ranking_input":"full-eligible-pool","owner":"shared-profile-ranking","stable_visible_prefix":true,"hide_undo":"shared-exact-identity","partial_row":"shared-grid-preserves-all-eligible-ids","personal_label_requires_profile":true},
   "required_viewports": [{"width":1440,"height":900},{"width":1920,"height":1080},{"width":390,"height":844},{"width":360,"height":800}],
-  "required_state_coverage": ["hero-photo","hero-text-only","hero-generic-empty","hero-generic-stale","hero-terminal","reduced-motion","feed-ssr","feed-hydrated","feed-partial-row","feedback-hide-undo","back-scroll-restore","capture-errors","page-end-keyboard"],
+  "required_state_coverage": ["hero-photo","hero-text-only","hero-generic-empty","hero-generic-stale","hero-terminal","reduced-motion","feed-ssr","feed-hydrated","feed-partial-row","feedback-hide-undo","back-scroll-restore","floating-search-prefix-link","search-focus-keyboard","no-home-capture-mount","hero-top-no-header-gap","page-end-keyboard"],
   "export": {
     "schema": "current_ui_home_structural_projection_v1",
     "validator": "scripts/validate-home-profile-v1.mjs",

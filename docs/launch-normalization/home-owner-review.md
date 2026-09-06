@@ -7,20 +7,22 @@ not another requirements system or a new native materializer.
 
 ## Owner correction and boundaries — 2026-09-06
 
-**БЫЛО → БУДЕТ:** предыдущая трактовка `home-lower-only` удаляла общую верхнюю
-навигацию вместе с contextual islands → `home-navigation-only` сохраняет общую
-верхнюю desktop-навигацию и существующее общее мобильное меню Reference4.
-Не монтируются только contextual islands заголовка, города и секции/H2; их listeners
-не запускаются. Пять блоков и нижний четырёхпунктовый остров сохраняются.
-**ЗАЧЕМ:** не терять общую навигацию при упрощении контекстного chrome главной.
-**ПОСЛЕДСТВИЯ:** `topParticipants:false` означает только contextual participants;
-`globalNavigation:true` обязателен. Это не запрет общего верхнего navigation island.
-Nonhome shell, Weekend geometry, shared grid/media/actions/icons remain unchanged.
+**БЫЛО → БУДЕТ:** inline text/voice capture после Hero и header в потоке → Hero
+начинается у верхней границы viewport без header gap; Home не содержит поля ввода.
+Порядок контента: **Hero → quick links → feed → PageEnd**. Отдельная плавающая иконка
+HomeSearchEntry v2 / `floating-link` ведёт на существующий `/poisk/`; это не блок
+контентного порядка. Capture runtime на Home не монтируется.
+**ЗАЧЕМ:** сохранить чистую первую сцену и один существующий Search для ввода/ответов.
+**ПОСЛЕДСТВИЯ:** `home-navigation-only` сохраняет общую верхнюю desktop-навигацию,
+существующее мобильное Reference4 и нижний четырёхпунктовый остров. Header не занимает
+место в потоке. `topParticipants:false` относится только к contextual title/city/H2
+islands, не к общей навигации. Старый `inline-capture` остаётся compatibility variant,
+но не вызывается Home. Nonhome shell, Weekend и shared grid/media/actions/icons неизменны.
 PageEnd may be absent only with a recorded suppression reason.
-**ТИП:** явное уточнение owner-approved Home route composition, не глобальный shell
-reset, независимый Hero redesign, production promotion или native certification.
-**СОГЛАСОВАНО:** прямое последующее уточнение владельца в текущей задаче, 2026-09-06;
-оно заменяет прежнее прочтение «только нижний остров» в части общей навигации.
+**ТИП:** явное owner override composition/search entry, не независимый Hero redesign,
+production promotion или native certification.
+**СОГЛАСОВАНО:** последнее прямое уточнение владельца в текущей задаче, 2026-09-06;
+оно заменяет прежнее требование inline capture и flow header на главной.
 
 ## Family migration / Astro registry handoff
 
@@ -29,7 +31,7 @@ reset, независимый Hero redesign, production promotion или native 
 | EventLayout | 3 | `site/src/layouts/EventLayout.astro` |
 | HomePage | 2 | `site/src/pages/index.astro` |
 | HomeHeroTalk | 2 | `site/src/components/HomeHeroTalk.astro` |
-| HomeSearchEntry | 1 | `site/src/components/HomeSearchEntry.astro` |
+| HomeSearchEntry | 2 | `site/src/components/HomeSearchEntry.astro` |
 | HomeQuickNav | 2 | `site/src/components/HomeQuickNav.astro` |
 | HomeColdStartFeed | 2 | `site/src/components/HomeColdStartFeed.astro` |
 | HeroTalkPageEnd | 1 | `site/src/components/HeroTalkPageEnd.astro` |
@@ -47,12 +49,12 @@ integrated Astro registry at the captured commit**. Preserve every existing
 updates and consumer tests belong to Astro integration. Do not copy card geometry,
 MediaFrame crops, icon SVGs or global tokens into this profile.
 
-HomeSearchEntry uses the existing shared compressed/microphone capture and voice store;
-its thin presentation, owner/prefix-scoped handoff identity, receiver, capability gate
-and shared controller are listed in the profile. Existing IDB storage and Search
-idempotency own recovery; Home has no answer/history/catalog controller. PageEnd uses
-shared typed `heroTalkPlacement.ts`. Source hashes bind these runtime modules, but
-source binding alone does not prove capture, navigation, ranking or listener behavior.
+HomeSearchEntry v2 on Home is an accessible icon link (`floating-link/ready`) with
+`withBase('/poisk/')`. It has no inline textarea, recording controls or
+`data-home-search-entry` mount target. Compatibility capture/store/handoff remains
+owned by the existing Search implementation; this profile neither removes it nor
+claims live Home capture. PageEnd uses `heroTalkPlacement.ts` and its shared
+`homeSearchCapability.ts` gate; those active dependencies remain source-bound.
 
 ## Structural export API
 
@@ -87,8 +89,8 @@ provenance: {repo_sha, manifest, manifest_sha256, registry_path, registry_sha256
              profile_sha256, snapshot:{id,sha256}, reference_clock}
 source_bindings: [{id,version,path,sha256,styles:[{path,sha256}],penpot_binding?}]
 behavior_bindings: [{path,sha256}]
-composition: ['HomeHeroTalk','HomeSearchEntry','HomeQuickNav','HomeColdStartFeed','HeroTalkPageEnd']
-shell: {policy:'home-navigation-only',top_participant_count:0,global_navigation:true,lower_island_count:1,home_chat_count:0}
+composition: ['HomeHeroTalk','HomeQuickNav','HomeColdStartFeed','HeroTalkPageEnd']
+shell: {policy:'home-navigation-only',top_participant_count:0,global_navigation:true,header_in_flow:false,lower_island_count:1,home_chat_count:0}
 page_end: {state:'shown',reason:null} | {state:'suppressed',reason:nonemptyReason}
 feed: {budget:30,candidate_pool_count,mode:'general'|'personal'|'empty',stable_visible_prefix:true}
 event_ids: all rendered feed IDs in exact order, zero to thirty
@@ -102,7 +104,7 @@ assets, tokens, tree
   alone cannot establish the truth of the upstream data.
 - Bind all seven profile families, including suppressed PageEnd, plus every
   `shared_owners` entry. Behavior hashes cover `route_policy.source`,
-  `behavior_sources`, and every `.ts` path in `capture_handoff`.
+  `behavior_sources`. There is no active Home `capture_handoff` contract in profile 2.0.0.
 - Root tree is the actual EventLayout body, not only HomePage: bottom navigation and
   forbidden mounted contextual participants must remain observable. The root
   `data-shell-composition` must equal `home-navigation-only`. `identity`,
@@ -114,6 +116,13 @@ assets, tokens, tree
   requires nonzero/displayed `.site-nav`, mobile requires the displayed Reference4
   root. Its exact `Reference4MobileMenu` source binding is mandatory. These structural
   checks do not replace actual keyboard/menu interaction and visual overlap checks.
+- Exactly one `[data-home-search-launcher]` is an anchor with HomeSearchEntry v2,
+  variant `floating-link`, state `ready`, accessible name, floating positioning and
+  a `/poisk/` href preserving the body's actual `data-site-base-path`. It is excluded
+  from content order; an inline capture mount target/textarea fails validation.
+- Return to scrollY=0 after loading media: the Hero's measured top must be within
+  one CSS pixel of zero. `.site-header` must be out of flow (absolute/fixed) or
+  zero-height. Metadata cannot excuse an actual header gap.
 - Bottom nav retains its existing `data-mobile-bottom-nav` marker. No same-version
   binding change is required solely to make an existing source owner visible.
 - Loaded card media needs measured natural dimensions and a matching asset hash;
@@ -131,9 +140,9 @@ listener disposal, live voice, personalization quality or browser interactions.
 
 Parent integration supplies the exact Astro/DS commit pair, real authorized Home
 snapshot/hash/clock, ordered IDs/assets, all required profile viewports and state
-coverage, and actual rendered capture. Visual/computed/action and handoff tests remain
+coverage, and actual rendered capture. Visual/computed/action and actual Search-link navigation tests remain
 necessary. Export inventory without that evidence must not be called structural-ready.
-No new Penpot file/mutation/full materialization, paid model probe, build, publication
+No new Penpot file/mutation/full materialization, paid model probe, build, preview publication
 or deployment is authorized by this DS lane.
 
 ## Change record
@@ -145,3 +154,7 @@ or deployment is authorized by this DS lane.
 - 2026-09-06 owner clarification: profile 1.0.0 → 1.1.0 and launch 1.12.0 → 1.12.1;
   preserve shared desktop/Reference4 navigation, reject contextual islands only.
   Earlier `home-lower-only` exports do not satisfy the revised profile hash/policy.
+
+- 2026-09-06 latest owner override: profile 2.0.0, HomeSearchEntry v2 floating-link,
+  four-block content order and Hero at viewport top without header flow gap. Launch
+  specialization advances to 1.13.0; old inline capture exports are superseded.

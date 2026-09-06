@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.12.1
+version: 1.13.0
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -40,6 +40,10 @@ review_completion_stage:
 home_owner_review_specialization:
   effective_owner_decision: '2026-09-06'
   scope: home_route_only
+  header_in_flow: false
+  hero_start: viewport_top
+  search_entry: floating_link_to_existing_Search_no_home_capture
+  content_order: [HomeHeroTalk, HomeQuickNav, HomeColdStartFeed, HeroTalkPageEnd]
   shell_policy: home-navigation-only
   global_navigation: preserve_existing_desktop_and_Reference4_mobile
   top_participants: contextual_title_city_section_islands_only_not_mounted
