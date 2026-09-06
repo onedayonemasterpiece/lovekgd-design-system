@@ -19,7 +19,8 @@ HomeSearchEntry v2 / `floating-link` ведёт на существующий `/
 islands, не к общей навигации. Старый `inline-capture` остаётся compatibility variant,
 но не вызывается Home. Nonhome shell, Weekend и shared grid/media/actions/icons неизменны.
 PageEnd may be absent only with a recorded suppression reason.
-**ТИП:** явное owner override composition/search entry, не независимый Hero redesign,
+**ТИП:** явное owner override composition/search entry и последующая voice-review
+коррекция Hero v3 / animated PageEnd v2, не произвольный новый redesign,
 production promotion или native certification.
 **СОГЛАСОВАНО:** последнее прямое уточнение владельца в текущей задаче, 2026-09-06;
 оно заменяет прежнее требование inline capture и flow header на главной.
@@ -30,18 +31,28 @@ production promotion или native certification.
 |---|---:|---|
 | EventLayout | 3 | `site/src/layouts/EventLayout.astro` |
 | HomePage | 2 | `site/src/pages/index.astro` |
-| HomeHeroTalk | 2 | `site/src/components/HomeHeroTalk.astro` |
+| HomeHeroTalk | 3 | `site/src/components/HomeHeroTalk.astro` |
 | HomeSearchEntry | 2 | `site/src/components/HomeSearchEntry.astro` |
 | HomeQuickNav | 2 | `site/src/components/HomeQuickNav.astro` |
 | HomeColdStartFeed | 2 | `site/src/components/HomeColdStartFeed.astro` |
-| HeroTalkPageEnd | 1 | `site/src/components/HeroTalkPageEnd.astro` |
+| HeroTalkPageEnd | 2 | `site/src/components/HeroTalkPageEnd.astro` |
 
-HomeHeroTalk retains editorial-scenes/populated geometry; `service-fallback/generic`
-completes empty/stale behavior. A later material Hero redesign requires its own version
-and profile synchronization. QuickNav is `inline-routes/populated`; PageEnd is
-`compact-service`, states `service-continuation/suppressed`. The executable profile
-also inventories semantic replay cases: those are not claims that each case is a
-new registry state or has already been browser-tested.
+Current voice-review source was read at Astro commit
+`05c529046b4284fe8985472e4f49ec8d8d7916bc`, matching the remote Home assembly branch.
+This is an inspection checkpoint, not a visual acceptance or frozen future export SHA.
+
+HomeHeroTalk **v3** retains shared editorial/fallback ownership with owner-authorized
+190 ms word stepping and enabled mobile media. It is used for both intro and PageEnd;
+mobile asset suitability, finite-state motion and reduced-motion behavior still require
+real rendered replay, not a source hash or profile field alone.
+
+HomeQuickNav v2 is `rectangular-grid/populated`, reusing shared secondary Buttons.
+HeroTalkPageEnd **v2** supports `animated-scenes` with nested shared HomeHeroTalk and
+compatibility `compact-service`; Home uses the animated deck, selected separately from
+upper Hero events. Its nested Hero must not be counted as a fifth page-content block.
+The validator rejects overlap in captured editorial scene IDs; actual event-family
+selection/deduplication remains source/fixture/browser evidence, not inferred semantic
+identity from an editorial ID. Empty eligible decks can use the existing generic fallback.
 
 All roots, version markers, style owners and source hashes come from the **exact
 integrated Astro registry at the captured commit**. Preserve every existing
@@ -50,11 +61,14 @@ updates and consumer tests belong to Astro integration. Do not copy card geometr
 MediaFrame crops, icon SVGs or global tokens into this profile.
 
 HomeSearchEntry v2 on Home is an accessible icon link (`floating-link/ready`) with
-`withBase('/poisk/')`. It has no inline textarea, recording controls or
+the shared `mobileDiscoveryHref('/poisk/', {searchBase}, BASE_PATH)` destination resolver.
+Its icon is the existing approved ConversationalSearch microphone, not a new drawing.
+It has no inline textarea, recording controls or
 `data-home-search-entry` mount target. Compatibility capture/store/handoff remains
 owned by the existing Search implementation; this profile neither removes it nor
 claims live Home capture. PageEnd uses `heroTalkPlacement.ts` and its shared
-`homeSearchCapability.ts` gate; those active dependencies remain source-bound.
+`homeSearchCapability.ts` gate; those active dependencies, `mobileDiscoveryRoutes.ts`
+and the shared `homeHeroTalk.ts` deck builder remain source-bound.
 
 ## Structural export API
 
@@ -74,6 +88,7 @@ const result = assertHomeStructuralProjection(record, {
   expectedSha: exactIntegratedAstroCommit,
   expectedEventIds: frozenFixtureRenderedEventIds,
   repoRoot: astroGitCheckout,
+  expectedSearchBase: approvedBuildSearchBase, // optional; absent = local prefix only
   // profilePath optional; defaults to this DS checkout's canonical profile.
 });
 ```
@@ -118,7 +133,12 @@ assets, tokens, tree
   checks do not replace actual keyboard/menu interaction and visual overlap checks.
 - Exactly one `[data-home-search-launcher]` is an anchor with HomeSearchEntry v2,
   variant `floating-link`, state `ready`, accessible name, floating positioning and
-  a `/poisk/` href preserving the body's actual `data-site-base-path`. It is excluded
+  a `/poisk/` href using the approved configured search base, otherwise the body's
+  `data-site-base-path`. `expectedSearchBase` must come from the trusted build/review
+  configuration, never be copied from the link being validated; explicit HTTPS and
+  path bases are supported, credentials/query/fragment/protocol-relative bases rejected.
+  The recorded destination alone cannot approve a redirect. A source-bound SVG with
+  the existing microphone class is required. The launcher is excluded
   from content order; an inline capture mount target/textarea fails validation.
 - Return to scrollY=0 after loading media: the Hero's measured top must be within
   one CSS pixel of zero. `.site-header` must be out of flow (absolute/fixed) or
@@ -128,6 +148,10 @@ assets, tokens, tree
 - Loaded card media needs measured natural dimensions and a matching asset hash;
   fallback/broken media needs shared fallback anatomy. Pending lazy images must be
   settled by scrolling/loading the finite feed before capture, not omitted.
+- Composition walks stop at a top-level content family. For `animated-scenes`, PageEnd
+  must contain exactly one nested shared Hero with non-overlapping editorial IDs;
+  `compact-service` must not contain one. Parent links and hashes still include the
+  full nested tree, its text/assets/styles, rather than skipping the new placement.
 - Suppressed PageEnd is absent from both actual tree and `composition`; its source
   family binding is still required. Absence without a reason is invalid.
 
@@ -158,3 +182,8 @@ or deployment is authorized by this DS lane.
 - 2026-09-06 latest owner override: profile 2.0.0, HomeSearchEntry v2 floating-link,
   four-block content order and Hero at viewport top without header flow gap. Launch
   specialization advances to 1.13.0; old inline capture exports are superseded.
+
+- 2026-09-06 voice-review source synchronization: profile 2.1.0 / launch 1.14.0;
+  Hero v3 (190 ms words/mobile media), PageEnd v2 animated shared Hero with separate
+  deck, rectangular QuickNav and microphone link through explicitly approved Search base.
+  Structural/adversarial tests are not motion, mobile visual or production acceptance.

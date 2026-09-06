@@ -17,13 +17,15 @@ export function assertHomeProfile(p) {
   check(same(policy.composition,['HomeHeroTalk','HomeQuickNav','HomeColdStartFeed','HeroTalkPageEnd']), 'four-block content order');
   check(same(policy.lower_navigation,['afisha','dates','search','personal']) && policy.active_navigation === 'afisha' && policy.brand_in_flow===false && policy.header_in_flow===false && policy.hero_start==='viewport-top', 'shared bottom navigation');
   check(p.families?.length === 7 && new Set(p.families.map(x=>x.id)).size === 7 && p.families.every(x=>Number.isInteger(x.version)&&x.version>0&&x.path&&x.states.length), 'family inventory');
+  const hero=p.families.find(f=>f.id==='HomeHeroTalk'),end=p.families.find(f=>f.id==='HeroTalkPageEnd');
+  check(hero.version===3&&hero.animation?.word_interval_ms===190&&hero.animation.mobile_media_enabled===true&&end.version===2&&end.variants.includes('animated-scenes')&&end.nested_families.includes('HomeHeroTalk'),'voice-review family migration');
   check(p.feed?.budget===30&&p.feed.ranking_input==='full-eligible-pool'&&p.feed.stable_visible_prefix, 'feed contract');
   check(p.search_entry?.target==='/poisk/'&&p.search_entry.variant==='floating-link'&&p.search_entry.placement==='floating-outside-content-order'&&p.search_entry.base_prefix_preserved&&p.search_entry.capture_runtime_mounted===false&&p.search_entry.inline_input_on_home===false&&p.search_entry.answers_history_catalog_search_on_home===false, 'search link without home capture');
   check(p.shared_identity?.route_local_cards_icons_geometry===false&&p.export?.penpot_round_trip===false&&p.export.native_mutation_authorized===false, 'shared owners and honest stage');
   return {valid:true, profile_id:p.profile_id, acceptance:false};
 }
 /** Source-bound measured structural export, never native or visual acceptance. */
-export function assertHomeStructuralProjection(r,{expectedSha,expectedEventIds,repoRoot,profilePath=resolve(root,HOME_PROFILE_PATH)}={}) {
+export function assertHomeStructuralProjection(r,{expectedSha,expectedEventIds,repoRoot,expectedSearchBase,profilePath=resolve(root,HOME_PROFILE_PATH)}={}) {
   const profileBytes=readFileSync(profilePath), profile=JSON.parse(profileBytes);assertHomeProfile(profile);
   const p=r?.provenance;
   check(r?.schema===profile.export.schema&&r.route==='/'&&r.profile_id===profile.profile_id, 'schema/route/profile');
@@ -74,16 +76,36 @@ export function assertHomeStructuralProjection(r,{expectedSha,expectedEventIds,r
   const homes=nodes.filter(n=>n.identity?.family==='HomePage');check(homes.length===1,'one HomePage');
   const subtree=n=>[n,...(n.children||[]).flatMap(subtree)];
   const homeNodes=subtree(homes[0]);
-  const actual=homeNodes.filter(n=>profile.route_policy.composition.includes(n.identity?.family)).map(n=>n.identity.family);
+  const compositionNodes=[];
+  function collectComposition(n) {
+    if(profile.route_policy.composition.includes(n.identity?.family)){compositionNodes.push(n);return;}
+    for(const child of n.children||[])collectComposition(child);
+  }
+  collectComposition(homes[0]);
+  const actual=compositionNodes.map(n=>n.identity.family);
   check(same(actual,composition),'actual DOM composition');
-  const hero=homeNodes.find(n=>n.identity?.family==='HomeHeroTalk');
+  const hero=compositionNodes.find(n=>n.identity?.family==='HomeHeroTalk');
+  const end=compositionNodes.find(n=>n.identity?.family==='HeroTalkPageEnd');
+  const endHeroes=end?subtree(end).filter(n=>n.identity?.family==='HomeHeroTalk'):[];
+  if(end?.identity.variant==='animated-scenes') {
+    check(endHeroes.length===1,'animated PageEnd nests exactly one shared Hero');
+    const upperIds=new Set(subtree(hero).map(n=>n.attributes?.['data-editorial-id']).filter(Boolean));
+    check(!subtree(endHeroes[0]).some(n=>upperIds.has(n.attributes?.['data-editorial-id'])),'PageEnd has a distinct editorial deck');
+  }else check(endHeroes.length===0,'compact PageEnd has no nested Hero');
+  check(homeNodes.filter(n=>n.identity?.family==='HomeHeroTalk').length===1+endHeroes.length,'no extra unowned Hero');
+  check(compositionNodes.find(n=>n.identity?.family==='HomeQuickNav')?.identity.variant==='rectangular-grid','rectangular QuickNav variant');
   check(hero&&Math.abs(hero.bounds.y)<=1,'hero starts at viewport top; capture at scroll zero');
   const headers=nodes.filter(n=>(n.attributes?.class||'').split(/\s+/u).includes('site-header'));
   check(headers.length===1&&(['absolute','fixed'].includes(headers[0].computed.position)||headers[0].bounds.height===0),'header has no flow gap');
   const launchers=nodes.filter(n=>n.identity?.family==='HomeSearchEntry');
   check(launchers.length===1&&launchers[0].identity.variant==='floating-link'&&launchers[0].identity.state==='ready'&&launchers[0].tag==='a'&&Object.hasOwn(launchers[0].attributes,'data-home-search-launcher'),'one floating search link');
   const launcher=launchers[0],base=r.tree.attributes['data-site-base-path']||'/';
-  check(base.startsWith('/')&&!base.startsWith('//')&&launcher.attributes.href===`${base.replace(/\/+$/u,'')}/poisk/`&&launcher.attributes['aria-label']?.trim(),'base-prefixed accessible Search destination');
+  const approvedBase=expectedSearchBase===undefined?base:expectedSearchBase;
+  check(typeof approvedBase==='string'&&!/[?#]/u.test(approvedBase),'explicit approved Search base');
+  let safeBase=approvedBase.startsWith('/')&&!approvedBase.startsWith('//');
+  if(!safeBase){try{const url=new URL(approvedBase);safeBase=url.protocol==='https:'&&!url.username&&!url.password;}catch{safeBase=false;}}
+  check(safeBase&&launcher.attributes.href===`${approvedBase.replace(/\/+$/u,'')}/poisk/`&&launcher.attributes['aria-label']?.trim(),'approved-base accessible Search destination');
+  check(subtree(launcher).some(n=>n.svg&&(n.attributes?.class||'').split(/\s+/u).includes('assistant__mic-icon')),'shared microphone launcher icon');
   check(['absolute','fixed'].includes(launcher.computed.position),'search launcher outside content flow');
   check(!nodes.some(n=>['data-home-search-entry','data-home-search-state','data-home-record','data-home-submit'].some(k=>Object.hasOwn(n.attributes||{},k)))&&!homeNodes.some(n=>n.tag==='textarea'),'no mounted home input/capture');
   check(nodes.filter(n=>Object.hasOwn(n.attributes||{},'data-mobile-bottom-nav')).length===1,'one native shared bottom navigation');

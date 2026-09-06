@@ -32,7 +32,10 @@ function fixture() {
  for(const p of behaviorPaths)write(p,`synthetic behavior ${p}`);
  git(['add','.']);git(['commit','-qm','synthetic fixture']);const expectedSha=git(['rev-parse','HEAD']);
  const blocks=profile.route_policy.composition.map(f=>node(f,{},f==='HomeColdStartFeed'?[node('AdaptiveEventCardGrid')]:[]));
+ const end=blocks.find(n=>n.identity.family==='HeroTalkPageEnd');end.identity.variant='animated-scenes';end.children=[node('HomeHeroTalk')];
+ blocks.find(n=>n.identity.family==='HomeQuickNav').identity.variant='rectangular-grid';
  const tree=node('EventLayout',{'data-shell-composition':'home-navigation-only','data-site-base-path':'/preview-home/'},[node('HomePage',{},blocks),node(null,{'data-mobile-bottom-nav':''}),node(null,{class:'site-nav'}),node(null,{'data-reference4-fullscreen':''}),node('HomeSearchEntry',{'data-home-search-launcher':'',href:'/preview-home/poisk/','aria-label':'Search'}),node(null,{class:'site-header'})]);
+ const mic=node(null,{class:'assistant__mic-icon'});mic.svg={markup:'<svg/>',sha256:digest('<svg/>')};tree.children[4].children=[mic];
  tree.children[4].identity.variant='floating-link';tree.children[4].identity.state='ready';tree.children[4].tag='a';tree.children[4].computed.position='fixed';tree.children[5].computed.position='absolute';tree.children[5].bounds.height=0;
  annotate(tree);
  const record={schema:profile.export.schema,route:'/',profile_id:profile.profile_id,fixture_state:'synthetic-test-only',viewport:{width:390,height:844,dpr:1},provenance:{repo_sha:expectedSha,manifest:{repo_sha:expectedSha},manifest_sha256:digest('synthetic manifest'),registry_path:profile.shared_identity.registry_path,registry_sha256:digest(bytes),profile_sha256:digest(profileBytes),snapshot:{id:'synthetic-not-production',sha256:digest('synthetic')},reference_clock:'2026-09-06T12:00:00Z'},source_bindings:families.map(f=>({id:f.id,version:f.version,path:f.astro_root,sha256:digest(readFileSync(join(repo,f.astro_root))),styles:[],...(f.penpot_binding?{penpot_binding:f.penpot_binding}:{})})),behavior_bindings:behaviorPaths.map(path=>({path,sha256:digest(readFileSync(join(repo,path)))})),event_ids:[],composition:profile.route_policy.composition,feed:{budget:30,candidate_pool_count:0,mode:'empty',stable_visible_prefix:true},shell:{policy:'home-navigation-only',top_participant_count:0,global_navigation:true,header_in_flow:false,lower_island_count:1,home_chat_count:0},page_end:{state:'shown',reason:null},tree,assets:{},tokens:{"--ke-space-1":"synthetic-test-token"}};
@@ -81,4 +84,20 @@ test('floating Search replaces inline capture and Hero has no header flow gap',(
  for(const change of [r=>r.tree.children[4].identity.variant='inline-capture',r=>r.tree.children[4].attributes.href='/poisk/',r=>r.tree.children[4].attributes.href='https://other.invalid/poisk/',r=>r.tree.children[4].computed.position='static',r=>r.tree.children[4].attributes['data-home-search-entry']='',r=>r.tree.children[0].children[0].bounds.y=80,r=>{r.tree.children[5].computed.position='relative';r.tree.children[5].bounds.height=80;},r=>r.shell.header_in_flow=true]) {
    const r=cp(f.record);change(r);assert.throws(()=>assertHomeStructuralProjection(r,f.options));
  }
+}finally{f.close();}});
+
+test('animated PageEnd uses a separate nested Hero without corrupting page composition',()=>{const f=fixture();try{
+ const home=f.record.tree.children[0],top=home.children[0],end=home.children.find(n=>n.identity.family==='HeroTalkPageEnd');
+ top.children.push(node(null,{'data-editorial-id':'upper-scene'}));end.children[0].children.push(node(null,{'data-editorial-id':'end-scene'}));annotate(f.record.tree);
+ assert.equal(assertHomeStructuralProjection(f.record,f.options).valid,true);
+ const bad=cp(f.record);bad.tree.children[0].children.find(n=>n.identity.family==='HeroTalkPageEnd').children[0].children[0].attributes['data-editorial-id']='upper-scene';
+ assert.throws(()=>assertHomeStructuralProjection(bad,f.options),/distinct editorial deck/);
+ end.children=[];annotate(f.record.tree);assert.throws(()=>assertHomeStructuralProjection(f.record,f.options),/nests exactly one/);
+}finally{f.close();}});
+test('configured Search base requires explicit caller approval and retains microphone semantics',()=>{const f=fixture();try{
+ const base='https://kenigevents.ru/approved-search-preview';f.record.tree.children[4].attributes.href=`${base}/poisk/`;
+ assert.throws(()=>assertHomeStructuralProjection(f.record,f.options),/approved-base/);
+ assert.equal(assertHomeStructuralProjection(f.record,{...f.options,expectedSearchBase:base}).valid,true);
+ for(const bad of ['javascript:alert(1)','//unapproved.invalid','https://user:password@example.invalid','https://example.invalid?token=x'])assert.throws(()=>assertHomeStructuralProjection(f.record,{...f.options,expectedSearchBase:bad}));
+ f.record.tree.children[4].children=[];assert.throws(()=>assertHomeStructuralProjection(f.record,{...f.options,expectedSearchBase:base}),/microphone/);
 }finally{f.close();}});

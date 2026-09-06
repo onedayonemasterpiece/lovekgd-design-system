@@ -12,7 +12,7 @@
 **СОГЛАСОВАНО:** прямое решение владельца в native Codex, 2026-09-04.
 
 Текущие правила завершения, scope, economics и остановки —
-[`review_completion_stage` контракта v1.13.0](../../contracts/launch-normalized-ui.v1.yaml).
+[`review_completion_stage` контракта v1.14.0](../../contracts/launch-normalized-ui.v1.yaml).
 Текущие SHA/URL/gaps — только [STATUS](STATUS.md). Сведения и открытые циклы
 ниже сохранены как история/другие этапы и не отменяют этот конечный gate.
 

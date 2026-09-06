@@ -2,19 +2,22 @@
 
 Status owner: `N0`  
 Coordination: `onedayonemasterpiece/events-bot-new#621`  
-Contract: `launch-normalized-ui.v1.yaml@1.13.0`
+Contract: `launch-normalized-ui.v1.yaml@1.14.0`
 
 ## Home final assembly — 2026-09-06 (source preparation, not acceptance)
 
 - Current Home specialization: [executable profile](../../contracts/page-profiles/home.owner-review.v1.json),
   [schema / validation / migration](home-owner-review.md).
 - DS task base: `534bd29831cf64ba23d46d9a203e42d3f280d0c2`; its launch contract
-  was 1.11.0. This scoped change and owner navigation clarification advance that base to 1.13.0; it does not import
+  was 1.11.0. This scoped change and owner navigation clarification advance that base to 1.14.0; it does not import
   or claim the different 1.14.3 preparation checkpoint quoted in the assignment.
 - Latest owner clarification: `home-navigation-only`, shared desktop upper navigation
   and mobile Reference4 preserved; only contextual title/city/H2 islands are absent.
   Latest override: Hero at top with no header flow gap; floating Search link replaces
-  inline input/capture. Profile version 2.0.0, HomeSearchEntry v2; four content blocks.
+  inline input/capture. Profile version 2.1.0, HomeSearchEntry v2; four content blocks.
+  Voice-review checkpoint `05c529046b4284fe8985472e4f49ec8d8d7916bc`: Hero v3
+  190 ms word motion/mobile media, animated PageEnd v2, rectangular QuickNav and
+  microphone Search link through approved configured base (not runtime acceptance).
   Old lower-only/inline-capture exports do not satisfy the current hash/policy.
 - Profile and corruption tests are executable. **Actual Home rendered export,
   exact integrated Astro SHA, real fixture and all viewport/state checks remain
