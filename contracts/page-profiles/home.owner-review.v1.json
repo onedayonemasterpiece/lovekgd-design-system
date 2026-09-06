@@ -1,16 +1,20 @@
 {
   "schema_version": "kenigevents.asp-page-profile.v1",
   "profile_id": "home.owner-review.v1",
-  "profile_version": "1.0.0",
+  "profile_version": "1.1.0",
   "status": "ACTIVE_EXECUTABLE_PROFILE_NOT_ACCEPTANCE",
   "authority_mode": "ASTRO_AS_IS_REFERENCE",
   "requirements_lock": "contracts/requirements-lock.yaml",
   "requirements_contract": {"id":"kenigevents.asp-conformance","version":"1.2.0","sha256":"d384b63e63bccffc67dff4b48149c5d901364360782f76ae8b0ee2ab33cf29fd"},
   "route": "/",
   "route_policy": {
-    "id": "home-lower-only",
+    "id": "home-navigation-only",
     "source": "site/src/lib/shellComposition.ts",
+    "top_participants_scope": "contextual-title-city-section-islands-only",
     "top_participants_mounted": false,
+    "global_navigation": true,
+    "desktop_navigation": "existing-shared-site-nav",
+    "mobile_navigation": "existing-Reference4MobileMenu",
     "top_participant_listeners_started": false,
     "brand_in_flow": true,
     "lower_navigation": ["afisha","dates","search","personal"],
@@ -18,10 +22,10 @@
     "other_routes_policy": "unchanged",
     "composition": ["HomeHeroTalk","HomeSearchEntry","HomeQuickNav","HomeColdStartFeed","HeroTalkPageEnd"],
     "page_end_suppression": "allowed_only_with_recorded_no_useful_action_or_shared_suppression_reason",
-    "forbidden": ["upper-floating-island","city-shelf","sticky-quick-nav","floating-title","second-composer","home-chat"]
+    "forbidden": ["contextual-upper-floating-island","city-shelf","sticky-quick-nav","floating-title","second-composer","home-chat"]
   },
   "families": [
-    {"id":"EventLayout","version":3,"path":"site/src/layouts/EventLayout.astro","role":"shared-route-policy","states":["ready"],"policies":["home-lower-only","contextual"]},
+    {"id":"EventLayout","version":3,"path":"site/src/layouts/EventLayout.astro","role":"shared-route-policy","states":["ready"],"policies":["home-navigation-only","contextual"]},
     {"id":"HomePage","version":2,"path":"site/src/pages/index.astro","role":"five-block-composition","states":["populated","empty"]},
     {"id":"HomeHeroTalk","version":2,"path":"site/src/components/HomeHeroTalk.astro","role":"existing-editorial-scenes","states":["populated","generic","empty"],"variants":["editorial-scenes","service-fallback"],"replay_cases":["photo","text-only","generic-empty","generic-stale","terminal","reduced-motion"],"change_boundary":"generic-service-fallback-only; hero-redesign-not-authorized"},
     {"id":"HomeSearchEntry","version":1,"path":"site/src/components/HomeSearchEntry.astro","role":"inline-capture-handoff","states":["disabled","signed-out","idle","requesting","recording","saving","submitted","error"]},
@@ -29,7 +33,7 @@
     {"id":"HomeColdStartFeed","version":2,"path":"site/src/components/HomeColdStartFeed.astro","role":"shared-ranked-feed","variants":["shared-ranked-finite-feed"],"states":["static-fallback","general","personalized","populated","empty"],"replay_cases":["stable-feedback","hidden","undo"]},
     {"id":"HeroTalkPageEnd","version":1,"path":"site/src/components/HeroTalkPageEnd.astro","role":"shared-compact-placement","states":["service-continuation","suppressed"],"variants":["compact-service"]}
   ],
-  "shared_owners": ["AdaptiveEventCardGrid","EventCard","MediaFrame","Button","Foundations","Icon","MobileBottomNav"],
+  "shared_owners": ["AdaptiveEventCardGrid","EventCard","MediaFrame","Button","Foundations","Icon","MobileBottomNav","Reference4MobileMenu"],
   "shared_identity": {
     "registry_path": "site/src/design-system/astro-family-registry.v1.json",
     "asset_registry": "contracts/assets/ui-asset-registry.v1.yaml",

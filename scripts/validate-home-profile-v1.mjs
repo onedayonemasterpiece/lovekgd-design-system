@@ -13,7 +13,7 @@ export function assertHomeProfile(p) {
   check(p?.profile_id === 'home.owner-review.v1' && p.route === '/' && p.authority_mode === 'ASTRO_AS_IS_REFERENCE', 'profile identity');
   check(p.requirements_contract?.version === '1.2.0' && p.requirements_contract.sha256 === 'd384b63e63bccffc67dff4b48149c5d901364360782f76ae8b0ee2ab33cf29fd', 'active conformance lock');
   const policy=p.route_policy;
-  check(policy?.id === 'home-lower-only' && policy.top_participants_mounted === false && policy.top_participant_listeners_started === false && policy.other_routes_policy === 'unchanged', 'home route exception');
+  check(policy?.id === 'home-navigation-only' && policy.top_participants_mounted === false && policy.top_participants_scope === 'contextual-title-city-section-islands-only' && policy.global_navigation === true && policy.desktop_navigation === 'existing-shared-site-nav' && policy.mobile_navigation === 'existing-Reference4MobileMenu' && policy.top_participant_listeners_started === false && policy.other_routes_policy === 'unchanged', 'home route exception');
   check(same(policy.composition,['HomeHeroTalk','HomeSearchEntry','HomeQuickNav','HomeColdStartFeed','HeroTalkPageEnd']), 'five-block order');
   check(same(policy.lower_navigation,['afisha','dates','search','personal']) && policy.active_navigation === 'afisha' && policy.brand_in_flow, 'shared bottom navigation');
   check(p.families?.length === 7 && new Set(p.families.map(x=>x.id)).size === 7 && p.families.every(x=>Number.isInteger(x.version)&&x.version>0&&x.path&&x.states.length), 'family inventory');
@@ -33,7 +33,7 @@ export function assertHomeStructuralProjection(r,{expectedSha,expectedEventIds,r
   check(typeof r.fixture_state==='string'&&r.fixture_state.length>0, 'fixture state');
   check(Array.isArray(expectedEventIds)&&expectedEventIds.length<=30&&same(r.event_ids,expectedEventIds)&&new Set(r.event_ids).size===r.event_ids.length, 'exact fixture order');
   check(r.feed?.budget===30&&r.feed.candidate_pool_count>=r.event_ids.length&&Number.isInteger(r.feed.candidate_pool_count)&&r.feed.stable_visible_prefix===true&&['general','personal','empty'].includes(r.feed.mode), 'full pool/feed metadata');
-  check(r.shell?.policy==='home-lower-only'&&r.shell.top_participant_count===0&&r.shell.lower_island_count===1&&r.shell.home_chat_count===0,'measured shell counts');
+  check(r.shell?.policy==='home-navigation-only'&&r.shell.top_participant_count===0&&r.shell.global_navigation===true&&r.shell.lower_island_count===1&&r.shell.home_chat_count===0,'measured shell counts');
   const suppressed=r.page_end?.state==='suppressed';
   check(suppressed?typeof r.page_end.reason==='string'&&r.page_end.reason.trim():r.page_end?.state==='shown'&&r.page_end.reason===null,'page end disposition');
   const composition=profile.route_policy.composition.filter(id=>!suppressed||id!=='HeroTalkPageEnd');
@@ -70,14 +70,19 @@ export function assertHomeStructuralProjection(r,{expectedSha,expectedEventIds,r
     for(const child of n.children||[])visit(child,n.stable_id);
   }
   visit(r.tree);
-  check(r.tree.identity?.family==='EventLayout','whole shell root required');
+  check(r.tree.identity?.family==='EventLayout'&&r.tree.attributes['data-shell-composition']==='home-navigation-only','whole shell root and actual route policy required');
   const homes=nodes.filter(n=>n.identity?.family==='HomePage');check(homes.length===1,'one HomePage');
   const subtree=n=>[n,...(n.children||[]).flatMap(subtree)];
   const homeNodes=subtree(homes[0]);
   const actual=homeNodes.filter(n=>profile.route_policy.composition.includes(n.identity?.family)).map(n=>n.identity.family);
   check(same(actual,composition),'actual DOM composition');
   check(nodes.filter(n=>Object.hasOwn(n.attributes||{},'data-mobile-bottom-nav')).length===1,'one native shared bottom navigation');
-  check(!nodes.some(n=>Object.hasOwn(n.attributes||{},'data-floating-top-band')||Object.hasOwn(n.attributes||{},'data-floating-page-context')),'no mounted top participants');
+  const desktopNav=nodes.filter(n=>(n.attributes?.class||'').split(/\s+/u).includes('site-nav'));
+  const mobileMenu=nodes.filter(n=>Object.hasOwn(n.attributes||{},'data-reference4-fullscreen'));
+  check(desktopNav.length===1&&mobileMenu.length===1,'preserve shared desktop and Reference4 navigation');
+  const activeNavigation=r.viewport.width>=760?desktopNav[0]:mobileMenu[0];
+  check(activeNavigation.computed.display!=='none'&&activeNavigation.bounds.width>0&&activeNavigation.bounds.height>0,'viewport navigation is rendered');
+  check(!nodes.some(n=>['data-floating-top-band','data-floating-page-context','data-floating-section-context','data-floating-controls-slot'].some(k=>Object.hasOwn(n.attributes||{},k))),'no mounted contextual top participants');
   check(!nodes.some(n=>n.identity?.family==='ConversationalSearch'||Object.hasOwn(n.attributes||{},'data-conversational-search')),'no mounted home chat');
   const cards=homeNodes.filter(n=>Object.hasOwn(n.attributes||{},'data-event-card'));
   check(same(cards.map(n=>n.attributes['data-event-id']),expectedEventIds),'actual rendered card order');

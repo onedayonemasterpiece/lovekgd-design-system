@@ -2,15 +2,18 @@
 
 Status owner: `N0`  
 Coordination: `onedayonemasterpiece/events-bot-new#621`  
-Contract: `launch-normalized-ui.v1.yaml@1.12.0`
+Contract: `launch-normalized-ui.v1.yaml@1.12.1`
 
 ## Home final assembly — 2026-09-06 (source preparation, not acceptance)
 
 - Current Home specialization: [executable profile](../../contracts/page-profiles/home.owner-review.v1.json),
   [schema / validation / migration](home-owner-review.md).
 - DS task base: `534bd29831cf64ba23d46d9a203e42d3f280d0c2`; its launch contract
-  was 1.11.0. This scoped change advances that base to 1.12.0; it does not import
+  was 1.11.0. This scoped change and owner navigation clarification advance that base to 1.12.1; it does not import
   or claim the different 1.14.3 preparation checkpoint quoted in the assignment.
+- Latest owner clarification: `home-navigation-only`, shared desktop upper navigation
+  and mobile Reference4 preserved; only contextual title/city/H2 islands are absent.
+  Profile version 1.1.0; old lower-only exports do not satisfy its hash/policy.
 - Profile and corruption tests are executable. **Actual Home rendered export,
   exact integrated Astro SHA, real fixture and all viewport/state checks remain
   parent integration evidence; this DS change alone is not export readiness.**

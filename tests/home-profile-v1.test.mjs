@@ -32,14 +32,14 @@ function fixture() {
  for(const p of behaviorPaths)write(p,`synthetic behavior ${p}`);
  git(['add','.']);git(['commit','-qm','synthetic fixture']);const expectedSha=git(['rev-parse','HEAD']);
  const blocks=profile.route_policy.composition.map(f=>node(f,{},f==='HomeColdStartFeed'?[node('AdaptiveEventCardGrid')]:[]));
- const tree=node('EventLayout',{},[node('HomePage',{},blocks),node(null,{'data-mobile-bottom-nav':''})]);
+ const tree=node('EventLayout',{'data-shell-composition':'home-navigation-only'},[node('HomePage',{},blocks),node(null,{'data-mobile-bottom-nav':''}),node(null,{class:'site-nav'}),node(null,{'data-reference4-fullscreen':''})]);
  annotate(tree);
- const record={schema:profile.export.schema,route:'/',profile_id:profile.profile_id,fixture_state:'synthetic-test-only',viewport:{width:390,height:844,dpr:1},provenance:{repo_sha:expectedSha,manifest:{repo_sha:expectedSha},manifest_sha256:digest('synthetic manifest'),registry_path:profile.shared_identity.registry_path,registry_sha256:digest(bytes),profile_sha256:digest(profileBytes),snapshot:{id:'synthetic-not-production',sha256:digest('synthetic')},reference_clock:'2026-09-06T12:00:00Z'},source_bindings:families.map(f=>({id:f.id,version:f.version,path:f.astro_root,sha256:digest(readFileSync(join(repo,f.astro_root))),styles:[],...(f.penpot_binding?{penpot_binding:f.penpot_binding}:{})})),behavior_bindings:behaviorPaths.map(path=>({path,sha256:digest(readFileSync(join(repo,path)))})),event_ids:[],composition:profile.route_policy.composition,feed:{budget:30,candidate_pool_count:0,mode:'empty',stable_visible_prefix:true},shell:{policy:'home-lower-only',top_participant_count:0,lower_island_count:1,home_chat_count:0},page_end:{state:'shown',reason:null},tree,assets:{},tokens:{"--ke-space-1":"synthetic-test-token"}};
+ const record={schema:profile.export.schema,route:'/',profile_id:profile.profile_id,fixture_state:'synthetic-test-only',viewport:{width:390,height:844,dpr:1},provenance:{repo_sha:expectedSha,manifest:{repo_sha:expectedSha},manifest_sha256:digest('synthetic manifest'),registry_path:profile.shared_identity.registry_path,registry_sha256:digest(bytes),profile_sha256:digest(profileBytes),snapshot:{id:'synthetic-not-production',sha256:digest('synthetic')},reference_clock:'2026-09-06T12:00:00Z'},source_bindings:families.map(f=>({id:f.id,version:f.version,path:f.astro_root,sha256:digest(readFileSync(join(repo,f.astro_root))),styles:[],...(f.penpot_binding?{penpot_binding:f.penpot_binding}:{})})),behavior_bindings:behaviorPaths.map(path=>({path,sha256:digest(readFileSync(join(repo,path)))})),event_ids:[],composition:profile.route_policy.composition,feed:{budget:30,candidate_pool_count:0,mode:'empty',stable_visible_prefix:true},shell:{policy:'home-navigation-only',top_participant_count:0,global_navigation:true,lower_island_count:1,home_chat_count:0},page_end:{state:'shown',reason:null},tree,assets:{},tokens:{"--ke-space-1":"synthetic-test-token"}};
  return {record,options:{expectedSha,expectedEventIds:[],repoRoot:repo,profilePath},close:()=>rmSync(repo,{recursive:true,force:true})};
 }
 test('executable profile asserts owner route exception without claiming acceptance',()=>{
  assert.equal(assertHomeProfile(profile).acceptance,false);
- for(const change of [p=>p.route_policy.top_participants_mounted=true,p=>p.route_policy.composition.reverse(),p=>p.feed.budget=12,p=>p.export.penpot_round_trip=true,p=>p.capture_handoff.one_logical_adoption=false]){const p=cp(profile);change(p);assert.throws(()=>assertHomeProfile(p));}
+ for(const change of [p=>p.route_policy.top_participants_mounted=true,p=>p.route_policy.global_navigation=false,p=>p.route_policy.mobile_navigation='replacement-menu',p=>p.route_policy.composition.reverse(),p=>p.feed.budget=12,p=>p.export.penpot_round_trip=true,p=>p.capture_handoff.one_logical_adoption=false]){const p=cp(profile);change(p);assert.throws(()=>assertHomeProfile(p));}
 });
 test('exact source-bound synthetic shape validates structural-only, not native/visual acceptance',()=>{const f=fixture();try{const result=assertHomeStructuralProjection(f.record,f.options);assert.equal(result.valid,true);assert.equal(result.penpot_round_trip,false);assert.equal(result.visual_acceptance,false);}finally{f.close();}});
 test('forged source, registry, behavior, profile and native bindings fail closed',()=>{const f=fixture();try{
@@ -62,5 +62,16 @@ test('settled shared media and card actions are mandatory for every rendered eve
  for(const change of [c=>c.children[0].attributes['data-media-frame-resource-state']='pending',c=>c.children[0].attributes['data-media-frame-resource-state']='loaded',c=>delete c.children[0].attributes['data-media-frame-fallback'],c=>c.children[1].attributes={},c=>c.children[3].attributes={},c=>c.attributes['data-calendar-eligible']='true']) {
    const r=cp(f.record);change(r.tree.children[0].children.find(n=>n.identity.family==='HomeColdStartFeed').children[0].children[0]);
    assert.throws(()=>assertHomeStructuralProjection(r,f.options));
+ }
+}finally{f.close();}});
+
+test('navigation-only preserves desktop global navigation and existing mobile Reference4',()=>{const f=fixture();try{
+ for(const viewport of [{width:1440,height:900,dpr:1},{width:390,height:844,dpr:1}]) {
+   const r=cp(f.record);r.viewport=viewport;assert.equal(assertHomeStructuralProjection(r,f.options).valid,true);
+   const activeIndex=viewport.width>=760?2:3;r.tree.children[activeIndex].computed.display='none';
+   assert.throws(()=>assertHomeStructuralProjection(r,f.options),/viewport navigation/);
+ }
+ for(const change of [r=>r.shell.global_navigation=false,r=>r.tree.children[2].attributes={},r=>r.tree.children[3].attributes={},r=>r.tree.attributes['data-shell-composition']='home-lower-only',r=>r.tree.attributes['data-floating-section-context']='']) {
+   const r=cp(f.record);change(r);assert.throws(()=>assertHomeStructuralProjection(r,f.options));
  }
 }finally{f.close();}});

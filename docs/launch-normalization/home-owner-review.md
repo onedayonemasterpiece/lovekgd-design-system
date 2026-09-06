@@ -7,16 +7,20 @@ not another requirements system or a new native materializer.
 
 ## Owner correction and boundaries — 2026-09-06
 
-**БЫЛО → БУДЕТ:** Home inherited contextual floating chrome and omitted an inline
-Search handoff / genuine end placement → explicit `home-lower-only` shell and
-Hero-talk → inline capture → quick links → shared ranked feed → compact page end.
-**ЗАЧЕМ:** one useful entry surface with answers/history confined to `/poisk/`.
-**ПОСЛЕДСТВИЯ:** top participants must not mount or start listeners on Home;
-nonhome shell, Weekend geometry, shared grid/media/actions/icons remain owned by
-their existing families. PageEnd may be absent only with a recorded suppression reason.
-**ТИП:** owner-approved route composition and additive service fallback, not a global
-shell reset, independent Hero redesign, production promotion or native certification.
-**СОГЛАСОВАНО:** direct Home final assembly assignment, owner correction dated 2026-09-06.
+**БЫЛО → БУДЕТ:** предыдущая трактовка `home-lower-only` удаляла общую верхнюю
+навигацию вместе с contextual islands → `home-navigation-only` сохраняет общую
+верхнюю desktop-навигацию и существующее общее мобильное меню Reference4.
+Не монтируются только contextual islands заголовка, города и секции/H2; их listeners
+не запускаются. Пять блоков и нижний четырёхпунктовый остров сохраняются.
+**ЗАЧЕМ:** не терять общую навигацию при упрощении контекстного chrome главной.
+**ПОСЛЕДСТВИЯ:** `topParticipants:false` означает только contextual participants;
+`globalNavigation:true` обязателен. Это не запрет общего верхнего navigation island.
+Nonhome shell, Weekend geometry, shared grid/media/actions/icons remain unchanged.
+PageEnd may be absent only with a recorded suppression reason.
+**ТИП:** явное уточнение owner-approved Home route composition, не глобальный shell
+reset, независимый Hero redesign, production promotion или native certification.
+**СОГЛАСОВАНО:** прямое последующее уточнение владельца в текущей задаче, 2026-09-06;
+оно заменяет прежнее прочтение «только нижний остров» в части общей навигации.
 
 ## Family migration / Astro registry handoff
 
@@ -84,7 +88,7 @@ provenance: {repo_sha, manifest, manifest_sha256, registry_path, registry_sha256
 source_bindings: [{id,version,path,sha256,styles:[{path,sha256}],penpot_binding?}]
 behavior_bindings: [{path,sha256}]
 composition: ['HomeHeroTalk','HomeSearchEntry','HomeQuickNav','HomeColdStartFeed','HeroTalkPageEnd']
-shell: {policy:'home-lower-only',top_participant_count:0,lower_island_count:1,home_chat_count:0}
+shell: {policy:'home-navigation-only',top_participant_count:0,global_navigation:true,lower_island_count:1,home_chat_count:0}
 page_end: {state:'shown',reason:null} | {state:'suppressed',reason:nonemptyReason}
 feed: {budget:30,candidate_pool_count,mode:'general'|'personal'|'empty',stable_visible_prefix:true}
 event_ids: all rendered feed IDs in exact order, zero to thirty
@@ -100,10 +104,16 @@ assets, tokens, tree
   `shared_owners` entry. Behavior hashes cover `route_policy.source`,
   `behavior_sources`, and every `.ts` path in `capture_handoff`.
 - Root tree is the actual EventLayout body, not only HomePage: bottom navigation and
-  forbidden mounted top participants must remain observable. `identity`,
+  forbidden mounted contextual participants must remain observable. The root
+  `data-shell-composition` must equal `home-navigation-only`. `identity`,
   `containing_family`, `anatomy_path`, `parent_id`, actual text/SVG/image bytes,
   computed styles and bounds follow the existing capture. Stable IDs use
   `home.` + SHA256(JSON.stringify(anatomy_path)).slice(0,24).
+- Global navigation is not a contextual participant. Both existing `.site-nav`
+  and `[data-reference4-fullscreen]` roots must remain mounted; desktop (>=760px)
+  requires nonzero/displayed `.site-nav`, mobile requires the displayed Reference4
+  root. Its exact `Reference4MobileMenu` source binding is mandatory. These structural
+  checks do not replace actual keyboard/menu interaction and visual overlap checks.
 - Bottom nav retains its existing `data-mobile-bottom-nav` marker. No same-version
   binding change is required solely to make an existing source owner visible.
 - Loaded card media needs measured natural dimensions and a matching asset hash;
@@ -131,3 +141,7 @@ or deployment is authorized by this DS lane.
 - 2026-09-06: Add Home route profile, exact-source structural validator and adversarial
   tests; specialize launch contract 1.11.0 → 1.12.0 from the assigned DS base. Historical
   preview/native claims and global conformance 1.2.0 remain unchanged.
+
+- 2026-09-06 owner clarification: profile 1.0.0 → 1.1.0 and launch 1.12.0 → 1.12.1;
+  preserve shared desktop/Reference4 navigation, reject contextual islands only.
+  Earlier `home-lower-only` exports do not satisfy the revised profile hash/policy.
