@@ -2,9 +2,24 @@
 
 Status owner: `N0`  
 Coordination: `onedayonemasterpiece/events-bot-new#621`  
-Contract: `launch-normalized-ui.v1.yaml@1.11.0`
+Contract: `launch-normalized-ui.v1.yaml@1.12.0`
 
-## Current finite owner-review stage — 2026-09-04
+## Home final assembly — 2026-09-06 (source preparation, not acceptance)
+
+- Current Home specialization: [executable profile](../../contracts/page-profiles/home.owner-review.v1.json),
+  [schema / validation / migration](home-owner-review.md).
+- DS task base: `534bd29831cf64ba23d46d9a203e42d3f280d0c2`; its launch contract
+  was 1.11.0. This scoped change advances that base to 1.12.0; it does not import
+  or claim the different 1.14.3 preparation checkpoint quoted in the assignment.
+- Profile and corruption tests are executable. **Actual Home rendered export,
+  exact integrated Astro SHA, real fixture and all viewport/state checks remain
+  parent integration evidence; this DS change alone is not export readiness.**
+- No new native file/binding, Penpot mutation, full round-trip, publication or
+  production change. Existing shared/native registry bindings must survive.
+- The dated source/preview receipts below remain historical baseline evidence,
+  not the source binding for the new Home profile.
+
+## Prior finite owner-review stage — 2026-09-04
 
 - Executable branch: `events-bot-new@agent/static-site-single-kaggle-contract`.
 - Current committed source after scope/doc and rail corrections: `aed32da93129c2512fe2bfa7cdf2929d2e8c606d` (remote read-back verified).

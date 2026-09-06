@@ -12,10 +12,13 @@
 **СОГЛАСОВАНО:** прямое решение владельца в native Codex, 2026-09-04.
 
 Текущие правила завершения, scope, economics и остановки —
-[`review_completion_stage` контракта v1.11.0](../../contracts/launch-normalized-ui.v1.yaml).
+[`review_completion_stage` контракта v1.12.0](../../contracts/launch-normalized-ui.v1.yaml).
 Текущие SHA/URL/gaps — только [STATUS](STATUS.md). Сведения и открытые циклы
 ниже сохранены как история/другие этапы и не отменяют этот конечный gate.
 
+
+Home-only correction 2026-09-06: [исполняемый профиль и structural export](home-owner-review.md).
+Это route specialization, не изменение остальных архетипов или native acceptance.
 
 Статус: `ACTIVE`  
 Координация: `onedayonemasterpiece/events-bot-new#621`  
