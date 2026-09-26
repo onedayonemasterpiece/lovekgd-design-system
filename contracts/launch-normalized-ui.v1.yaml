@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.14.3
+version: 1.14.4
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -77,6 +77,7 @@ owner_review_correction:
   exhibition_large_radii:
     row: ke_shape_radius_card
     deck_and_media: ke_shape_radius_hero
+    desktop_review_20260926: {deck_and_media: ke_shape_radius_control, owner_decision: voice-20260926-090623-08876172, mobile_owner_review: not_performed}
   contextual_date_navigation:
     hidden_desktop_routes: [today, tomorrow, date]
     desktop_min_width_px: 981
@@ -706,3 +707,21 @@ not_a_new_system:
   owner_as_micro_task_scheduler: forbidden
   role_per_checklist_item: forbidden
   additional_specialist_before_two_fast_integration_cycles: forbidden
+
+desktop_review_20260926:
+  source: idea-hub@82163a569e9947d4d1268e146d1280807fe02c3e/inbox/voice/2026/09/voice-20260926-090623-08876172.md
+  scope: desktop_only
+  mobile_owner_review: not_performed
+  status: SOURCE_CORRECTION_CANDIDATE_NOT_OWNER_ACCEPTANCE
+  executable_registry: events-bot-new/site/src/design-system/astro-family-registry.v1.json
+  acceptance_checklist: events-bot-new/docs/features/static-site-pages/desktop-review-20260926.md
+  token_owners:
+    shell: events-bot-new/site/src/components/design-system/shell-foundations.css
+    hero_typography: events-bot-new/site/src/components/design-system/surface-foundations.css
+  amendment:
+    before: separate_Home_nav_geometry_pause_control_large_exhibition_deck_corners
+    after: shared_desktop_island_geometry_single_cursor_no_pause_exact_date_calendar_standard_deck_corners
+    reason: explicit_owner_desktop_voice_review_and_followup_scope_clarification
+    consequences: migrate_shared_runtime_families_catalog_checks_and_isolated_preview_no_mobile_signoff
+    type: BOUNDED_STAGE_AMENDMENT
+    approved: owner_voice_20260926_and_continue_instruction

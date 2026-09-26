@@ -119,3 +119,12 @@ These are bounded engineering observations, not blanket AR PASS. Standalone
 Focus-group's missing nav, organic/auth/native states, Unusual quality gating,
 independent REVIEW and four MATERIALS native catalog links remain open.
 Current structural exports are source-validated, not Penpot round trips.
+
+
+## Continuation — desktop voice review 2026-09-26
+
+Packet `voice-20260926-090623-08876172` at IdeaHub commit `82163a569e9947d4d1268e146d1280807fe02c3e`. The owner explicitly limited this review to desktop; mobile remains unreviewed. Bounded amendment: `launch-normalized-ui.v1.yaml:desktop_review_20260926`.
+
+The executable checklist and version migrations live in `events-bot-new/docs/features/static-site-pages/desktop-review-20260926.md`. Runtime token/family changes, fresh snapshot provenance, public preview and browser evidence must be linked there. Existing AR items are not globally closed by this iteration; native Penpot parity and mobile acceptance are not claimed.
+
+Executable desktop successor: `events-bot-new@b51ea533ea4cf6ae5545f155a540320a07e5f73b`, draft PR #673. Local evidence: 12 desktop route/viewport cells at 1920/1440, delayed-module first-paint comparison and 3 responsive mobile regression cells; all PASS. Preview ID `preview-desktop-review-20260926-r2` is being assembled from the fresh public projection dated 2026-09-26. Public handoff evidence is owned by the executable checklist; no global programme PASS is inferred.
