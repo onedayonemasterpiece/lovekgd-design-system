@@ -17,9 +17,9 @@
 ниже сохранены как история/другие этапы и не отменяют этот конечный gate.
 
 
-Статус: `ACTIVE`  
-Координация: `onedayonemasterpiece/events-bot-new#621`  
-Параллельные роли: [`PARALLEL-WINDOWS.md`](PARALLEL-WINDOWS.md)  
+Статус: `ACTIVE`
+Координация: `onedayonemasterpiece/events-bot-new#621`
+Параллельные роли: [`PARALLEL-WINDOWS.md`](PARALLEL-WINDOWS.md)
 Исполняемый contract: [`launch-normalized-ui.v1.yaml`](../../contracts/launch-normalized-ui.v1.yaml)
 
 Старый ASP conveyor в `lovekgd-design-system#57` используется только как

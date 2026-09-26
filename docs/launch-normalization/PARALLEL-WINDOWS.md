@@ -8,7 +8,7 @@
 Ниже — историческая topology, не обязательство занять все окна или продолжать polish.
 
 
-Статус: `ACTIVE`  
+Статус: `ACTIVE`
 Координация: `onedayonemasterpiece/events-bot-new#621`
 
 ## 0. Trunk-based correction
